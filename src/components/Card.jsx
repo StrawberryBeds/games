@@ -1,5 +1,6 @@
+// src/components/Card.jsx
 import React from 'react';
-import './Card.css';
+import './Card.css'; // Create this CSS file for styling
 
 function Card({ id, image, isFlipped, onClick }) {
   return (
@@ -8,7 +9,7 @@ function Card({ id, image, isFlipped, onClick }) {
         <img src={image} alt="Card front" />
       </div>
       <div className="card-face card-back">
-        <img src="/path-to-your-face-down-image.jpg" alt="Card back" />
+        <img src="src/assets/playing_card_1F3B4.svg" alt="Card back" />
       </div>
     </div>
   );
