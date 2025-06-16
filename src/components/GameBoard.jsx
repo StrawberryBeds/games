@@ -2,24 +2,26 @@ import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import './GameBoard.css';
 
+// Import images
+import balloon from '../assets/balloon_1F388.svg';
+import cake from '../assets/cake_1F382.svg';
+import cat from '../assets/cat_1F431.svg';
+import dog from '../assets/dog_1F436.svg';
+import dragon from '../assets/dragon_1F409.svg';
+import octopus from '../assets/octopus_1F419.svg';
+import pheonix from '../assets/pheonix_1F426-200D-1F525.svg';
+import rofl from '../assets/rofl_1F923.svg';
+import smiley from '../assets/smiley_1F60A.svg';
+import unicorn from '../assets/unicorn_1F984.svg';
+
 function GameBoard() {
   const [cards, setCards] = useState(generateCards());
   const [flippedIndices, setFlippedIndices] = useState([]);
   const [solvedIndices, setSolvedIndices] = useState([]);
 
-  function generateCards() {
-    const cardImages = [
-      'src/assets/balloon_1F388.svg',
-      'src/assets/cake_1F382.svg',
-      'src/assets/cat_1F431.svg',
-      'src/assets/dog_1F436.svg',
-      'src/assets/dragon_1F409.svg',
-      'src/assets/octopus_1F419.svg',
-      'src/assets/pheonix_1F426-200D-1F525.svg',
-      'src/assets/rofl_1F923.svg',
-      'src/assets/smiley_1F60A.svg',
-      'src/assets/unicorn_1F984.svg'
-    ];
+    function generateCards() {
+    const cardImages = [balloon, cake, cat, dog, dragon, octopus, pheonix, rofl, smiley, unicorn];
+
 
     // Duplicate the array to create pairs and shuffle them
     const pairs = [...cardImages, ...cardImages]
