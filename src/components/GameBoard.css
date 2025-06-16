@@ -1,0 +1,7 @@
+/* src/components/GameBoard.css */
+.game-board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+}
