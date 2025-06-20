@@ -66,3 +66,12 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Media query for portrait orientation */
+@media screen and (orientation: portrait) {
+  header, footer {
+    height: 15vh; /* Increase or decrease the height as needed */
+  }
+}
+
+
