@@ -37,3 +37,13 @@
 .card.flipped .card-back {
   transform: rotateY(180deg);
 }
+
+/* Media query for portrait orientation */
+@media screen and (orientation: portrait) {
+.card {
+  width: 60px;
+  height: 80px;
+  perspective: 500px;
+  margin: 5px;
+}
+}

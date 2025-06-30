@@ -70,7 +70,7 @@ button:focus-visible {
 /* Media query for portrait orientation */
 @media screen and (orientation: portrait) {
   header, footer {
-    height: 15vh; /* Increase or decrease the height as needed */
+    height: 10vh; /* Increase or decrease the height as needed */
   }
 }
 
