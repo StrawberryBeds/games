@@ -5,7 +5,7 @@ function Header () {
     return (
         <header className="header">
             <h2>!!!!</h2>
-            <h2>Happy Birthday Gracie !</h2>
+            <h2>Happy Birthday Felix !</h2>
             <h2>!!!!</h2>
         </header>
     )
