@@ -1,0 +1,8 @@
+/* src/components/Score.css */
+
+.score {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
