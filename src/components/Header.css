@@ -3,10 +3,23 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #f8f9fa;
+  /* background-color: #f9f9f9; */
   width: 100%;
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  left: 0;
+  height: 10vh; /* Adjust the height as needed */
+  min-height: 50px; /* Set a minimum height */
+  max-height: 100px; /* Set a maximum height */
+}
+
+/* Styles for light mode */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
 }
