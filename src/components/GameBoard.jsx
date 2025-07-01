@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import Score from "./Score";
+import ResetButton from "./ResetButton";
 import "./GameBoard.css";
 
 // Import images
@@ -84,20 +85,25 @@ function GameBoard() {
     }
   };
 
-  // Reset the game if all cards are solved
+  // Notify the player if all cards are solved
   useEffect(() => {
     if (solvedIndices.length === cards.length) {
-      alert("Congratulations! You have won the game.");
-      setCards(generateCards());
-      setSolvedIndices([]);
-      setTurns(0);
-      setMatches(0);
+      alert("Happy Birthday Felix ! You have won the game. Take a moment to admire your skill!");
     }
   }, [solvedIndices, cards.length]);
+
+  const handleReset = () => {
+    setCards(generateCards());
+    setFlippedIndices([]);
+    setSolvedIndices([]);
+    setTurns(0);
+    setMatches(0);
+  };
 
   return (
     <div className="game-container">
       <Score matches={matches} turns={turns} />
+      <ResetButton onClick={handleReset} />
       <div className="game-board">
         {cards.map((card) => (
           <Card
