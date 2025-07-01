@@ -88,7 +88,7 @@ function GameBoard() {
   // Notify the player if all cards are solved
   useEffect(() => {
     if (solvedIndices.length === cards.length) {
-      alert("Happy Birthday Gracie! You have won the game. Take a moment to admire your skill ... then beat Rafe!");
+      alert("Happy Birthday Felix! You have won the game. Take a moment to admire your skill ... then beat Thomas!");
     }
   }, [solvedIndices, cards.length]);
 
