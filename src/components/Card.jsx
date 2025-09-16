@@ -3,6 +3,8 @@ import React from 'react';
 import './Card.css';
 import cardBack from '../assets/playing_card_1F3B4.svg'; // Import the card back image
 
+
+
 function Card({ id, image, isFlipped, onClick }) {
   return (
     <div className={`card ${isFlipped ? 'flipped' : ''}`} onClick={() => onClick(id)}>

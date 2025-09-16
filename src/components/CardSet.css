@@ -1,0 +1,33 @@
+/* src/components/Card.css */
+
+.cardset {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  border: 1px solid #ccc;
+  display: inline-block; /* Ensure it's not hidden */
+}
+
+.cardset-face {
+  width: 100%;
+  height: 100%;
+}
+
+.cardset-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Ensure the image scales correctly */
+}
+
+/* Media query for portrait orientation */
+@media screen and (orientation: portrait) {
+  .card {
+    width: 60px;
+    height: 80px;
+    perspective: 500px;
+    margin: 5px;
+  }
+}
+
+
+

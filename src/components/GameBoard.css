@@ -10,13 +10,21 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px;
+  gap: 8px;
+  width: 100%
   /* min-height: 100vh; */
   /* margin: 20px; */
 }
 
-/* src/components/Score.css */
+/* These columns can be used to a maximum row size on wider screens but it need to work well on smaller screens in portrait mode. */
 
+/* .column {
+  flex-basis: 20%;
+  /* padding: 10px;
+      box-sizing: border-box 
+} */
+
+/* src/components/Score.css */
 .score {
   width: 100%;
   text-align: center;
