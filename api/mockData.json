@@ -1,0 +1,60 @@
+{
+  "type": "FeatureCollection",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "cardSetID": "1",
+        "cardSetName": "Emojis",
+        "cardSetImage": "../assets/emojis/smiley_1F60A.svg",
+        "Cards": [
+          {
+            "cardName": "balloon",
+            "cardImage": "../assets/emojis/balloon_1F388.svg"
+          },
+          {
+            "cardName": "cake",
+            "cardImage": "../assets/emojis/cake_1F382.svg"
+          },
+          {
+            "cardName": "cat",
+            "cardImage": "../assets/emojis/cat_1F431.svg"
+          },
+          {
+            "cardName": "dog",
+            "cardImage": "../assets/emojis/dog_1F436.svg"
+          },
+          {
+            "cardName": "dragon",
+            "cardImage": "../assets/emojis/dragon_1F409.svg"
+          },
+          { "cardName": "octopus",
+        "cardImage": "../assets/emojis/octopus_1F419.svg"
+      },
+          {
+            "cardName": "pheonix",
+            "cardImage": "../assets/emojis/pheonix_1F426-200D-1F525.svg"
+          },
+          {
+            "cardName": "rofl",
+            "cardImage": "../assets/emojis/rofl_1F923.svg"
+          },
+          {
+            "cardName": "smiley",
+            "cardImage": "../assets/emojis/smiley_1F60A.svg"
+          },
+          {
+            "cardName": "unicorn",
+            "cardImage": "../assets/emojis/unicorn_1F984.svg"
+          }
+        ]
+      }
+    }
+  ]
+}

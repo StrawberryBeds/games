@@ -1,99 +1,115 @@
+// src/components/GameBoard.jsx
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import Score from "./Score";
 import ResetButton from "./ResetButton";
 import "./GameBoard.css";
 
-// Import images
-import balloon from "../assets/balloon_1F388.svg";
-import cake from "../assets/cake_1F382.svg";
-import cat from "../assets/cat_1F431.svg";
-import dog from "../assets/dog_1F436.svg";
-import dragon from "../assets/dragon_1F409.svg";
-import octopus from "../assets/octopus_1F419.svg";
-import pheonix from "../assets/pheonix_1F426-200D-1F525.svg";
-import rofl from "../assets/rofl_1F923.svg";
-import smiley from "../assets/smiley_1F60A.svg";
-import unicorn from "../assets/unicorn_1F984.svg";
+// Import all card images
+import balloon from "../assets/cardsets/emojis/balloon_1F388.svg";
+import cake from "../assets/cardsets/emojis/cake_1F382.svg";
+import cat from "../assets/cardsets/emojis/cat_1F431.svg";
+import dog from "../assets/cardsets/emojis/dog_1F436.svg";
+import dragon from "../assets/cardsets/emojis/dragon_1F409.svg";
 
-function GameBoard() {
-  const [cards, setCards] = useState(generateCards());
+import octopus from "../assets/cardsets/emojis/octopus_1F419.svg";
+import pheonix from "../assets/cardsets/emojis/pheonix_1F426-200D-1F525.svg";
+import rofl from "../assets/cardsets/emojis/rofl_1F923.svg";
+import smiley from "../assets/cardsets/emojis/smiley_1F60A.svg";
+import unicorn from "../assets/cardsets/emojis/unicorn_1F984.svg";
+
+import carina from "../assets/cardsets/constellations/Carina.svg";
+import cassiopeia from "../assets/cardsets/constellations/Cassiopeia.svg";
+import centaurus from "../assets/cardsets/constellations/Centaurus.svg";
+import crux from "../assets/cardsets/constellations/Crux.svg";
+import cygnus from "../assets/cardsets/constellations/Cygnus.svg";
+import leo from "../assets/cardsets/constellations/Leo.svg";
+import orion from "../assets/cardsets/constellations/Orion.svg";
+import scorpius from "../assets/cardsets/constellations/Scorpius.svg";
+import ursaMajor from "../assets/cardsets/constellations/UrsaMajor.svg";
+import ursaMinor from "../assets/cardsets/constellations/UrsaMinor.svg";
+
+function GameBoard({ cards: initialCards }) {
+  // Map string paths to imported images
+  const imageMap = {
+    "../assets/emojis/balloon_1F388.svg": balloon,
+    "../assets/emojis/cake_1F382.svg": cake,
+    "../assets/emojis/cat_1F431.svg": cat,
+    "../assets/emojis/dog_1F436.svg": dog,
+    "../assets/emojis/dragon_1F409.svg": dragon,
+    "../assets/cardsets/emojis/octopus_1F419.svg": octopus,
+    "../assets/emojis/pheonix_1F426-200D-1F525.svg": pheonix,
+    "../assets/emojis/rofl_1F923.svg": rofl,
+    "../assets/emojis/smiley_1F60A.svg": smiley,
+    "../assets/emojis/unicorn_1F984.svg": unicorn,
+
+    "../assets/cardsets/constellations/Carina.svg": carina,
+    "../assets/cardsets/constellations/Cassiopeia.svg": cassiopeia,
+    "../assets/cardsets/constellations/Centaurus.svg": centaurus,
+    "../assets/cardsets/constellations/Crux.svg": crux,
+    "../assets/cardsets/constellations/Cygnus.svg": cygnus,
+    "../assets/cardsets/constellations/Leo.svg": leo,
+    "../assets/cardsets/constellations/Orion.svg": orion,
+    "../assets/cardsets/constellations/Scorpius.svg": scorpius,
+    "../assets/cardsets/constellations/UrsaMajor.svg": ursaMajor,
+    "../assets/cardsets/constellations/UrsaMinor.svg": ursaMinor,
+  };
+
+  // Replace string paths with imported images
+  const cardsWithImages = initialCards.map((card) => ({
+    ...card,
+    cardImage: imageMap[card.cardImage],
+  }));
+
+  const [cards, setCards] = useState(shuffleCards(cardsWithImages));
   const [flippedIndices, setFlippedIndices] = useState([]);
   const [solvedIndices, setSolvedIndices] = useState([]);
   const [turns, setTurns] = useState(0);
   const [matches, setMatches] = useState(0);
 
-  function generateCards() {
-    const cardImages = [
-      balloon,
-      cake,
-      cat,
-      dog,
-      dragon,
-      octopus,
-      pheonix,
-      rofl,
-      smiley,
-      unicorn,
-    ];
-
-    // Duplicate the array to create pairs and shuffle them
-    const pairs = [...cardImages, ...cardImages]
+  function shuffleCards(cardList) {
+    const duplicatedCards = [...cardList, ...cardList]
       .sort(() => Math.random() - 0.5)
-      .map((image, index) => ({
+      .map((card, index) => ({
         id: index,
-        image,
+        cardName: card.cardName,
+        cardImage: card.cardImage,
       }));
-
-    return pairs;
+    return duplicatedCards;
   }
 
   const handleCardClick = (id) => {
-    // If the card is already flipped or solved, do nothing
     if (flippedIndices.includes(id) || solvedIndices.includes(id)) {
       return;
     }
-
-    // Flip the card
     setFlippedIndices((prevFlippedIndices) => [...prevFlippedIndices, id]);
-
-    // Check if two cards are flipped
     if (flippedIndices.length === 1) {
       const firstIndex = flippedIndices[0];
       const firstCard = cards.find((card) => card.id === firstIndex);
       const clickedCard = cards.find((card) => card.id === id);
-
-      // Increment turns
       setTurns((prevTurns) => prevTurns + 1);
-
-      // Check if the two flipped cards match
-      if (firstCard.image === clickedCard.image) {
-        // Cards match, add them to solvedIndices
+      if (firstCard.cardName === clickedCard.cardName) {
         setSolvedIndices((prevSolvedIndices) => [
           ...prevSolvedIndices,
           firstIndex,
           id,
         ]);
-        // Increment matches
         setMatches((prevMatches) => prevMatches + 1);
       }
-
-      // Reset flipped indices after a delay to allow the user to see the second card
       setTimeout(() => {
         setFlippedIndices([]);
       }, 1000);
     }
   };
 
-  // Notify the player if all cards are solved
   useEffect(() => {
     if (solvedIndices.length === cards.length) {
-      alert("Happy Birthday Felix! You have won the game. Take a moment to admire your skill ... then beat Thomas!");
+      alert("Well done! Take a moment to admire your skill and get well soon!");
     }
   }, [solvedIndices, cards.length]);
 
   const handleReset = () => {
-    setCards(generateCards());
+    setCards(shuffleCards(cardsWithImages));
     setFlippedIndices([]);
     setSolvedIndices([]);
     setTurns(0);
@@ -109,7 +125,7 @@ function GameBoard() {
           <Card
             key={card.id}
             id={card.id}
-            image={card.image}
+            image={card.cardImage}
             isFlipped={
               flippedIndices.includes(card.id) ||
               solvedIndices.includes(card.id)
