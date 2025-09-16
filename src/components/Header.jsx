@@ -7,7 +7,6 @@ function Header () {
             <h2>!!!!</h2>
             <h2>Get well soon Rafe! Pick a deck of cards.</h2>
             <h2>!!!!</h2>
-
         </header>
     )
 }
