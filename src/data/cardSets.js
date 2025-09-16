@@ -2,29 +2,28 @@
 
 // Import all card images
 
-import balloon from "../assets/cardsets/emojis/balloon_1F388.svg";
-import cake from "../assets/cardsets/emojis/cake_1F382.svg";
-import cat from "../assets/cardsets/emojis/cat_1F431.svg";
-import dog from "../assets/cardsets/emojis/dog_1F436.svg";
-import dragon from "../assets/cardsets/emojis/dragon_1F409.svg";
+import balloon from "/assets/cardsets/emojis/balloon_1F388.svg";
+import cake from "/assets/cardsets/emojis/cake_1F382.svg";
+import cat from "/assets/cardsets/emojis/cat_1F431.svg";
+import dog from "/assets/cardsets/emojis/dog_1F436.svg";
+import dragon from "/assets/cardsets/emojis/dragon_1F409.svg";
 
-import octopus from "../assets/cardsets/emojis/octopus_1F419.svg";
-import pheonix from "../assets/cardsets/emojis/pheonix_1F426-200D-1F525.svg";
-import rofl from "../assets/cardsets/emojis/rofl_1F923.svg";
-import smiley from "../assets/cardsets/emojis/smiley_1F60A.svg";
-import unicorn from "../assets/cardsets/emojis/unicorn_1F984.svg";
+import octopus from "/assets/cardsets/emojis/octopus_1F419.svg";
+import pheonix from "/assets/cardsets/emojis/pheonix_1F426-200D-1F525.svg";
+import rofl from "/assets/cardsets/emojis/rofl_1F923.svg";
+import smiley from "/assets/cardsets/emojis/smiley_1F60A.svg";
+import unicorn from "/assets/cardsets/emojis/unicorn_1F984.svg";
 
-import carina from "../assets/cardsets/constellations/Carina.svg";
-import cassiopeia from "../assets/cardsets/constellations/Cassiopeia.svg";
-import centaurus from "../assets/cardsets/constellations/Centaurus.svg";
-import crux from "../assets/cardsets/constellations/Crux.svg";
-import cygnus from "../assets/cardsets/constellations/Cygnus.svg";
-
-import leo from "../assets/cardsets/constellations/Leo.svg";
-import orion from "../assets/cardsets/constellations/Orion.svg";
-import scorpius from "../assets/cardsets/constellations/Scorpius.svg";
-import ursaMajor from "../assets/cardsets/constellations/UrsaMajor.svg";
-import ursaMinor from "../assets/cardsets/constellations/UrsaMinor.svg";
+import carina from "/assets/cardsets/constellations/Carina.svg";
+import cassiopeia from "/assets/cardsets/constellations/Cassiopeia.svg";
+import centaurus from "/assets/cardsets/constellations/Centaurus.svg";
+import crux from "/assets/cardsets/constellations/Crux.svg";
+import cygnus from "/assets/cardsets/constellations/Cygnus.svg";
+import leo from "/assets/cardsets/constellations/Leo.svg";
+import orion from "/assets/cardsets/constellations/Orion.svg";
+import scorpius from "/assets/cardsets/constellations/Scorpius.svg";
+import ursaMajor from "/assets/cardsets/constellations/UrsaMajor.svg";
+import ursaMinor from "/assets/cardsets/constellations/UrsaMinor.svg";
 
 // Define card sets
 const cardSets = [
@@ -60,7 +59,7 @@ const cardSets = [
       { cardName: "orion", cardImage: orion },
       { cardName: "scorpius", cardImage: scorpius },
       { cardName: "ursaMajor", cardImage: ursaMajor },
-      { cardName: "ursaMinor", cardImage: ursaMinor },
+      { cardName: "ursaMinor", cardImage: ursaMinor }
     ],
   },
 ];
