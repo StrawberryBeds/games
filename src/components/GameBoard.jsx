@@ -104,7 +104,7 @@ function GameBoard({ cards: initialCards }) {
 
   useEffect(() => {
     if (solvedIndices.length === cards.length) {
-      alert("Well done! Take a moment to admire your skill!");
+      alert("Well done! Take a moment to admire your skill and get well soon!");
     }
   }, [solvedIndices, cards.length]);
 
