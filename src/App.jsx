@@ -6,6 +6,7 @@ import './index.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home'; // Correct
 import PlayCardSet from './pages/PlayCardSet'; // Correct
+import SignUpPage from './pages/SignUpPage'; // Correct
 import Header from './components/Header'; // Correct
 import Footer from './components/Footer'; // Correct
 
@@ -22,6 +23,7 @@ import Footer from './components/Footer'; // Correct
             <Routes>
                 <Route path='/' element={<Home/>} />
                 <Route path="/cardSet/:id" element={<PlayCardSet/>} />
+                <Route path="/signup" element={<SignUpPage/>} />
             </Routes>
             <Footer />
         </Router>
