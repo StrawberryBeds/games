@@ -1,11 +1,7 @@
-// src/pages/Home.jsx
-import CardSetSelection from '../components/CardSetSelection';
+// src/pages/ProfilePage.jsx
 import { useAuth } from '../context/authContext';
-import { useNavigate } from 'react-router-dom';
 
-
-
-function Home() {
+function ProfilePage() {
 
   const { currentUser } = useAuth();
   const navigate = useNavigate();
@@ -17,9 +13,9 @@ function Home() {
 
   return (
     <>
-     <CardSetSelection></CardSetSelection>
+      <h1>Profile Page</h1>
     </>
   );
 }
 
-export default Home;
+export default ProfilePage;
