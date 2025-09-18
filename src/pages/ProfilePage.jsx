@@ -8,6 +8,8 @@ function ProfilePage() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [playerName, setPlayerName] = useState('');
+  const [playerAvatar, setPlayerAvatar] = useState('')
+  const [playerDOB, setPlayerDOB] = useState('')
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -22,6 +24,8 @@ function ProfilePage() {
     try {
       await addDoc(collection(db, 'users'), {
         playerName: playerName,
+        playerAvatar: playerAvatar,
+        playerDOB: playerDOB,
         userId: currentUser.uid,
       });
       setSuccess("Profile created successfully!");
@@ -54,6 +58,24 @@ function ProfilePage() {
           value={playerName}
           onChange={(e) => setPlayerName(e.target.value)}
           name="playerName"
+        />
+      </div>
+      <div>
+        <label>Player Avatar</label>
+        <input
+          type="text"
+          value={playerAvatar}
+          onChange={(e) => setPlayerAvatar(e.target.value)}
+          name="playerAvatar"
+        />
+      </div>
+            <div>
+        <label> Date of Birth</label>
+        <input
+          type="text"
+          value={playerDOB}
+          onChange={(e) => setPlayerDOB(e.target.value)}
+          name="playerDOB"
         />
       </div>
       <button type="submit">Submit</button>
