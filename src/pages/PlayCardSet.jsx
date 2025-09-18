@@ -1,8 +1,10 @@
 // src/pages/PlayCardSet.jsx
+
 import { useParams } from 'react-router-dom';
 import GameBoard from '../components/GameBoard';
 
 function PlayCardSet() {
+
   const { id } = useParams();
 
   // Define card sets with absolute paths
