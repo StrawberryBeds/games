@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-
-import { useNavigate } from 'react-router-dom'; // If using React Router for navigation
+import { doc, setDoc } from 'firebase/firestore'; // Use setDoc instead of addDoc
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
     const [givenName, setGivenName] = useState('');
@@ -12,26 +12,11 @@ function SignUp() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const navigate = useNavigate(); // For redirect after sign-up
+    const navigate = useNavigate();
 
-    const handleSignUp = async (email, password) => {
-        try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            setSuccess("Account created successfully!");
-            setError('');
-            // Add logic to save givenName and familyName to user profile if needed
-            // Add logic to send verification email. 
-             navigate('/profile'); // Redirect to profile page after sign-up
-        } catch (error) {
-            setError(error.message);
-            setSuccess('');
-        }
-    };
-
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         setError('');
-
         if (!givenName || !familyName || !userEmail || !password || !confirmPassword) {
             setError("Please fill in all required fields.");
             return;
@@ -40,10 +25,37 @@ function SignUp() {
             setError("Passwords do not match.");
             return;
         }
-        // Proceed with sign-up logic (e.g., call Firebase authentication)
-        console.log('Form submitted:', { givenName, familyName, userEmail });
-        
-        handleSignUp(userEmail, password);
+
+        try {
+            // 1. Create user in Firebase Authentication
+            const userCredential = await createUserWithEmailAndPassword(auth, userEmail, password);
+            const user = userCredential.user;
+
+            // 2. Create user profile in Firestore
+            await setDoc(doc(db, 'users', user.uid), {
+                userId: user.uid,
+                givenName: givenName,
+                familyName: familyName,
+                userEmail: userEmail,
+                createdAt: new Date().toISOString()
+            });
+
+            // 3. Create parent player profile in Firestore
+            await setDoc(doc(db, 'players', user.uid), {
+                playerId: user.uid,
+                isParent: true,
+                givenName: givenName,
+                familyName: familyName,
+                userEmail: userEmail,
+                createdAt: new Date().toISOString()
+            });
+
+            setSuccess("Account and profiles created successfully!");
+            navigate('/profile'); // Redirect only after all operations
+        } catch (error) {
+            setError(error.message);
+            setSuccess('');
+        }
     };
 
     return (
