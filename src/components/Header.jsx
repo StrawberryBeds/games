@@ -1,5 +1,4 @@
 import './Header.css'
-// import createAccountButton from './buttons/createAccount';
 import { useNavigate } from 'react-router-dom';
 
 function Header () {
