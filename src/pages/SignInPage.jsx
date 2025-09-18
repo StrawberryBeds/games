@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { auth } from '../firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useAuth } from '../context/authContext';
 
 import { useNavigate } from 'react-router-dom'; // If using React Router for navigation
 
@@ -9,18 +10,26 @@ function SignInPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const { currentUser } = useAuth();
     const navigate = useNavigate(); // For redirect after sign-up
+
+        // Redirect if already logged in
+    if (useEffect.currentUser) {
+        navigate('/');
+        return null;
+    }
 
     const handleSignIn = async (email, password) => {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             setSuccess("Signed in successfully!");
             setError('Email address or password is incorrect.');
+
             // Add logic to save givenName and familyName to user profile if needed
             // Add logic to send verification email. 
-             navigate('/profile'); // Redirect to profile page after sign-up
+            navigate('/'); // Redirect to home page after sign-in
         } catch (error) {
-            setError(error.message);
+            setError('Email address or password is incorrect.', error.message);
             setSuccess('');
         }
     };
@@ -35,7 +44,7 @@ function SignInPage() {
         }
         // Proceed with sign-up logic (e.g., call Firebase authentication)
         console.log('Form submitted:', { userEmail });
-        
+
         handleSignIn(userEmail, password);
     };
 

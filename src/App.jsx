@@ -11,26 +11,29 @@ import SignInPage from './pages/SignInPage'; // Correct
 import ProfilePage from './pages/ProfilePage'; // Correct
 import Header from './components/Header'; // Correct
 import Footer from './components/Footer'; // Correct
+import { AuthProvider } from './context/authContext'; // Correct
 
 
 
 
-  function App() {
+function App() {
     // const [apiData, setApiData] = useState(null);
 
     return (
-        <Router>
-            <Header />
-            {/* <GetData setApiData={setApiData} /> Ensure GetData is used here */}
-            <Routes>
-                <Route path='/' element={<Home/>} />
-                <Route path="/cardSet/:id" element={<PlayCardSet/>} />
-                <Route path="/signup" element={<SignUpPage/>} />
-                <Route path="/signin" element={<SignInPage/>} />
-                <Route path="/profile" element={<ProfilePage/>} />
-            </Routes>
-            <Footer />
-        </Router>
+        <AuthProvider>
+            <Router>
+                <Header />
+                {/* <GetData setApiData={setApiData} /> Ensure GetData is used here */}
+                <Routes>
+                    <Route path='/' element={<Home />} />
+                    <Route path="/cardSet/:id" element={<PlayCardSet />} />
+                    <Route path="/signup" element={<SignUpPage />} />
+                    <Route path="/signin" element={<SignInPage />} />
+                    <Route path="/profile" element={<ProfilePage />} />
+                </Routes>
+                <Footer />
+            </Router>
+        </AuthProvider>
     );
 }
 

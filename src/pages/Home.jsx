@@ -1,9 +1,19 @@
-// import useAuth from '../hooks/useAuth';
+// src/pages/Home.jsx
 import CardSetSelection from '../components/CardSetSelection';
+import { useAuth } from '../context/authContext';
+import { useNavigate } from 'react-router-dom';
 
 
 
 function Home() {
+
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+
+  if (!currentUser) {
+    navigate('/signin');
+    return null;
+  }
 
   return (
     <>
