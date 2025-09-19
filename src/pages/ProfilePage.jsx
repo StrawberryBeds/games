@@ -1,15 +1,12 @@
 import { useEffect } from 'react';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
-import CreateParentPlayerProfile from '../componentsProfilePage/CreateParentPlayerProfile'; 
+import CreateParentPlayerProfile from '../componentsProfilePage/CreateParentPlayerProfile';
 import CreateChildPlayerProfile from '../componentsProfilePage/CreateChildPlayerProfiles';
-
 
 function ProfilePage() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
-
-
 
   // Redirect if not logged in
   useEffect(() => {
@@ -18,11 +15,8 @@ function ProfilePage() {
     }
   }, [currentUser, navigate]);
 
-
-
   return (
 
-    
     <div>
       <h2>{currentUser.uid}</h2>
       <h2>Create Your Parent Profile</h2>

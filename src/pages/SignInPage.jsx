@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { setPersistence, signInWithEmailAndPassword, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
 import { auth } from '../firebase';
-import { useAuth } from '../context/authContext';
 
 import { useNavigate } from 'react-router-dom'; // If using React Router for navigation
 
@@ -15,7 +14,7 @@ function SignInPage() {
 
     // Redirect if already logged in
     if (useEffect.currentUser) {
-        navigate('/');
+        navigate('/player');
         return null;
     }
 
@@ -25,7 +24,7 @@ function SignInPage() {
             await signInWithEmailAndPassword(auth, email, password);
             setSuccess("Signed in successfully!");
             setError('Email address or password is incorrect.');
-            navigate('/'); // Redirect to home page after sign-in
+            navigate('/player'); 
         } catch (error) {
             setError('Email address or password is incorrect.', error.message);
             setSuccess('');

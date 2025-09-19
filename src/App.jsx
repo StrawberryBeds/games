@@ -12,9 +12,7 @@ import ProfilePage from './pages/ProfilePage'; // Correct
 import Header from './components/Header'; // Correct
 import Footer from './components/Footer'; // Correct
 import { AuthProvider } from './context/authContext'; // Correct
-
-
-
+import ChoosePlayer from './pages/ChoosePlayer';
 
 function App() {
     // const [apiData, setApiData] = useState(null);
@@ -29,6 +27,7 @@ function App() {
                     <Route path="/cardSet/:id" element={<PlayCardSet />} />
                     <Route path="/signup" element={<SignUpPage />} />
                     <Route path="/signin" element={<SignInPage />} />
+                    <Route path="/player" element={<ChoosePlayer/>} /> 
                     <Route path="/profile" element={<ProfilePage />} />
                 </Routes>
                 <Footer />
