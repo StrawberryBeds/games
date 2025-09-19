@@ -5,6 +5,7 @@ function SignUpPage() {
   return (
     <>
      <SignUp></SignUp>
+
     </>
   );
 }
