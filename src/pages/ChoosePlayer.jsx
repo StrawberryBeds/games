@@ -52,7 +52,7 @@ function ChoosePlayer() {
       <ul>
         {familyPlayers.map(player => (
           <li key={player.id}>
-            {player.playerName}
+            <button onClick={() => navigate('/')}>{player.playerName}</button>
           </li>
         ))}
       </ul>
@@ -61,3 +61,6 @@ function ChoosePlayer() {
 }
 
 export default ChoosePlayer;
+
+
+<button onClick={() => navigate('/signin')}>Sign In</button>
