@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { useAuth } from '../context/authContext';
-import { addDoc, collection, doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { getDoc, addDoc, collection, doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
 function CreateChildPlayerProfile() {
@@ -19,15 +19,30 @@ function CreateChildPlayerProfile() {
     }
   }, [currentUser, navigate]);
 
-  const createChildPlayerProfile = async () => {
+const createChildPlayerProfile = async () => {
     try {
+      // Fetch the parent's player profile to get the familyId
+      const parentPlayerRef = doc(db, 'players', currentUser.uid);
+      const parentPlayerSnap = await getDoc(parentPlayerRef);
+
+      if (!parentPlayerSnap.exists()) {
+        throw new Error("Parent player profile not found!");
+      }
+
+      const parentPlayerData = parentPlayerSnap.data();
+      const familyId = parentPlayerData.familyId; // Extract familyId
+
+      // Create the child player profile with the same familyId
       const childRef = await addDoc(collection(db, 'players'), {
         playerName: playerName,
         playerAvatar: playerAvatar,
         playerDOB: playerDOB,
         isParentPlayer: false,
+        familyId: familyId, // Use the fetched familyId
         parentPlayerId: currentUser.uid,
+        createdAt: new Date().toISOString()
       });
+
       // Update parent profile with new child's playerId
       await updateParentPlayerProfile(currentUser.uid, childRef.id);
       setSuccess("Your child's profile has been successfully created. Please create another or click 'Finish' to play a game.");
@@ -36,7 +51,8 @@ function CreateChildPlayerProfile() {
       setError(error.message);
       setSuccess('');
     }
-  };
+};
+
 
   const updateParentPlayerProfile = async (parentId, childId) => {
     try {

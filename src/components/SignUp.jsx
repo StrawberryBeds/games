@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { auth, db } from '../firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { sendEmailVerification } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore'; // Use setDoc instead of addDoc
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+
 function SignUp() {
     const [givenName, setGivenName] = useState('');
     const [familyName, setFamilyName] = useState('');
@@ -33,7 +34,7 @@ function SignUp() {
             alert('Registration successful! Please check your email for verification.');
             // Redirect or perform other actions after successful registration and email sent            
 
-            // 2. Create user profile in Firestore            
+            // 2. Create user profile in Firestore 
             await setDoc(doc(db, 'users', user.uid), {
                 userId: user.uid,
                 givenName: givenName,
@@ -41,9 +42,13 @@ function SignUp() {
                 userEmail: userEmail,
                 createdAt: new Date().toISOString()
             });
-            // 3. Create parent player profile in Firestore            
+
+            // 3. Create parent player profile and familyIdin Firestore            
+            const familyId = uuidv4();
+
             await setDoc(doc(db, 'players', user.uid), {
                 playerId: user.uid,
+                familyId: familyId,
                 isParent: true,
                 givenName: givenName,
                 familyName: familyName,
