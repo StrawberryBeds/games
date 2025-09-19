@@ -8,7 +8,8 @@ import CreateChildPlayerProfile from '../componentsProfilePage/CreateChildPlayer
 function ProfilePage() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
-  
+
+
 
   // Redirect if not logged in
   useEffect(() => {
@@ -17,7 +18,11 @@ function ProfilePage() {
     }
   }, [currentUser, navigate]);
 
+
+
   return (
+
+    
     <div>
       <h2>{currentUser.uid}</h2>
       <h2>Create Your Parent Profile</h2>

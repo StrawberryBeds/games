@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { auth, db } from '../firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { sendEmailVerification } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore'; // Use setDoc instead of addDoc
 import { useNavigate } from 'react-router-dom';
-
 function SignUp() {
     const [givenName, setGivenName] = useState('');
     const [familyName, setFamilyName] = useState('');
@@ -25,13 +25,15 @@ function SignUp() {
             setError("Passwords do not match.");
             return;
         }
-
         try {
-            // 1. Create user in Firebase Authentication
+            // 1. Create user in Firebase Authentication            
             const userCredential = await createUserWithEmailAndPassword(auth, userEmail, password);
             const user = userCredential.user;
+            await sendEmailVerification(userCredential.user);
+            alert('Registration successful! Please check your email for verification.');
+            // Redirect or perform other actions after successful registration and email sent            
 
-            // 2. Create user profile in Firestore
+            // 2. Create user profile in Firestore            
             await setDoc(doc(db, 'users', user.uid), {
                 userId: user.uid,
                 givenName: givenName,
@@ -39,8 +41,7 @@ function SignUp() {
                 userEmail: userEmail,
                 createdAt: new Date().toISOString()
             });
-
-            // 3. Create parent player profile in Firestore
+            // 3. Create parent player profile in Firestore            
             await setDoc(doc(db, 'players', user.uid), {
                 playerId: user.uid,
                 isParent: true,
@@ -49,15 +50,14 @@ function SignUp() {
                 userEmail: userEmail,
                 createdAt: new Date().toISOString()
             });
-
             setSuccess("Account and profiles created successfully!");
-            navigate('/profile'); // Redirect only after all operations
+            navigate('/profile');
+            // Redirect only after all operations        
         } catch (error) {
             setError(error.message);
             setSuccess('');
         }
     };
-
     return (
         <form onSubmit={handleSubmit}>
             {error && <p className="error">{error}</p>}
@@ -86,5 +86,4 @@ function SignUp() {
         </form>
     );
 }
-
 export default SignUp;

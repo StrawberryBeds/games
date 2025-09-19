@@ -11,7 +11,7 @@ function SignInPage() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const { currentUser } = useAuth();
-    const navigate = useNavigate(); // For redirect after sign-up
+    const navigate = useNavigate();
 
         // Redirect if already logged in
     if (useEffect.currentUser) {
