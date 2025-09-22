@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/authContext';
+import { usePlayerSelection } from '../context/playerContext';
 import { useNavigate } from 'react-router-dom';
 import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 function ChoosePlayer() {
   const { currentUser } = useAuth();
+  const { setCurrentPlayer, setRequiresParentAuth } = usePlayerSelection();
   const navigate = useNavigate();
-  const [familyPlayers, setFamilyPlayers] = useState([]); // State for family players
+  const [familyPlayers, setFamilyPlayers] = useState([]); // State to store fetched players
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
 
   // Redirect if not logged in
   useEffect(() => {
@@ -19,7 +23,10 @@ function ChoosePlayer() {
   // Fetch family players when the component mounts
   useEffect(() => {
     const fetchFamilyPlayers = async () => {
+      if (!currentUser) return; // Exit if no user
+
       try {
+        setLoading(true);
         // 1. Fetch the parent's player profile to get the familyId
         const parentPlayerRef = doc(db, 'players', currentUser.uid);
         const parentPlayerSnap = await getDoc(parentPlayerRef);
@@ -32,35 +39,65 @@ function ChoosePlayer() {
         const familyId = parentPlayerData.familyId;
 
         // 2. Fetch all players in the family
-        const q = query(collection(db, 'players'), where('familyId', '==', familyId));
-        const querySnapshot = await getDocs(q);
-        const players = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const playersQuery = query(
+          collection(db, 'players'),
+          where('familyId', '==', familyId)
+        );
+        const querySnapshot = await getDocs(playersQuery);
+        const players = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
 
         // 3. Update state with the fetched players
         setFamilyPlayers(players);
-      } catch (error) {
-        console.error("Error fetching family players:", error);
+      } catch (err) {
+        console.error("Error fetching family players:", err);
+        setError("Failed to load family players. Please try again.");
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchFamilyPlayers();
   }, [currentUser]);
 
+  const handlePlayerSelect = (player) => {
+    setCurrentPlayer(player);
+    if (player.isParent) {
+      setRequiresParentAuth(true); // Trigger password prompt
+      navigate('/parent-auth');
+    } else {
+      navigate('/'); // Redirect to home for children
+    }
+  };
+
+  // Show loading or error states
+  if (loading) {
+    return <div className="player-selector">Loading players...</div>;
+  }
+
+  if (error) {
+    return <div className="player-selector">{error}</div>;
+  }
+
+  // Render player tiles
   return (
-    <div>
-      <h1>Who's playing?</h1>
-      <ul>
-        {familyPlayers.map(player => (
-          <li key={player.id}>
-            <button onClick={() => navigate('/')}>{player.playerName}</button>
-          </li>
+    <div className="player-selector">
+      <h2>Who's Playing?</h2>
+      <div className="player-tiles">
+        {familyPlayers.map((player) => (
+          <button
+            key={player.id}
+            onClick={() => handlePlayerSelect(player)}
+            className="player-tile"
+          >
+            {player.playerName}
+          </button>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
 
 export default ChoosePlayer;
-
-
-<button onClick={() => navigate('/signin')}>Sign In</button>
