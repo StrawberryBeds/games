@@ -61,7 +61,7 @@ function ChoosePlayer() {
     };
 
     fetchFamilyPlayers();
-  }, [currentUser]);
+  }, [currentUser, navigate]);
 
   // TO DO : Revise this so remove select player without requiresParentAuth
   const handlePlayerSelect = (player) => {

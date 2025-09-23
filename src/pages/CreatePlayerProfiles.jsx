@@ -30,7 +30,8 @@ function CreateProfilesPage() {
       <CreateChildPlayerProfile></CreateChildPlayerProfile>
       <CreateChildPlayerProfile></CreateChildPlayerProfile>
 
-      <button onClick={() => navigate('/')}>Finish Profile Creation</button>
+ {/* TO DO : This should pass to /player, but requires a signout and sign in */}
+      <button onClick={() => navigate('/signin')}>Finish Profile Creation</button>
 
     </div>
   );

@@ -64,17 +64,7 @@ function ProfilePage() {
   
       fetchFamilyPlayers();
     }, [currentUser]);
-  
-    // TO DO : Revise this so remove select player without requiresParentAuth
-    // const handlePlayerSelect = (player) => {
-    //   setCurrentPlayer(player);
-    //   if (player.isParent) {
-    //     setRequiresParentAuth(true); // Trigger password prompt
-    //     navigate('/');
-    //   } else {
-    //     navigate('/'); // Redirect to home for children
-    //   }
-    // };
+
   
     // Show loading or error states
     if (loading) {
@@ -89,6 +79,8 @@ function ProfilePage() {
     return (
       <div className="player-selector">
         <h2>Your Family Profiles</h2>
+{/* TO DO : Create edit profiles page          */}
+        <button onClick={() => navigate('/createprofiles')}>Edit Profiles</button>
         <div className="player-tiles">
           {familyPlayers.map((player) => (
             <button

@@ -1,4 +1,7 @@
+import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { getDoc, doc } from 'firebase/firestore';
+import { db } from './firebase'; 
 import Home from "./pages/Home";
 import PlayCardSet from "./pages/PlayCardSet";
 import SignUpPage from "./pages/SignUpPage";
@@ -17,6 +20,36 @@ import { useAuth } from "./context/authContext";
 function AppRoutes() {
   const { currentUser } = useAuth();
   const { currentPlayer } = usePlayerSelection();
+  const [profileExists, setProfileExists] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+    // Check if user has a profile
+  useEffect(() => {
+    const checkProfile = async () => {
+      if (currentUser) {
+        try {
+          const docRef = doc(db, "players", currentUser.uid);
+          const docSnap = await getDoc(docRef);
+          setProfileExists(docSnap.exists());
+        } catch (error) {
+          console.error("Error checking profile:", error);
+          setProfileExists(false);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+
+    checkProfile();
+  }, [currentUser]);
+
+  // If loading, show nothing or a loading spinner
+  if (loading) {
+    return null; // Or return a loading component
+  }
+
 
   // If no user, show auth routes
   if (!currentUser) {
@@ -29,12 +62,22 @@ function AppRoutes() {
     );
   }
 
+    // If user is signed in but has no profile, redirect to profile creation
+  if (profileExists === false) {
+    return (
+      <Routes>
+        <Route path="/createprofile" element={<CreateProfilesPage />} />
+        <Route path="*" element={<Navigate to="/createprofile" />} />
+      </Routes>
+    );
+  }
+
   // If user is signed in but no player selected, show player selection
   if (!currentPlayer) {
     return (
       <Routes>
-        <Route path="/createprofiles" element={<CreateProfilesPage />} />
-        {/* <Route path="/player" element={<ChoosePlayer />} /> */}
+        {/* <Route path="/createprofiles" element={<CreateProfilesPage />} /> */}
+        <Route path="/player" element={<ChoosePlayer />} />
         <Route path="*" element={<Navigate to="/player" />} />
       </Routes>
     );

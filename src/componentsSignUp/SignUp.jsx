@@ -56,7 +56,7 @@ function SignUp() {
             //     createdAt: new Date().toISOString()
             // });
             setSuccess("Account and created successfully!");
-            navigate('/createprofiles');
+            navigate('/signin');
             // Redirect only after all operations        
         } catch (error) {
             setError(error.message);
