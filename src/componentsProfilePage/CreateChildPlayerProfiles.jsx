@@ -1,63 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { db } from '../firebase';
 import { useAuth } from '../context/authContext';
-import { getDoc, addDoc, collection, doc, updateDoc, arrayUnion } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
+import { doc, getDoc, addDoc, collection, updateDoc, arrayUnion } from 'firebase/firestore';
 
-function CreateChildPlayerProfile() {
+function CreateChildPlayerProfile({ profileId }) {
   const { currentUser } = useAuth();
-  const navigate = useNavigate();
-  const [playerName, setPlayerName] = useState('');
-  const [playerAvatar, setPlayerAvatar] = useState('');
-  const [playerDOB, setPlayerDOB] = useState('');
+  const [formData, setFormData] = useState({
+    playerName: '',
+    playerAvatar: '',
+    playerDOB: ''
+  });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  useEffect(() => {
-    if (!currentUser) {
-      navigate('/signin');
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError('');
+
+    if (Object.values(formData).some(field => !field)) {
+      setError("Please fill in all required fields.");
+      return;
     }
-  }, [currentUser, navigate]);
 
-const createChildPlayerProfile = async () => {
     try {
-      // Fetch the parent's player profile to get the familyId
-      const parentPlayerRef = doc(db, 'players', currentUser.uid);
-      const parentPlayerSnap = await getDoc(parentPlayerRef);
-
-      if (!parentPlayerSnap.exists()) {
-        throw new Error("Parent player profile not found!");
+      // Get parent's familyId
+      const parentDoc = await getDoc(doc(db, 'players', currentUser.uid));
+      if (!parentDoc.exists()) {
+        throw new Error("Parent profile not found");
       }
 
-      const parentPlayerData = parentPlayerSnap.data();
-      const familyId = parentPlayerData.familyId; // Extract familyId
+      const parentData = parentDoc.data();
 
-      // Create the child player profile with the same familyId
+      // Create child profile
       const childRef = await addDoc(collection(db, 'players'), {
-        playerName: playerName,
-        playerAvatar: playerAvatar,
-        playerDOB: playerDOB,
+        ...formData,
         isParentPlayer: false,
-        familyId: familyId, // Use the fetched familyId
+        familyId: parentData.familyId,
         parentPlayerId: currentUser.uid,
         createdAt: new Date().toISOString()
       });
 
-      // Update parent profile with new child's playerId
-      await updateParentPlayerProfile(currentUser.uid, childRef.id);
-      setSuccess("Your child's profile has been successfully created. Please create another or click 'Finish' to play a game.");
-      setError('');
-    } catch (error) {
-      setError(error.message);
-      setSuccess('');
-    }
-};
+      // Update parent's childPlayers array
+      await updateDoc(doc(db, 'players', currentUser.uid), {
+        childPlayers: arrayUnion(childRef.id)
+      });
 
-
-  const updateParentPlayerProfile = async (parentId, childId) => {
-    try {
-      await updateDoc(doc(db, 'players', parentId), {
-        childPlayers: arrayUnion(childId) // Append childId to array
+      setSuccess("Child profile created successfully!");
+      // Reset form for new child
+      setFormData({
+        playerName: '',
+        playerAvatar: '',
+        playerDOB: ''
       });
     } catch (error) {
       setError(error.message);
@@ -65,48 +63,34 @@ const createChildPlayerProfile = async () => {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setError('');
-    if (!playerName || !playerAvatar || !playerDOB) {
-      setError("Please fill in all required fields.");
-      return;
-    }
-    createChildPlayerProfile();
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
-      {error && <p className="error">{error}</p>}
-      {success && <p className="success">{success}</p>}
-      <div>
-        <label>Player Name</label>
-        <input
-          type="text"
-          value={playerName}
-          onChange={(e) => setPlayerName(e.target.value)}
-          name="playerName"
-        />
-      </div>
-      <div>
-        <label>Player Avatar</label>
-        <input
-          type="text"
-          value={playerAvatar}
-          onChange={(e) => setPlayerAvatar(e.target.value)}
-          name="playerAvatar"
-        />
-      </div>
-      <div>
-        <label>Date of Birth</label>
-        <input
-          type="date"
-          value={playerDOB}
-          onChange={(e) => setPlayerDOB(e.target.value)}
-          name="playerDOB"
-        />
-      </div>
-      <button type="submit">Submit</button>
+    <form onSubmit={handleSubmit} className="child-profile-form">
+      <h4>Child Profile {profileId}</h4>
+
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
+
+      {Object.entries(formData).map(([field, value]) => (
+        <div key={field} className="form-group">
+          <label htmlFor={`${field}-${profileId}`}>
+            {field.split(/(?=[A-Z])/).map(word =>
+              word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' ')}
+          </label>
+          <input
+            type={field.includes('DOB') ? 'date' : 'text'}
+            id={`${field}-${profileId}`}
+            name={field}
+            value={value}
+            onChange={handleChange}
+            required
+          />
+        </div>
+      ))}
+
+      <button type="submit" className="submit-button">
+        Create Child Profile
+      </button>
     </form>
   );
 }

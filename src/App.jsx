@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { getDoc, doc } from 'firebase/firestore';
+import { doc } from 'firebase/firestore';
 import { db } from './firebase'; 
+import { onSnapshot } from 'firebase/firestore';
 import Home from "./pages/Home";
 import PlayCardSet from "./pages/PlayCardSet";
 import SignUpPage from "./pages/SignUpPage";
@@ -20,36 +21,31 @@ import { useAuth } from "./context/authContext";
 function AppRoutes() {
   const { currentUser } = useAuth();
   const { currentPlayer } = usePlayerSelection();
-  const [profileExists, setProfileExists] = useState(null);
+  const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-    // Check if user has a profile
   useEffect(() => {
-    const checkProfile = async () => {
-      if (currentUser) {
-        try {
-          const docRef = doc(db, "players", currentUser.uid);
-          const docSnap = await getDoc(docRef);
-          setProfileExists(docSnap.exists());
-        } catch (error) {
-          console.error("Error checking profile:", error);
-          setProfileExists(false);
-        } finally {
-          setLoading(false);
-        }
-      } else {
-        setLoading(false);
-      }
-    };
+    if (!currentUser) {
+      setLoading(false);
+      return;
+    }
 
-    checkProfile();
+    const docRef = doc(db, "players", currentUser.uid);
+    const unsubscribe = onSnapshot(docRef, (docSnap) => {
+      if (docSnap.exists()) {
+        setProfileData(docSnap.data());
+      } else {
+        setProfileData(null);
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, [currentUser]);
 
-  // If loading, show nothing or a loading spinner
   if (loading) {
-    return null; // Or return a loading component
+    return null;
   }
-
 
   // If no user, show auth routes
   if (!currentUser) {
@@ -62,8 +58,18 @@ function AppRoutes() {
     );
   }
 
-    // If user is signed in but has no profile, redirect to profile creation
-  if (profileExists === false) {
+  // If user has no profile, redirect to profile creation
+  if (!profileData) {
+    return (
+      <Routes>
+        <Route path="/createprofile" element={<CreateProfilesPage />} />
+        <Route path="*" element={<Navigate to="/createprofile" />} />
+      </Routes>
+    );
+  }
+
+  // If profile exists but setup is incomplete, redirect to profile creation
+  if (!profileData.setupComplete) {
     return (
       <Routes>
         <Route path="/createprofile" element={<CreateProfilesPage />} />
@@ -94,16 +100,23 @@ function AppRoutes() {
       <Route path="/parent-auth" element={<ParentAuth />} />
 
       {/* Protected route - ProfilePage wrapped with ParentAuthGuard */}
+      {/* TO DO : Update this so that it is Manage Profiles not Create Profiles */}
       <Route
-        path="/createprofiles"
+        path="/manageprofile"
         element={
           <ParentAuthGuard>
             <CreateProfilesPage />
           </ParentAuthGuard>
         }
       />
-      {/* <Route path="/createprofiles" element={<CreateProfilesPage />} /> */}
-      <Route path="/profile" element={<ProfilePage />} />
+      <Route 
+      path="/profile" 
+      element={
+        <ParentAuthGuard>
+      <ProfilePage />
+      </ParentAuthGuard>
+    } 
+    />
 
       {/* Catch-all route - redirect to home */}
       <Route path="*" element={<Navigate to="/" />} />

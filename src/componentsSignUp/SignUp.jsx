@@ -1,94 +1,144 @@
-import React, { useState } from 'react';
-import { auth } from '../firebase'; // db
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-// import { doc, setDoc } from 'firebase/firestore'; // Use setDoc instead of addDoc
+import React, { useState, useEffect } from 'react';
+import { auth, db } from '../firebase';
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  onAuthStateChanged
+} from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-// import { v4 as uuidv4 } from 'uuid';
 
 function SignUp() {
-    // const [givenName, setGivenName] = useState('');
-    // const [familyName, setFamilyName] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [verificationSent, setVerificationSent] = useState(false);
     const navigate = useNavigate();
+
+    // Only set up the auth listener after verification email is sent
+    useEffect(() => {
+      if (!verificationSent) return;
+
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user?.emailVerified) {
+          navigate('/createprofile');
+        }
+      });
+
+      return unsubscribe;
+    }, [verificationSent, navigate]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         setError('');
+        setSuccess('');
+        setIsLoading(true);
+
         if (!userEmail || !password || !confirmPassword) {
             setError("Please fill in all required fields.");
+            setIsLoading(false);
             return;
         }
+
         if (password !== confirmPassword) {
             setError("Passwords do not match.");
+            setIsLoading(false);
             return;
         }
+
         try {
-            // 1. Create user in Firebase Authentication            
+            // 1. Create user in Firebase Authentication
             const userCredential = await createUserWithEmailAndPassword(auth, userEmail, password);
-            // const user = userCredential.user;
-            await sendEmailVerification(userCredential.user);
+            const user = userCredential.user;
+
+            // 2. Create user and player documents
+            const now = new Date();
+
+            // User document (for financial info)
+            await setDoc(doc(db, "users", user.uid), {
+                email: user.email,
+                createdAt: now,
+                // Other financial-related fields can be added later
+            });
+
+            // Player document (for game data)
+            await setDoc(doc(db, "players", user.uid), {
+                email: user.email,
+                createdAt: now,
+                isParent: true,
+                familyId: user.uid,
+                name: user.email.split('@')[0],
+                setupComplete: false, // Flag for profile completion
+                // Other game-related fields can be added later
+            });
+
+            // 3. Send verification email
+            await sendEmailVerification(user);
+            setVerificationSent(true);
+            setSuccess("Account created! Please check your email for verification. After verifying, you'll be redirected to complete your profile setup.");
             alert('Registration successful! Please check your email for verification.');
-            // Redirect or perform other actions after successful registration and email sent            
 
-            // 2. Create user profile in Firestore 
-            // await setDoc(doc(db, 'users', user.uid), {
-            //     userId: user.uid,
-            //     givenName: givenName,
-            //     familyName: familyName,
-            //     userEmail: userEmail,
-            //     createdAt: new Date().toISOString()
-            // });
-
-            // 3. Create parent player profile and familyIdin Firestore            
-            // const familyId = uuidv4();
-
-            // await setDoc(doc(db, 'players', user.uid), {
-            //     playerId: user.uid,
-            //     familyId: familyId,
-            //     isParent: true,
-            //     givenName: givenName,
-            //     familyName: familyName,
-            //     userEmail: userEmail,
-            //     createdAt: new Date().toISOString()
-            // });
-            setSuccess("Account and created successfully!");
-            navigate('/signin');
-            // Redirect only after all operations        
+            // Don't redirect yet - wait for email verification
         } catch (error) {
-            setError(error.message);
+            console.error("Sign up error:", error);
+            setError(error.code === 'auth/email-already-in-use'
+                ? 'This email is already registered.'
+                : 'Registration failed. Please try again.');
             setSuccess('');
+        } finally {
+            setIsLoading(false);
         }
     };
+
     return (
         <form onSubmit={handleSubmit}>
             {error && <p className="error">{error}</p>}
             {success && <p className="success">{success}</p>}
-            {/* <div>
-                <label>Given Name</label>
-                <input type="text" value={givenName} onChange={(e) => setGivenName(e.target.value)} name="givenName" />
-            </div> */}
-            {/* <div>
-                <label>Family Name</label>
-                <input type="text" value={familyName} onChange={(e) => setFamilyName(e.target.value)} name="familyName" />
-            </div> */}
+
             <div>
                 <label>Email</label>
-                <input type="email" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} name="userEmail" />
+                <input
+                    type="email"
+                    value={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)}
+                    name="userEmail"
+                    required
+                />
             </div>
+
             <div>
                 <label>Password</label>
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" />
+                <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    name="password"
+                    minLength="6"
+                    required
+                />
             </div>
+
             <div>
                 <label>Confirm Password</label>
-                <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} name="confirmPassword" />
+                <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    name="confirmPassword"
+                    minLength="6"
+                    required
+                />
             </div>
-            <button type="submit">Submit</button>
+
+            <button type="submit" disabled={isLoading || verificationSent}>
+                {isLoading ? 'Creating Account...' :
+                 verificationSent ? 'Check Your Email' : 'Sign Up'}
+            </button>
         </form>
     );
 }
+
 export default SignUp;
