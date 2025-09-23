@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { useAuth } from '../context/authContext';
-import { doc, updateDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { doc, setDoc } from 'firebase/firestore'; // Use setDoc instead of addDoc
+ import { v4 as uuidv4 } from 'uuid';
 
 function CreateParentPlayerProfile() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const [givenName, setGivenName] = useState('');
+  const [familyName, setFamilyName] = useState('');
   const [playerName, setPlayerName] = useState('');
   const [playerAvatar, setPlayerAvatar] = useState('');
   const [playerDOB, setPlayerDOB] = useState('');
@@ -20,16 +23,40 @@ function CreateParentPlayerProfile() {
     }
   }, [currentUser, navigate]);
 
-  const updateParentPlayerProfile = async (playerId) => {
-    try {
-      await updateDoc(doc(db, 'players', playerId), {
-        playerName: playerName,
-        playerAvatar: playerAvatar,
-        playerDOB: playerDOB,
-        isParentPlayer: true,
-        childPlayers: [], // Initialize as empty array
-      });
-      setSuccess("Your parent profile has been successfully updated! Please create profiles for your children or click 'Finish' to play a game.");
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setError('');
+        if (!givenName || !familyName || !playerName || !playerAvatar || !playerDOB) {
+            setError("Please fill in all required fields.");
+            return;
+        }
+        try {
+          // 2. Create user profile in Firestore 
+          await setDoc(doc(db, 'users', currentUser.uid), {
+            userId: currentUser.uid,
+            givenName: givenName,
+            familyName: familyName,
+            // userEmail: currentUser.userEmail,
+            createdAt: new Date().toISOString()
+            });
+
+              const familyId = uuidv4();
+
+             await setDoc(doc(db, 'players', currentUser.uid), {
+                playerId: currentUser.uid,
+                familyId: familyId,
+                isParent: true,
+                givenName: givenName,
+                familyName: familyName,
+                // userEmail: currentUser.userEmail,
+                playerName: playerName,
+                playerAvatar: playerAvatar,
+                playerDOB: playerDOB,
+                isParentPlayer: true,
+                childPlayers: [],
+                createdAt: new Date().toISOString()
+            });
+      setSuccess("Your parent user and player profiles have been successfully created! Please create profiles for your children or click 'Finish' to play a game.");
       setError('');
     } catch (error) {
       setError(error.message);
@@ -37,20 +64,22 @@ function CreateParentPlayerProfile() {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setError('');
-    if (!playerName || !playerDOB) {
-      setError("Please fill in all required fields.");
-      return;
-    }
-    updateParentPlayerProfile(currentUser.uid);
-  };
-
   return (
     <form onSubmit={handleSubmit}>
       {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
+
+      <div>
+                <label>Given Name</label>
+                <input type="text" value={givenName} onChange={(e) => setGivenName(e.target.value)} name="givenName" />
+            </div>
+            <div>
+                <label>Family Name</label>
+                <input type="text" value={familyName} onChange={(e) => setFamilyName(e.target.value)} name="familyName" />
+            </div>
+
+
+
       <div>
         <label>Player Name</label>
         <input

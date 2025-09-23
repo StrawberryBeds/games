@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import PlayCardSet from "./pages/PlayCardSet";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
+import CreateProfilesPage from "./pages/CreatePlayerProfiles"
 import ProfilePage from "./pages/ProfilePage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -32,7 +33,8 @@ function AppRoutes() {
   if (!currentPlayer) {
     return (
       <Routes>
-        <Route path="/player" element={<ChoosePlayer />} />
+        <Route path="/createprofiles" element={<CreateProfilesPage />} />
+        {/* <Route path="/player" element={<ChoosePlayer />} /> */}
         <Route path="*" element={<Navigate to="/player" />} />
       </Routes>
     );
@@ -50,13 +52,15 @@ function AppRoutes() {
 
       {/* Protected route - ProfilePage wrapped with ParentAuthGuard */}
       <Route
-        path="/profile"
+        path="/createprofiles"
         element={
           <ParentAuthGuard>
-            <ProfilePage />
+            <CreateProfilesPage />
           </ParentAuthGuard>
         }
       />
+      {/* <Route path="/createprofiles" element={<CreateProfilesPage />} /> */}
+      <Route path="/profile" element={<ProfilePage />} />
 
       {/* Catch-all route - redirect to home */}
       <Route path="*" element={<Navigate to="/" />} />

@@ -11,6 +11,7 @@ function Header () {
     return (
         <header className="header">
             <h2>Create an account to play with family and friends.</h2>
+            <button onClick={() => navigate('/')}>Play Games</button>
             <button onClick={() => navigate('/profile')}>Profile</button>
             <button onClick={() => navigate('/signup')}>Create Your Account</button>
             <button onClick={() => navigate('/signin')}>Sign In</button>

@@ -32,6 +32,7 @@ function ChoosePlayer() {
         const parentPlayerSnap = await getDoc(parentPlayerRef);
 
         if (!parentPlayerSnap.exists()) {
+          navigate('/createprofiles')
           throw new Error("Parent player profile not found!");
         }
 
@@ -62,11 +63,12 @@ function ChoosePlayer() {
     fetchFamilyPlayers();
   }, [currentUser]);
 
+  // TO DO : Revise this so remove select player without requiresParentAuth
   const handlePlayerSelect = (player) => {
     setCurrentPlayer(player);
     if (player.isParent) {
       setRequiresParentAuth(true); // Trigger password prompt
-      navigate('/parent-auth');
+      navigate('/');
     } else {
       navigate('/'); // Redirect to home for children
     }
