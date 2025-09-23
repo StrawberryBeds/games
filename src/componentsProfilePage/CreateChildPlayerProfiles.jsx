@@ -18,50 +18,53 @@ function CreateChildPlayerProfile({ profileId }) {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setError('');
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  setError('');
 
-    if (Object.values(formData).some(field => !field)) {
-      setError("Please fill in all required fields.");
-      return;
+  if (Object.values(formData).some(field => !field)) {
+    setError("Please fill in all required fields.");
+    return;
+  }
+
+  try {
+    const parentDoc = await getDoc(doc(db, 'players', currentUser.uid));
+    if (!parentDoc.exists()) {
+      throw new Error("Parent profile not found");
     }
+    const parentData = parentDoc.data();
 
-    try {
-      // Get parent's familyId
-      const parentDoc = await getDoc(doc(db, 'players', currentUser.uid));
-      if (!parentDoc.exists()) {
-        throw new Error("Parent profile not found");
-      }
+    // 1. Create the child profile (without playerId initially)
+    const childRef = await addDoc(collection(db, 'players'), {
+      ...formData,
+      isParentPlayer: false,
+      familyId: parentData.familyId,
+      parentPlayerId: currentUser.uid,
+      createdAt: new Date().toISOString()
+      // No playerId here yet!
+    });
 
-      const parentData = parentDoc.data();
+    // 2. Update the newly created document with its own ID
+    await updateDoc(childRef, {
+      playerId: childRef.id  // Now we have the ID!
+    });
 
-      // Create child profile
-      const childRef = await addDoc(collection(db, 'players'), {
-        ...formData,
-        isParentPlayer: false,
-        familyId: parentData.familyId,
-        parentPlayerId: currentUser.uid,
-        createdAt: new Date().toISOString()
-      });
+    // 3. Update parent's childPlayers array
+    await updateDoc(doc(db, 'players', currentUser.uid), {
+      childPlayers: arrayUnion(childRef.id)
+    });
 
-      // Update parent's childPlayers array
-      await updateDoc(doc(db, 'players', currentUser.uid), {
-        childPlayers: arrayUnion(childRef.id)
-      });
-
-      setSuccess("Child profile created successfully!");
-      // Reset form for new child
-      setFormData({
-        playerName: '',
-        playerAvatar: '',
-        playerDOB: ''
-      });
-    } catch (error) {
-      setError(error.message);
-      setSuccess('');
-    }
-  };
+    setSuccess("Child profile created successfully!");
+    setFormData({
+      playerName: '',
+      playerAvatar: '',
+      playerDOB: ''
+    });
+  } catch (error) {
+    setError(error.message);
+    setSuccess('');
+  }
+};
 
   return (
     <form onSubmit={handleSubmit} className="child-profile-form">
