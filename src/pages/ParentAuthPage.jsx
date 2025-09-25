@@ -1,7 +1,6 @@
 // pages/ParentAuth.jsx
 import { useState } from 'react';
-import { usePlayerSelection } from './context/usePlayerSelection';
-
+import { usePlayerSelection } from '../context/usePlayerSelection';
 import { useAuth } from '../context/authContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';

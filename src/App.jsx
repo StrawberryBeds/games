@@ -14,10 +14,11 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { AuthProvider } from "./context/authContext";
 import ChoosePlayer from "./pages/ChoosePlayer";
-import { PlayerProvider, usePlayerSelection } from "./context/playerContext";
+import { PlayerProvider } from "./context/playerContext";
 import ParentAuthGuard from "./componentsGuards/parentAuthGuard";
 import ParentAuthPage from "./pages/ParentAuthPage";
 import { useAuth } from "./context/authContext";
+import { usePlayerSelection } from "./context/usePlayerSelection"
 
 function AppRoutes() {
   const { currentUser } = useAuth();

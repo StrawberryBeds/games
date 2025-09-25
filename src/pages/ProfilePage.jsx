@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
-import { usePlayerSelection } from './context/usePlayerSelection';
+import { usePlayerSelection } from '../context/usePlayerSelection';
 import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
