@@ -1,10 +1,17 @@
 // ProfilePage.jsx
-import { useState, useEffect } from 'react';
-import { useAuth } from '../context/authContext';
-import { useNavigate } from 'react-router-dom';
-import { usePlayerSelection } from '../context/usePlayerSelection';
-import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { useState, useEffect } from "react";
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
+import { usePlayerSelection } from "../context/usePlayerSelection";
+import {
+  query,
+  where,
+  getDocs,
+  collection,
+  doc,
+  getDoc,
+} from "firebase/firestore";
+import { db } from "../firebase";
 
 function ProfilePage() {
   const { currentUser } = useAuth();
@@ -17,9 +24,11 @@ function ProfilePage() {
   // Redirect if not logged in or no player selected
   useEffect(() => {
     if (!currentUser) {
-      navigate('/signin');
+      navigate("/signin");
     }
   }, [currentUser, navigate]);
+
+  console.log("ProfilePage:", currentPlayer);
 
   // Fetch family players
   useEffect(() => {
@@ -27,7 +36,7 @@ function ProfilePage() {
       if (!currentUser) return;
       try {
         setLoading(true);
-        const parentPlayerRef = doc(db, 'players', currentUser.uid);
+        const parentPlayerRef = doc(db, "players", currentUser.uid);
         const parentPlayerSnap = await getDoc(parentPlayerRef);
         if (!parentPlayerSnap.exists()) {
           throw new Error("Parent player profile not found!");
@@ -35,13 +44,13 @@ function ProfilePage() {
         const parentPlayerData = parentPlayerSnap.data();
         const familyId = parentPlayerData.familyId;
         const playersQuery = query(
-          collection(db, 'players'),
-          where('familyId', '==', familyId)
+          collection(db, "players"),
+          where("familyId", "==", familyId)
         );
         const querySnapshot = await getDocs(playersQuery);
-        const players = querySnapshot.docs.map(doc => ({
+        const players = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
         setFamilyPlayers(players);
       } catch (err) {
@@ -62,7 +71,7 @@ function ProfilePage() {
     }
     if (currentPlayer.isParent) {
       setRequiresParentAuth(true); // Trigger parent auth
-      navigate('/parent-auth');    // Redirect to password prompt
+      navigate("/parent-auth"); // Redirect to password prompt
     } else {
       alert("Only parents can manage profiles.");
     }

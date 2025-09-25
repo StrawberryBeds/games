@@ -1,6 +1,7 @@
 // src/pages/CreatePlayerProfiles.jsx
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/authContext';
+import { usePlayerSelection } from '../context/usePlayerSelection';
 import { useNavigate } from 'react-router-dom';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -13,12 +14,15 @@ function CreateProfilesPage() {
   const navigate = useNavigate();
   const [childProfiles, setChildProfiles] = useState([{id: 1}]);
   const [parentComplete, setParentComplete] = useState(false);
+    const { currentPlayer } = usePlayerSelection();
 
   useEffect(() => {
     if (!currentUser) {
       navigate('/signin');
     }
   }, [currentUser, navigate]);
+
+  console.log("CreatePlayerProfiles:", currentPlayer)
 
 const handleFinish = async () => {
   try {
