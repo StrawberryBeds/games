@@ -8,6 +8,7 @@ import PlayCardSet from "./pages/PlayCardSet";
 import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import CreateProfilesPage from "./pages/CreatePlayerProfiles"
+import ManageProfilesPage from './pages/ManagePlayerProfiles';
 import ProfilePage from "./pages/ProfilePage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -15,7 +16,7 @@ import { AuthProvider } from "./context/authContext";
 import ChoosePlayer from "./pages/ChoosePlayer";
 import { PlayerProvider, usePlayerSelection } from "./context/playerContext";
 import ParentAuthGuard from "./componentsGuards/parentAuthGuard";
-import ParentAuth from "./pages/ParentAuth";
+import ParentAuthPage from "./pages/ParentAuthPage";
 import { useAuth } from "./context/authContext";
 
 function AppRoutes() {
@@ -97,24 +98,23 @@ function AppRoutes() {
       <Route path="/player" element={<ChoosePlayer />} />
 
       {/* ParentAuth route - for password entry */}
-      <Route path="/parent-auth" element={<ParentAuth />} />
+      <Route path="/parent-auth" element={<ParentAuthPage />} />
 
       {/* Protected route - ProfilePage wrapped with ParentAuthGuard */}
       {/* TO DO : Update this so that it is Manage Profiles not Create Profiles */}
       <Route
-        path="/manageprofile"
+        path="/manageprofiles"
         element={
           <ParentAuthGuard>
-            <CreateProfilesPage />
+            <ManageProfilesPage />
           </ParentAuthGuard>
         }
       />
       <Route 
       path="/profile" 
       element={
-        <ParentAuthGuard>
+
       <ProfilePage />
-      </ParentAuthGuard>
     } 
     />
 
