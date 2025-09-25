@@ -1,25 +1,39 @@
-    // Example useAuth hook (simplified)
-    import React, { createContext, useContext, useEffect, useState } from 'react';
-    import { auth } from '../firebase';
-    import { onAuthStateChanged } from 'firebase/auth';
+// context/authContext.js
+import { createContext, useContext, useState, useEffect } from 'react';
+import { auth } from '../firebase'; // db
+import { onAuthStateChanged } from 'firebase/auth';
+// import { doc, onSnapshot } from 'firebase/firestore';
 
-    const AuthContext = createContext();
+const AuthContext = createContext();
 
-    export const AuthProvider = ({ children }) => {
-      const [currentUser, setCurrentUser] = useState(null);
+export function AuthProvider({ children }) {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-      useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-          setCurrentUser(user);
-        });
-        return unsubscribe;
-      }, []);
+  useEffect(() => {
+    const unsubscribeAuth = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // Fetch the user's emailVerified status
+        const userData = {
+          uid: user.uid,
+          email: user.email,
+          emailVerified: user.emailVerified,
+        };
+        setCurrentUser(userData);
+      } else {
+        setCurrentUser(null);
+      }
+      setLoading(false);
+    });
 
-      return (
-        <AuthContext.Provider value={{ currentUser }}>
-          {children}
-        </AuthContext.Provider>
-      );
-    };
+    return () => unsubscribeAuth();
+  }, []);
 
-    export const useAuth = () => useContext(AuthContext);
+  return (
+    <AuthContext.Provider value={{ currentUser, loading }}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
+}
+
+export const useAuth = () => useContext(AuthContext);
