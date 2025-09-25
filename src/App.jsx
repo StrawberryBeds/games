@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { doc } from 'firebase/firestore';
@@ -6,6 +7,7 @@ import { onSnapshot } from 'firebase/firestore';
 import Home from "./pages/Home";
 import PlayCardSet from "./pages/PlayCardSet";
 import SignUpPage from "./pages/SignUpPage";
+import EmailVerificationPage from './pages/EmailVerificationPage';
 import SignInPage from "./pages/SignInPage";
 import CreateProfilesPage from "./pages/CreatePlayerProfiles"
 import ManageProfilesPage from './pages/ManagePlayerProfiles';
@@ -20,6 +22,7 @@ import ParentAuthPage from "./pages/ParentAuthPage";
 import { useAuth } from "./context/authContext";
 import { usePlayerSelection } from "./context/usePlayerSelection"
 
+// In AppRoutes function inside App.jsx
 function AppRoutes() {
   const { currentUser } = useAuth();
   const { currentPlayer } = usePlayerSelection();
@@ -30,6 +33,12 @@ function AppRoutes() {
     if (!currentUser) {
       setLoading(false);
       return;
+    }
+
+    // Check if email is verified
+    if (currentUser && !currentUser.emailVerified) {
+      setLoading(false);
+      return; // Don't proceed further if email isn't verified
     }
 
     const docRef = doc(db, "players", currentUser.uid);
@@ -60,7 +69,17 @@ function AppRoutes() {
     );
   }
 
-  // If user has no profile, redirect to profile creation
+  // NEW: If email is not verified, show verification prompt
+  if (!currentUser.emailVerified) {
+    return (
+      <Routes>
+        <Route path="/verify-email" element={<EmailVerificationPage />} />
+        <Route path="*" element={<Navigate to="/verify-email" />} />
+      </Routes>
+    );
+  }
+
+  // Rest of your existing routing logic...
   if (!profileData) {
     return (
       <Routes>
@@ -69,6 +88,7 @@ function AppRoutes() {
       </Routes>
     );
   }
+
 
   // If profile exists but setup is incomplete, redirect to profile creation
   if (!profileData.setupComplete) {
@@ -131,7 +151,9 @@ function App() {
       <PlayerProvider>
         <Router>
           <Header />
-          <AppRoutes />
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <AppRoutes />
+          </React.Suspense>
           <Footer />
         </Router>
       </PlayerProvider>
