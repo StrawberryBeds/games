@@ -1,10 +1,11 @@
-import SignUp from '../components/SignUp';
+import SignUp from '../componentsSignUp/SignUp';
 
 function SignUpPage() {
 
   return (
     <>
      <SignUp></SignUp>
+
     </>
   );
 }

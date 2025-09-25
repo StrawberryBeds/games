@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { setPersistence, signInWithEmailAndPassword, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
 import { auth } from '../firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useAuth } from '../context/authContext';
-
+import { useAuth } from '../context/authContext'; // Make sure you have this context
 import { useNavigate } from 'react-router-dom'; // If using React Router for navigation
 
 function SignInPage() {
@@ -10,24 +9,24 @@ function SignInPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const { currentUser } = useAuth();
-    const navigate = useNavigate(); // For redirect after sign-up
+    const navigate = useNavigate();
+    const [rememberMe, setRememberMe] = useState(false);
+    const { currentUser } = useAuth(); // Get current user from auth context
 
-        // Redirect if already logged in
-    if (useEffect.currentUser) {
-        navigate('/');
-        return null;
-    }
+    // Redirect if already logged in
+    useEffect(() => {
+        if (currentUser) {
+            navigate('/player');
+        }
+    }, [currentUser, navigate]);
 
     const handleSignIn = async (email, password) => {
         try {
+            await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
             await signInWithEmailAndPassword(auth, email, password);
             setSuccess("Signed in successfully!");
             setError('Email address or password is incorrect.');
-
-            // Add logic to save givenName and familyName to user profile if needed
-            // Add logic to send verification email. 
-            navigate('/'); // Redirect to home page after sign-in
+            navigate('/player'); 
         } catch (error) {
             setError('Email address or password is incorrect.', error.message);
             setSuccess('');
@@ -42,7 +41,7 @@ function SignInPage() {
             setError("Please fill in all required fields.");
             return;
         }
-        // Proceed with sign-up logic (e.g., call Firebase authentication)
+
         console.log('Form submitted:', { userEmail });
 
         handleSignIn(userEmail, password);
@@ -61,8 +60,16 @@ function SignInPage() {
                 <label>Password</label>
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" />
             </div>
+            <label>
+                <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                />
+                Remember Me
+            </label>
+            <button type="submit">Sign In</button>
 
-            <button type="submit">Submit</button>
         </form>
     );
 }
