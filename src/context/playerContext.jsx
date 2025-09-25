@@ -9,6 +9,8 @@ export function PlayerProvider({ children }) {
   const [currentPlayer, setCurrentPlayer] = useState(null);
   const [requiresParentAuth, setRequiresParentAuth] = useState(false);
 
+  
+
   // Clear currentPlayer if user logs out
   useEffect(() => {
     if (!currentUser) {

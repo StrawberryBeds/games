@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/authContext';
 import { usePlayerSelection } from '../context/playerContext';
 import { useNavigate } from 'react-router-dom';
-import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
+import { query, where, onSnapshot, collection, doc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 function ChoosePlayer() {
   const { currentUser } = useAuth();
-  const { setCurrentPlayer, setRequiresParentAuth } = usePlayerSelection();
+  const { currentPlayer, setCurrentPlayer } = usePlayerSelection();
   const navigate = useNavigate();
   const [familyPlayers, setFamilyPlayers] = useState([]); // State to store fetched players
   const [loading, setLoading] = useState(true); // Loading state
@@ -20,71 +20,65 @@ function ChoosePlayer() {
     }
   }, [currentUser, navigate]);
 
-  // Fetch family players when the component mounts
+   // Fetch and listen for family players
   useEffect(() => {
-    const fetchFamilyPlayers = async () => {
-      if (!currentUser) return; // Exit if no user
-
-      try {
-        setLoading(true);
-        // 1. Fetch the parent's player profile to get the familyId
-        const parentPlayerRef = doc(db, 'players', currentUser.uid);
-        const parentPlayerSnap = await getDoc(parentPlayerRef);
-
-        if (!parentPlayerSnap.exists()) {
-          navigate('/createprofiles')
-          throw new Error("Parent player profile not found!");
-        }
-
-        const parentPlayerData = parentPlayerSnap.data();
-        const familyId = parentPlayerData.familyId;
-
-        // 2. Fetch all players in the family
-        const playersQuery = query(
-          collection(db, 'players'),
-          where('familyId', '==', familyId)
-        );
-        const querySnapshot = await getDocs(playersQuery);
-        const players = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-
-        // 3. Update state with the fetched players
-        setFamilyPlayers(players);
-      } catch (err) {
-        console.error("Error fetching family players:", err);
-        setError("Failed to load family players. Please try again.");
-      } finally {
-        setLoading(false);
+    if (!currentUser) return;
+    const parentPlayerRef = doc(db, 'players', currentUser.uid);
+    const unsubscribe = onSnapshot(parentPlayerRef, (parentSnap) => {
+      if (!parentSnap.exists()) {
+        navigate('/createprofile');
+        return;
       }
-    };
-
-    fetchFamilyPlayers();
+      const familyId = parentSnap.data().familyId;
+      if (!familyId) {
+        setError("Family ID not found. Please set up your family profile.");
+        setLoading(false);
+        return;
+      }
+      const playersQuery = query(
+        collection(db, 'players'),
+        where('familyId', '==', familyId)
+      );
+      const unsubscribePlayers = onSnapshot(
+        playersQuery,
+        (snapshot) => {
+          const players = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          setFamilyPlayers(players);
+          setLoading(false);
+        },
+        (err) => {
+          console.error("Error fetching players:", err);
+          setError("Failed to load players. Please refresh.");
+          setLoading(false);
+        }
+      );
+      return () => unsubscribePlayers();
+    });
+    return () => unsubscribe();
   }, [currentUser, navigate]);
 
   // TO DO : Revise this so remove select player without requiresParentAuth
   const handlePlayerSelect = (player) => {
     setCurrentPlayer(player);
-    if (player.isParent) {
-      setRequiresParentAuth(true); // Trigger password prompt
-      navigate('/');
-    } else {
+    // if (player.isParent) {
+    //   setRequiresParentAuth(true); // Trigger password prompt
+    //   navigate('/');
+    // } else {
+      console.log("Current User:", currentUser)
+      console.log("Current Player:", player)
       navigate('/'); // Redirect to home for children
-    }
+    // }
   };
 
   // Show loading or error states
-  if (loading) {
-    return <div className="player-selector">Loading players...</div>;
-  }
-
-  if (error) {
-    return <div className="player-selector">{error}</div>;
+  if (loading) return <div className="player-selector">Loading players...</div>;
+  if (error) return <div className="player-selector">{error}</div>;
+  if (familyPlayers.length === 0) {
+    return <div className="player-selector">No players found. Create a profile?</div>;
   }
 
   // Render player tiles
-  return (
+    return (
     <div className="player-selector">
       <h2>Who's Playing?</h2>
       <div className="player-tiles">
@@ -92,9 +86,9 @@ function ChoosePlayer() {
           <button
             key={player.id}
             onClick={() => handlePlayerSelect(player)}
-            className="player-tile"
+            className={`player-tile ${currentPlayer?.id === player.id ? 'selected' : ''}`}
           >
-            {player.playerName}
+            {player.playerName} {player.isParent && '👑'}
           </button>
         ))}
       </div>
