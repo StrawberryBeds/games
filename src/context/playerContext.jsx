@@ -1,32 +1,29 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+// context/playerContext.jsx
+import { createContext, useState, useEffect } from 'react';
 import { useAuth } from './authContext';
 
-const PlayerContext = createContext();
+export const PlayerContext = createContext(); // Export the context itself
 
 export function PlayerProvider({ children }) {
   const { currentUser } = useAuth();
   const [requiresParentAuth, setRequiresParentAuth] = useState(false);
-
-  // Initialize state from localStorage
   const [currentPlayer, _setCurrentPlayer] = useState(() => {
     const savedPlayer = localStorage.getItem('currentPlayer');
     return savedPlayer ? JSON.parse(savedPlayer) : null;
   });
 
-  // Custom setter that updates both state and localStorage
   const setCurrentPlayer = (player) => {
     if (player) {
       localStorage.setItem('currentPlayer', JSON.stringify(player));
     } else {
-      localStorage.removeItem('currentPlayer'); // Clear if null
+      localStorage.removeItem('currentPlayer');
     }
-    _setCurrentPlayer(player); // Use the original setter (renamed to _setCurrentPlayer)
+    _setCurrentPlayer(player);
   };
 
-  // Clear currentPlayer if user logs out
   useEffect(() => {
     if (!currentUser) {
-      setCurrentPlayer(null); // Uses the custom setter
+      setCurrentPlayer(null);
       setRequiresParentAuth(false);
     }
   }, [currentUser]);
@@ -35,7 +32,7 @@ export function PlayerProvider({ children }) {
     <PlayerContext.Provider
       value={{
         currentPlayer,
-        setCurrentPlayer,          // Custom setter
+        setCurrentPlayer,
         requiresParentAuth,
         setRequiresParentAuth,
       }}
@@ -44,5 +41,3 @@ export function PlayerProvider({ children }) {
     </PlayerContext.Provider>
   );
 }
-
-export const usePlayerSelection = () => useContext(PlayerContext);

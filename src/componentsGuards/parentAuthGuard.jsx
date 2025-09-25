@@ -1,5 +1,5 @@
 // componentsGuards/parentAuthGuard.jsx
-import { usePlayerSelection } from '../context/playerContext';
+import { usePlayerSelection } from './context/usePlayerSelection';
 import { Navigate, useLocation } from 'react-router-dom';
 
 function ParentAuthGuard({ children }) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/authContext';
-import { usePlayerSelection } from '../context/playerContext';
+import { usePlayerSelection } from './context/usePlayerSelection';
 import { useNavigate } from 'react-router-dom';
 import { query, where, onSnapshot, collection, doc } from 'firebase/firestore';
 import { db } from '../firebase';
