@@ -3,9 +3,8 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center horizontally */
-  justify-content: center; /* Center vertically */
-  min-height: 100vh; /* Ensure full viewport height */
 }
