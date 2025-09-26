@@ -26,6 +26,7 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
+  justify-content: center; /* Center content horizontally */
   width: 100%;
   min-width: fit-content;
   min-height: 100vh;
