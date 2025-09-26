@@ -73,8 +73,7 @@ function GameBoard({ cards: initialCards }) {
 
   return (
     <div className="game-container">
-      <Score matches={matches} turns={turns} />
-      <ResetButton onClick={handleReset} />
+
       <div className="game-board">
         {cards.map((card) => (
           <Card
@@ -86,6 +85,8 @@ function GameBoard({ cards: initialCards }) {
           />
         ))}
       </div>
+      <Score matches={matches} turns={turns} />
+      <ResetButton onClick={handleReset} />
     </div>
   );
 }
