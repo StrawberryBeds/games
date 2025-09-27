@@ -14,12 +14,20 @@ function ParentAuthPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  if (loading) 
+    return
+  <div>Loading ...</div>
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!password) {
       setError('Please enter your password.');
       return;
     }
+      if (!currentUser) {
+    setError('No user is signed in. Please sign in again.');
+    return;
+  }
     setLoading(true);
     setError(null);
     try {
