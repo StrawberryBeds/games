@@ -1,8 +1,19 @@
 // src/pages/PlayCardSet.jsx
+import { useAuth } from '../context/authContext';
 import { useParams } from 'react-router-dom';
 import GameBoard from '../components/GameBoard';
+import { useNavigate } from 'react-router-dom';
 
 function PlayCardSet() {
+
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+
+  if (!currentUser) {
+    navigate('/signin');
+    return null;
+  }
+
   const { id } = useParams();
 
   // Define card sets with absolute paths
