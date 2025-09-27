@@ -1,85 +1,89 @@
-// src/pages/CreatePlayerProfiles.jsx
-import React, { useState, useEffect } from 'react';
+// ManageProfilesPage.jsx
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
-import { doc, updateDoc } from 'firebase/firestore';
+// import { usePlayerSelection } from '../context/usePlayerSelection';
+import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import { onSnapshot } from 'firebase/firestore'; 
-import CreateParentPlayerProfile from '../componentsProfilePage/CreateParentPlayerProfile';
-import CreateChildPlayerProfile from '../componentsProfilePage/CreateChildPlayerProfiles';
 
 function ManageProfilesPage() {
   const { currentUser } = useAuth();
+  // const { currentPlayer, setRequiresParentAuth } = usePlayerSelection();
   const navigate = useNavigate();
-  const [childProfiles, setChildProfiles] = useState([{id: 1}]);
-  const [parentComplete, setParentComplete] = useState(false);
+  const [familyPlayers, setFamilyPlayers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // Redirect if not logged in or no player selected
   useEffect(() => {
     if (!currentUser) {
       navigate('/signin');
     }
   }, [currentUser, navigate]);
 
-const handleFinish = async () => {
-  try {
-    await updateDoc(doc(db, "players", currentUser.uid), {
-      setupComplete: true,
-    });
-
-    // Wait for the local context to update (e.g., via onSnapshot)
-    await new Promise((resolve) => {
-      const unsubscribe = onSnapshot(
-        doc(db, "players", currentUser.uid),
-        (doc) => {
-          if (doc.data()?.setupComplete) {
-            resolve();
-            unsubscribe();
-          }
+  // Fetch family players
+  useEffect(() => {
+    const fetchFamilyPlayers = async () => {
+      if (!currentUser) return;
+      try {
+        setLoading(true);
+        const parentPlayerRef = doc(db, 'players', currentUser.uid);
+        const parentPlayerSnap = await getDoc(parentPlayerRef);
+        if (!parentPlayerSnap.exists()) {
+          throw new Error("Parent player profile not found!");
         }
-      );
-    });
+        const parentPlayerData = parentPlayerSnap.data();
+        const familyId = parentPlayerData.familyId;
+        const playersQuery = query(
+          collection(db, 'players'),
+          where('familyId', '==', familyId)
+        );
+        const querySnapshot = await getDocs(playersQuery);
+        const players = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setFamilyPlayers(players);
+      } catch (err) {
+        console.error("Error fetching family players:", err);
+        setError("Failed to load family players. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchFamilyPlayers();
+  }, [currentUser]);
 
-    navigate('/player'); // Now safe to navigate
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
+  // Handle "Edit Profiles" button click
+  // const handleEditProfiles = () => {
+  //   if (!currentPlayer) {
+  //     alert("No player selected!");
+  //     return;
+  //   }
+  //   if (currentPlayer.isParent) {
+  //     setRequiresParentAuth(true); // Trigger parent auth
+  //     navigate('/parent-auth');    // Redirect to password prompt
+  //   } else {
+  //     alert("Only parents can manage profiles.");
+  //   }
+  // };
 
+  if (loading) return <div>Loading players...</div>;
+  if (error) return <div>{error}</div>;
 
-    return (
-    <div className="profile-creation-container">
-      <h2>Manage Your Family Profiles</h2>
-      <h2>{currentUser.uid}</h2>
-
-      <div className="parent-profile-section">
-        <h3>Parent Profile</h3>
-        <CreateParentPlayerProfile onComplete={() => setParentComplete(true)} />
-      </div>
-
-      <div className="child-profiles-section">
-        <h3>Child Profiles</h3>
-        {childProfiles.map(profile => (
-          <CreateChildPlayerProfile
-            key={profile.id}
-            profileId={profile.id}
-          />
+  return (
+    <div className="profile-page">
+      <h2>Your Family Profiles</h2>
+      {/* <button onClick={handleEditProfiles}>Edit Profiles</button> */}
+      <div className="player-tiles">
+        {familyPlayers.map((player) => (
+          <div key={player.id} className="player-tile">
+            <h3>{player.playerName}</h3>
+            <p>Avatar: {player.playerAvatar}</p>
+            <p>DOB: {player.playerDOB}</p>
+          </div>
         ))}
-
-        <button
-          onClick={() => setChildProfiles([...childProfiles, {id: childProfiles.length + 1}])}
-          className="add-child-button"
-        >
-          Add Another Child
-        </button>
       </div>
-
-      <button
-        onClick={handleFinish}
-        disabled={!parentComplete}
-        className="finish-button"
-      >
-        Finish Profile Creation
-      </button>
     </div>
   );
 }
