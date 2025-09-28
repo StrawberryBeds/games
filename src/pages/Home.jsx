@@ -1,5 +1,5 @@
 // src/pages/Home.jsx
-import CardSetSelection from '../components/CardSetSelection';
+import CardSetSelection from '../componentsPlayCardSet/CardSetSelection';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
 
