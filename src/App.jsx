@@ -12,8 +12,8 @@ import SignInPage from "./pages/SignInPage";
 import CreateProfilesPage from "./pages/CreatePlayerProfiles"
 import ManageProfilesPage from './pages/ManagePlayerProfiles';
 import ProfilePage from "./pages/ProfilePage";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./componentsShared/Header";
+import Footer from "./componentsShared/Footer";
 import { AuthProvider } from "./context/authContext";
 import ChoosePlayer from "./pages/ChoosePlayer";
 import { PlayerProvider } from "./context/playerContext";

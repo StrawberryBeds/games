@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAuth } from '../context/authContext';
+import { useAuth } from '../context/authContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import SignOutButton from './SignOutButton.jsx';
 import './Header.css';
