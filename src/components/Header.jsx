@@ -1,26 +1,34 @@
 import { useState } from 'react';
-import './Header.css';
+import { useAuth } from '../context/authContext';
+import { useNavigate } from 'react-router-dom';
 import SignOutButton from './SignOutButton.jsx';
+import './Header.css';
 
 function Header() {
+  const { currentUser } = useAuth();
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const toggleNav = () => {
-    setIsNavOpen(!isNavOpen);
-  };
+  const toggleNav = () => setIsNavOpen(!isNavOpen);
 
   return (
     <header className="header">
       <div className="header-logo">Ludico</div>
-      <button className="hamburger" onClick={toggleNav}>
-        ☰ {/* Hamburger icon */}
-      </button>
+      <button className="hamburger" onClick={toggleNav}>☰</button>
       <nav className={`header-nav ${isNavOpen ? 'open' : ''}`}>
-        <button>Play Games</button>
-        <button>Profile</button>
-        <button>Create Your Account</button>
-        <button >Sign In</button>
-        <SignOutButton />
+        <button onClick={() => navigate('/games')}>Play Games</button>
+
+        {currentUser ? (
+          <>
+            <button onClick={() => navigate('/profile')}>Profile</button>
+            <SignOutButton />
+          </>
+        ) : (
+          <>
+            <button onClick={() => navigate('/signup')}>Create Your Account</button>
+            <button onClick={() => navigate('/signin')}>Sign In</button>
+          </>
+        )}
       </nav>
     </header>
   );
