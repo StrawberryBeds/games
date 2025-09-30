@@ -31,7 +31,7 @@ import { usePlayerSelection } from "./context/usePlayerSelection"
 // In AppRoutes function inside App.jsx
 function AppRoutes() {
   const { currentUser } = useAuth();
-  const { currentPlayer } = usePlayerSelection();
+  const { selectedPlayer } = usePlayerSelection();
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -107,7 +107,7 @@ function AppRoutes() {
   }
 
   // If user is signed in but no player selected, show player selection
-  if (!currentPlayer) {
+  if (!selectedPlayer) {
     return (
       <Routes>
         {/* <Route path="/createprofiles" element={<CreateProfilesPage />} /> */}

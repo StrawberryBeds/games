@@ -3,8 +3,6 @@ import CardSetSelection from '../componentsPlayCardSet/CardSetSelection';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
 
-
-
 function Home() {
 
   const { currentUser } = useAuth();

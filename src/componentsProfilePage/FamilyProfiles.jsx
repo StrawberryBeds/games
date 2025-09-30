@@ -1,14 +1,14 @@
-// ManageProfilesPage.jsx
+// ProfilePage.jsx
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
-// import { usePlayerSelection } from '../context/usePlayerSelection';
+import { usePlayerSelection } from '../context/usePlayerSelection';
 import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
-function ManageProfilesPage() {
+function FamilyProfiles() {
   const { currentUser } = useAuth();
-  // const { selectedPlayer, setRequiresParentAuth } = usePlayerSelection();
+  const { selectedPlayer, setRequiresParentAuth } = usePlayerSelection();
   const navigate = useNavigate();
   const [familyPlayers, setFamilyPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -55,18 +55,18 @@ function ManageProfilesPage() {
   }, [currentUser]);
 
   // Handle "Edit Profiles" button click
-  // const handleEditProfiles = () => {
-  //   if (!selectedPlayer) {
-  //     alert("No player selected!");
-  //     return;
-  //   }
-  //   if (selectedPlayer.isParent) {
-  //     setRequiresParentAuth(true); // Trigger parent auth
-  //     navigate('/parent-auth');    // Redirect to password prompt
-  //   } else {
-  //     alert("Only parents can manage profiles.");
-  //   }
-  // };
+  const handleEditProfiles = () => {
+    if (!selectedPlayer) {
+      alert("No player selected!");
+      return;
+    }
+    if (selectedPlayer.isParent) {
+      setRequiresParentAuth(true); // Trigger parent auth
+      navigate('/parent-auth');    // Redirect to password prompt
+    } else {
+      alert("Only parents can manage profiles.");
+    }
+  };
 
   if (loading) return <div>Loading players...</div>;
   if (error) return <div>{error}</div>;
@@ -74,7 +74,7 @@ function ManageProfilesPage() {
   return (
     <div className="profile-page">
       <h2>Your Family Profiles</h2>
-      {/* <button onClick={handleEditProfiles}>Edit Profiles</button> */}
+      <button onClick={handleEditProfiles}>Edit Profiles</button>
       <div className="player-tiles">
         {familyPlayers.map((player) => (
           <div key={player.id} className="player-tile">
@@ -88,4 +88,4 @@ function ManageProfilesPage() {
   );
 }
 
-export default ManageProfilesPage;
+export default FamilyProfiles;

@@ -7,7 +7,7 @@ import { db } from '../firebase';
 
 function ChoosePlayer() {
   const { currentUser } = useAuth();
-  const { currentPlayer, setCurrentPlayer } = usePlayerSelection();
+  const { selectedPlayer, setSelectedPlayer } = usePlayerSelection();
   const navigate = useNavigate();
   const [familyPlayers, setFamilyPlayers] = useState([]); // State to store fetched players
   const [loading, setLoading] = useState(true); // Loading state
@@ -59,7 +59,7 @@ function ChoosePlayer() {
 
   // TO DO : Revise this so remove select player without requiresParentAuth
   const handlePlayerSelect = (player) => {
-    setCurrentPlayer(player);
+    setSelectedPlayer(player);
     // if (player.isParent) {
     //   setRequiresParentAuth(true); // Trigger password prompt
     //   navigate('/');
@@ -86,7 +86,7 @@ function ChoosePlayer() {
           <button
             key={player.id}
             onClick={() => handlePlayerSelect(player)}
-            className={`player-tile ${currentPlayer?.id === player.id ? 'selected' : ''}`}
+            className={`player-tile ${selectedPlayer?.id === player.id ? 'selected' : ''}`}
           >
             {player.playerName} {player.isParent && '👑'}
           </button>
