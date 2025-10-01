@@ -10,7 +10,7 @@ function PlayerProfile() {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
   // Destructure to get the actual player object
-  const { selectedPlayer } = usePlayerSelection(); // <-- Fix: Add destructuring
+  const { selectedPlayer, setRequiresParentAuth } = usePlayerSelection();
   const [playerProfile, setPlayerProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -52,6 +52,20 @@ function PlayerProfile() {
     fetchPlayerProfile();
   }, [selectedPlayer?.id]); // Re-run when player ID changes
 
+    // Handle "Edit Profiles" button click
+  const handleEditProfiles = () => {
+    if (!selectedPlayer) {
+      alert("No player selected!");
+      return;
+    }
+    if (selectedPlayer.isParent) {
+      setRequiresParentAuth(true); // Trigger parent auth
+      navigate('/parent-auth');    // Redirect to password prompt
+    } else {
+      alert("Only parents can manage profiles.");
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!playerProfile) return <div>No player profile found.</div>;
@@ -66,6 +80,7 @@ function PlayerProfile() {
           <p>Parent ID: {playerProfile.parentPlayerId}</p>
         )} */}
       </div>
+            <button onClick={handleEditProfiles}>View Family Profiles - Parent's Only</button>
     </div>
   );
 }
