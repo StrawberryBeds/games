@@ -7,6 +7,7 @@ import { doc, getDoc, addDoc, collection, updateDoc, arrayUnion } from 'firebase
 function CreateChildPlayerProfile({ profileId, avatars }) {
   const { currentUser } = useAuth();
   const [formData, setFormData] = useState({
+    givenName: '',
     playerName: '',
     playerAvatar: '',
     playerDOB: ''
@@ -76,14 +77,27 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
 
   return (
     <form onSubmit={handleSubmit} className="child-profile-form">
-      <h4>Child Profile {profileId}</h4>
+      <h4>Child Profile</h4>
 
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
 
+            {/* Player Name Field */}
+      <div className="form-group">
+        <label htmlFor={`givenName-${profileId}`}>Child's Given Name</label>
+        <input
+          type="text"
+          id={`givenName-${profileId}`}
+          name="givenName"
+          value={formData.givenName}
+          onChange={handleChange}
+          required
+        />
+      </div>
+
       {/* Player Name Field */}
       <div className="form-group">
-        <label htmlFor={`playerName-${profileId}`}>Player Name</label>
+        <label htmlFor={`playerName-${profileId}`}>Child's Player Name</label>
         <input
           type="text"
           id={`playerName-${profileId}`}
@@ -96,7 +110,7 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
 
       {/* Date of Birth Field */}
       <div className="form-group">
-        <label htmlFor={`playerDOB-${profileId}`}>Date of Birth</label>
+        <label htmlFor={`playerDOB-${profileId}`}>Child's Date of Birth</label>
         <input
           type="date"
           id={`playerDOB-${profileId}`}

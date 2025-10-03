@@ -88,7 +88,7 @@ function ChoosePlayer() {
             onClick={() => handlePlayerSelect(player)}
             className={`player-tile ${selectedPlayer?.id === player.id ? 'selected' : ''}`}
           >
-            {player.playerName} {player.isParent && '👑'}
+            {player.playerName} {player.isParent && '🧑‍🧒'}
           </button>
         ))}
       </div>
