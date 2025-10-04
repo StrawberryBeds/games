@@ -5,6 +5,7 @@ import { useAuth } from '../context/authContext';
 import { usePlayerSelection } from "../context/usePlayerSelection";
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import PlayerTile from '../componentsShared/PlayerTile'
 
 function PlayerProfile() {
   const navigate = useNavigate();
@@ -74,13 +75,13 @@ function PlayerProfile() {
     <div className="profile-page">
       <h2>{playerProfile.playerName}'s Profile</h2>
       <div className="player-tile">
-        <p>Avatar: {playerProfile.playerAvatar}</p>
-        <p>Date of Birth: {playerProfile.playerDOB}</p>
-        {/* {playerProfile.parentPlayerId && (
-          <p>Parent ID: {playerProfile.parentPlayerId}</p>
-        )} */}
+        <PlayerTile
+            key={selectedPlayer.id}
+            player={selectedPlayer}
+            isSelected={selectedPlayer?.id === selectedPlayer.id}
+          />
       </div>
-            <button onClick={handleEditProfiles}>View Family Profiles - Parent's Only</button>
+            <button onClick={handleEditProfiles}>View Family Profiles - Parents Only</button>
     </div>
   );
 }
