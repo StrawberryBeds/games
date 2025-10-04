@@ -1,10 +1,18 @@
 // ProfilePage.jsx
-import { useState, useEffect } from 'react';
-import { useAuth } from '../context/authContext';
-import { useNavigate } from 'react-router-dom';
-import { usePlayerSelection } from '../context/usePlayerSelection';
-import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { useState, useEffect } from "react";
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
+import { usePlayerSelection } from "../context/usePlayerSelection";
+import {
+  query,
+  where,
+  getDocs,
+  collection,
+  doc,
+  getDoc,
+} from "firebase/firestore";
+import { db } from "../firebase";
+import PlayerTile from "../componentsShared/PlayerTile";
 
 function FamilyProfiles() {
   const { currentUser } = useAuth();
@@ -17,7 +25,7 @@ function FamilyProfiles() {
   // Redirect if not logged in or no player selected
   useEffect(() => {
     if (!currentUser) {
-      navigate('/signin');
+      navigate("/signin");
     }
   }, [currentUser, navigate]);
 
@@ -27,7 +35,7 @@ function FamilyProfiles() {
       if (!currentUser) return;
       try {
         setLoading(true);
-        const parentPlayerRef = doc(db, 'players', currentUser.uid);
+        const parentPlayerRef = doc(db, "players", currentUser.uid);
         const parentPlayerSnap = await getDoc(parentPlayerRef);
         if (!parentPlayerSnap.exists()) {
           throw new Error("Parent player profile not found!");
@@ -35,13 +43,13 @@ function FamilyProfiles() {
         const parentPlayerData = parentPlayerSnap.data();
         const familyId = parentPlayerData.familyId;
         const playersQuery = query(
-          collection(db, 'players'),
-          where('familyId', '==', familyId)
+          collection(db, "players"),
+          where("familyId", "==", familyId)
         );
         const querySnapshot = await getDocs(playersQuery);
-        const players = querySnapshot.docs.map(doc => ({
+        const players = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
         setFamilyPlayers(players);
       } catch (err) {
@@ -62,7 +70,7 @@ function FamilyProfiles() {
     }
     if (selectedPlayer.isParent) {
       setRequiresParentAuth(true); // Trigger parent auth
-      navigate('/parent-auth');    // Redirect to password prompt
+      navigate("/parent-auth"); // Redirect to password prompt
     } else {
       alert("Only parents can manage profiles.");
     }
@@ -77,11 +85,12 @@ function FamilyProfiles() {
       <button onClick={handleEditProfiles}>Edit Profiles</button>
       <div className="player-tiles">
         {familyPlayers.map((player) => (
-          <div key={player.id} className="player-tile">
-            <h3>{player.playerName}</h3>
-            <p>Avatar: {player.playerAvatar}</p>
-            <p>DOB: {player.playerDOB}</p>
-          </div>
+          <PlayerTile
+            key={player.id}
+            player={player}
+            // onClick={() => handlePlayerSelect(player)}
+            isSelected={selectedPlayer?.id === player.id}
+          />
         ))}
       </div>
     </div>

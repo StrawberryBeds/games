@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 // import { usePlayerSelection } from '../context/usePlayerSelection';
 import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
+import PlayerTile from '../componentsShared/PlayerTile';
 
 function ManageProfilesPage() {
   const { currentUser } = useAuth();
@@ -73,15 +74,16 @@ function ManageProfilesPage() {
 
   return (
     <div className="profile-page">
-      <h2>Your Family Profiles</h2>
+      <h2>Choose a profile to edit</h2>
       {/* <button onClick={handleEditProfiles}>Edit Profiles</button> */}
       <div className="player-tiles">
         {familyPlayers.map((player) => (
-          <div key={player.id} className="player-tile">
-            <h3>{player.playerName}</h3>
-            <p>Avatar: {player.playerAvatar}</p>
-            <p>DOB: {player.playerDOB}</p>
-          </div>
+                    <PlayerTile
+            key={player.id}
+            player={player}
+            // onClick={() => handlePlayerSelect(player)}
+            // isSelected={selectedPlayer?.id === player.id}
+          />
         ))}
       </div>
     </div>
