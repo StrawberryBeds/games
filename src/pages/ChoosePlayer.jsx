@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useAuth } from '../context/authContext';
-import { usePlayerSelection } from '../context/usePlayerSelection';
-import { useNavigate } from 'react-router-dom';
-import { query, where, onSnapshot, collection, doc } from 'firebase/firestore';
-import { db } from '../firebase';
+import React, { useEffect, useState } from "react";
+import { useAuth } from "../context/authContext";
+import { usePlayerSelection } from "../context/usePlayerSelection";
+import { useNavigate } from "react-router-dom";
+import { query, where, onSnapshot, collection, doc } from "firebase/firestore";
+import { db } from "../firebase";
+// import playerAvatars from '../data/playerAvatars'
+import PlayerTile from "../componentsShared/PlayerTile";
 
 function ChoosePlayer() {
   const { currentUser } = useAuth();
@@ -16,17 +18,17 @@ function ChoosePlayer() {
   // Redirect if not logged in
   useEffect(() => {
     if (!currentUser) {
-      navigate('/signin');
+      navigate("/signin");
     }
   }, [currentUser, navigate]);
 
-   // Fetch and listen for family players
+  // Fetch and listen for family players
   useEffect(() => {
     if (!currentUser) return;
-    const parentPlayerRef = doc(db, 'players', currentUser.uid);
+    const parentPlayerRef = doc(db, "players", currentUser.uid);
     const unsubscribe = onSnapshot(parentPlayerRef, (parentSnap) => {
       if (!parentSnap.exists()) {
-        navigate('/createprofile');
+        navigate("/createprofile");
         return;
       }
       const familyId = parentSnap.data().familyId;
@@ -36,13 +38,16 @@ function ChoosePlayer() {
         return;
       }
       const playersQuery = query(
-        collection(db, 'players'),
-        where('familyId', '==', familyId)
+        collection(db, "players"),
+        where("familyId", "==", familyId)
       );
       const unsubscribePlayers = onSnapshot(
         playersQuery,
         (snapshot) => {
-          const players = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          const players = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
           setFamilyPlayers(players);
           setLoading(false);
         },
@@ -64,9 +69,9 @@ function ChoosePlayer() {
     //   setRequiresParentAuth(true); // Trigger password prompt
     //   navigate('/');
     // } else {
-      console.log("Current User:", currentUser)
-      console.log("Current Player:", player)
-      navigate('/'); // Redirect to home for children
+    console.log("Current User:", currentUser);
+    console.log("Current Player:", player);
+    navigate("/"); // Redirect to home for children
     // }
   };
 
@@ -74,22 +79,23 @@ function ChoosePlayer() {
   if (loading) return <div className="player-selector">Loading players...</div>;
   if (error) return <div className="player-selector">{error}</div>;
   if (familyPlayers.length === 0) {
-    return <div className="player-selector">No players found. Create a profile?</div>;
+    return (
+      <div className="player-selector">No players found. Create a profile?</div>
+    );
   }
 
   // Render player tiles
-    return (
+  return (
     <div className="player-selector">
       <h2>Who's Playing?</h2>
       <div className="player-tiles">
         {familyPlayers.map((player) => (
-          <button
+          <PlayerTile
             key={player.id}
+            player={player}
             onClick={() => handlePlayerSelect(player)}
-            className={`player-tile ${selectedPlayer?.id === player.id ? 'selected' : ''}`}
-          >
-            {player.playerName} {player.isParent && '🧑‍🧒'}
-          </button>
+            isSelected={selectedPlayer?.id === player.id}
+          />
         ))}
       </div>
     </div>
