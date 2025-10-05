@@ -19,6 +19,7 @@ function PlayCardSet() {
   const cardSets = [
     {
       id: "0",
+      name: "Emojis",
       image: "/assets/cardsets/emojis/smiley_1F60A.svg",
       Cards: [
         {
@@ -59,6 +60,7 @@ function PlayCardSet() {
     },
     {
       id: "1",
+      name: "Constellations",
       image: "/assets/cardsets/constellations/Carina.svg",
       Cards: [
         {
@@ -113,7 +115,7 @@ function PlayCardSet() {
   }
 
   // Pass the selected set's Cards to GameBoard
-  return <GameBoard cards={selectedSet.Cards} />;
+  return <GameBoard cards={selectedSet.Cards} cardSetName={selectedSet.name} />;
 }
 
 export default PlayCardSet;

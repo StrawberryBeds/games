@@ -8,7 +8,8 @@ import { db } from "../firebase";
 import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 
-function GameBoard({ cards: initialCards }) {
+
+function GameBoard({ cards: initialCards, cardSetName }) {
   console.log("Initial Cards in GameBoard:", initialCards); // Debug line
 
   const [cards, setCards] = useState(shuffleCards(initialCards));
@@ -66,28 +67,36 @@ function GameBoard({ cards: initialCards }) {
     }
   }, [solvedIndices, cards.length]);
 
-  const saveScore = async () => {
-    if (!solvedIndices.length === cards.length && cards.length > 0) {
-      return;
-    }
-    try {
-      // 1. Get player document
-      const playerDoc = await getDoc(
-        doc(db, "players", selectedPlayer.playerId)
-      );
-      if (!playerDoc.exists()) {
-        throw new Error("Player profile not found");
-      }
+ const saveScore = async () => {
+  if (!(solvedIndices.length === cards.length && cards.length > 0)) {
+    return; // Early exit if game isn't completed
+  }
 
-      // 4. Update parent's childPlayers array
-      await updateDoc(doc(db, "players", selectedPlayer.playerId), {
-        scores: arrayUnion(turns),
-      });
-      console.log("Score saved successfully!", turns);
-    } catch {
-      console.log("Score NOT saved", turns);
+  try {
+    // 1. Get player document
+    const playerDoc = await getDoc(doc(db, "players", selectedPlayer.playerId));
+    if (!playerDoc.exists()) {
+      throw new Error("Player profile not found");
     }
-  };
+
+    // 2. Create a score object with turns and timestamp
+    const scoreEntry = {
+      turns: turns, // Existing score (e.g., number of turns)
+      date: new Date().toISOString(), // ISO format for consistency (e.g., "2025-10-05T12:34:56.789Z")
+      cardSet: cardSetName
+    };
+
+    // 3. Update the scores array with the new entry
+    await updateDoc(doc(db, "players", selectedPlayer.playerId), {
+      scores: arrayUnion(scoreEntry),
+    });
+
+    console.log("Score saved successfully!", scoreEntry);
+  } catch (error) {
+    console.error("Error saving score:", error);
+  }
+};
+
 
   const handleReset = () => {
     setCards(shuffleCards(initialCards));
