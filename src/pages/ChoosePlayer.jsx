@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/authContext";
-import { usePlayerSelection } from "../context/usePlayerSelection";
+import { usePlayerSelection,  } from "../context/usePlayerSelection";
 import { useNavigate } from "react-router-dom";
 import { query, where, onSnapshot, collection, doc } from "firebase/firestore";
 import { db } from "../firebase";
@@ -9,7 +9,7 @@ import PlayerTile from "../componentsShared/PlayerTile";
 
 function ChoosePlayer() {
   const { currentUser } = useAuth();
-  const { selectedPlayer, setSelectedPlayer } = usePlayerSelection();
+  const { selectedPlayer, setSelectedPlayer, setRequiresParentAuth  } = usePlayerSelection();
   const navigate = useNavigate();
   const [familyPlayers, setFamilyPlayers] = useState([]); // State to store fetched players
   const [loading, setLoading] = useState(true); // Loading state
@@ -65,14 +65,14 @@ function ChoosePlayer() {
   // TO DO : Revise this so remove select player without requiresParentAuth
   const handlePlayerSelect = (player) => {
     setSelectedPlayer(player);
-    // if (player.isParent) {
-    //   setRequiresParentAuth(true); // Trigger password prompt
-    //   navigate('/');
-    // } else {
+    if (player.isParent) {
+      setRequiresParentAuth(true); // Trigger password prompt
+      navigate('/parent-auth');
+    } else {
     console.log("Current User:", currentUser);
     console.log("Current Player:", player);
     navigate("/"); // Redirect to home for children
-    // }
+    }
   };
 
   // Show loading or error states

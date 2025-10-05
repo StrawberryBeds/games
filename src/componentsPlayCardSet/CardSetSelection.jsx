@@ -9,8 +9,8 @@ function CardSetSelection() {
   const selectedPlayer = usePlayerSelection()
   const navigate = useNavigate();
 
-  const handleCardClick = (id) => {
-    navigate(`/cardSet/${id}`);
+  const handleCardClick = (id, name) => {
+    navigate(`/cardSet/${id}`), name;
     console.log("CardSetSelection: ", selectedPlayer)
   };
 

@@ -4,6 +4,10 @@ import Score from "./Score";
 import ResetButton from "./ResetButton";
 import "./GameBoard.css";
 
+import { db } from "../firebase";
+import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { usePlayerSelection } from "../context/usePlayerSelection";
+
 function GameBoard({ cards: initialCards }) {
   console.log("Initial Cards in GameBoard:", initialCards); // Debug line
 
@@ -12,6 +16,8 @@ function GameBoard({ cards: initialCards }) {
   const [solvedIndices, setSolvedIndices] = useState([]);
   const [turns, setTurns] = useState(0);
   const [matches, setMatches] = useState(0);
+
+  const { selectedPlayer } = usePlayerSelection();
 
   function shuffleCards(cardList) {
     if (!cardList) {
@@ -56,8 +62,32 @@ function GameBoard({ cards: initialCards }) {
   useEffect(() => {
     if (solvedIndices.length === cards.length && cards.length > 0) {
       alert("Well done! Take a moment to admire your skill and get well soon!");
+      saveScore(solvedIndices);
     }
   }, [solvedIndices, cards.length]);
+
+  const saveScore = async () => {
+    if (!solvedIndices.length === cards.length && cards.length > 0) {
+      return;
+    }
+    try {
+      // 1. Get player document
+      const playerDoc = await getDoc(
+        doc(db, "players", selectedPlayer.playerId)
+      );
+      if (!playerDoc.exists()) {
+        throw new Error("Player profile not found");
+      }
+
+      // 4. Update parent's childPlayers array
+      await updateDoc(doc(db, "players", selectedPlayer.playerId), {
+        scores: arrayUnion(turns),
+      });
+      console.log("Score saved successfully!", turns);
+    } catch {
+      console.log("Score NOT saved", turns);
+    }
+  };
 
   const handleReset = () => {
     setCards(shuffleCards(initialCards));
@@ -81,7 +111,10 @@ function GameBoard({ cards: initialCards }) {
             key={card.id}
             id={card.id}
             image={card.cardImage}
-            isFlipped={flippedIndices.includes(card.id) || solvedIndices.includes(card.id)}
+            isFlipped={
+              flippedIndices.includes(card.id) ||
+              solvedIndices.includes(card.id)
+            }
             onClick={handleCardClick}
           />
         ))}
