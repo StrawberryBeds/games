@@ -1,15 +1,22 @@
-// ManageProfilesPage.jsx
-import { useState, useEffect } from 'react';
-import { useAuth } from '../context/authContext';
-import { useNavigate } from 'react-router-dom';
-// import { usePlayerSelection } from '../context/usePlayerSelection';
-import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
-import PlayerTile from '../componentsShared/PlayerTile';
+// ProfilePage.jsx
+import { useState, useEffect } from "react";
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
+import { usePlayerSelection } from "../context/usePlayerSelection";
+import {
+  query,
+  where,
+  getDocs,
+  collection,
+  doc,
+  getDoc,
+} from "firebase/firestore";
+import { db } from "../firebase";
+import PlayerTile from "../componentsShared/PlayerTile";
 
-function ManageProfilesPage() {
+function FamilyProfiles() {
   const { currentUser } = useAuth();
-  // const { selectedPlayer, setRequiresParentAuth } = usePlayerSelection();
+  const { selectedPlayer, setRequiresParentAuth } = usePlayerSelection();
   const navigate = useNavigate();
   const [familyPlayers, setFamilyPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +25,7 @@ function ManageProfilesPage() {
   // Redirect if not logged in or no player selected
   useEffect(() => {
     if (!currentUser) {
-      navigate('/signin');
+      navigate("/signin");
     }
   }, [currentUser, navigate]);
 
@@ -28,7 +35,7 @@ function ManageProfilesPage() {
       if (!currentUser) return;
       try {
         setLoading(true);
-        const parentPlayerRef = doc(db, 'players', currentUser.uid);
+        const parentPlayerRef = doc(db, "players", currentUser.uid);
         const parentPlayerSnap = await getDoc(parentPlayerRef);
         if (!parentPlayerSnap.exists()) {
           throw new Error("Parent player profile not found!");
@@ -36,13 +43,13 @@ function ManageProfilesPage() {
         const parentPlayerData = parentPlayerSnap.data();
         const familyId = parentPlayerData.familyId;
         const playersQuery = query(
-          collection(db, 'players'),
-          where('familyId', '==', familyId)
+          collection(db, "players"),
+          where("familyId", "==", familyId)
         );
         const querySnapshot = await getDocs(playersQuery);
-        const players = querySnapshot.docs.map(doc => ({
+        const players = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data()
+          ...doc.data(),
         }));
         setFamilyPlayers(players);
       } catch (err) {
@@ -56,33 +63,33 @@ function ManageProfilesPage() {
   }, [currentUser]);
 
   // Handle "Edit Profiles" button click
-  // const handleEditProfiles = () => {
-  //   if (!selectedPlayer) {
-  //     alert("No player selected!");
-  //     return;
-  //   }
-  //   if (selectedPlayer.isParent) {
-  //     setRequiresParentAuth(true); // Trigger parent auth
-  //     navigate('/parent-auth');    // Redirect to password prompt
-  //   } else {
-  //     alert("Only parents can manage profiles.");
-  //   }
-  // };
+  const handleEditProfiles = () => {
+    if (!selectedPlayer) {
+      alert("No player selected!");
+      return;
+    }
+    if (selectedPlayer.isParent) {
+      setRequiresParentAuth(true); // Trigger parent auth
+      navigate("/parent-auth"); // Redirect to password prompt
+    } else {
+      alert("Only parents can manage profiles.");
+    }
+  };
 
   if (loading) return <div>Loading players...</div>;
   if (error) return <div>{error}</div>;
 
   return (
     <div className="profile-page">
-      <h2>Choose a profile to edit</h2>
-      {/* <button onClick={handleEditProfiles}>Edit Profiles</button> */}
+      <h2>Your Family Profiles</h2>
+      <button onClick={handleEditProfiles}>Edit Profiles</button>
       <div className="player-tiles">
         {familyPlayers.map((player) => (
-                    <PlayerTile
+          <PlayerTile
             key={player.id}
             player={player}
             // onClick={() => handlePlayerSelect(player)}
-            // isSelected={selectedPlayer?.id === player.id}
+            isSelected={selectedPlayer?.id === player.id}
           />
         ))}
       </div>
@@ -90,4 +97,4 @@ function ManageProfilesPage() {
   );
 }
 
-export default ManageProfilesPage;
+export default FamilyProfiles;

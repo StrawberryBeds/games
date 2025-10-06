@@ -71,11 +71,155 @@ button:focus-visible {
   }
 }
 
-/* Media query for portrait orientation */
-@media screen and (orientation: portrait) {
-  header, footer {
-    height: 10vh; /* Increase or decrease the height as needed */
+/* Form container (optional, for spacing/alignment) */
+.form-group {
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+/* Text inputs (matches button height/padding) */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+textarea {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 0.6em 1.2em; /* Match button padding */
+  font-size: 1em;
+  font-family: inherit;
+  color: inherit; /* Inherit text color from :root */
+  background-color: #f9f9f9; /* Light background */
+  width: 100%;
+  max-width: 400px; /* Prevent overly wide inputs */
+  transition: border-color 0.25s, box-shadow 0.25s;
+  box-sizing: border-box; /* Include padding in width */
+}
+
+/* Focus states (matches button focus) */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #1baf27; /* Match button color */
+  box-shadow: 0 0 0 2px rgba(27, 175, 39, 0.2); /* Subtle glow */
+}
+
+/* Hover states */
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: #169c20; /* Darker green */
+}
+
+/* Placeholder text */
+input::placeholder,
+textarea::placeholder {
+  color: rgba(0, 0, 0, 0.5);
+  opacity: 1; /* Firefox compatibility */
+}
+
+/* Labels */
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: inherit;
+}
+
+/* Avatar selection container (future-proof) */
+.avatar-grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.avatar-option {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.25s;
+  overflow: hidden; /* Clip images to border-radius */
+}
+
+.avatar-option:hover {
+  border-color: #1baf27;
+}
+
+.avatar-option.selected {
+  border-color: #1baf27;
+  box-shadow: 0 0 0 2px rgba(27, 175, 39, 0.2);
+}
+
+.avatar-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Submit/reset buttons (reuse existing button styles) */
+input[type="submit"],
+input[type="reset"] {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  color: #000000;
+  background-color: #1baf27;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover {
+  border-color: #f9f9f9;
+}
+
+/* Dark/light mode adaptation */
+@media (prefers-color-scheme: light) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="date"],
+  select,
+  textarea {
+    background-color: #ffffff;
+    border-color: #ddd;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: #1baf27;
   }
 }
+
+/* Portrait orientation adjustments */
+@media screen and (orientation: portrait) {
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="date"],
+  select,
+  textarea {
+    padding: 0.75em 1em; /* Slightly more compact */
+  }
+}
+
+
+/* Media query for portrait orientation */
+/* @media screen and (orientation: portrait) { */
+  /* header, footer { */
+    /* height: 10vh;  */
+  /* }
+} */
 
 

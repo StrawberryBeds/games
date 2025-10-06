@@ -8,7 +8,11 @@
   height: 10vh; /* Adjust the height as needed */
   min-height: 50px; /* Set a minimum height */
   max-height: 100px; /* Set a maximum height */
+  position: relative;
+  box-sizing: border-box;
 }
+
+
 
 /* Styles for light mode */
 @media (prefers-color-scheme: light) {

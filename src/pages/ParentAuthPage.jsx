@@ -34,6 +34,8 @@ function ParentAuthPage() {
       const credential = EmailAuthProvider.credential(currentUser.email, password);
       await reauthenticateWithCredential(currentUser, credential);
       setRequiresParentAuth(false);
+
+// TO DO : See notes to improve this to allow navigation to destinations other than /manageprofile eg parent as player.      
       navigate(location.state?.from?.pathname || '/manageprofiles');
     } catch (err) {
       console.error("Reauthentication error:", err);

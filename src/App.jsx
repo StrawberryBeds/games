@@ -4,28 +4,34 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { doc } from 'firebase/firestore';
 import { db } from './firebase'; 
 import { onSnapshot } from 'firebase/firestore';
+
 import Home from "./pages/Home";
-import PlayCardSet from "./pages/PlayCardSet";
 import SignUpPage from "./pages/SignUpPage";
 import EmailVerificationPage from './pages/EmailVerificationPage';
+
 import SignInPage from "./pages/SignInPage";
+import ChoosePlayer from "./pages/ChoosePlayer";
+
+import ProfilePage from "./pages/ProfilePage";
+import ParentAuthPage from "./pages/ParentAuthPage";
 import CreateProfilesPage from "./pages/CreatePlayerProfiles"
 import ManageProfilesPage from './pages/ManagePlayerProfiles';
-import ProfilePage from "./pages/ProfilePage";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import { AuthProvider } from "./context/authContext";
-import ChoosePlayer from "./pages/ChoosePlayer";
-import { PlayerProvider } from "./context/playerContext";
+
+import PlayCardSet from "./pages/PlayCardSet";
+
+import Header from "./componentsShared/Header";
+import Footer from "./componentsShared/Footer";
 import ParentAuthGuard from "./componentsGuards/parentAuthGuard";
-import ParentAuthPage from "./pages/ParentAuthPage";
+
+import { AuthProvider } from "./context/authContext";
+import { PlayerProvider } from "./context/playerContext";
 import { useAuth } from "./context/authContext";
 import { usePlayerSelection } from "./context/usePlayerSelection"
 
 // In AppRoutes function inside App.jsx
 function AppRoutes() {
   const { currentUser } = useAuth();
-  const { currentPlayer } = usePlayerSelection();
+  const { selectedPlayer } = usePlayerSelection();
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -101,7 +107,7 @@ function AppRoutes() {
   }
 
   // If user is signed in but no player selected, show player selection
-  if (!currentPlayer) {
+  if (!selectedPlayer) {
     return (
       <Routes>
         {/* <Route path="/createprofiles" element={<CreateProfilesPage />} /> */}

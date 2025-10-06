@@ -4,7 +4,11 @@ import Score from "./Score";
 import ResetButton from "./ResetButton";
 import "./GameBoard.css";
 
-function GameBoard({ cards: initialCards }) {
+import { db } from "../firebase";
+import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { usePlayerSelection } from "../context/usePlayerSelection";
+
+function GameBoard({ cards: initialCards, cardSetName }) {
   console.log("Initial Cards in GameBoard:", initialCards); // Debug line
 
   const [cards, setCards] = useState(shuffleCards(initialCards));
@@ -12,6 +16,8 @@ function GameBoard({ cards: initialCards }) {
   const [solvedIndices, setSolvedIndices] = useState([]);
   const [turns, setTurns] = useState(0);
   const [matches, setMatches] = useState(0);
+
+  const { selectedPlayer } = usePlayerSelection();
 
   function shuffleCards(cardList) {
     if (!cardList) {
@@ -56,8 +62,47 @@ function GameBoard({ cards: initialCards }) {
   useEffect(() => {
     if (solvedIndices.length === cards.length && cards.length > 0) {
       alert("Well done! Take a moment to admire your skill and get well soon!");
+
+      const saveScore = async () => {
+        if (!(solvedIndices.length === cards.length && cards.length > 0)) {
+          return; // Early exit if game isn't completed
+        }
+
+        try {
+          // 1. Get player document
+          const playerDoc = await getDoc(
+            doc(db, "players", selectedPlayer.playerId)
+          );
+          if (!playerDoc.exists()) {
+            throw new Error("Player profile not found");
+          }
+
+          // 2. Create a score object with turns and timestamp
+          const scoreEntry = {
+            turns: turns, // Existing score (e.g., number of turns)
+            date: new Date().toISOString(), // ISO format for consistency (e.g., "2025-10-05T12:34:56.789Z")
+            cardSet: cardSetName,
+          };
+
+          // 3. Update the scores array with the new entry
+          await updateDoc(doc(db, "players", selectedPlayer.playerId), {
+            scores: arrayUnion(scoreEntry),
+          });
+
+          console.log("Score saved successfully!", scoreEntry);
+        } catch (error) {
+          console.error("Error saving score:", error);
+        }
+      };
+      saveScore();
     }
-  }, [solvedIndices, cards.length]);
+  }, [
+    solvedIndices,
+    cards.length,
+    turns,
+    selectedPlayer.playerId,
+    cardSetName,
+  ]);
 
   const handleReset = () => {
     setCards(shuffleCards(initialCards));
@@ -81,7 +126,10 @@ function GameBoard({ cards: initialCards }) {
             key={card.id}
             id={card.id}
             image={card.cardImage}
-            isFlipped={flippedIndices.includes(card.id) || solvedIndices.includes(card.id)}
+            isFlipped={
+              flippedIndices.includes(card.id) ||
+              solvedIndices.includes(card.id)
+            }
             onClick={handleCardClick}
           />
         ))}
