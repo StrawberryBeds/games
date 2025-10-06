@@ -1,11 +1,12 @@
 // src/components/ProfilePage/PlayerProfile.jsx
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/authContext';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 import { usePlayerSelection } from "../context/usePlayerSelection";
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
-import PlayerTile from '../componentsShared/PlayerTile'
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import PlayerTile from "../componentsShared/PlayerTile";
+import PlayerStats from "../componentsProfilePage/PlayerStats";
 
 function PlayerProfile() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function PlayerProfile() {
 
   useEffect(() => {
     if (!currentUser) {
-      navigate('/signin');
+      navigate("/signin");
     }
   }, [currentUser, navigate]);
 
@@ -34,7 +35,7 @@ function PlayerProfile() {
 
       try {
         setLoading(true);
-        const playerRef = doc(db, 'players', selectedPlayer.id);
+        const playerRef = doc(db, "players", selectedPlayer.id);
         const playerSnap = await getDoc(playerRef);
 
         if (!playerSnap.exists()) {
@@ -53,7 +54,7 @@ function PlayerProfile() {
     fetchPlayerProfile();
   }, [selectedPlayer?.id]); // Re-run when player ID changes
 
-    // Handle "Edit Profiles" button click
+  // Handle "Edit Profiles" button click
   const handleEditProfiles = () => {
     if (!selectedPlayer) {
       alert("No player selected!");
@@ -61,7 +62,7 @@ function PlayerProfile() {
     }
     if (selectedPlayer.isParent) {
       setRequiresParentAuth(true); // Trigger parent auth
-      navigate('/parent-auth');    // Redirect to password prompt
+      navigate("/parent-auth"); // Redirect to password prompt
     } else {
       alert("Only parents can manage profiles.");
     }
@@ -76,12 +77,21 @@ function PlayerProfile() {
       <h2>{playerProfile.playerName}'s Profile</h2>
       <div className="player-tile">
         <PlayerTile
-            key={selectedPlayer.id}
-            player={selectedPlayer}
-            isSelected={selectedPlayer?.id === selectedPlayer.id}
-          />
+          key={selectedPlayer.id}
+          player={selectedPlayer}
+          isSelected={selectedPlayer?.id === selectedPlayer.id}
+        />
       </div>
-            <button onClick={handleEditProfiles}>View Family Profiles - Parents Only</button>
+      <div>
+        <PlayerStats
+          key={selectedPlayer.id}
+          player={selectedPlayer}
+          isSelected={selectedPlayer?.id === selectedPlayer.id}
+        />
+      </div>
+      <button onClick={handleEditProfiles}>
+        View Family Profiles - Parents Only
+      </button>
     </div>
   );
 }
