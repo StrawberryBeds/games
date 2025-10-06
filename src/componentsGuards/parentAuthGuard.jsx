@@ -3,11 +3,11 @@ import { usePlayerSelection } from '../context/usePlayerSelection';
 import { Navigate, useLocation } from 'react-router-dom';
 
 function ParentAuthGuard({ children }) {
-  const { currentPlayer, requiresParentAuth } = usePlayerSelection();
+  const { selectedPlayer, requiresParentAuth } = usePlayerSelection();
   const location = useLocation();
 
   // If the user is NOT a parent, block access entirely
-  if (!currentPlayer?.isParent) {
+  if (!selectedPlayer?.isParent) {
     return <Navigate to="/" replace />;
   }
 

@@ -1,0 +1,38 @@
+.player-stats {
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.scores-header {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  font-weight: bold;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.score-entry {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.score-entry:last-child {
+  border-bottom: none;
+}
+
+.scores-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.scores-table th, .scores-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.scores-table th {
+  background-color: #f2f2f2;
+}

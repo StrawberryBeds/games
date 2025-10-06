@@ -7,23 +7,23 @@ export const PlayerContext = createContext(); // Export the context itself
 export function PlayerProvider({ children }) {
   const { currentUser } = useAuth();
   const [requiresParentAuth, setRequiresParentAuth] = useState(false);
-  const [currentPlayer, _setCurrentPlayer] = useState(() => {
-    const savedPlayer = localStorage.getItem('currentPlayer');
+  const [selectedPlayer, _setSelectedPlayer] = useState(() => {
+    const savedPlayer = localStorage.getItem('selectedPlayer');
     return savedPlayer ? JSON.parse(savedPlayer) : null;
   });
 
-  const setCurrentPlayer = (player) => {
+  const setSelectedPlayer = (player) => {
     if (player) {
-      localStorage.setItem('currentPlayer', JSON.stringify(player));
+      localStorage.setItem('selectedPlayer', JSON.stringify(player));
     } else {
-      localStorage.removeItem('currentPlayer');
+      localStorage.removeItem('selectedPlayer');
     }
-    _setCurrentPlayer(player);
+    _setSelectedPlayer(player);
   };
 
   useEffect(() => {
     if (!currentUser) {
-      setCurrentPlayer(null);
+      setSelectedPlayer(null);
       setRequiresParentAuth(false);
     }
   }, [currentUser]);
@@ -31,8 +31,8 @@ export function PlayerProvider({ children }) {
   return (
     <PlayerContext.Provider
       value={{
-        currentPlayer,
-        setCurrentPlayer,
+        selectedPlayer,
+        setSelectedPlayer,
         requiresParentAuth,
         setRequiresParentAuth,
       }}
