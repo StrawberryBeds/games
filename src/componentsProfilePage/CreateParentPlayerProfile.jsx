@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import { useAuth } from "../context/authContext";
 import { doc, setDoc } from "firebase/firestore"; // Use setDoc instead of addDoc
 import { v4 as uuidv4 } from "uuid";
@@ -48,6 +48,9 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
       });
       setSuccess("Parent profile created successfully!");
       if (onComplete) onComplete(true);
+      alert(
+        "I consent to the information I have given being used to create (1) a userId, (2) a familyId and (3) a playerId. I understand that: (1) the userId will be used to process payment information and to create my playerId, a familyId and playerIds for any child playerIds I choose to create; (2) the familyId will be used to associate me with my children as child players and associate them with me as a parent player; and (3) my playerId will be used to identify me as a player, the parentPlayer within a familyId, as the parent of the specific children I identify as childPlayers; and (4) that this playerId is used to record the results of my games (as an indivudal player) and place me in leaderboards; that it lets me create and modify child players, identifies me as responsible for (the parent of) child players, and gives me access to read and/modify the child players I have created; that the user account and parentProfile let me connect with other users (players identified as parentPlayers by giving credit card information) to expand my family network through the familyId. I understand that the data I provide is stored around the world on the servers of Firebase, a subsidiary of Alphabet, better known as Google, and that the date I provide is legally accessible to the employees of this site, Alphabet, and the legally appointed agents of Quebec, Canada, and the USA. The owner of this site is Samuel Wood. The owner of this site is located in Quebec, Canada, and is subject to the laws of Quebec, Canada, and the territories he (the owner) operates in. Alphabet is located in California, USA, and is subject to the laws of California, the USA, and the territories it (Alphabet) operates in. The Data Protection Officer for this site, globally and for the puposes of Quebec's Loi 25 and the European Union's GDPR, is Samuel Wood. He can be contacted for disclosure and deletion of personal data at samuel.l.wood@gmail.com. In case of dispute, this agreement is subject to the laws of Quebec, Canada."
+      );
     } catch (error) {
       setError(error.message);
       setSuccess("");

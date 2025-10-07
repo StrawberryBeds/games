@@ -1,9 +1,9 @@
 /* src/components/Card.css */
 .card {
-  width: 100px;
-  height: 150px;
+  width: clamp(60px, 15vw, 100px);
+  height: clamp(80px, 22.5vw, 150px);
   perspective: 1000px;
-  margin: 10px;
+  margin: 0; /* Remove margin, use gap in .game-board instead */
   cursor: pointer;
 }
 
@@ -39,11 +39,14 @@
 }
 
 /* Media query for portrait orientation */
-@media screen and (orientation: portrait) {
-.card {
-  width: 60px;
-  height: 80px;
-  perspective: 500px;
-  margin: 5px;
-}
+@media screen and (orientation: portrait) and (max-width: 768px) {
+  .card {
+    width: 20vw;
+    height: 30vw;
+    margin: 0; /* Remove margin */
+  }
+  .game-board {
+    gap: 2px;
+    padding: 0;
+  }
 }

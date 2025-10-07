@@ -1,6 +1,8 @@
 // componentsGuards/parentAuthGuard.jsx
 import { usePlayerSelection } from '../context/usePlayerSelection';
 import { Navigate, useLocation } from 'react-router-dom';
+import { auth, db } from '../firebase';
+
 
 function ParentAuthGuard({ children }) {
   const { selectedPlayer, requiresParentAuth } = usePlayerSelection();

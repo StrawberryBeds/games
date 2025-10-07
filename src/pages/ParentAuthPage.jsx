@@ -4,6 +4,8 @@ import { usePlayerSelection } from '../context/usePlayerSelection';
 import { useAuth } from '../context/authContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
+import { auth, db } from '../firebase';
+
 
 function ParentAuthPage() {
   const [password, setPassword] = useState('');

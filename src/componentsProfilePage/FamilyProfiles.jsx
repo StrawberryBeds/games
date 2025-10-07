@@ -11,7 +11,7 @@ import {
   doc,
   getDoc,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import PlayerTile from "../componentsShared/PlayerTile";
 
 function FamilyProfiles() {

@@ -13,6 +13,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+main {
+  flex: 1;
+  width: 100%;
+}
+
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -70,6 +76,13 @@ button:focus-visible {
     background-color: #1baf27;
   }
 }
+
+@media screen and (orientation: portrait) and (max-width: 768px) {
+  body {
+    padding-bottom: 70px;
+  }
+}
+
 
 /* Form container (optional, for spacing/alignment) */
 .form-group {
@@ -215,11 +228,5 @@ input[type="reset"]:hover {
 }
 
 
-/* Media query for portrait orientation */
-/* @media screen and (orientation: portrait) { */
-  /* header, footer { */
-    /* height: 10vh;  */
-  /* }
-} */
 
 

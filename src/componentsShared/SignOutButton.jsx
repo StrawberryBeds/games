@@ -1,7 +1,8 @@
 import { signOut } from 'firebase/auth';
-import { auth } from '../firebase';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
+import { auth, db } from '../firebase';
+
 
 function SignOutButton() {
   const { currentUser } = useAuth();

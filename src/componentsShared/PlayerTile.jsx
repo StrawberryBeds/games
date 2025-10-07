@@ -1,5 +1,7 @@
 import React from 'react';
 import './PlayerTile.css';
+import { auth, db } from '../firebase';
+
 
 function PlayerTile({ player, onClick, isSelected }) {
   // Map avatar IDs to image paths
