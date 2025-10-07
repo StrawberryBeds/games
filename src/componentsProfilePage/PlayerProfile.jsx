@@ -71,7 +71,6 @@ function PlayerProfile() {
 
   return (
     <div className="profile-page">
-      <h2>{playerProfile.playerName}'s Profile</h2>
       <div className="player-tile">
         <PlayerTile
           key={selectedPlayer.id}

@@ -16,6 +16,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ParentAuthPage from "./pages/ParentAuthPage";
 import CreateProfilesPage from "./pages/CreatePlayerProfiles"
 import ManageProfilesPage from './pages/ManagePlayerProfiles';
+import PlayerHistory from './componentsProfilePage/PlayerHistory';
 
 import PlayCardSet from "./pages/PlayCardSet";
 
@@ -127,6 +128,10 @@ function AppRoutes() {
       <Route
         path="/profile"
         element={!selectedPlayer ? <Navigate to="/notfound" /> : <ProfilePage />}
+      />
+            <Route
+        path="/playerhistory"
+        element={!selectedPlayer ? <Navigate to="/notfound" /> : <PlayerHistory />}
       />
 
 
