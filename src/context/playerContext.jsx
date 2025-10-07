@@ -2,14 +2,19 @@
 import { createContext, useState, useEffect } from 'react';
 import { useAuth } from './authContext';
 
-export const PlayerContext = createContext(); // Export the context itself
+const PlayerContext = createContext();
 
 export function PlayerProvider({ children }) {
   const { currentUser } = useAuth();
   const [requiresParentAuth, setRequiresParentAuth] = useState(false);
   const [selectedPlayer, _setSelectedPlayer] = useState(() => {
-    const savedPlayer = localStorage.getItem('selectedPlayer');
-    return savedPlayer ? JSON.parse(savedPlayer) : null;
+    try {
+      const savedPlayer = localStorage.getItem('selectedPlayer');
+      return savedPlayer ? JSON.parse(savedPlayer) : null;
+    } catch (e) {
+      console.error("Failed to parse selectedPlayer from localStorage", e);
+      return null;
+    }
   });
 
   const setSelectedPlayer = (player) => {
@@ -41,3 +46,5 @@ export function PlayerProvider({ children }) {
     </PlayerContext.Provider>
   );
 }
+
+export { PlayerContext }; // Named export

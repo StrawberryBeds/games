@@ -4,8 +4,10 @@ import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
 // import { usePlayerSelection } from '../context/usePlayerSelection';
 import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
 import PlayerTile from '../componentsShared/PlayerTile';
+
+
 
 function ManageProfilesPage() {
   const { currentUser } = useAuth();

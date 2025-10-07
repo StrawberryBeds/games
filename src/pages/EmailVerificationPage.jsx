@@ -1,7 +1,7 @@
 // pages/EmailVerificationPage.jsx
 import { useAuth } from "../context/authContext";
 import { sendEmailVerification } from "firebase/auth";
-// import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import { useState } from "react";
 // import { useNavigate } from 'react-router-dom';
 import PendingEmailVerification from "../componentsSignUp/PendingEmailVerification";

@@ -4,7 +4,7 @@ import Score from "./Score";
 import ResetButton from "./ResetButton";
 import "./GameBoard.css";
 
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 

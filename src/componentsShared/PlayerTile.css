@@ -64,6 +64,7 @@
 }
 
 .player-selector h2 {
-  color: white;
+  color: black;
   margin-bottom: 1.5rem;
+  align-items: center;
 }

@@ -3,6 +3,8 @@ import { useAuth } from '../context/authContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import SignOutButton from './SignOutButton.jsx';
 import './Header.css';
+import { auth, db } from '../firebase';
+
 
 function Header() {
   const { currentUser } = useAuth();

@@ -3,11 +3,12 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import { onSnapshot } from "firebase/firestore";
 import CreateParentPlayerProfile from "../componentsProfilePage/CreateParentPlayerProfile";
 import CreateChildPlayerProfile from "../componentsProfilePage/CreateChildPlayerProfiles";
 import "../componentsProfilePage/CreatePlayerProfiles.css"
+
 
 // Define avatars outside the component to avoid recreating on every render
 const AVATARS = [

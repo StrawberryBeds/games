@@ -3,6 +3,8 @@ import { useAuth } from "../context/authContext";
 import { useParams } from "react-router-dom";
 import GameBoard from "../componentsPlayCardSet/GameBoard";
 import { useNavigate } from "react-router-dom";
+import { auth, db } from '../firebase';
+
 
 function PlayCardSet() {
   const { currentUser } = useAuth();
