@@ -1,39 +1,30 @@
-    // Example for sign-up
-    import { auth } from './firebase';
-    import { createUserWithEmailAndPassword } from 'firebase/auth';
+// AuthProvider in api/firebaseAuthentication.jsx
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { auth } from './firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 
-    const handleSignUp = async (email, password) => {
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        // User signed up successfully
-      } catch (error) {
-        // Handle errors
-        console.error("Error signing up:", error.message);
-      }
-    };
+const AuthContext = createContext();
 
-        // Example useAuth hook (simplified)
-    import React, { createContext, useContext, useEffect, useState } from 'react';
-    import { auth } from './firebase';
-    import { onAuthStateChanged } from 'firebase/auth';
+export const AuthProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    const AuthContext = createContext();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setLoading(false);
+    }, (error) => {
+      console.error("Auth state error:", error);
+      setLoading(false);
+    });
+    return unsubscribe;
+  }, []);
 
-    export const AuthProvider = ({ children }) => {
-      const [currentUser, setCurrentUser] = useState(null);
+  return (
+    <AuthContext.Provider value={{ currentUser, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
 
-      useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-          setCurrentUser(user);
-        });
-        return unsubscribe;
-      }, []);
-
-      return (
-        <AuthContext.Provider value={{ currentUser }}>
-          {children}
-        </AuthContext.Provider>
-      );
-    };
-
-    export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => useContext(AuthContext);

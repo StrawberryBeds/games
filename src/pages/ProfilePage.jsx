@@ -1,27 +1,28 @@
 // ProfilePage.jsx
-// import { useState, useEffect } from 'react';
-// import { usePlayerSelection } from '../context/usePlayerSelection';
-// import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
-// import { db } from '../firebase';
 
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
 import FamilyProfiles from '../componentsProfilePage/FamilyProfiles';
 import PlayerProfile from '../componentsProfilePage/PlayerProfile';
+import { auth, db } from '../firebase';
+
 
 function ProfilePage() {
-      const { currentUser } = useAuth();
+  const { currentUser, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+
+  if (authLoading) {
+    return <div>Loading...</div>; // Or a spinner
+  }
 
   if (!currentUser) {
     navigate('/signin');
     return null;
   }
 
-    return (
+  return (
     <>
-     {/* <FamilyProfiles></FamilyProfiles> */}
-     <PlayerProfile></PlayerProfile>
+      <PlayerProfile />
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import { useAuth } from "../context/authContext";
 import { doc, setDoc } from "firebase/firestore"; // Use setDoc instead of addDoc
 import { v4 as uuidv4 } from "uuid";

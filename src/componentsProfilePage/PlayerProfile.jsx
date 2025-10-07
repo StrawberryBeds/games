@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { auth, db } from '../firebase';
+
 import PlayerTile from "../componentsShared/PlayerTile";
 import PlayerStats from "../componentsProfilePage/PlayerStats";
 
@@ -17,6 +18,7 @@ function PlayerProfile() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+console.log("Current user in PlayerProfile:", currentUser);
   console.log("Current player in PlayerProfile:", selectedPlayer); // Now logs the player object
 
   useEffect(() => {
@@ -74,6 +76,7 @@ function PlayerProfile() {
 
   return (
     <div className="profile-page">
+      <h2>PlayerProfile</h2>
       <h2>{playerProfile.playerName}'s Profile</h2>
       <div className="player-tile">
         <PlayerTile

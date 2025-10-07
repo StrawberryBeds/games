@@ -1,5 +1,7 @@
 import React from 'react';
 import "./PlayerStats.css";
+import { auth, db } from '../firebase';
+
 
 function PlayerStats({ player }) {
   // Safely handle cases where scores might be undefined
