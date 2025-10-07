@@ -76,6 +76,7 @@ function PlayerProfile() {
         <PlayerTile
           key={selectedPlayer.id}
           player={selectedPlayer}
+          onClick={() => handleEditProfiles()}
           isSelected={selectedPlayer?.id === selectedPlayer.id}
         />
       </div>
@@ -86,9 +87,6 @@ function PlayerProfile() {
           isSelected={selectedPlayer?.id === selectedPlayer.id}
         />
       </div>
-      <button onClick={handleEditProfiles}>
-        View Family Profiles - Parents Only
-      </button>
     </div>
   );
 }
