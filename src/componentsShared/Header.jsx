@@ -23,7 +23,7 @@ function Header() {
         {currentUser ? (
           <>
             <button onClick={() => navigate('/profile')}>Profile</button>
-             <button onClick={() => navigate('/player')}>Change Player</button>
+            <button onClick={() => navigate('/player')}>Change Player</button>
             <SignOutButton />
           </>
         ) : (
