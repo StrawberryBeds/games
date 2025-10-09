@@ -18,6 +18,7 @@ function GameBoard({ cards: initialCards, cardSetName }) {
   const [turns, setTurns] = useState(0);
   const [matches, setMatches] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [gameScore, setGameScore] = useState(null);
 
 
   const { selectedPlayer } = usePlayerSelection();
@@ -38,55 +39,56 @@ function GameBoard({ cards: initialCards, cardSetName }) {
     return duplicatedCards;
   }
 
-const handleCardClick = (id) => {
-  if (flippedIndices.includes(id) || solvedIndices.includes(id)) {
-    return;
-  }
-  setFlippedIndices((prevFlippedIndices) => [...prevFlippedIndices, id]);
-  if (flippedIndices.length === 1) {
-    const firstIndex = flippedIndices[0];
-    const firstCard = cards.find((card) => card.id === firstIndex);
-    const clickedCard = cards.find((card) => card.id === id);
-    const newTurnCount = turns + 1; // Calculate the new turn count immediately
-    setTurns(newTurnCount); // Update the state
-    if (firstCard.cardName === clickedCard.cardName) {
-      setSolvedIndices((prevSolvedIndices) => [
-        ...prevSolvedIndices,
-        firstIndex,
-        id,
-      ]);
-      setMatches((prevMatches) => prevMatches + 1);
+  const handleCardClick = (id) => {
+    if (flippedIndices.includes(id) || solvedIndices.includes(id)) {
+      return;
     }
-    setTimeout(() => {
-      setFlippedIndices([]);
-      // Check for game completion AFTER the flip
-      if (solvedIndices.length + 2 === cards.length && cards.length > 0) {
-        setIsGameOver(true); 
-        saveScore(newTurnCount); // Pass the latest turn count directly
+    setFlippedIndices((prevFlippedIndices) => [...prevFlippedIndices, id]);
+    if (flippedIndices.length === 1) {
+      const firstIndex = flippedIndices[0];
+      const firstCard = cards.find((card) => card.id === firstIndex);
+      const clickedCard = cards.find((card) => card.id === id);
+      const newTurnCount = turns + 1; // Calculate the new turn count immediately
+      setTurns(newTurnCount); // Update the state
+      if (firstCard.cardName === clickedCard.cardName) {
+        setSolvedIndices((prevSolvedIndices) => [
+          ...prevSolvedIndices,
+          firstIndex,
+          id,
+        ]);
+        setMatches((prevMatches) => prevMatches + 1);
       }
-    }, 1000);
-  }
-};
-
-const saveScore = async (currentTurns) => {
-  try {
-    const playerDoc = await getDoc(doc(db, "players", selectedPlayer.playerId));
-    if (!playerDoc.exists()) {
-      throw new Error("Player profile not found");
+      setTimeout(() => {
+        setFlippedIndices([]);
+        // Check for game completion AFTER the flip
+        if (solvedIndices.length + 2 === cards.length && cards.length > 0) {
+          setIsGameOver(true);
+          setGameScore(newTurnCount)
+          saveScore(newTurnCount); // Pass the latest turn count directly
+        }
+      }, 1000);
     }
-    const scoreEntry = {
-      turns: currentTurns, // Use the passed turn count
-      date: new Date().toISOString(),
-      cardSet: cardSetName,
-    };
-    await updateDoc(doc(db, "players", selectedPlayer.playerId), {
-      scores: arrayUnion(scoreEntry),
-    });
-    console.log("Score saved successfully!", scoreEntry);
-  } catch (error) {
-    console.error("Error saving score:", error);
-  }
-};
+  };
+
+  const saveScore = async (currentTurns) => {
+    try {
+      const playerDoc = await getDoc(doc(db, "players", selectedPlayer.playerId));
+      if (!playerDoc.exists()) {
+        throw new Error("Player profile not found");
+      }
+      const scoreEntry = {
+        turns: currentTurns, // Use the passed turn count
+        date: new Date().toISOString(),
+        cardSet: cardSetName,
+      };
+      await updateDoc(doc(db, "players", selectedPlayer.playerId), {
+        scores: arrayUnion(scoreEntry),
+      });
+      console.log("Score saved successfully!", scoreEntry);
+    } catch (error) {
+      console.error("Error saving score:", error);
+    }
+  };
 
 
   const handleReset = () => {
@@ -119,7 +121,12 @@ const saveScore = async (currentTurns) => {
           />
         ))}
       </div>
-       {isGameOver && <GameOverDialogue onClose={() => setIsGameOver(false)} />}
+      {isGameOver && (
+        <GameOverDialogue
+          onClose={() => setIsGameOver(false)}
+          newTurnCount={gameScore}
+        />
+      )}
     </div>
   );
 }

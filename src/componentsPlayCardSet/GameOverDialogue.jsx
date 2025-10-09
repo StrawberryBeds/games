@@ -1,15 +1,33 @@
 import React from "react";
 import "./GameOverDialogue.css";
+import { useNavigate } from "react-router-dom";
+// const { selectedPlayer } = usePlayerSelection();
 
-function GameOverDialogue({ onClose }) {
+function GameOverDialogue({ onClose, newTurnCount }) {
+  const navigate = useNavigate();
+  // const scores = playerScores[cardSet] || [];
+  // const gameCount = scores.length + 1;
+  // const { selectedPlayer } = usePlayerSelection();
 
-  return (
-    <div className="modal">
-      <div>I'm a modal dialog</div>
-      <button onClick={onClose}>Close</button>
-    </div>
-  );
-}
+  // if (gameCount === 1) {
+    return (
+      <div className="modal">
+        <div>You matched all the cards in {newTurnCount} turns! Can you beat it?</div>
+        <button onClick={onClose}>Play again</button>
+        <button onClick={() => navigate('/games')}>Play Games</button>
+      </div>
+    );
+  // } else {
+    // Placeholder for other cases
+    // return (
+    //   <div className="modal">
+    //     <div>Game Over! You took {newTurnCount} turns.</div>
+    //     <button onClick={onClose}>Play again</button>
+    //     <button onClick={() => navigate('/games')}>Play Games</button>
+    //   </div>
+    // );
+  }
+// }
 
 export default GameOverDialogue;
 //   const scores = selectedPlayer?.scores || [];
