@@ -35,74 +35,56 @@ function GameBoard({ cards: initialCards, cardSetName }) {
     return duplicatedCards;
   }
 
-  const handleCardClick = (id) => {
-    if (flippedIndices.includes(id) || solvedIndices.includes(id)) {
-      return;
+const handleCardClick = (id) => {
+  if (flippedIndices.includes(id) || solvedIndices.includes(id)) {
+    return;
+  }
+  setFlippedIndices((prevFlippedIndices) => [...prevFlippedIndices, id]);
+  if (flippedIndices.length === 1) {
+    const firstIndex = flippedIndices[0];
+    const firstCard = cards.find((card) => card.id === firstIndex);
+    const clickedCard = cards.find((card) => card.id === id);
+    const newTurnCount = turns + 1; // Calculate the new turn count immediately
+    setTurns(newTurnCount); // Update the state
+    if (firstCard.cardName === clickedCard.cardName) {
+      setSolvedIndices((prevSolvedIndices) => [
+        ...prevSolvedIndices,
+        firstIndex,
+        id,
+      ]);
+      setMatches((prevMatches) => prevMatches + 1);
     }
-    setFlippedIndices((prevFlippedIndices) => [...prevFlippedIndices, id]);
-    if (flippedIndices.length === 1) {
-      const firstIndex = flippedIndices[0];
-      const firstCard = cards.find((card) => card.id === firstIndex);
-      const clickedCard = cards.find((card) => card.id === id);
-      setTurns((prevTurns) => prevTurns + 1);
-      if (firstCard.cardName === clickedCard.cardName) {
-        setSolvedIndices((prevSolvedIndices) => [
-          ...prevSolvedIndices,
-          firstIndex,
-          id,
-        ]);
-        setMatches((prevMatches) => prevMatches + 1);
+    setTimeout(() => {
+      setFlippedIndices([]);
+      // Check for game completion AFTER the flip
+      if (solvedIndices.length + 2 === cards.length && cards.length > 0) {
+        alert("Well done! Take a moment to admire your skill and get well soon!");
+        saveScore(newTurnCount); // Pass the latest turn count directly
       }
-      setTimeout(() => {
-        setFlippedIndices([]);
-      }, 1000);
+    }, 1000);
+  }
+};
+
+const saveScore = async (currentTurns) => {
+  try {
+    const playerDoc = await getDoc(doc(db, "players", selectedPlayer.playerId));
+    if (!playerDoc.exists()) {
+      throw new Error("Player profile not found");
     }
-  };
+    const scoreEntry = {
+      turns: currentTurns, // Use the passed turn count
+      date: new Date().toISOString(),
+      cardSet: cardSetName,
+    };
+    await updateDoc(doc(db, "players", selectedPlayer.playerId), {
+      scores: arrayUnion(scoreEntry),
+    });
+    console.log("Score saved successfully!", scoreEntry);
+  } catch (error) {
+    console.error("Error saving score:", error);
+  }
+};
 
-  useEffect(() => {
-    if (solvedIndices.length === cards.length && cards.length > 0) {
-      alert("Well done! Take a moment to admire your skill and get well soon!");
-
-      const saveScore = async () => {
-        if (!(solvedIndices.length === cards.length && cards.length > 0)) {
-          return; // Early exit if game isn't completed
-        }
-
-        try {
-          // 1. Get player document
-          const playerDoc = await getDoc(
-            doc(db, "players", selectedPlayer.playerId)
-          );
-          if (!playerDoc.exists()) {
-            throw new Error("Player profile not found");
-          }
-
-          // 2. Create a score object with turns and timestamp
-          const scoreEntry = {
-            turns: turns, // Existing score (e.g., number of turns)
-            date: new Date().toISOString(), // ISO format for consistency (e.g., "2025-10-05T12:34:56.789Z")
-            cardSet: cardSetName,
-          };
-
-          // 3. Update the scores array with the new entry
-          await updateDoc(doc(db, "players", selectedPlayer.playerId), {
-            scores: arrayUnion(scoreEntry),
-          });
-
-          console.log("Score saved successfully!", scoreEntry);
-        } catch (error) {
-          console.error("Error saving score:", error);
-        }
-      };
-      saveScore();
-    }
-  }, [
-    solvedIndices,
-    cards.length,
-    turns,
-    selectedPlayer.playerId,
-    cardSetName,
-  ]);
 
   const handleReset = () => {
     setCards(shuffleCards(initialCards));
