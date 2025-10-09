@@ -21,6 +21,7 @@
   padding: 0;
 }
 
+
 /* Force 4 columns on small screens */
 @media screen and (max-width: 768px) {
   .game-board {

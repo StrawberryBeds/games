@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import Score from "./Score";
 import ResetButton from "./ResetButton";
+import GameOverDialogue from "./GameOverDialogue";
 import "./GameBoard.css";
 
 import { auth, db } from "../firebase";
@@ -16,6 +17,8 @@ function GameBoard({ cards: initialCards, cardSetName }) {
   const [solvedIndices, setSolvedIndices] = useState([]);
   const [turns, setTurns] = useState(0);
   const [matches, setMatches] = useState(0);
+  const [isGameOver, setIsGameOver] = useState(false);
+
 
   const { selectedPlayer } = usePlayerSelection();
 
@@ -58,7 +61,7 @@ const handleCardClick = (id) => {
       setFlippedIndices([]);
       // Check for game completion AFTER the flip
       if (solvedIndices.length + 2 === cards.length && cards.length > 0) {
-        alert("Well done! Take a moment to admire your skill and get well soon!");
+        setIsGameOver(true); 
         saveScore(newTurnCount); // Pass the latest turn count directly
       }
     }, 1000);
@@ -116,6 +119,7 @@ const saveScore = async (currentTurns) => {
           />
         ))}
       </div>
+       {isGameOver && <GameOverDialogue onClose={() => setIsGameOver(false)} />}
     </div>
   );
 }
