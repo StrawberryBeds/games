@@ -10,7 +10,6 @@ import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 
 function GameBoard({ cards: initialCards, cardSetName }) {
-  console.log("Initial Cards in GameBoard:", initialCards); // Debug line
 
   const [cards, setCards] = useState(shuffleCards(initialCards));
   const [flippedIndices, setFlippedIndices] = useState([]);
@@ -18,10 +17,29 @@ function GameBoard({ cards: initialCards, cardSetName }) {
   const [turns, setTurns] = useState(0);
   const [matches, setMatches] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [gameScore, setGameScore] = useState(null);
-
+  const [gameScore, setGameScore] = useState({ score: null, cardSet: null })
 
   const { selectedPlayer } = usePlayerSelection();
+  const [playerScores, setPlayerScores] = useState({});
+
+  useEffect(() => {
+    const fetchPlayerScores = async () => {
+      try {
+        const playerDoc = await getDoc(doc(db, "players", selectedPlayer.playerId));
+        if (playerDoc.exists()) {
+          const playerData = playerDoc.data();
+          setPlayerScores(playerData.scores || {});
+          console.log("Fetched player scores:", playerData.scores); 
+        }
+      } catch (error) {
+        console.error("Error fetching player scores:", error);
+      }
+    };
+    if (selectedPlayer?.playerId) {
+      fetchPlayerScores();
+    }
+  }, [selectedPlayer]);
+
 
   function shuffleCards(cardList) {
     if (!cardList) {
@@ -35,7 +53,6 @@ function GameBoard({ cards: initialCards, cardSetName }) {
         cardName: card.cardName,
         cardImage: card.cardImage,
       }));
-    console.log("Duplicated Cards After Shuffling:", duplicatedCards); // Debug line
     return duplicatedCards;
   }
 
@@ -49,6 +66,7 @@ function GameBoard({ cards: initialCards, cardSetName }) {
       const firstCard = cards.find((card) => card.id === firstIndex);
       const clickedCard = cards.find((card) => card.id === id);
       const newTurnCount = turns + 1; // Calculate the new turn count immediately
+      const cardSet = cardSetName;
       setTurns(newTurnCount); // Update the state
       if (firstCard.cardName === clickedCard.cardName) {
         setSolvedIndices((prevSolvedIndices) => [
@@ -62,8 +80,9 @@ function GameBoard({ cards: initialCards, cardSetName }) {
         setFlippedIndices([]);
         // Check for game completion AFTER the flip
         if (solvedIndices.length + 2 === cards.length && cards.length > 0) {
+          console.log("Game over! Score:", newTurnCount, "Card set:", cardSetName);
           setIsGameOver(true);
-          setGameScore(newTurnCount)
+          setGameScore({ score: newTurnCount, cardSet: cardSetName });
           saveScore(newTurnCount); // Pass the latest turn count directly
         }
       }, 1000);
@@ -124,7 +143,10 @@ function GameBoard({ cards: initialCards, cardSetName }) {
       {isGameOver && (
         <GameOverDialogue
           onClose={() => setIsGameOver(false)}
-          newTurnCount={gameScore}
+          newTurnCount={gameScore.score}
+          cardSet={gameScore.cardSet}
+          selectedPlayer={selectedPlayer}
+          playerScores={playerScores} // You need to fetch this in GameBoard.jsx
         />
       )}
     </div>
