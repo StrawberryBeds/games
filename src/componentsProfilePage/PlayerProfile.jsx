@@ -33,7 +33,6 @@ function PlayerProfile() {
     const unsubscribe = onSnapshot(
       playerRef,
       (playerSnap) => {
-        console.log("Player profile updated:", playerSnap.data());
         if (!playerSnap.exists()) {
           setError("Player profile not found!");
           setLoading(false);

@@ -2,20 +2,18 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
-// import { usePlayerSelection } from '../context/usePlayerSelection';
 import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase';
 import PlayerTile from '../componentsShared/PlayerTile';
-
-
+// import EditProfile from '../componentsProfilePage/EditProfile';
 
 function ManageProfilesPage() {
   const { currentUser } = useAuth();
-  // const { selectedPlayer, setRequiresParentAuth } = usePlayerSelection();
   const navigate = useNavigate();
   const [familyPlayers, setFamilyPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [displayedPlayer, setDisplayedPlayer] = useState([]);
 
   // Redirect if not logged in or no player selected
   useEffect(() => {
@@ -57,36 +55,30 @@ function ManageProfilesPage() {
     fetchFamilyPlayers();
   }, [currentUser]);
 
-  // Handle "Edit Profiles" button click
-  // const handleEditProfiles = () => {
-  //   if (!selectedPlayer) {
-  //     alert("No player selected!");
-  //     return;
-  //   }
-  //   if (selectedPlayer.isParent) {
-  //     setRequiresParentAuth(true); // Trigger parent auth
-  //     navigate('/parent-auth');    // Redirect to password prompt
-  //   } else {
-  //     alert("Only parents can manage profiles.");
-  //   }
-  // };
+  const displayPlayerProfile = (player) => {
+    setDisplayedPlayer(player);
+  }
 
   if (loading) return <div>Loading players...</div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="profile-page">
+    <div className="player-selector">
       <h2>Choose a profile to edit</h2>
-      {/* <button onClick={handleEditProfiles}>Edit Profiles</button> */}
       <div className="player-tiles">
         {familyPlayers.map((player) => (
-                    <PlayerTile
+          <PlayerTile
             key={player.id}
             player={player}
-            // onClick={() => handlePlayerSelect(player)}
-            // isSelected={selectedPlayer?.id === player.id}
+            onClick={() => displayPlayerProfile(player)}
+            isDisplayedPlayer={displayedPlayer?.id === player.id}
           />
         ))}
+
+        <div className='player-data'>
+          <p>{displayedPlayer.givenName} {displayedPlayer.familyName}</p>
+
+        </div>
       </div>
     </div>
   );

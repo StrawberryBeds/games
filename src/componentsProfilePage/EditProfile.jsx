@@ -1,0 +1,186 @@
+import React, { useState } from "react";
+import { auth, db } from "../firebase";
+import { useAuth } from "../context/authContext";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { v4 as uuidv4 } from "uuid";
+
+function UpdateParentPlayerProfile({ displayedPlayer, avatars, onComplete }) {
+    const { currentUser } = useAuth();
+    const [formData, setFormData] = useState({
+        givenName: "",
+        familyName: "",
+        playerName: "",
+        playerAvatar: "",
+        playerDOB: "",
+    });
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
+
+    const handleAvatarSelect = (avatarId) => {
+        setFormData({ ...formData, playerAvatar: avatarId });
+    };
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setError("");
+
+        // Validate all fields
+        if (Object.values(formData).some((field) => !field)) {
+            setError("Please fill in all required fields.");
+            return;
+        }
+        try {
+            // 1. Get parent document
+            const parentDoc = await getDoc(doc(db, 'players', currentUser.uid));
+            if (!parentDoc.exists()) {
+                throw new Error("Parent profile not found");
+            }
+            const parentData = parentDoc.data();
+
+            //   await setDoc(doc(db, "players", currentUser.uid), {
+            //     playerId: currentUser.uid,
+            //     familyId: familyId,
+            //     isParent: true,
+            //     isParentPlayer: true,
+            //     ...formData,
+            //     childPlayers: [],
+            //     createdAt: new Date().toISOString(),
+            //     setupComplete: false, // Add this flag
+            //   });
+            setSuccess("Parent profile updated successfully!");
+            if (onComplete) onComplete(true);
+        } catch (error) {
+            setError(error.message);
+            setSuccess("");
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit} className="parent-profile-form">
+            {error && <p className="error-message">{error}</p>}
+            {success && <p className="success-message">{success}</p>}
+
+            {/* Given Name Field */}
+            {formData.givenName !== undefined && (
+                <div className="form-group">
+                    <label htmlFor="givenName">{parentData.givenName}</label>
+                    <input
+                        type="text"
+                        id="givenName"
+                        name="givenName"
+                        value={formData.givenName}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+            )}
+            {/* Family Name Field */}
+            {formData.familyName !== undefined && (
+                <div className="form-group">
+                    <label htmlFor="familyName">{parentData.familyName}</label>
+                    <input
+                        type="text"
+                        id="familyName"
+                        name="familyName"
+                        value={formData.familyName}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+            )}
+
+            {/* Player DOB Field */}
+            {formData.playerDOB !== undefined && (
+                <div className="form-group">
+                    <label htmlFor="playerDOB">{parentData.playerDOB}</label>
+                    <input
+                        type="date"
+                        id="playerDOB"
+                        name="playerDOB"
+                        value={formData.playerDOB}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+            )}
+
+            {/* Player Name Field */}
+            {formData.playerName !== undefined && (
+                <div className="form-group">
+                    <label htmlFor="playerName">{parentData.playerName}</label>
+                    <input
+                        type="text"
+                        id="playerName"
+                        name="playerName"
+                        value={formData.playerName}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+            )}
+
+            {/* Player Avatar Field */}
+            <div className="form-group">
+                <label>Select Avatar</label>
+                <div className="avatar-grid">
+                    {avatars.map((avatar) => (
+                        <div
+                            key={avatar.id}
+                            className={`avatar-option ${formData.playerAvatar === avatar.id ? "selected" : ""
+                                }`}
+                            onClick={() => handleAvatarSelect(avatar.id)}
+                        >
+                            <img src={avatar.image} alt={avatar.name} />
+                            <span>{avatar.name}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Family ID Field (hidden if not needed) */}
+            {formData.familyId !== undefined && (
+                <div className="form-group">
+                    <label htmlFor="familyId">Family Id</label>
+                    <input
+                        type="text"
+                        id="familyId"
+                        name="familyId"
+                        value={formData.familyId}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+            )}
+
+            {/* Is Parent Player Field (hidden if not needed) */}
+            {formData.isParentPlayer !== undefined && (
+                <div className="form-group">
+                    <label htmlFor="isParentPlayer">Is Parent Player</label>
+                    <select
+                        id="isParentPlayer"
+                        name="isParentPlayer"
+                        value={formData.isParentPlayer}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value={true}>Yes</option>
+                        <option value={false}>No</option>
+                    </select>
+                </div>
+            )}
+
+            {/* Submit Button */}
+            <button type="submit" className="submit-button">
+                Update Parent Profile
+            </button>
+        </form>
+    );
+}
+
+export default UpdateParentPlayerProfile();
