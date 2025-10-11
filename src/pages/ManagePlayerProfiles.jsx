@@ -6,6 +6,7 @@ import { query, where, getDocs, collection, doc, getDoc, updateDoc } from 'fireb
 import { auth, db } from '../firebase';
 import PlayerTile from '../componentsShared/PlayerTile';
 import avatars from '../data/playerAvatars';
+
 // import EditProfile from '../componentsProfilePage/EditProfile';
 
 
@@ -13,9 +14,7 @@ function ManageProfilesPage({ onComplete }) {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [familyPlayers, setFamilyPlayers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [displayedPlayer, setDisplayedPlayer] = useState([]);
-
+  const [displayedPlayer, setDisplayedPlayer] = useState(null);
 
   const [formData, setFormData] = useState({
     givenName: "",
@@ -25,6 +24,7 @@ function ManageProfilesPage({ onComplete }) {
     playerDOB: ""
   });
 
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState("");
 
@@ -69,40 +69,57 @@ function ManageProfilesPage({ onComplete }) {
   }, [currentUser]);
 
   const displayPlayerProfile = (player) => {
+    console.log("Selected player:", player); // <-- Add this
     setDisplayedPlayer(player);
-    setFormData(player)
-  }
+    setFormData({
+      givenName: player.givenName || "",
+      familyName: player.familyName || "",
+      playerName: player.playerName || "",
+      playerAvatar: player.playerAvatar || "",
+      playerDOB: player.playerDOB || "",
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleAvatarSelect = (avatarId) => {
-    setFormData({ ...formData, playerAvatar: avatarId });
-  };
+const handleAvatarSelect = (avatarName) => {
+  setFormData({ ...formData, playerAvatar: avatarName });
+};
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
-
-    // Validate all fields
-    if (Object.values(formData).some((field) => !field)) {
-      setError("Please fill in all required fields.");
+    console.log("Submitting for player 1:", displayedPlayer.playerId);
+    console.log("Submitting for player 2:", displayedPlayer.uid);
+    if (!displayedPlayer?.playerId) {
+      setError("No player selected.");
       return;
     }
+
+    // Add form validation
     try {
-      const familyId = uuidv4();
-      await updateDoc(doc(db, "players", displayedPlayer.uid), {
+      const playerRef = doc(db, "players", displayedPlayer.playerId);
+      const playerSnap = await getDoc(playerRef);
+
+      if (!playerSnap.exists()) {
+        throw new Error("Player profile not found.");
+      }
+      await updateDoc(playerRef, {
         ...formData,
       });
-      setSuccess("Parent profile updated successfully!");
+              console.log ("UpdateDoc", playerRef, formData)
+
+      setSuccess(`${displayedPlayer.playerName}'s profile updated successfully!`);
       if (onComplete) onComplete(true);
     } catch (error) {
       setError(error.message);
       setSuccess("");
     }
   };
+
 
   if (loading) return <div>Loading players...</div>;
   if (error) return <div>{error}</div>;
@@ -161,7 +178,7 @@ function ManageProfilesPage({ onComplete }) {
           {/* Player DOB Field */}
           {formData.playerDOB !== undefined && (
             <div className="form-group">
-              <label htmlFor="playerDOB">Player Dob</label>
+              <label htmlFor="playerDOB">Player Date of Birth</label>
               <input
                 type="date"
                 id="playerDOB"
@@ -188,30 +205,36 @@ function ManageProfilesPage({ onComplete }) {
             </div>
           )}
           {/* Player Avatar Field */}
-          <div className="form-group">
-            <label>Select Avatar</label>
-            <div className="avatar-grid">
-             {avatars && Array.isArray(avatars) && avatars.map((avatar) => (
-  <div
-    key={avatar.id}
-    className={`avatar-option ${formData.playerAvatar === avatar.id ? "selected" : ""}`}
-    onClick={() => handleAvatarSelect(avatar.id)}
-  >
-    <img src={avatar.image} alt={avatar.name} />
-    <span>{avatar.name}</span>
+<div className="form-group">
+  <label>Select Avatar</label>
+  <div className="avatar-grid">
+    {avatars &&
+      Object.values(avatars).map((avatar) => (
+        <div
+          key={avatar.name}
+          className={`avatar-option ${
+            formData.playerAvatar === avatar.name ? "selected" : ""
+          }`}
+          onClick={() => handleAvatarSelect(avatar.name)}
+        >
+          <img src={avatar.image} alt={avatar.name} />
+          <span>{avatar.name}</span>
+        </div>
+      ))}
   </div>
-))}
-            </div>
-          </div>
+</div>
+
 
           {/* Submit Button */}
-          <button type="submit" className="submit-button">
-            Update Parent Profile
+          <button type="submit"
+            className="submit-button"
+            disabled={!displayedPlayer}>
+            Update {displayedPlayer?.playerName || 'Profile'}
+
           </button>
+
         </form>
       </div>
-
-
     </div>
   );
 }
