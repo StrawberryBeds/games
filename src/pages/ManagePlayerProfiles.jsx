@@ -15,6 +15,7 @@ function ManageProfilesPage({ onComplete }) {
   const navigate = useNavigate();
   const [familyPlayers, setFamilyPlayers] = useState([]);
   const [displayedPlayer, setDisplayedPlayer] = useState(null);
+  const [displayedUser, setDisplayedUser] = useState(null)
 
   const [formData, setFormData] = useState({
     givenName: "",
@@ -22,6 +23,10 @@ function ManageProfilesPage({ onComplete }) {
     playerName: "",
     playerAvatar: "",
     playerDOB: ""
+  });
+
+  const [userFormData, setUserFormData] = useState({
+    userEmail: "",
   });
 
   const [loading, setLoading] = useState(true);
@@ -85,11 +90,11 @@ function ManageProfilesPage({ onComplete }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-const handleAvatarSelect = (avatarName) => {
-  setFormData({ ...formData, playerAvatar: avatarName });
-};
+  const handleAvatarSelect = (avatarName) => {
+    setFormData({ ...formData, playerAvatar: avatarName });
+  };
 
-  const handleSubmit = async (event) => {
+  const handlePlayerSubmit = async (event) => {
     event.preventDefault();
     setError("");
     console.log("Submitting for player 1:", displayedPlayer.playerId);
@@ -110,10 +115,73 @@ const handleAvatarSelect = (avatarName) => {
       await updateDoc(playerRef, {
         ...formData,
       });
-              console.log ("UpdateDoc", playerRef, formData)
+      console.log("UpdateDoc", playerRef, formData)
 
       setSuccess(`${displayedPlayer.playerName}'s profile updated successfully!`);
       if (onComplete) onComplete(true);
+    } catch (error) {
+      setError(error.message);
+      setSuccess("");
+    }
+  };
+
+  // USER FUNCTIONS
+
+  // Fetch user
+  useEffect(() => {
+    const fetchUserDoc = async () => {
+      if (!currentUser) return;
+      try {
+        setLoading(true);
+        // Fetch the user document directly using the uid
+        const userRef = doc(db, 'users', currentUser.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (!userSnap.exists()) {
+          throw new Error("User not found!");
+        }
+
+        // Set the user data to state
+        const userData = { id: userSnap.id, ...userSnap.data() };
+        setDisplayedUser(userData);
+
+      } catch (err) {
+        console.error("Error fetching user:", err);
+        setError("Failed to load user. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchUserDoc();
+  }, [currentUser]);
+
+
+  const handleUserChange = (e) => {
+    const { name, value } = e.target;
+    setUserFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+
+  const handleUserSubmit = async (event) => {
+    event.preventDefault();
+    setError("");
+    if (!currentUser?.uid) {
+      setError("No user selected.");
+      return;
+    }
+    try {
+      // Update email in Firebase Auth
+      if (formData.userEmail && formData.userEmail !== displayedUser.email) {
+        await updateEmail(currentUser, formData.userEmail);
+        await sendEmailVerification(currentUser);
+        setSuccess("Verification email sent to your new address. Please verify to complete the change.");
+      }
+      // Update other user data in Firestore (e.g., modifiedAt)
+      const userRef = doc(db, "users", currentUser.uid);
+      await updateDoc(userRef, {
+        email: formData.userEmail,
+        modifiedAt: new Date(),
+      });
     } catch (error) {
       setError(error.message);
       setSuccess("");
@@ -135,14 +203,14 @@ const handleAvatarSelect = (avatarName) => {
               player={player}
               onClick={() => displayPlayerProfile(player)}
               isDisplayedPlayer={displayedPlayer?.id === player.id}
+              isDisplayedUser={displayedUser?.id === currentUser.uid}
             />
           ))}
         </div>
       </div>
 
       <div className='player-data'>
-
-        <form onSubmit={handleSubmit} className="parent-profile-form">
+        <form onSubmit={handlePlayerSubmit} className="parent-profile-form">
           {error && <p className="error-message">{error}</p>}
           {success && <p className="success-message">{success}</p>}
 
@@ -205,24 +273,23 @@ const handleAvatarSelect = (avatarName) => {
             </div>
           )}
           {/* Player Avatar Field */}
-<div className="form-group">
-  <label>Select Avatar</label>
-  <div className="avatar-grid">
-    {avatars &&
-      Object.values(avatars).map((avatar) => (
-        <div
-          key={avatar.name}
-          className={`avatar-option ${
-            formData.playerAvatar === avatar.name ? "selected" : ""
-          }`}
-          onClick={() => handleAvatarSelect(avatar.name)}
-        >
-          <img src={avatar.image} alt={avatar.name} />
-          <span>{avatar.name}</span>
-        </div>
-      ))}
-  </div>
-</div>
+          <div className="form-group">
+            <label>Select Avatar</label>
+            <div className="avatar-grid">
+              {avatars &&
+                Object.values(avatars).map((avatar) => (
+                  <div
+                    key={avatar.name}
+                    className={`avatar-option ${formData.playerAvatar === avatar.name ? "selected" : ""
+                      }`}
+                    onClick={() => handleAvatarSelect(avatar.name)}
+                  >
+                    <img src={avatar.image} alt={avatar.name} />
+                    <span>{avatar.name}</span>
+                  </div>
+                ))}
+            </div>
+          </div>
 
 
           {/* Submit Button */}
@@ -230,11 +297,43 @@ const handleAvatarSelect = (avatarName) => {
             className="submit-button"
             disabled={!displayedPlayer}>
             Update {displayedPlayer?.playerName || 'Profile'}
-
           </button>
-
         </form>
       </div>
+
+
+      {displayedPlayer?.isParent && displayedUser && (
+        <div className='user-data'>
+          <form onSubmit={handleUserSubmit} className="parent-profile-form">
+            {error && <p className="error-message">{error}</p>}
+            {success && <p className="success-message">{success}</p>}
+
+            <div>
+              <label>Change Your Email</label>
+              <input
+                type="email"
+                value={userFormData.userEmail}
+                onChange={handleUserChange}
+                name="userEmail"
+                required
+              />
+            </div>
+
+            {/* Submit Button */}
+            <button type="submit"
+              className="submit-button"
+              disabled={!displayedPlayer}>
+              Update Email Address
+            </button>
+
+            <button type="reset"
+            className="reset-button"
+            disabled={!displayedPlayer?.isParent && !displayedUser}>
+              Reset Password
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
