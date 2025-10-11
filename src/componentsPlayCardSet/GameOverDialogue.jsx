@@ -3,23 +3,29 @@ import "./GameOverDialogue.css";
 import { useNavigate } from "react-router-dom";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 
-function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores }) {
+function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handleReset }) {
   const navigate = useNavigate();
-  // Filter scores for the current card set
-  const scoresForCardSet = playerScores.filter(score => score.cardSet === cardSet);
+  // Filter scores for the current card set or an empty array if no scores.
+ const scoresForCardSet = (playerScores || []).filter(score => score.cardSet === cardSet);
   // Extract turns into an array
-  const turns = scoresForCardSet.map(score => score.turns);
+  const turns = scoresForCardSet.map(scores => scores.turns);
   const gameCount = turns.length + 1; // Including current game
   const personalBest = turns.length > 0 ? Math.min(...turns) : null;
 
+  const avgScore = (turns.reduce((a, b) => a + b, 0) + newTurnCount) / gameCount;
+
   console.log("Scores for card set:", cardSet, turns); // Debug
   console.log("Game count:", gameCount, "Personal best:", personalBest); // Debug
+  console.log("Average score:", avgScore);
+
   if (gameCount === 1) {
     return (
       <div className="modal">
         <div>You matched all the cards in {newTurnCount} turns! Can you beat it?</div>
-        <button onClick={onClose}>Play again</button>
-        <button onClick={() => navigate('/games')}>Play Games</button>
+          <div className="modal-buttons">
+          <button onClick={() => { handleReset(); onClose(); }}>Play again</button>
+          <button onClick={() => navigate('/games')}>Play a Another Card Set</button>
+          </div>
       </div>
     );
   } else if (gameCount === 2) {
@@ -28,8 +34,10 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores }) {
         <div className="modal">
           <div>You matched all the cards in {newTurnCount} turns!</div>
           <div>Well done! That's a new personal best for {cardSet}!</div>
-          <button onClick={onClose}>Play again</button>
-          <button onClick={() => navigate('/games')}>Play Games</button>
+          <div className="modal-buttons">
+          <button onClick={() => { handleReset(); onClose(); }}>Play again</button>
+          <button onClick={() => navigate('/games')}>Play a Another Card Set</button>
+          </div>
         </div>
       );
     } else {
@@ -37,22 +45,41 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores }) {
         <div className="modal">
           <div>You matched all the cards in {newTurnCount} turns!</div>
           <div>Bad luck! Try to beat {personalBest} for a new personal best for {cardSet}!</div>
-          <button onClick={onClose}>Play again</button>
-          <button onClick={() => navigate('/games')}>Play Games</button>
+          <div className="modal-buttons">
+          <button onClick={() => { handleReset(); onClose(); }}>Play again</button>
+          <button onClick={() => navigate('/games')}>Play a Another Card Set</button>
+          </div>
+        </div>
+      );
+    }
+  } else if (gameCount >= 3) {
+    if (newTurnCount < personalBest) {
+      return (
+        <div className="modal">
+          <div>You matched all the cards in {newTurnCount} turns!</div>
+          <div>Well done! That's a new personal best for {cardSet}!</div>
+          <div>Your average for {cardSet} is {avgScore} turns over {gameCount} games</div>
+          <div className="modal-buttons">
+          <button onClick={() => { handleReset(); onClose(); }}>Play again</button>
+          <button onClick={() => navigate('/games')}>Play a Another Card Set</button>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="modal">
+          <div>You matched all the cards in {newTurnCount} turns!</div>
+          <div>Bad luck! Try to beat {personalBest} for a new personal best for {cardSet}!</div>
+          <div>Your average score for {cardSet} is {avgScore.toFixed(1)} turns over {gameCount} games.</div>
+          <div className="modal-buttons">
+          <button onClick={() => { handleReset(); onClose(); }}>Play again</button>
+          <button onClick={() => navigate('/games')}>Play a Another Card Set</button>
+          </div>
         </div>
       );
     }
   }
-  // Placeholder for other cases
-  // return (
-  //   <div className="modal">
-  //     <div>Game Over! You took {newTurnCount} turns.</div>
-  //     <button onClick={onClose}>Play again</button>
-  //     <button onClick={() => navigate('/games')}>Play Games</button>
-  //   </div>
-  // );
 }
-// }
 
 export default GameOverDialogue;
 //   const scores = selectedPlayer?.scores || [];
@@ -64,24 +91,6 @@ export default GameOverDialogue;
 //     const [error, setError] = useState(null);
 
 
-//   const navigate = useNavigate();
-//   const playerId = player.playerId;
-
-//   if (gameCount === 1) {
-//     return {
-//       message: `You matched all the cards in ${turns} turns! Can you beat it next time?`,
-//       showConfetti: false,
-//     };
-//   }
-//   else if (gameCount === 2) {
-//     const isPersonalBest = currentScore < scores[0];
-//     return {
-//       message: isPersonalBest
-//         ? "Well done! That’s a personal best!"
-//         : "Bad luck! Want to try again?",
-//       showConfetti: isPersonalBest,
-//     };
-//   }
 //   else { // gameCount >= 3
 //     const isPersonalBest = currentScore < Math.min(...scores);
 //     const avgScore = (scores.reduce((a, b) => a + b, 0) + currentScore) / gameCount;

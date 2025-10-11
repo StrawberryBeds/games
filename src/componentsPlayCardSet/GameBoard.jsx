@@ -146,7 +146,8 @@ function GameBoard({ cards: initialCards, cardSetName }) {
           newTurnCount={gameScore.score}
           cardSet={gameScore.cardSet}
           selectedPlayer={selectedPlayer}
-          playerScores={playerScores} // You need to fetch this in GameBoard.jsx
+          playerScores={playerScores}
+          handleReset={handleReset} // You need to fetch this in GameBoard.jsx
         />
       )}
     </div>
