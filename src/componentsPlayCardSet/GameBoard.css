@@ -1,40 +1,30 @@
-/* src/components/GameBoard.css */
-
+/* GameBoard.css */
 .game-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 80vw; /* Ensure it never exceeds the viewport width */
+  max-width: 100vw;
+  flex: 1; /* Allow it to grow and take available space */
+  overflow-y: auto; /* Allow scrolling if needed */
+  padding: 10px;
   box-sizing: border-box;
-  padding: 0; /* Remove any default padding */
-  margin: 0 auto; /* Center horizontally */
 }
-
 
 .game-board {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: clamp(2px, 1vw, 8px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
   width: 100%;
-  max-width: 100%; /* Ensure it doesn’t exceed parent width */
-  padding: 0; /* Remove padding if not needed */
-  box-sizing: border-box;
-  margin: 0 auto; /* Center horizontally */
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
 }
 
 
-/* src/components/Score.css */
-.score {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 20px; /* Add some space below the score */
-}
-
-@media screen and (orientation: portrait) and (max-width: 768px) {
+/* Force 4 columns on small screens */
+@media screen and (max-width: 768px) {
   .game-board {
-    gap: 2px;
-    padding: 5px;
+    grid-template-columns: repeat(4, 1fr);
   }
 }

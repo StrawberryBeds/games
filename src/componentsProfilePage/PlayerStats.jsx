@@ -9,29 +9,29 @@ function PlayerStats({ player }) {
   const playerId = player.playerId;
 
   // Define the function before using it
-  const calculateAverages = (scores) => {
-    const statsByCardSet = {};
-    scores.forEach(score => {
-      if (!statsByCardSet[score.cardSet]) {
-        statsByCardSet[score.cardSet] = [];
-      }
-      statsByCardSet[score.cardSet].push(score.turns);
-    });
-    return Object.entries(statsByCardSet).map(([cardSet, turns]) => {
-      const avgFirstThree = turns.slice(0, 3).reduce((a, b) => a + b, 0) / Math.min(turns.length, 3);
-      const avgLastThree = turns.slice(-3).reduce((a, b) => a + b, 0) / Math.min(turns.length, 3);
-      const avgAll = turns.reduce((a, b) => a + b, 0) / turns.length;
-      return {
-        cardSet,
-        avgFirstThree,
-        avgLastThree,
-        avgAll,
-        gameCount: turns.length,
-      };
-    });
-  };
-
-  // Add function to record personal best. Use avgFirstThree to create first personal best. If avgLast three is lower, create a new personal best.
+const calculateAverages = (scores) => {
+  const statsByCardSet = {};
+  scores.forEach(score => {
+    if (!statsByCardSet[score.cardSet]) {
+      statsByCardSet[score.cardSet] = [];
+    }
+    statsByCardSet[score.cardSet].push(score.turns);
+  });
+  return Object.entries(statsByCardSet).map(([cardSet, turns]) => {
+    const personalBest = turns.length > 0 ? Math.min(...turns) : null;
+    const avgFirstThree = turns.slice(0, 3).reduce((a, b) => a + b, 0) / Math.min(turns.length, 3);
+    const avgLastThree = turns.slice(-3).reduce((a, b) => a + b, 0) / Math.min(turns.length, 3);
+    const avgAll = turns.reduce((a, b) => a + b, 0) / turns.length;
+    return {
+      cardSet,
+      personalBest,
+      avgFirstThree,
+      avgLastThree,
+      avgAll,
+      gameCount: turns.length,
+    };
+  });
+};
 
   // Now you can safely call it
   const cardSetStats = calculateAverages(scores);
@@ -47,6 +47,7 @@ function PlayerStats({ player }) {
         <thead>
           <tr>
             <th>Card Set</th>
+            <th>Personal Best</th>
             <th>Average Turns - first 3 games</th>
             <th>Average Turns - last 3 games</th>
             <th>Average Turns - all games</th>
@@ -57,6 +58,7 @@ function PlayerStats({ player }) {
           {cardSetStats.map((stat, index) => (
             <tr key={index}>
               <td>{stat.cardSet}</td>
+              <td>{stat.personalBest ? stat.personalBest.toFixed(0) : "N/A"}</td>
               <td>{stat.avgFirstThree?.toFixed(2)}</td>
               <td>{stat.avgLastThree?.toFixed(2)}</td>
               <td>{stat.avgAll?.toFixed(2)}</td>
