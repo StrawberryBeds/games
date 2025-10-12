@@ -5,7 +5,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import avatars from '../data/playerAvatars';
 
-function EditProfile({ player, avatars, onComplete }) {
+function EditPlayer({ player, avatars, onComplete }) {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -165,4 +165,4 @@ function EditProfile({ player, avatars, onComplete }) {
   );
 }
 
-export default EditProfile;
+export default EditPlayer;

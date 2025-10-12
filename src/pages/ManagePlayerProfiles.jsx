@@ -6,7 +6,8 @@ import { query, where, getDocs, collection, doc, getDoc, updateDoc } from 'fireb
 import { db } from '../firebase';
 import PlayerTile from '../componentsShared/PlayerTile';
 import UserTile from '../componentsShared/UserTile';
-import EditProfile from '../componentsProfilePage/EditProfile';
+import EditPlayer from '../componentsProfilePage/EditPlayer';
+import EditUser from '../componentsProfilePage/EditUser';
 import avatars from '../data/playerAvatars';
 
 function ManageProfilesPage({ onComplete }) {
@@ -14,6 +15,7 @@ function ManageProfilesPage({ onComplete }) {
   const navigate = useNavigate();
   const [familyPlayers, setFamilyPlayers] = useState([]);
   const [displayedPlayerProfile, setDisplayedPlayerProfile] = useState(null);
+  const [displayedUserDetails, setDisplayedUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -76,16 +78,23 @@ function ManageProfilesPage({ onComplete }) {
           <UserTile
             key={currentUser.uid}
             currentUser={currentUser}
-          // Remove onClick for now, or define displayUserData function
+            onClick={() => setDisplayedUserDetails(currentUser)}
+            isDisplayed={displayedUserDetails?.uid === currentUser.uid}
+
           />
         </div>
       </div>
       {displayedPlayerProfile && (
-        <EditProfile
+        <EditPlayer
           player={displayedPlayerProfile}
           avatars={avatars}
         />
       )}
+
+{displayedUserDetails && (
+  <EditUser user={displayedUserDetails} />
+)}
+
     </div>
   );
 }
