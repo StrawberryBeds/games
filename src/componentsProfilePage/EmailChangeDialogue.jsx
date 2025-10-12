@@ -112,7 +112,7 @@ const handleUserSubmit = async (event) => {
 };
 
     return (
-      <div className="modal">
+      <div className="user-data">
         <h2>Email Change Dialogue</h2>
 <div className='user-data'>
           <form onSubmit={handleUserSubmit} className="parent-profile-form">
