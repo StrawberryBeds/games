@@ -91,9 +91,9 @@ function ManageProfilesPage({ onComplete }) {
         />
       )}
 
-{displayedUserDetails && (
-  <EditUser user={displayedUserDetails} />
-)}
+      {displayedUserDetails && (
+        <EditUser user={displayedUserDetails} />
+      )}
 
     </div>
   );
