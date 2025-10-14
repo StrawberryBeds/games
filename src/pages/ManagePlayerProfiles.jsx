@@ -2,22 +2,24 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
-// import { usePlayerSelection } from '../context/usePlayerSelection';
-import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { query, where, getDocs, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 import PlayerTile from '../componentsShared/PlayerTile';
+import UserTile from '../componentsShared/UserTile';
+import EditPlayer from '../componentsProfilePage/EditPlayer';
+import EditUser from '../componentsProfilePage/EditUser';
+import avatars from '../data/playerAvatars';
 
-
-
-function ManageProfilesPage() {
+function ManageProfilesPage({ onComplete }) {
   const { currentUser } = useAuth();
-  // const { selectedPlayer, setRequiresParentAuth } = usePlayerSelection();
   const navigate = useNavigate();
   const [familyPlayers, setFamilyPlayers] = useState([]);
+  const [displayedPlayerProfile, setDisplayedPlayerProfile] = useState(null);
+  const [displayedUserDetails, setDisplayedUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Redirect if not logged in or no player selected
+  // Redirect if not logged in
   useEffect(() => {
     if (!currentUser) {
       navigate('/signin');
@@ -57,37 +59,42 @@ function ManageProfilesPage() {
     fetchFamilyPlayers();
   }, [currentUser]);
 
-  // Handle "Edit Profiles" button click
-  // const handleEditProfiles = () => {
-  //   if (!selectedPlayer) {
-  //     alert("No player selected!");
-  //     return;
-  //   }
-  //   if (selectedPlayer.isParent) {
-  //     setRequiresParentAuth(true); // Trigger parent auth
-  //     navigate('/parent-auth');    // Redirect to password prompt
-  //   } else {
-  //     alert("Only parents can manage profiles.");
-  //   }
-  // };
-
   if (loading) return <div>Loading players...</div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="profile-page">
-      <h2>Choose a profile to edit</h2>
-      {/* <button onClick={handleEditProfiles}>Edit Profiles</button> */}
-      <div className="player-tiles">
-        {familyPlayers.map((player) => (
-                    <PlayerTile
-            key={player.id}
-            player={player}
-            // onClick={() => handlePlayerSelect(player)}
-            // isSelected={selectedPlayer?.id === player.id}
+    <div className='container'>
+      <div className="player-selector">
+        <h2>Change Profiles and Settings</h2>
+        <div className="player-tiles">
+          {familyPlayers.map((player) => (
+            <PlayerTile
+              key={player.id}
+              player={player}
+              onClick={() => setDisplayedPlayerProfile(player)}
+              isDisplayed={displayedPlayerProfile?.id === player.id}
+            />
+          ))}
+          <UserTile
+            key={currentUser.uid}
+            currentUser={currentUser}
+            onClick={() => setDisplayedUserDetails(currentUser)}
+            isDisplayed={displayedUserDetails?.uid === currentUser.uid}
+
           />
-        ))}
+        </div>
       </div>
+      {displayedPlayerProfile && (
+        <EditPlayer
+          player={displayedPlayerProfile}
+          avatars={avatars}
+        />
+      )}
+
+      {displayedUserDetails && (
+        <EditUser user={displayedUserDetails} />
+      )}
+
     </div>
   );
 }

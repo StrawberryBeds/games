@@ -1,34 +1,28 @@
 // src/data/playerAvatars.js
+// src/data/playerAvatars.js
+import balloon from "/assets/cardsets/emojis/balloon_1F388.svg";
+import cake from "/assets/cardsets/emojis/cake_1F382.svg";
+import cat from "/assets/cardsets/emojis/cat_1F431.svg";
+import dog from "/assets/cardsets/emojis/dog_1F436.svg";
+import dragon from "/assets/cardsets/emojis/dragon_1F409.svg";
+import octopus from "/assets/cardsets/emojis/octopus_1F419.svg";
+import pheonix from "/assets/cardsets/emojis/pheonix_1F426-200D-1F525.svg";
+import rofl from "/assets/cardsets/emojis/rofl_1F923.svg";
+import smiley from "/assets/cardsets/emojis/smiley_1F60A.svg";
+import unicorn from "/assets/cardsets/emojis/unicorn_1F984.svg";
 
-// Import all card images
+const avatars = {
+  balloon: { name: "balloon", image: balloon },
+  cake: { name: "cake", image: cake },
+  cat: { name: "cat", image: cat },
+  dog: { name: "dog", image: dog },
+  dragon: { name: "dragon", image: dragon },
+  octopus: { name: "octopus", image: octopus },
+  pheonix: { name: "pheonix", image: pheonix },
+  rofl: { name: "rofl", image: rofl },
+  smiley: { name: "smiley", image: smiley },
+  unicorn: { name: "unicorn", image: unicorn },
+};
 
-import balloon from "/assets/avatarChoices/balloon_1F388.svg";
-import cake from "/assets/avatarChoices/cake_1F382.svg";
-import cat from "/assets/avatarChoices/cat_1F431.svg";
-import dog from "/assets/avatarChoices/dog_1F436.svg";
-import dragon from "/assets/avatarChoices/dragon_1F409.svg";
+export default avatars;
 
-import octopus from "/assets/avatarChoices/octopus_1F419.svg";
-import pheonix from "/assets/avatarChoices/pheonix_1F426-200D-1F525.svg";
-import rofl from "/assets/avatarChoices/rofl_1F923.svg";
-import smiley from "/assets/avatarChoices/smiley_1F60A.svg";
-import unicorn from "/assets/avatarChoices/unicorn_1F984.svg";
-
-// Define card sets
-const cardSets = [
-    
-      { avatarName: "balloon", avatarImage: balloon },
-      { avatarName: "cake", avatarImage: cake },
-      { avatarName: "cat", avatarImage: cat },
-      { avatarName: "dog", avatarImage: dog },
-      { avatarName: "dragon", avatarImage: dragon },
-
-      { avatarName: "octopus", avatarImage: octopus },
-      { avatarName: "pheonix", avatarImage: pheonix },
-      { avatarName: "rofl", avatarImage: rofl },
-      { avatarName: "smiley", avatarImage: smiley },
-      { avatarName: "unicorn", avatarImage: unicorn },
-
-];
-
-export default cardSets;
