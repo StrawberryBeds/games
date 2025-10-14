@@ -67,19 +67,9 @@ function EmailChangeDialogue({ onClose }) {
     setUserFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleUserSubmit = async (event) => {
+const handleUserSubmit = async (event) => {
   event.preventDefault();
   setError("");
-  if (!currentUser?.uid) {
-    setError("No user selected.");
-    return;
-  }
-  // Validate email format
-  const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if (!isValidEmail(userFormData.email)) {
-    setError("Please enter a valid email address.");
-    return;
-  }
   try {
     // Reauthenticate the user
     const password = prompt("Please enter your current password for verification:");
@@ -93,29 +83,26 @@ function EmailChangeDialogue({ onClose }) {
     );
     await reauthenticateWithCredential(currentUser, credential);
 
-    // Send verification email to the new address
+    // Try updating the email
+    await updateEmail(currentUser, userFormData.email);
+
+    // If successful, send verification email
     await sendEmailVerification(currentUser);
     setSuccess("Verification email sent to your new address. Please verify to complete the change.");
-
-    // Optionally, you can store the pending email change in Firestore
-    // and update the email in Firebase Auth only after verification.
-    const userRef = doc(db, "users", currentUser.uid);
-    await updateDoc(userRef, {
-      pendingEmail: userFormData.email,
-    });
-
   } catch (error) {
     console.error("Full error:", error);
-    if (error.code === "auth/email-already-in-use") {
+    if (error.code === "auth/operation-not-allowed") {
+      setError("Email changes are not allowed. Check Firebase Authentication settings.");
+    } else if (error.code === "auth/email-already-in-use") {
       setError("The email address is already in use by another account.");
     } else if (error.code === "auth/wrong-password") {
       setError("Incorrect password. Please try again.");
     } else {
       setError(error.message);
     }
-    setSuccess("");
   }
 };
+
 
   return (
     <div className="modal-overlay">

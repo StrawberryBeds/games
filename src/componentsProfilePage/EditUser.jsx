@@ -3,9 +3,9 @@ import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { query, where, getDocs, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
-import EmailChangeDialogue from "./EmailChangeDialogue";
+// import EmailChangeDialogue from "./EmailChangeDialogue";
 import PasswordResetDialogue from "./PasswordResetDialogue";
-// import DeleteAccountDialogue from "./DeleteAccountDialogue";
+import DeleteAccountDialogue from "./DeleteAccountDialogue";
 
 function UserSettings() {
   const { currentUser } = useAuth();
@@ -13,9 +13,9 @@ function UserSettings() {
   const [displayedUser, setDisplayedUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [showEmailDialog, setShowEmailDialog] = useState(false);
+//   const [showEmailDialog, setShowEmailDialog] = useState(false);
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
-//   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   useEffect(() => {
     if (!currentUser) {
@@ -53,24 +53,25 @@ function UserSettings() {
       <h2>Settings</h2>
       <p>Current Email Address: {currentUser.email}</p>
       <div className="settings-buttons">
-        <button onClick={() => setShowEmailDialog(true)}>Change My Email</button>
+        {/* <button onClick={() => setShowEmailDialog(true)}>Change My Email</button> */}
         <button onClick={() => setShowPasswordDialog(true)}>Change My Password</button>
         <button onClick={() => setShowDeleteDialog(true)}>Delete My Account</button>
       </div>
 
-      {showEmailDialog && (
-        <EmailChangeDialogue
-          user={currentUser}
-          onClose={() => setShowEmailDialog(false)}
-        />
-      )}
+      {/* Restore this after making a decision about Firebase Cloud Functions   */}
+      {/* {showEmailDialog && (<EmailChangeDialogue user={currentUser} onClose={() => setShowEmailDialog(false)}/>)} */}
+      
       {showPasswordDialog && (
         <PasswordResetDialogue
           user={currentUser}
           onClose={() => setShowPasswordDialog(false)}
         />
       )}
-      {/* {showDeleteDialog && (<DeleteAccountDialogue user={currentUser} onClose={() => setShowDeleteDialog(false)}/>)} */}
+      {showDeleteDialog && (
+        <DeleteAccountDialogue 
+        user={currentUser} 
+        onClose={() => setShowDeleteDialog(false)}/>
+        )}
     </div>
   );
 }
