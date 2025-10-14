@@ -1,5 +1,4 @@
 // PlayerTile.jsx
-import React from 'react';
 import './PlayerTile.css';
 import avatars from '../data/playerAvatars';
 

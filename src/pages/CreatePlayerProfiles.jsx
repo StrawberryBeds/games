@@ -1,9 +1,9 @@
 // src/pages/CreatePlayerProfiles.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../firebase";
+import { db } from "../firebase";
 import { onSnapshot } from "firebase/firestore";
 import CreateParentPlayerProfile from "../componentsProfilePage/CreateParentPlayerProfile";
 import CreateChildPlayerProfile from "../componentsProfilePage/CreateChildPlayerProfiles";
@@ -69,6 +69,8 @@ function CreateProfilesPage() {
   const navigate = useNavigate();
   const [childProfiles, setChildProfiles] = useState([]);
   const [parentComplete, setParentComplete] = useState(false);
+  const [displayedParentForm, setDisplayedParentForm] = useState(true);
+  const [displayedChildForm, setDisplayedChildForm] = useState(false);
 
   // Redirect if not signed in
   useEffect(() => {
@@ -118,31 +120,39 @@ function CreateProfilesPage() {
       <h2>Create Your Family Profiles</h2>
 
       {/* Parent Profile Section */}
+
       <div className="parent-profile-section">
-        <h3>Parent Profile</h3>
-        <CreateParentPlayerProfile
-          avatars={AVATARS}
-          onComplete={() => setParentComplete(true)}
-        />
+        {displayedParentForm && (
+          <CreateParentPlayerProfile
+            avatars={AVATARS}
+            onComplete={() => [setParentComplete(true), setDisplayedParentForm(false)]}
+          />
+        )}
       </div>
 
       {/* Child Profiles Section */}
       <div className="child-profiles-section">
-        <h3>Child Profiles</h3>
-        {childProfiles.map((profile) => (
-          <CreateChildPlayerProfile
-            key={profile.id}
-            profileId={profile.id}
-            avatars={AVATARS}
-          />
+        {childProfiles.map((profile, index) => (
+          displayedChildForm && index === childProfiles.length - 1 && (
+            <CreateChildPlayerProfile
+              key={profile.id}
+              profileId={profile.id}
+              avatars={AVATARS}
+            />
+          )
         ))}
-        <button
-          onClick={addChildProfile}
-          className="add-child-button"
-        >
-          Add Another Child
-        </button>
       </div>
+
+      <button
+        onClick={() => {
+          addChildProfile();
+          setDisplayedChildForm(true);
+        }}
+        className="add-child-button"
+      >
+        Add A Child Profile
+      </button>
+
 
       {/* Finish Button */}
       <button

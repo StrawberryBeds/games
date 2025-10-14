@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 import { doc, onSnapshot } from "firebase/firestore";
-import { auth, db } from '../firebase';
+import { db } from '../firebase';
 import PlayerTile from "../componentsShared/PlayerTile";
 import PlayerStats from "../componentsProfilePage/PlayerStats";
 
