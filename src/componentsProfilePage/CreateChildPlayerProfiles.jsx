@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { db } from '../firebase';
 import { useAuth } from '../context/authContext';
 import { doc, getDoc, addDoc, collection, updateDoc, arrayUnion } from 'firebase/firestore';
+import avatars from '../data/playerAvatars';
 
 function CreateChildPlayerProfile({ profileId, avatars }) {
   const { currentUser } = useAuth();
@@ -109,25 +110,20 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
       <div className="form-group">
         <label>Select Avatar</label>
         <div className="avatar-grid">
-          {avatars.map((avatar) => (
-            <div
-              key={avatar.id}
-              className={`avatar-option ${formData.playerAvatar === avatar.id ? 'selected' : ''}`}
-              onClick={() => handleAvatarSelect(avatar.id)}
-              role="button"
-              tabIndex="0"
-              aria-label={`Select ${avatar.name} avatar`}
-            >
-              <img
-                src={avatar.image}
-                alt={avatar.name}
-                width="50"
-                height="50"
-              />
-              <span>{avatar.name}</span>
-            </div>
-          ))}
+          {avatars &&
+            Object.values(avatars).map((avatar) => (
+              <div
+                key={avatar.name}
+                className={`avatar-option ${formData.playerAvatar === avatar.name ? "selected" : ""
+                  }`}
+                onClick={() => handleAvatarSelect(avatar.name)}
+              >
+                <img src={avatar.image} alt={avatar.name} />
+                <span>{avatar.name}</span>
+              </div>
+            ))}
         </div>
+
         {/* Hidden input to store selected avatar ID in form data */}
         <input
           type="hidden"

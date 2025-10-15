@@ -8,61 +8,62 @@ import { onSnapshot } from "firebase/firestore";
 import CreateParentPlayerProfile from "../componentsProfilePage/CreateParentPlayerProfile";
 import CreateChildPlayerProfile from "../componentsProfilePage/CreateChildPlayerProfiles";
 import "../componentsProfilePage/CreatePlayerProfiles.css"
+import avatars from '../data/playerAvatars';
 
 
 // Define avatars outside the component to avoid recreating on every render
-const AVATARS = [
-  {
-    id: "balloon",
-    name: "Balloon",
-    image: "/assets/cardsets/emojis/balloon_1F388.svg",
-  },
-  {
-    id: "cake",
-    name: "Cake",
-    image: "/assets/cardsets/emojis/cake_1F382.svg",
-  },
-  {
-    id: "cat",
-    name: "Cat",
-    image: "/assets/cardsets/emojis/cat_1F431.svg",
-  },
-  {
-    id: "dog",
-    name: "Dog",
-    image: "/assets/cardsets/emojis/dog_1F436.svg",
-  },
-  {
-    id: "dragon",
-    name: "Dragon",
-    image: "/assets/cardsets/emojis/dragon_1F409.svg",
-  },
-  {
-    id: "octopus",
-    name: "Octopus",
-    image: "/assets/cardsets/emojis/octopus_1F419.svg",
-  },
-  {
-    id: "pheonix",
-    name: "Phoenix",
-    image: "/assets/cardsets/emojis/pheonix_1F426-200D-1F525.svg",
-  },
-  {
-    id: "rofl",
-    name: "ROFL",
-    image: "/assets/cardsets/emojis/rofl_1F923.svg",
-  },
-  {
-    id: "smiley",
-    name: "Smiley",
-    image: "/assets/cardsets/emojis/smiley_1F60A.svg",
-  },
-  {
-    id: "unicorn",
-    name: "Unicorn",
-    image: "/assets/cardsets/emojis/unicorn_1F984.svg",
-  },
-];
+// const AVATARS = [
+//   {
+//     id: "balloon",
+//     name: "Balloon",
+//     image: "/assets/cardsets/emojis/balloon_1F388.svg",
+//   },
+//   {
+//     id: "cake",
+//     name: "Cake",
+//     image: "/assets/cardsets/emojis/cake_1F382.svg",
+//   },
+//   {
+//     id: "cat",
+//     name: "Cat",
+//     image: "/assets/cardsets/emojis/cat_1F431.svg",
+//   },
+//   {
+//     id: "dog",
+//     name: "Dog",
+//     image: "/assets/cardsets/emojis/dog_1F436.svg",
+//   },
+//   {
+//     id: "dragon",
+//     name: "Dragon",
+//     image: "/assets/cardsets/emojis/dragon_1F409.svg",
+//   },
+//   {
+//     id: "octopus",
+//     name: "Octopus",
+//     image: "/assets/cardsets/emojis/octopus_1F419.svg",
+//   },
+//   {
+//     id: "pheonix",
+//     name: "Phoenix",
+//     image: "/assets/cardsets/emojis/pheonix_1F426-200D-1F525.svg",
+//   },
+//   {
+//     id: "rofl",
+//     name: "ROFL",
+//     image: "/assets/cardsets/emojis/rofl_1F923.svg",
+//   },
+//   {
+//     id: "smiley",
+//     name: "Smiley",
+//     image: "/assets/cardsets/emojis/smiley_1F60A.svg",
+//   },
+//   {
+//     id: "unicorn",
+//     name: "Unicorn",
+//     image: "/assets/cardsets/emojis/unicorn_1F984.svg",
+//   },
+// ];
 
 function CreateProfilesPage() {
   const { currentUser } = useAuth();
@@ -124,7 +125,7 @@ function CreateProfilesPage() {
       <div className="parent-profile-section">
         {displayedParentForm && (
           <CreateParentPlayerProfile
-            avatars={AVATARS}
+            avatars={avatars}
             onComplete={() => [setParentComplete(true), setDisplayedParentForm(false)]}
           />
         )}
@@ -137,7 +138,7 @@ function CreateProfilesPage() {
             <CreateChildPlayerProfile
               key={profile.id}
               profileId={profile.id}
-              avatars={AVATARS}
+              avatars={avatars}
             />
           )
         ))}

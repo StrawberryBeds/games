@@ -116,24 +116,26 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
           />
         </div>
       )}
+    
 
-      {/* Player Avatar Field */}
+      {/* Avatar Selection */}
       <div className="form-group">
         <label>Select Avatar</label>
         <div className="avatar-grid">
-          {avatars.map((avatar) => (
-            <div
-              key={avatar.id}
-              className={`avatar-option ${formData.playerAvatar === avatar.id ? "selected" : ""
-                }`}
-              onClick={() => handleAvatarSelect(avatar.id)}
-            >
-              <img src={avatar.image} alt={avatar.name} />
-              <span>{avatar.name}</span>
-            </div>
-          ))}
+          {avatars &&
+            Object.values(avatars).map((avatar) => (
+              <div
+                key={avatar.name}
+                className={`avatar-option ${formData.playerAvatar === avatar.name ? "selected" : ""
+                  }`}
+                onClick={() => handleAvatarSelect(avatar.name)}
+              >
+                <img src={avatar.image} alt={avatar.name} />
+                <span>{avatar.name}</span>
+              </div>
+            ))}
         </div>
-      </div>
+        </div>
 
       {/* Family ID Field (hidden if not needed) */}
       {formData.familyId !== undefined && (
