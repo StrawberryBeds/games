@@ -3,22 +3,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  width: 100%;
-  margin-top: auto; /* Push footer to bottom */
+  width: 100vw;
+  /* margin-left: calc(-50vw + 50%); */
   box-sizing: border-box;
-  min-height: 50px; /* Keep minimum height for content */
+  min-height: 50px;
+  left: 0;
 }
-
-/* Styles for light mode */
-/* @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
