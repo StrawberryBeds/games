@@ -1,74 +1,22 @@
 // src/pages/CreatePlayerProfiles.jsx
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { doc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../firebase";
+import { db } from "../firebase";
 import { onSnapshot } from "firebase/firestore";
 import CreateParentPlayerProfile from "../componentsProfilePage/CreateParentPlayerProfile";
 import CreateChildPlayerProfile from "../componentsProfilePage/CreateChildPlayerProfiles";
 import "../componentsProfilePage/CreatePlayerProfiles.css"
-
-
-// Define avatars outside the component to avoid recreating on every render
-const AVATARS = [
-  {
-    id: "balloon",
-    name: "Balloon",
-    image: "/assets/cardsets/emojis/balloon_1F388.svg",
-  },
-  {
-    id: "cake",
-    name: "Cake",
-    image: "/assets/cardsets/emojis/cake_1F382.svg",
-  },
-  {
-    id: "cat",
-    name: "Cat",
-    image: "/assets/cardsets/emojis/cat_1F431.svg",
-  },
-  {
-    id: "dog",
-    name: "Dog",
-    image: "/assets/cardsets/emojis/dog_1F436.svg",
-  },
-  {
-    id: "dragon",
-    name: "Dragon",
-    image: "/assets/cardsets/emojis/dragon_1F409.svg",
-  },
-  {
-    id: "octopus",
-    name: "Octopus",
-    image: "/assets/cardsets/emojis/octopus_1F419.svg",
-  },
-  {
-    id: "pheonix",
-    name: "Phoenix",
-    image: "/assets/cardsets/emojis/pheonix_1F426-200D-1F525.svg",
-  },
-  {
-    id: "rofl",
-    name: "ROFL",
-    image: "/assets/cardsets/emojis/rofl_1F923.svg",
-  },
-  {
-    id: "smiley",
-    name: "Smiley",
-    image: "/assets/cardsets/emojis/smiley_1F60A.svg",
-  },
-  {
-    id: "unicorn",
-    name: "Unicorn",
-    image: "/assets/cardsets/emojis/unicorn_1F984.svg",
-  },
-];
+import avatars from '../data/playerAvatars';
 
 function CreateProfilesPage() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [childProfiles, setChildProfiles] = useState([]);
   const [parentComplete, setParentComplete] = useState(false);
+  const [displayedParentForm, setDisplayedParentForm] = useState(true);
+  const [displayedChildForm, setDisplayedChildForm] = useState(false);
 
   // Redirect if not signed in
   useEffect(() => {
@@ -118,31 +66,39 @@ function CreateProfilesPage() {
       <h2>Create Your Family Profiles</h2>
 
       {/* Parent Profile Section */}
+
       <div className="parent-profile-section">
-        <h3>Parent Profile</h3>
-        <CreateParentPlayerProfile
-          avatars={AVATARS}
-          onComplete={() => setParentComplete(true)}
-        />
+        {displayedParentForm && (
+          <CreateParentPlayerProfile
+            avatars={avatars}
+            onComplete={() => [setParentComplete(true), setDisplayedParentForm(false)]}
+          />
+        )}
       </div>
 
       {/* Child Profiles Section */}
       <div className="child-profiles-section">
-        <h3>Child Profiles</h3>
-        {childProfiles.map((profile) => (
-          <CreateChildPlayerProfile
-            key={profile.id}
-            profileId={profile.id}
-            avatars={AVATARS}
-          />
+        {childProfiles.map((profile, index) => (
+          displayedChildForm && index === childProfiles.length - 1 && (
+            <CreateChildPlayerProfile
+              key={profile.id}
+              profileId={profile.id}
+              avatars={avatars}
+            />
+          )
         ))}
-        <button
-          onClick={addChildProfile}
-          className="add-child-button"
-        >
-          Add Another Child
-        </button>
       </div>
+
+      <button
+        onClick={() => {
+          addChildProfile();
+          setDisplayedChildForm(true);
+        }}
+        className="add-child-button"
+      >
+        Add A Child Profile
+      </button>
+
 
       {/* Finish Button */}
       <button

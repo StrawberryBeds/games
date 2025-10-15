@@ -1,14 +1,14 @@
-// PlayerTile.jsx
+// NewPlayerTile.jsx
 import React from 'react';
-import './PlayerTile.css';
-import settings from "/assets/hammer-and-wrench-1F6E0.svg";
+import '../componentsShared/PlayerTile.css';
+import parentAndChild from "/assets/parent-and-child.svg";
 // import avatars from '../data/playerAvatars';
 
-function UserTile({ user, onClick, isSelected }) {
+function NewPlayerTile({ user, onClick, isSelected }) {
   // Get the avatar object by name
 //   const avatar = avatars[player.playerAvatar];
   // Use the avatar's image, or a default if not found
-   const imageSrc = settings
+   const imageSrc = parentAndChild
 
   return (
     <div
@@ -16,20 +16,20 @@ function UserTile({ user, onClick, isSelected }) {
       onClick={() => onClick(user)}
       role="button"
       tabIndex="0"
-      aria-label={`Select to edit parent settings`}
+      aria-label={`Add a child`}
     >
       <div className="player-avatar">
         <img
           src={imageSrc}
-          alt={`Settings`}
+          alt={`Add a Child`}
           width="80"
           height="80"
         />
       </div>
-      <p className="player-name">Settings</p>
+      <p className="player-name">Add A Child</p>
       <span className="parent-badge">👨‍👧</span>
     </div>
   );
 }
 
-export default UserTile;
+export default NewPlayerTile;

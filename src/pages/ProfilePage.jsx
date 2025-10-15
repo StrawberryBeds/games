@@ -2,9 +2,7 @@
 
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
-import FamilyProfiles from '../componentsProfilePage/FamilyProfiles';
 import PlayerProfile from '../componentsProfilePage/PlayerProfile';
-import { auth, db } from '../firebase';
 
 
 function ProfilePage() {

@@ -1,13 +1,13 @@
 // src/componentsProfilePage/CreateChildPlayerProfiles.jsx
 import React, { useState } from 'react';
-import { auth, db } from '../firebase';
+import { db } from '../firebase';
 import { useAuth } from '../context/authContext';
 import { doc, getDoc, addDoc, collection, updateDoc, arrayUnion } from 'firebase/firestore';
+import avatars from '../data/playerAvatars';
 
 function CreateChildPlayerProfile({ profileId, avatars }) {
   const { currentUser } = useAuth();
   const [formData, setFormData] = useState({
-    givenName: '',
     playerName: '',
     playerAvatar: '',
     playerDOB: ''
@@ -77,23 +77,8 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
 
   return (
     <form onSubmit={handleSubmit} className="child-profile-form">
-      <h4>Child Profile</h4>
+      <h3>Child Profile</h3>
 
-      {error && <p className="error-message">{error}</p>}
-      {success && <p className="success-message">{success}</p>}
-
-            {/* Player Name Field */}
-      <div className="form-group">
-        <label htmlFor={`givenName-${profileId}`}>Child's Given Name</label>
-        <input
-          type="text"
-          id={`givenName-${profileId}`}
-          name="givenName"
-          value={formData.givenName}
-          onChange={handleChange}
-          required
-        />
-      </div>
 
       {/* Player Name Field */}
       <div className="form-group">
@@ -125,25 +110,20 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
       <div className="form-group">
         <label>Select Avatar</label>
         <div className="avatar-grid">
-          {avatars.map((avatar) => (
-            <div
-              key={avatar.id}
-              className={`avatar-option ${formData.playerAvatar === avatar.id ? 'selected' : ''}`}
-              onClick={() => handleAvatarSelect(avatar.id)}
-              role="button"
-              tabIndex="0"
-              aria-label={`Select ${avatar.name} avatar`}
-            >
-              <img
-                src={avatar.image}
-                alt={avatar.name}
-                width="50"
-                height="50"
-              />
-              <span>{avatar.name}</span>
-            </div>
-          ))}
+          {avatars &&
+            Object.values(avatars).map((avatar) => (
+              <div
+                key={avatar.name}
+                className={`avatar-option ${formData.playerAvatar === avatar.name ? "selected" : ""
+                  }`}
+                onClick={() => handleAvatarSelect(avatar.name)}
+              >
+                <img src={avatar.image} alt={avatar.name} />
+                <span>{avatar.name}</span>
+              </div>
+            ))}
         </div>
+
         {/* Hidden input to store selected avatar ID in form data */}
         <input
           type="hidden"
@@ -155,6 +135,8 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
       <button type="submit" className="submit-button">
         Create Child Profile
       </button>
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
     </form>
   );
 }
