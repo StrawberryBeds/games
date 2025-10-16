@@ -1,16 +1,16 @@
 // src/pages/PlayCardSet.jsx
 import { useAuth } from "../context/authContext";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import GameBoard from "../componentsPlayCardSet/GameBoard";
-import { useNavigate } from "react-router-dom";
 
-function PlayCardSet() {
+function PlayCardSet({ isGuest = false }) {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
-
   const { id } = useParams();
 
-  if (!currentUser) {
+  // Redirect if not a guest and not logged in
+  if (!isGuest && !currentUser) {
     navigate("/signin");
     return null;
   }
@@ -109,13 +109,18 @@ function PlayCardSet() {
 
   // Find the selected card set
   const selectedSet = cardSets.find((set) => set.id === id);
-
   if (!selectedSet) {
     return <p>Card set not found</p>;
   }
 
   // Pass the selected set's Cards to GameBoard
-  return <GameBoard cards={selectedSet.Cards} cardSetName={selectedSet.name} />;
+  return (
+    <GameBoard
+      cards={selectedSet.Cards}
+      cardSetName={selectedSet.name}
+      isGuest={isGuest}
+    />
+  );
 }
 
 export default PlayCardSet;

@@ -9,7 +9,8 @@ import { auth, db } from "../firebase";
 import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 
-function GameBoard({ cards: initialCards, cardSetName }) {
+function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
+  const [guestScores, setGuestScores] = useState([])
 
   const [cards, setCards] = useState(shuffleCards(initialCards));
   const [flippedIndices, setFlippedIndices] = useState([]);
@@ -56,38 +57,37 @@ function GameBoard({ cards: initialCards, cardSetName }) {
     return duplicatedCards;
   }
 
-  const handleCardClick = (id) => {
-    if (flippedIndices.includes(id) || solvedIndices.includes(id)) {
-      return;
+const handleCardClick = (id) => {
+  if (flippedIndices.includes(id) || solvedIndices.includes(id)) {
+    return;
+  }
+  setFlippedIndices((prevFlippedIndices) => [...prevFlippedIndices, id]);
+  if (flippedIndices.length === 1) {
+    const firstIndex = flippedIndices[0];
+    const firstCard = cards.find((card) => card.id === firstIndex);
+    const clickedCard = cards.find((card) => card.id === id);
+    const newTurnCount = turns + 1;
+    setTurns(newTurnCount);
+
+    if (firstCard.cardName === clickedCard.cardName) {
+      setSolvedIndices((prevSolvedIndices) => [...prevSolvedIndices, firstIndex, id]);
+      setMatches((prevMatches) => prevMatches + 1);
     }
-    setFlippedIndices((prevFlippedIndices) => [...prevFlippedIndices, id]);
-    if (flippedIndices.length === 1) {
-      const firstIndex = flippedIndices[0];
-      const firstCard = cards.find((card) => card.id === firstIndex);
-      const clickedCard = cards.find((card) => card.id === id);
-      const newTurnCount = turns + 1; // Calculate the new turn count immediately
-      const cardSet = cardSetName;
-      setTurns(newTurnCount); // Update the state
-      if (firstCard.cardName === clickedCard.cardName) {
-        setSolvedIndices((prevSolvedIndices) => [
-          ...prevSolvedIndices,
-          firstIndex,
-          id,
-        ]);
-        setMatches((prevMatches) => prevMatches + 1);
-      }
-      setTimeout(() => {
-        setFlippedIndices([]);
-        // Check for game completion AFTER the flip
-        if (solvedIndices.length + 2 === cards.length && cards.length > 0) {
-          console.log("Game over! Score:", newTurnCount, "Card set:", cardSetName);
-          setIsGameOver(true);
-          setGameScore({ score: newTurnCount, cardSet: cardSetName });
-          saveScore(newTurnCount); // Pass the latest turn count directly
+
+    setTimeout(() => {
+      setFlippedIndices([]);
+      if (solvedIndices.length + 2 === cards.length && cards.length > 0) {
+        console.log("Game over! Score:", newTurnCount, "Card set:", cardSetName);
+        setIsGameOver(true);
+        setGameScore({ score: newTurnCount, cardSet: cardSetName });
+        if (!isGuest) {
+          saveScore(newTurnCount); // Only save for registered users
         }
-      }, 1000);
-    }
-  };
+      }
+    }, 1000);
+  }
+};
+
 
   const saveScore = async (currentTurns) => {
     try {
