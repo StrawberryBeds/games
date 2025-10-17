@@ -1,3 +1,4 @@
+/* /src/componentsShared/header.css */
 .header {
   display: flex;
   justify-content: space-between;
@@ -19,24 +20,39 @@
 }
 
 .hamburger {
-  display: none; 
-  /* background: none; change this */
+  display: none;
+  background: none;
   border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.header-nav {
-  display: flex;
-  gap: 1rem;
-    z-index: 1000;
-}
-
-.header-nav button {
-  padding: 0.5rem 1rem;
-  border: none;
+  padding: 0.5rem;
   border-radius: 4px;
   cursor: pointer;
+  color: var(--text-color); /* Match the logo color */
+}
+
+.hamburger:hover {
+  background-color: rgba(27, 175, 39, 0.1); /* Subtle green hover */
+}
+
+
+.header-nav {
+  background-color: var(--bg-color); /* Match theme */
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Depth */
+  width: 90%; /* Responsive width */
+  max-width: 300px; /* Prevent excessive width */
+  margin: 0 auto; /* Center horizontally */
+  overflow-y: auto; /* Scroll if too long */
+  max-height: 70vh; /* Limit height */
+}
+
+
+.header-nav button {
+  background-color: var(--bg-color); /* Match theme */
+  color: var(--text-color); /* Inherit theme text color */
+  width: 100%; /* Full width for mobile */
+  text-align: left; /* Align text */
 }
 
 
@@ -44,6 +60,7 @@
   .hamburger {
     display: block;
   }
+
   .header-nav {
     display: none; 
     position: absolute;

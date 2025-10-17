@@ -16,12 +16,17 @@ function Header() {
   return (
     <header className="header">
       <div className="header-logo">Ludico</div>
-      <button className="hamburger" onClick={toggleNav}>☰</button>
+      <button className="hamburger" onClick={toggleNav}>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+        </svg>
+      </button>
+
       <nav className={`header-nav ${isNavOpen ? 'open' : ''}`}>
-         <button onClick={() => { navigate('/games'); closeNav(); }}>Play Games</button>
+        <button onClick={() => { navigate('/games'); closeNav(); }}>Play Games</button>
 
         {currentUser ? (
-           <>
+          <>
             <button onClick={() => { navigate('/profile'); closeNav(); }}>Profile</button>
             <button onClick={() => { navigate('/player'); closeNav(); }}>Change Player</button>
             <SignOutButton onClick={closeNav} />
