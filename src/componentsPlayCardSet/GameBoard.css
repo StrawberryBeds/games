@@ -15,9 +15,9 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2px;
-  width: 100%;
-  max-width: 100%;
-  margin: 0 auto;
+  width: 95%;
+  max-width: 95;
+  margin: 8px;
   padding: 0;
   justify-items: center; 
 }
