@@ -115,7 +115,7 @@ function ManageProfilesPage({ onComplete }) {
   return (
     <div className='container'>
       <div className="player-selector">
-        <h2>Change Profiles and Settings</h2>
+        <h2>My Information and Settings</h2>
         <div className="player-tiles">
           {familyPlayers.map((player) => (
             <PlayerTile
