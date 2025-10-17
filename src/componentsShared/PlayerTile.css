@@ -40,7 +40,6 @@
 .player-name {
   margin: 0.5rem 0 0;
   font-weight: 500;
-  color: black;
 }
 
 .parent-badge {
@@ -64,7 +63,6 @@
 }
 
 .player-selector h2 {
-  color: black;
   margin-bottom: 1.5rem;
   align-items: center;
 }
