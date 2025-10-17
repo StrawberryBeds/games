@@ -5,7 +5,7 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import avatars from '../data/playerAvatars';
 
-function EditPlayer({ player, avatars, onComplete }) {
+function EditPlayer({ player, onComplete }) {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -140,10 +140,10 @@ function EditPlayer({ player, avatars, onComplete }) {
               {avatars &&
                 Object.values(avatars).map((avatar) => (
                   <div
-                    key={avatar.name}
-                    className={`avatar-option ${formData.playerAvatar === avatar.name ? "selected" : ""
+                    key={avatar.id}
+                    className={`avatar-option ${formData.playerAvatar === avatar.id ? "selected" : ""
                       }`}
-                    onClick={() => handleAvatarSelect(avatar.name)}
+                    onClick={() => handleAvatarSelect(avatar.id)}
                   >
                     <img src={avatar.image} alt={avatar.name} />
                     <span>{avatar.name}</span>
