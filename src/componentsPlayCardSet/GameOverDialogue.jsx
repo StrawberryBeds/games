@@ -6,10 +6,7 @@ import { usePlayerSelection } from "../context/usePlayerSelection";
 function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handleReset }) {
   const navigate = useNavigate();
   // Filter scores for the current card set or an empty array if no scores.
- const scoresForCardSet = Array.isArray(playerScores)
-  ? playerScores.filter(score => score.cardSet === cardSet)
-  : [];
-
+ const scoresForCardSet = (playerScores || []).filter(score => score.cardSet === cardSet);
   // Extract turns into an array
   const turns = scoresForCardSet.map(scores => scores.turns);
   const gameCount = turns.length + 1; // Including current game

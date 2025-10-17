@@ -10,7 +10,7 @@ import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 
 function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
-  const [guestScores, setGuestScores] = useState([])
+  // const [guestScores, setGuestScores] = useState([])
 
   const [cards, setCards] = useState(shuffleCards(initialCards));
   const [flippedIndices, setFlippedIndices] = useState([]);
@@ -22,6 +22,8 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
 
   const { selectedPlayer } = usePlayerSelection();
   const [playerScores, setPlayerScores] = useState({});
+  console.log ("Selected Player:", selectedPlayer)
+  console.log ("Player Scores:", playerScores)
 
   useEffect(() => {
     const fetchPlayerScores = async () => {
