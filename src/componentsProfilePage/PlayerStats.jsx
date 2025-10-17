@@ -51,7 +51,7 @@ const calculateAverages = (scores) => {
             <th>Average Turns - first 3 games</th>
             <th>Average Turns - last 3 games</th>
             <th>Average Turns - all games</th>
-            <th>Number of Games Played</th>
+            <th>Games Played</th>
           </tr>
         </thead>
         <tbody>
@@ -59,8 +59,8 @@ const calculateAverages = (scores) => {
             <tr key={index}>
               <td>{stat.cardSet}</td>
               <td>{stat.personalBest ? stat.personalBest.toFixed(0) : "N/A"}</td>
-              <td>{stat.avgFirstThree?.toFixed(2)}</td>
-              <td>{stat.avgLastThree?.toFixed(2)}</td>
+              <td>{stat.avgFirstThree?.toFixed(1)}</td>
+              <td>{stat.avgLastThree?.toFixed(1)}</td>
               <td>{stat.avgAll?.toFixed(2)}</td>
               <td>{stat.gameCount}</td>
             </tr>

@@ -21,7 +21,7 @@ main {
 
 
 body {
-  margin: 0;
+  margin: 8px;
   display: flex;
   align-items: center;
   width: 100%; 

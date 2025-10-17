@@ -10,7 +10,7 @@ import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 
 function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
-  // const [guestScores, setGuestScores] = useState([])
+  const [guestScores, setGuestScores] = useState([])
 
   const [cards, setCards] = useState(shuffleCards(initialCards));
   const [flippedIndices, setFlippedIndices] = useState([]);
