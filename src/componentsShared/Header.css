@@ -7,7 +7,6 @@
   height: 10vh;
   min-height: 50px;
   max-height: 70px;
-  background-color: #f9f9f9;
   position: relative;
   box-sizing: border-box;
   left: 0;
@@ -21,7 +20,7 @@
 
 .hamburger {
   display: none; 
-  background: none;
+  /* background: none; change this */
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
@@ -51,7 +50,6 @@
     top: 100%;
     left: 0;
     right: 0;
-    background-color: #f9f9f9;
     flex-direction: column;
     align-items: center;
     padding: 1rem;
