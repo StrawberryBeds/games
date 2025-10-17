@@ -39,7 +39,7 @@ function AppRoutes() {
   const [profileData, setProfileData] = useState(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [loadingProfile, setLoadingProfile] = useState(true);
-  const isGuestRoute = window.location.pathname.startsWith('/guest');
+  // const isGuestRoute = window.location.pathname.startsWith('/guest');
 
   useEffect(() => {
     setLoadingAuth(false);
