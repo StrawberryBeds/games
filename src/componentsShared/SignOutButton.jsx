@@ -4,14 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { auth, db } from '../firebase';
 
 
-function SignOutButton() {
+function SignOutButton( onClick ) {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
     try {
       await signOut(auth);
+      if (onClick) onClick(); // Close the menu
       navigate('/');
+      
       console.log("User signed out successfully.");
     } catch (err) {
       console.error("Failed to sign out:", err);

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 import { doc, onSnapshot } from "firebase/firestore";
-import { auth, db } from '../firebase';
+import { db } from '../firebase';
 import PlayerTile from "../componentsShared/PlayerTile";
 import PlayerStats from "../componentsProfilePage/PlayerStats";
 
@@ -33,7 +33,6 @@ function PlayerProfile() {
     const unsubscribe = onSnapshot(
       playerRef,
       (playerSnap) => {
-        console.log("Player profile updated:", playerSnap.data());
         if (!playerSnap.exists()) {
           setError("Player profile not found!");
           setLoading(false);
@@ -71,7 +70,6 @@ function PlayerProfile() {
 
   return (
     <div className="profile-page">
-      <h2>{playerProfile.playerName}'s Profile</h2>
       <div className="player-tile">
         <PlayerTile
           key={selectedPlayer.id}

@@ -16,6 +16,7 @@ import ProfilePage from "./pages/ProfilePage";
 import ParentAuthPage from "./pages/ParentAuthPage";
 import CreateProfilesPage from "./pages/CreatePlayerProfiles"
 import ManageProfilesPage from './pages/ManagePlayerProfiles';
+import PlayerHistory from './componentsProfilePage/PlayerHistory';
 
 import PlayCardSet from "./pages/PlayCardSet";
 
@@ -36,42 +37,52 @@ function AppRoutes() {
   const { currentUser } = useAuth();
   const { selectedPlayer } = usePlayerSelection();
   const [profileData, setProfileData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [loadingProfile, setLoadingProfile] = useState(true);
+  // const isGuestRoute = window.location.pathname.startsWith('/guest');
 
- useEffect(() => {
-  // Always set loadingAuth to false once we know the auth state
-  setLoadingAuth(false);
-
-  if (!currentUser) {
-    return;
-  }
-  if (!currentUser.emailVerified) {
-    return;
-  }
-  const docRef = doc(db, "players", currentUser.uid);
-  const unsubscribe = onSnapshot(docRef, (docSnap) => {
-    if (docSnap.exists()) {
-      setProfileData(docSnap.data());
-    } else {
-      setProfileData(null);
+  useEffect(() => {
+    setLoadingAuth(false);
+    if (!currentUser) {
+      return;
     }
-    setLoadingProfile(false);
-  });
-  return () => unsubscribe();
-}, [currentUser]);
+    if (!currentUser.emailVerified) {
+      return;
+    }
+    const docRef = doc(db, "players", currentUser.uid);
+    const unsubscribe = onSnapshot(docRef, (docSnap) => {
+      if (docSnap.exists()) {
+        setProfileData(docSnap.data());
+      } else {
+        setProfileData(null);
+      }
+      setLoadingProfile(false);
+    });
+    return () => unsubscribe();
+  }, [currentUser]);
 
+  // Guest routes: always show guest game
+  // if (isGuestRoute) {
+  //   return (
+  //     <Routes>
+  //       <Route path="/guest/cardSet/:id" element={<PlayCardSet isGuest={true} />} />
+  //       <Route path="/signin" element={<SignInPage />} />
+  //       <Route path="/signup" element={<SignUpPage />} />
+  //       <Route path="/notfound" element={<NotFoundPage />} />
+  //       <Route path="*" element={<Navigate to="/guest/cardSet/0" />} />
+  //     </Routes>
+  //   );
+  // }
 
-  // 1. If no user, show auth routes
+  // 1. If no user, redirect to guest game by default
   if (!currentUser) {
     return (
       <Routes>
+        <Route path="/guest/cardSet/:id" element={<PlayCardSet isGuest={true} />} />
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/notfound" element={<NotFoundPage />} />
-        <Route path="*" element={<Navigate to="/signin" />} />
+        <Route path="*" element={<Navigate to="/guest/cardSet/0" />} />
       </Routes>
     );
   }
@@ -96,7 +107,6 @@ function AppRoutes() {
     );
   }
 
-
   // 4. Incomplete profile
   if (!profileData.setupComplete) {
     return (
@@ -111,7 +121,6 @@ function AppRoutes() {
   if (!selectedPlayer) {
     return (
       <Routes>
-        {/* <Route path="/createprofiles" element={<CreateProfilesPage />} /> */}
         <Route path="/player" element={<ChoosePlayer />} />
         <Route path="*" element={<Navigate to="/player" />} />
       </Routes>
@@ -128,12 +137,11 @@ function AppRoutes() {
         path="/profile"
         element={!selectedPlayer ? <Navigate to="/notfound" /> : <ProfilePage />}
       />
-
-
-
-      {/* ParentAuth route - for password entry */}
+      <Route
+        path="/playerhistory"
+        element={!selectedPlayer ? <Navigate to="/notfound" /> : <PlayerHistory />}
+      />
       <Route path="/parent-auth" element={<ParentAuthPage />} />
-
       <Route
         path="/manageprofiles"
         element={
@@ -142,7 +150,6 @@ function AppRoutes() {
           </ParentAuthGuard>
         }
       />
-      {/* Catch-all route - redirect to home */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

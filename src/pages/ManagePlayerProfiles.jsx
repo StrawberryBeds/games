@@ -1,23 +1,28 @@
-// ManageProfilesPage.jsx
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
-// import { usePlayerSelection } from '../context/usePlayerSelection';
-import { query, where, getDocs, collection, doc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { query, where, getDocs, collection, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 import PlayerTile from '../componentsShared/PlayerTile';
+import UserTile from '../componentsProfilePage/UserTile';
+import NewPlayerTile from '../componentsProfilePage/NewPlayerTile';
+import EditPlayer from '../componentsProfilePage/EditPlayer';
+import EditUser from '../componentsProfilePage/EditUser';
+import CreateChildPlayerProfile from "../componentsProfilePage/CreateChildPlayerProfiles";
+import avatars from '../data/playerAvatars';
 
-
-
-function ManageProfilesPage() {
+function ManageProfilesPage({ onComplete }) {
   const { currentUser } = useAuth();
-  // const { selectedPlayer, setRequiresParentAuth } = usePlayerSelection();
   const navigate = useNavigate();
   const [familyPlayers, setFamilyPlayers] = useState([]);
+  const [displayedPlayerProfile, setDisplayedPlayerProfile] = useState(null);
+  const [displayedUserDetails, setDisplayedUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [childProfiles, setChildProfiles] = useState([]);
+  const [displayedChildForm, setDisplayedChildForm] = useState(false);
 
-  // Redirect if not logged in or no player selected
+  // Redirect if not logged in
   useEffect(() => {
     if (!currentUser) {
       navigate('/signin');
@@ -57,37 +62,97 @@ function ManageProfilesPage() {
     fetchFamilyPlayers();
   }, [currentUser]);
 
-  // Handle "Edit Profiles" button click
-  // const handleEditProfiles = () => {
-  //   if (!selectedPlayer) {
-  //     alert("No player selected!");
-  //     return;
-  //   }
-  //   if (selectedPlayer.isParent) {
-  //     setRequiresParentAuth(true); // Trigger parent auth
-  //     navigate('/parent-auth');    // Redirect to password prompt
-  //   } else {
-  //     alert("Only parents can manage profiles.");
-  //   }
-  // };
+  const addChildProfile = () => {
+    const newChildProfiles = [...childProfiles, { id: Date.now() }];
+    setChildProfiles(newChildProfiles);
+    setDisplayedChildForm(true);
+    setDisplayedPlayerProfile(null);
+    setDisplayedUserDetails(null);
+  };
+
+  const handleChildProfileCreated = async (childProfileData) => {
+    try {
+      const parentPlayerRef = doc(db, 'players', currentUser.uid);
+      const parentPlayerSnap = await getDoc(parentPlayerRef);
+      const parentPlayerData = parentPlayerSnap.data();
+      const familyId = parentPlayerData.familyId;
+
+      // Create the new child player in Firestore
+      const newChildPlayerRef = doc(collection(db, 'players'));
+      await setDoc(newChildPlayerRef, {
+        ...childProfileData,
+        familyId,
+        isParent: false,
+        isParentPlayer: false,
+      });
+
+      // Update the parent's childPlayers array
+      await updateDoc(parentPlayerRef, {
+        childPlayers: [...(parentPlayerData.childPlayers || []), newChildPlayerRef.id]
+      });
+
+      // Refresh the family players list
+      const playersQuery = query(
+        collection(db, 'players'),
+        where('familyId', '==', familyId)
+      );
+      const querySnapshot = await getDocs(playersQuery);
+      const players = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setFamilyPlayers(players);
+      setDisplayedChildForm(false);
+    } catch (err) {
+      console.error("Error creating child profile:", err);
+      setError("Failed to create child profile. Please try again.");
+    }
+  };
 
   if (loading) return <div>Loading players...</div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="profile-page">
-      <h2>Choose a profile to edit</h2>
-      {/* <button onClick={handleEditProfiles}>Edit Profiles</button> */}
-      <div className="player-tiles">
-        {familyPlayers.map((player) => (
-                    <PlayerTile
-            key={player.id}
-            player={player}
-            // onClick={() => handlePlayerSelect(player)}
-            // isSelected={selectedPlayer?.id === player.id}
+    <div className='container'>
+      <div className="player-selector">
+        <h2>Change Profiles and Settings</h2>
+        <div className="player-tiles">
+          {familyPlayers.map((player) => (
+            <PlayerTile
+              key={player.id}
+              player={player}
+              onClick={() => setDisplayedPlayerProfile(player)}
+              isDisplayed={displayedPlayerProfile?.id === player.id}
+            />
+          ))}
+          <NewPlayerTile
+            onClick={addChildProfile}
           />
-        ))}
+          <UserTile
+            key={currentUser.uid}
+            currentUser={currentUser}
+            onClick={() => setDisplayedUserDetails(currentUser)}
+            isDisplayed={displayedUserDetails?.uid === currentUser.uid}
+          />
+        </div>
       </div>
+      {displayedPlayerProfile && (
+        <EditPlayer
+          player={displayedPlayerProfile}
+          avatars={avatars}
+        />
+      )}
+      {displayedChildForm && childProfiles.length > 0 && (
+        <CreateChildPlayerProfile
+          key={childProfiles[childProfiles.length - 1].id}
+          profileId={childProfiles[childProfiles.length - 1].id}
+          avatars={avatars}
+          onComplete={handleChildProfileCreated}
+        />
+      )}
+      {displayedUserDetails && (
+        <EditUser user={displayedUserDetails} />
+      )}
     </div>
   );
 }
