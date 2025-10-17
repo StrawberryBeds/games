@@ -90,8 +90,14 @@ function EditPlayer({ player, onComplete }) {
             name="givenName"
             value={formData.givenName}
             onChange={handleChange}
-            required
+            disabled={!player.isParentPlayer} // Disable for children
+            required={player.isParentPlayer} // Only required for parents
           />
+          {!player.isParentPlayer && (
+            <small className="form-text text-muted">
+              Not required for child profiles.
+            </small>
+          )}
         </div>
 
         {/* Family Name Field */}
@@ -103,8 +109,14 @@ function EditPlayer({ player, onComplete }) {
             name="familyName"
             value={formData.familyName}
             onChange={handleChange}
-            required
+            disabled={!player.isParentPlayer} // Disable for children
+            required={player.isParentPlayer} // Only required for parents
           />
+          {!player.isParentPlayer && (
+            <small className="form-text text-muted">
+              Not required for child profiles.
+            </small>
+          )}
         </div>
 
         {/* Player DOB Field */}
@@ -117,7 +129,11 @@ function EditPlayer({ player, onComplete }) {
             value={formData.playerDOB}
             onChange={handleChange}
             required
+            readOnly
           />
+          <small className="form-text text-muted">
+            Read-only.
+          </small>
         </div>
 
         {/* Player Name Field */}
@@ -134,23 +150,23 @@ function EditPlayer({ player, onComplete }) {
         </div>
 
         {/* Player Avatar Field */}
-          <div className="form-group">
-            <label>Select Avatar</label>
-            <div className="avatar-grid">
-              {avatars &&
-                Object.values(avatars).map((avatar) => (
-                  <div
-                    key={avatar.id}
-                    className={`avatar-option ${formData.playerAvatar === avatar.id ? "selected" : ""
-                      }`}
-                    onClick={() => handleAvatarSelect(avatar.id)}
-                  >
-                    <img src={avatar.image} alt={avatar.name} />
-                    <span>{avatar.name}</span>
-                  </div>
-                ))}
-            </div>
+        <div className="form-group">
+          <label>Select Avatar</label>
+          <div className="avatar-grid">
+            {avatars &&
+              Object.values(avatars).map((avatar) => (
+                <div
+                  key={avatar.id}
+                  className={`avatar-option ${formData.playerAvatar === avatar.id ? "selected" : ""
+                    }`}
+                  onClick={() => handleAvatarSelect(avatar.id)}
+                >
+                  <img src={avatar.image} alt={avatar.name} />
+                  <span>{avatar.name}</span>
+                </div>
+              ))}
           </div>
+        </div>
 
         {/* Submit Button */}
         <button
