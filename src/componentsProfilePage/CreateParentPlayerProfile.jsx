@@ -90,7 +90,7 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
       {/* Player DOB Field */}
       {formData.playerDOB !== undefined && (
         <div className="form-group">
-          <label htmlFor="playerDOB">Player Dob</label>
+           <label htmlFor="playerDOB">Player Date of Birth</label>
           <input
             type="date"
             id="playerDOB"
