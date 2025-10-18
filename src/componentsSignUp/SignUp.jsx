@@ -129,7 +129,7 @@ function SignUp() {
         <h2>Check Your Email</h2>
         <p>
           We've sent a verification link to <strong>{userEmail}</strong>.
-          Please verify your email to complete your registration and then refresh this page.
+          Please verify your email to complete your registration.
         </p>
         <p>Didn't receive the email?</p>
         <button onClick={() => {
