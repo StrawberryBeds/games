@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  width: 100vw; /* Span full viewport width */
+  width: 100vw;
   height: 10vh;
   min-height: 50px;
   max-height: 70px;
@@ -33,6 +33,7 @@
   background-color: rgba(27, 175, 39, 0.1); /* Subtle green hover */
 }
 
+
 .header-nav {
   display: flex;
   gap: 1rem;
@@ -42,9 +43,10 @@
   padding: 0;
   width: auto;
   max-width: none;
-  margin: 0;
+  margin: 8px;
   position: static;
 }
+
 
 .header-nav button {
   background: none;
@@ -58,8 +60,9 @@
   .hamburger {
     display: block;
   }
+
   .header-nav {
-    display: none;
+    display: none; 
     position: absolute;
     top: 100%;
     left: 0;
@@ -80,6 +83,8 @@
     overflow-y: auto;
   }
   .header-nav.open {
-    display: flex;
+    display: flex; 
   }
 }
+
+
