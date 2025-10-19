@@ -1,7 +1,5 @@
-import React from "react";
 import "./GameOverDialogue.css";
 import { useNavigate } from "react-router-dom";
-import { usePlayerSelection } from "../context/usePlayerSelection";
 
 function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handleReset }) {
   const navigate = useNavigate();
@@ -85,24 +83,4 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handle
 }
 
 export default GameOverDialogue;
-//   const scores = selectedPlayer?.scores || [];
-//   const gameCount = scores.length + 1; // Including current game
-//     const { currentUser } = useAuth();
-//     const { selectedPlayer, setRequiresParentAuth } = usePlayerSelection();
-//     const [playerProfile, setPlayerProfile] = useState(null);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState(null);
-
-
-//   else { // gameCount >= 3
-//     const isPersonalBest = currentScore < Math.min(...scores);
-//     const avgScore = (scores.reduce((a, b) => a + b, 0) + currentScore) / gameCount;
-//     const message = isPersonalBest
-//       ? `That’s a new personal best! You’ve played ${gameCount} games with an average of ${avgScore.toFixed(1)} turns.`
-//       : `You’ve played ${gameCount} games with an average of ${avgScore.toFixed(1)} turns.`;
-//     return {
-//       message,
-//       showConfetti: isPersonalBest,
-//     };
-//   }
 
