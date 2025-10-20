@@ -1,0 +1,21 @@
+{
+  "welcome": "Welcome to Ludico!",
+  "play_button": "Play a Game",
+  "create_account_button": "Create Your Account",
+  "sign_in_button": "Sign In",
+
+"score": {
+  "matches": "Matches",
+  "turns": "Turns"
+},
+
+
+  "play_again_button": "Play Again",
+
+
+  "game_over_dialogue": {
+    "title": "Game Over",
+    "message": " You have finished the game in {{turns}} turns. Your average score for {{cardSet}} is {{avgScore}} turns over {{gameCount}} games. Your personal best is {{personalBest}}.",
+    "play_again_button": "Play Again"
+}
+}

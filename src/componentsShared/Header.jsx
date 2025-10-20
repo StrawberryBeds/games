@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../context/authContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import SignOutButton from './SignOutButton.jsx';
+import { useTranslation } from 'react-i18next';
 import './Header.css';
 
 
@@ -12,6 +13,8 @@ function Header() {
 
   const toggleNav = () => setIsNavOpen(!isNavOpen);
   const closeNav = () => setIsNavOpen(false);
+
+  const { i18n } = useTranslation();
 
   return (
     <header className="header">
@@ -30,11 +33,17 @@ function Header() {
             <button onClick={() => { navigate('/profile'); closeNav(); }}>Profile</button>
             <button onClick={() => { navigate('/player'); closeNav(); }}>Change Player</button>
             <SignOutButton onClick={closeNav} />
+            <button onClick={() => i18n.changeLanguage('fr')}>
+              FR | EN
+            </button>
           </>
         ) : (
           <>
             <button onClick={() => { navigate('/signup'); closeNav(); }}>Create Your Account</button>
             <button onClick={() => { navigate('/signin'); closeNav(); }}>Sign In</button>
+            <button onClick={() => i18n.changeLanguage('fr')}>
+              FR | EN
+            </button>
           </>
         )}
       </nav>
@@ -43,3 +52,4 @@ function Header() {
 }
 
 export default Header;
+

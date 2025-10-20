@@ -31,6 +31,10 @@ import { useAuth } from "./context/authContext";
 import { usePlayerSelection } from "./context/usePlayerSelection"
 import ErrorBoundary from './componentsShared/ErrorBoundary';
 
+import './i18n';
+import { Suspense } from 'react';
+
+
 
 // In AppRoutes function inside App.jsx
 function AppRoutes() {
@@ -60,19 +64,6 @@ function AppRoutes() {
     });
     return () => unsubscribe();
   }, [currentUser]);
-
-  // Guest routes: always show guest game
-  // if (isGuestRoute) {
-  //   return (
-  //     <Routes>
-  //       <Route path="/guest/cardSet/:id" element={<PlayCardSet isGuest={true} />} />
-  //       <Route path="/signin" element={<SignInPage />} />
-  //       <Route path="/signup" element={<SignUpPage />} />
-  //       <Route path="/notfound" element={<NotFoundPage />} />
-  //       <Route path="*" element={<Navigate to="/guest/cardSet/0" />} />
-  //     </Routes>
-  //   );
-  // }
 
   // 1. If no user, redirect to guest game by default
   if (!currentUser) {
@@ -157,6 +148,7 @@ function AppRoutes() {
 
 function App() {
   return (
+    <Suspense fallback="loading">
     <AuthProvider>
       <PlayerProvider>
         <Router>
@@ -170,6 +162,7 @@ function App() {
         </Router>
       </PlayerProvider>
     </AuthProvider>
+    </Suspense>
   );
 }
 
