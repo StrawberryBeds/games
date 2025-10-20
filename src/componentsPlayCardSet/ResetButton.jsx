@@ -1,14 +1,16 @@
 // ResetButton.jsx
-import React from "react";
+import { useTranslation } from 'react-i18next';
 
 function ResetButton({ onClick }) {
+  const { t } = useTranslation();
   return (
-    <button onClick={onClick}>
-      Play a new game !
+    <button onClick={onClick}>{t('play_again_button')}
     </button>
   );
 }
 
 export default ResetButton;
+
+
 
 

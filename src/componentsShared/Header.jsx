@@ -14,7 +14,7 @@ function Header() {
   const toggleNav = () => setIsNavOpen(!isNavOpen);
   const closeNav = () => setIsNavOpen(false);
 
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   return (
     <header className="header">
@@ -26,7 +26,7 @@ function Header() {
       </button>
 
       <nav className={`header-nav ${isNavOpen ? 'open' : ''}`}>
-        <button onClick={() => { navigate('/games'); closeNav(); }}>Play Games</button>
+        <button onClick={() => { navigate('/games'); closeNav(); }}>{t('play_button')}</button>
 
         {currentUser ? (
           <>
@@ -39,8 +39,8 @@ function Header() {
           </>
         ) : (
           <>
-            <button onClick={() => { navigate('/signup'); closeNav(); }}>Create Your Account</button>
-            <button onClick={() => { navigate('/signin'); closeNav(); }}>Sign In</button>
+            <button onClick={() => { navigate('/signup'); closeNav(); }}>{t('create_account_button')}</button>
+            <button onClick={() => { navigate('/signin'); closeNav(); }}>{t('sign_in_button')}</button>
             <button onClick={() => i18n.changeLanguage('fr')}>
               FR | EN
             </button>
@@ -53,3 +53,7 @@ function Header() {
 
 export default Header;
 
+  // "welcome": "Welcome to Ludico!",
+  // "play_button": "Play a Game",
+  // "create_account_button": "Create Your Account",
+  // "sign_in_button": "Sign In",

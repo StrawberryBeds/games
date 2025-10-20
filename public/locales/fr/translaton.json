@@ -6,11 +6,11 @@
   "sign_in_button": "Se connecter",
 
   "score": {
-    "matches": "Pairs",
-    "turns": "Tours"
+    "matches": "Pairs :",
+    "turns": "Tours : "
   },
 
-  "play_again_button": "Jouer à nouveau",
+  "play_again_button": "Jouer à nouveau !",
 
 
   "game_over_dialogue": {

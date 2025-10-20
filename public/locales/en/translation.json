@@ -5,12 +5,12 @@
   "sign_in_button": "Sign In",
 
 "score": {
-  "matches": "Matches",
-  "turns": "Turns"
+  "matches": "Matches: ",
+  "turns": "Turns:"
 },
 
 
-  "play_again_button": "Play Again",
+  "play_again_button": "Play Again!",
 
 
   "game_over_dialogue": {
