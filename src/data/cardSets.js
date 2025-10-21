@@ -27,7 +27,7 @@ import ursaMinor from "/assets/cardsets/constellations/UrsaMinor.svg";
 import apple from "/assets/cardsets/halloween/apple_1F34F.svg";
 import bat from "/assets/cardsets/halloween/bat_1F987.svg";
 import blackCat from "/assets/cardsets/halloween/black_cat_1F408.svg";
-import frog from "/assets/cardsets/halloween/frog_1F438.svg";
+import broom from "/assets/cardsets/halloween/broom_1F9F9.svg"
 import ghost from "/assets/cardsets/halloween/ghost_1F47B.svg";
 
 import jackO from "/assets/cardsets/halloween/jack_o_lantern_1F383.svg";
@@ -79,15 +79,14 @@ const cardSets = [
     Cards: [
       { cardName: "apple", cardImage: apple },
       { cardName: "bat", cardImage: bat },
-      { blackCat: "black cat", cardImage: blackCat },
-      { frog: "frog", cardImage: frog },
-      { ghost: "ghost", cardImage: ghost },
-      
-      { jackO: "jack o'lantern", cardImage: jackO },
-      { skull: "skull", cardImage: skull },
-      { spiderWeb: "spider's web", cardImage: spiderWeb },
-      { vampire: "vampire", cardImage: vampire },
-      { womanZombie: "woman zombie", cardImage: womanZombie }
+      { cardName: "black cat", cardImage: blackCat },
+      { cardName: "broom", cardImage: broom },
+      { cardName: "ghost", cardImage: ghost },
+      { cardName: "jack o'lantern", cardImage: jackO },
+      { cardName: "skull", cardImage: skull },
+      { cardName: "spider's web", cardImage: spiderWeb },
+      { cardName: "vampire", cardImage: vampire },
+      { cardName: "woman zombie", cardImage: womanZombie }
     ]
   }
 ];
