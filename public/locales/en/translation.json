@@ -15,7 +15,12 @@
 
   "game_over_dialogue": {
     "title": "Game Over",
-    "message": " You have finished the game in {{turns}} turns. Your average score for {{cardSet}} is {{avgScore}} turns over {{gameCount}} games. Your personal best is {{personalBest}}.",
-    "play_again_button": "Play Again"
+    "message1": "You matched all the cards in {{newTurnCount}} turns! Can you beat it?",
+    "message2a": "You matched all the cards in {{newTurnCount}} turns!",
+    "message2b": "Well done! That's a new personal best for {{cardSet}}!",
+    "message2c": "Bad luck! Try to beat {{personalBest}} for a new personal best for {{cardSet}}!",
+    "message3": "Your average score for {{cardSet}} is {{avgScore}} turns over {{gameCount}} games.",
+    "play_again_button": "Play Again",
+    "play_another_card_set": "Play Another Card Set"
 }
 }
