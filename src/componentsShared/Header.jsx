@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../context/authContext.jsx';
 import { useNavigate } from 'react-router-dom';
 import SignOutButton from './SignOutButton.jsx';
+import { useTranslation } from 'react-i18next';
 import './Header.css';
 
 
@@ -13,6 +14,8 @@ function Header() {
   const toggleNav = () => setIsNavOpen(!isNavOpen);
   const closeNav = () => setIsNavOpen(false);
 
+  const { i18n, t } = useTranslation();
+
   return (
     <header className="header">
       <div className="header-logo">Ludico</div>
@@ -23,20 +26,27 @@ function Header() {
       </button>
 
       <nav className={`header-nav ${isNavOpen ? 'open' : ''}`}>
-        <button onClick={() => { navigate('/games'); closeNav(); }}>Play Games</button>
+        <button onClick={() => { navigate('/games'); closeNav(); }}>{t('play_button')}</button>
 
         {currentUser ? (
           <>
-            <button onClick={() => { navigate('/profile'); closeNav(); }}>Profile</button>
-            <button onClick={() => { navigate('/player'); closeNav(); }}>Change Player</button>
+            <button onClick={() => { navigate('/profile'); closeNav(); }}>{t('profile_button')}</button>
+            <button onClick={() => { navigate('/player'); closeNav(); }}>{t('change_player_button')}</button>
             <SignOutButton onClick={closeNav} />
           </>
+
         ) : (
           <>
-            <button onClick={() => { navigate('/signup'); closeNav(); }}>Create Your Account</button>
-            <button onClick={() => { navigate('/signin'); closeNav(); }}>Sign In</button>
+            <button onClick={() => { navigate('/signup'); closeNav(); }}>{t('create_account_button')}</button>
+            <button onClick={() => { navigate('/signin'); closeNav(); }}>{t('sign_in_button')}</button>
           </>
         )}
+        <button
+          onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'fr' : 'en')}
+          className="language-toggle"
+        >
+          {i18n.language === 'en' ? 'FR' : 'EN'}
+        </button>
       </nav>
     </header>
   );

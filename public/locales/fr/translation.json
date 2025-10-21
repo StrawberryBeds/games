@@ -1,0 +1,29 @@
+
+{
+  "welcome": "Bienvenue à Ludico!",
+  "play_button": "Jouer un partie",
+  "create_account_button": "Créez votre compte",
+  "sign_in_button": "Se connecter",
+  "change_player_button": "Changer de joueur",
+  "profile_button": "Profil",
+  "sign_out_button": "Déconnexion",
+
+  "score": {
+    "matches": "Pairs :",
+    "turns": "Tours : "
+  },
+
+  "play_again_button": "Jouer à nouveau !",
+
+
+  "game_over_dialogue": {
+    "title": "Fin de la partie",
+    "message1": "Vous avez combiné toutes les cartes en {{newTurnCount}} tours ! Essayez-vous à le battre ?",
+    "message2a": "Vous avez combiné toutes les cartes en {{newTurnCount}} tours !",
+    "message2b": "Bravo ! C'est un nouveau meilleur score pour {{cardSet}} !",
+    "message2c": "Mauvais coup ! Essayez de battre {{personalBest}} pour un nouveau meilleur score pour {{cardSet}} !",
+    "message3": "Votre score moyen pour {{cardSet}} est de {{avgScore}} tours sur {{gameCount}} parties.",
+    "play_again_button": "Jouer à nouveau",
+    "play_another_card_set": "Jouer une autre série de cartes"
+}
+}

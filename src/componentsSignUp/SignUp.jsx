@@ -11,6 +11,8 @@ import PendingEmailVerification from './PendingEmailVerification'
 
 function SignUp() {
   const [userEmail, setUserEmail] = useState('');
+  const [confirmEmail, setConfirmEmail] = useState('');
+  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{10,}$/;
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -25,8 +27,20 @@ function SignUp() {
     setSuccess('');
     setIsLoading(true);
 
-    if (!userEmail || !password || !confirmPassword) {
+    if (!userEmail || !confirmEmail || !password || !confirmPassword) {
       setError("Please fill in all required fields.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (userEmail !== confirmEmail) {
+      setError("Emails do not match");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setError("Password must be at least 10 characters, with 1 uppercase, 1 number, and 1 special character (!@#$%^&*).");
       setIsLoading(false);
       return;
     }
@@ -95,6 +109,18 @@ function SignUp() {
             required
           />
         </div>
+
+        <div>
+          <label>Confirm Email</label>
+          <input
+            type="email"
+            value={confirmEmail}
+            onChange={(e) => setConfirmEmail(e.target.value)}
+            name="userEmail"
+            required
+          />
+        </div>
+
         <div>
           <label>Password</label>
           <input
@@ -102,7 +128,7 @@ function SignUp() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             name="password"
-            minLength="6"
+            minLength="10"
             required
           />
         </div>

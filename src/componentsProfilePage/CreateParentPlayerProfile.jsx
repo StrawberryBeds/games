@@ -3,6 +3,8 @@ import { db } from "../firebase";
 import { useAuth } from "../context/authContext";
 import { doc, setDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
+import { collection, query, where, getDocs } from "firebase/firestore";
+
 
 function CreateParentPlayerProfile({ avatars, onComplete }) {
   const { currentUser } = useAuth();
@@ -25,15 +27,34 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const checkPlayerNameIsUnique = async (playerName) => {
+    if (!playerName) return false;
+    const playersRef = collection(db, "players");
+    const q = query(playersRef, where("playerName", "==", playerName));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.empty; // true if unique, false if exists
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
 
-    // Validate all fields
     if (Object.values(formData).some((field) => !field)) {
       setError("Please fill in all required fields.");
       return;
     }
+
+    try {
+      const isUnique = await checkPlayerNameIsUnique(formData.playerName);
+      if (!isUnique) {
+        setError("Player name must be unique.");
+        return;
+      }
+    } catch (error) {
+      setError("Error checking player name. Please try again.");
+      return;
+    }
+
     try {
       const familyId = uuidv4();
       await setDoc(doc(db, "players", currentUser.uid), {
@@ -44,7 +65,7 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
         ...formData,
         childPlayers: [],
         createdAt: new Date().toISOString(),
-        setupComplete: false, // Add this flag
+        setupComplete: false,
       });
       setSuccess("Parent profile created successfully!");
       if (onComplete) onComplete(true);
@@ -90,7 +111,7 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
       {/* Player DOB Field */}
       {formData.playerDOB !== undefined && (
         <div className="form-group">
-           <label htmlFor="playerDOB">Player Date of Birth</label>
+          <label htmlFor="playerDOB">Player Date of Birth</label>
           <input
             type="date"
             id="playerDOB"
@@ -112,11 +133,14 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
             name="playerName"
             value={formData.playerName}
             onChange={handleChange}
+            onBlur={async () => {
+              const isUnique = await checkPlayerNameIsUnique(formData.playerName);
+              if (!isUnique) setError("Player name must be unique.");
+            }}
             required
           />
         </div>
       )}
-    
 
       {/* Avatar Selection */}
       <div className="form-group">
@@ -135,7 +159,7 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
               </div>
             ))}
         </div>
-        </div>
+      </div>
 
       {/* Family ID Field (hidden if not needed) */}
       {formData.familyId !== undefined && (

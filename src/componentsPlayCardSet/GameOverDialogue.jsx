@@ -1,8 +1,10 @@
 import "./GameOverDialogue.css";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handleReset }) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   // Filter scores for the current card set or an empty array if no scores.
  const scoresForCardSet = Array.isArray(playerScores)
   ? playerScores.filter(score => score.cardSet === cardSet)
@@ -22,33 +24,34 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handle
   if (gameCount === 1) {
     return (
       <div className="modal">
-        <div>You matched all the cards in {newTurnCount} turns! Can you beat it?</div>
+        <div>{t('game_over_dialogue.message1', { newTurnCount })}</div>
           <div className="modal-buttons">
-          <button onClick={() => { handleReset(); onClose(); }}>Play again</button>
-          <button onClick={() => navigate('/games')}>Play a Another Card Set</button>
+          <button onClick={() => { handleReset(); onClose(); }}>{t('game_over_dialogue.play_again_button')}</button>
+          <button onClick={() => navigate('/games')}>{t('game_over_dialogue.play_another_card_set')}</button>
           </div>
       </div>
     );
+
   } else if (gameCount === 2) {
     if (newTurnCount < personalBest) {
       return (
         <div className="modal">
-          <div>You matched all the cards in {newTurnCount} turns!</div>
-          <div>Well done! That's a new personal best for {cardSet}!</div>
+          <div>{t('game_over_dialogue.message2a', { newTurnCount })}</div>
+          <div>{t('game_over_dialogue.message2b', { cardSet })}</div>
           <div className="modal-buttons">
-          <button onClick={() => { handleReset(); onClose(); }}>Play again</button>
-          <button onClick={() => navigate('/games')}>Play a Another Card Set</button>
+          <button onClick={() => { handleReset(); onClose(); }}>{t('game_over_dialogue.play_again_button')}</button>
+          <button onClick={() => navigate('/games')}>{t('game_over_dialogue.play_another_card_set')}</button>
           </div>
         </div>
       );
     } else {
       return (
         <div className="modal">
-          <div>You matched all the cards in {newTurnCount} turns!</div>
-          <div>Bad luck! Try to beat {personalBest} for a new personal best for {cardSet}!</div>
+          <div>{t('game_over_dialogue.message2a', { newTurnCount })}</div>
+          <div>{t('game_over_dialogue.message2c', { personalBest, cardSet })}</div>
           <div className="modal-buttons">
-          <button onClick={() => { handleReset(); onClose(); }}>Play again</button>
-          <button onClick={() => navigate('/games')}>Play a Another Card Set</button>
+          <button onClick={() => { handleReset(); onClose(); }}>{t('game_over_dialogue.play_again_button')}</button>
+          <button onClick={() => navigate('/games')}>{t('game_over_dialogue.play_another_card_set')}</button>
           </div>
         </div>
       );
@@ -57,24 +60,24 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handle
     if (newTurnCount < personalBest) {
       return (
         <div className="modal">
-          <div>You matched all the cards in {newTurnCount} turns!</div>
-          <div>Well done! That's a new personal best for {cardSet}!</div>
-          <div>Your average for {cardSet} is {avgScore} turns over {gameCount} games</div>
+          <div>{t('game_over_dialogue.message2a', { newTurnCount })}</div>
+          <div>{t('game_over_dialogue.message2b', { cardSet })}</div>
+          <div>{t('game_over_dialogue.message3', { cardSet, avgScore: avgScore.toFixed(1), gameCount })}</div>
           <div className="modal-buttons">
-          <button onClick={() => { handleReset(); onClose(); }}>Play again</button>
-          <button onClick={() => navigate('/games')}>Play a Another Card Set</button>
+          <button onClick={() => { handleReset(); onClose(); }}>{t('game_over_dialogue.play_again_button')}</button>
+          <button onClick={() => navigate('/games')}>{t('game_over_dialogue.play_another_card_set')}</button>
           </div>
         </div>
       );
     } else {
       return (
         <div className="modal">
-          <div>You matched all the cards in {newTurnCount} turns!</div>
-          <div>Bad luck! Try to beat {personalBest} for a new personal best for {cardSet}!</div>
-          <div>Your average score for {cardSet} is {avgScore.toFixed(1)} turns over {gameCount} games.</div>
+          <div>{t('game_over_dialogue.message2a', { newTurnCount })}</div>
+          <div>{t('game_over_dialogue.message2c', { personalBest, cardSet })}</div>
+          <div>{t('game_over_dialogue.message3', { cardSet, avgScore: avgScore.toFixed(1), gameCount })}</div>
           <div className="modal-buttons">
-          <button onClick={() => { handleReset(); onClose(); }}>Play again</button>
-          <button onClick={() => navigate('/games')}>Play a Another Card Set</button>
+          <button onClick={() => { handleReset(); onClose(); }}>{t('game_over_dialogue.play_again_button')}</button>
+          <button onClick={() => navigate('/games')}>{t('game_over_dialogue.play_another_card_set')}</button>
           </div>
         </div>
       );

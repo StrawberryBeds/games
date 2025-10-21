@@ -7,7 +7,6 @@ import cake from "/assets/cardsets/emojis/cake_1F382.svg";
 import cat from "/assets/cardsets/emojis/cat_1F431.svg";
 import dog from "/assets/cardsets/emojis/dog_1F436.svg";
 import dragon from "/assets/cardsets/emojis/dragon_1F409.svg";
-
 import octopus from "/assets/cardsets/emojis/octopus_1F419.svg";
 import pheonix from "/assets/cardsets/emojis/pheonix_1F426-200D-1F525.svg";
 import rofl from "/assets/cardsets/emojis/rofl_1F923.svg";
@@ -25,6 +24,18 @@ import scorpius from "/assets/cardsets/constellations/Scorpius.svg";
 import ursaMajor from "/assets/cardsets/constellations/UrsaMajor.svg";
 import ursaMinor from "/assets/cardsets/constellations/UrsaMinor.svg";
 
+import apple from "/assets/cardsets/halloween/apple_1F34F.svg";
+import bat from "/assets/cardsets/halloween/bat_1F987.svg";
+import blackCat from "/assets/cardsets/halloween/black_cat_1F408.svg";
+import broom from "/assets/cardsets/halloween/broom_1F9F9.svg"
+import ghost from "/assets/cardsets/halloween/ghost_1F47B.svg";
+
+import jackO from "/assets/cardsets/halloween/jack_o_lantern_1F383.svg";
+import skull from "/assets/cardsets/halloween/skull_1F480.svg";
+import spiderWeb from "/assets/cardsets/halloween/spider_web_1F578.svg";
+import vampire from "/assets/cardsets/halloween/vampire_1F9DB.svg";
+import womanZombie from "/assets/cardsets/halloween/woman_zombie_1F9DF.svg";
+
 // Define card sets
 const cardSets = [
   {
@@ -37,7 +48,6 @@ const cardSets = [
       { cardName: "cat", cardImage: cat },
       { cardName: "dog", cardImage: dog },
       { cardName: "dragon", cardImage: dragon },
-
       { cardName: "octopus", cardImage: octopus },
       { cardName: "pheonix", cardImage: pheonix },
       { cardName: "rofl", cardImage: rofl },
@@ -62,6 +72,23 @@ const cardSets = [
       { cardName: "ursaMinor", cardImage: ursaMinor }
     ],
   },
+  {
+    id: "2",
+    name: "Hallowe'en",
+    image: jackO,
+    Cards: [
+      { cardName: "apple", cardImage: apple },
+      { cardName: "bat", cardImage: bat },
+      { cardName: "black cat", cardImage: blackCat },
+      { cardName: "broom", cardImage: broom },
+      { cardName: "ghost", cardImage: ghost },
+      { cardName: "jack o'lantern", cardImage: jackO },
+      { cardName: "skull", cardImage: skull },
+      { cardName: "spider's web", cardImage: spiderWeb },
+      { cardName: "vampire", cardImage: vampire },
+      { cardName: "woman zombie", cardImage: womanZombie }
+    ]
+  }
 ];
 
 export default cardSets;
