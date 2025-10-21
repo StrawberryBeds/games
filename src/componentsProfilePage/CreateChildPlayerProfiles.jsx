@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { db } from '../firebase';
 import { useAuth } from '../context/authContext';
-import { doc, getDoc, addDoc, collection, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, getDoc, addDoc, collection, updateDoc, arrayUnion, query, where, getDocs } from 'firebase/firestore';
 import avatars from '../data/playerAvatars';
 
 function CreateChildPlayerProfile({ profileId, avatars }) {
@@ -20,6 +20,14 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const checkPlayerNameIsUnique = async (playerName) => {
+    if (!playerName) return false;
+    const playersRef = collection(db, "players");
+    const q = query(playersRef, where("playerName", "==", playerName));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.empty; // true if unique, false if exists
+  };
+
   const handleAvatarSelect = (avatarId) => {
     setFormData(prev => ({ ...prev, playerAvatar: avatarId }));
   };
@@ -32,6 +40,17 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
     // Validate all fields are filled
     if (!formData.playerName || !formData.playerAvatar || !formData.playerDOB) {
       setError("Please fill in all required fields.");
+      return;
+    }
+
+    try {
+      const isUnique = await checkPlayerNameIsUnique(formData.playerName);
+      if (!isUnique) {
+        setError("Player name must be unique.");
+        return;
+      }
+    } catch (error) {
+      setError("Error checking player name. Please try again.");
       return;
     }
 
@@ -85,10 +104,14 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
         <label htmlFor={`playerName-${profileId}`}>Child's Player Name</label>
         <input
           type="text"
-          id={`playerName-${profileId}`}
+          id="playerName"
           name="playerName"
           value={formData.playerName}
           onChange={handleChange}
+          onBlur={async () => {
+            const isUnique = await checkPlayerNameIsUnique(formData.playerName);
+            if (!isUnique) setError("Player name must be unique.");
+          }}
           required
         />
       </div>
