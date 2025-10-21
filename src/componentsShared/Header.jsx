@@ -30,10 +30,11 @@ function Header() {
 
         {currentUser ? (
           <>
-            <button onClick={() => { navigate('/profile'); closeNav(); }}>Profile</button>
-            <button onClick={() => { navigate('/player'); closeNav(); }}>Change Player</button>
+            <button onClick={() => { navigate('/profile'); closeNav(); }}>{t('profile_button')}</button>
+            <button onClick={() => { navigate('/player'); closeNav(); }}>{t('change_player_button')}</button>
             <SignOutButton onClick={closeNav} />
           </>
+
         ) : (
           <>
             <button onClick={() => { navigate('/signup'); closeNav(); }}>{t('create_account_button')}</button>
