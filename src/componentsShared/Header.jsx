@@ -33,27 +33,22 @@ function Header() {
             <button onClick={() => { navigate('/profile'); closeNav(); }}>Profile</button>
             <button onClick={() => { navigate('/player'); closeNav(); }}>Change Player</button>
             <SignOutButton onClick={closeNav} />
-            <button onClick={() => i18n.changeLanguage('fr')}>
-              FR | EN
-            </button>
           </>
         ) : (
           <>
             <button onClick={() => { navigate('/signup'); closeNav(); }}>{t('create_account_button')}</button>
             <button onClick={() => { navigate('/signin'); closeNav(); }}>{t('sign_in_button')}</button>
-            <button onClick={() => i18n.changeLanguage('fr')}>
-              FR | EN
-            </button>
           </>
         )}
+        <button
+          onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'fr' : 'en')}
+          className="language-toggle"
+        >
+          {i18n.language === 'en' ? 'FR' : 'EN'}
+        </button>
       </nav>
     </header>
   );
 }
 
 export default Header;
-
-  // "welcome": "Welcome to Ludico!",
-  // "play_button": "Play a Game",
-  // "create_account_button": "Create Your Account",
-  // "sign_in_button": "Sign In",
