@@ -4,6 +4,9 @@
   "play_button": "Jouer un partie",
   "create_account_button": "Créez votre compte",
   "sign_in_button": "Se connecter",
+  "change_player_button": "Changer de joueur",
+  "profile_button": "Profil",
+  "sign_out_button": "Déconnexion",
 
   "score": {
     "matches": "Pairs :",

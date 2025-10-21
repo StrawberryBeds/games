@@ -3,6 +3,9 @@
   "play_button": "Play a Game",
   "create_account_button": "Create Your Account",
   "sign_in_button": "Sign In",
+  "change_player_button": "Change Player",
+  "profile_button": "Profile",
+  "sign_out_button": "Sign Out",
 
 "score": {
   "matches": "Matches: ",
