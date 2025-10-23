@@ -13,6 +13,12 @@
     "turns": "Tours : "
   },
 
+    "footer": {
+    "copyright": "© 2025 Samuel Wood. ",
+    "card_images_attribution": "Images des cartes par <1>OpenMoji</1>",
+     "disclaimer": "Ce projet est en cours de développement. À utiliser à vos risques et périls."
+  },
+
   "play_again_button": "Jouer à nouveau !",
 
 
