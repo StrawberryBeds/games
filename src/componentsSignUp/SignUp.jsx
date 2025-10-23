@@ -8,6 +8,7 @@ import {
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import PendingEmailVerification from './PendingEmailVerification'
+import { useTranslation } from 'react-i18next';
 
 function SignUp() {
   const [userEmail, setUserEmail] = useState('');
@@ -20,6 +21,7 @@ function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -28,25 +30,25 @@ function SignUp() {
     setIsLoading(true);
 
     if (!userEmail || !confirmEmail || !password || !confirmPassword) {
-      setError("Please fill in all required fields.");
+      setError(t('signUp.error_all_fields'));
       setIsLoading(false);
       return;
     }
 
     if (userEmail !== confirmEmail) {
-      setError("Emails do not match");
+      setError(t('signUp.error_email_match'));
       setIsLoading(false);
       return;
     }
 
     if (!passwordRegex.test(password)) {
-      setError("Password must be at least 10 characters, with 1 uppercase, 1 number, and 1 special character (!@#$%^&*).");
+      setError(t('signUp.error_password_reqs'));
       setIsLoading(false);
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError(t('signUp.error_password_match'));
       setIsLoading(false);
       return;
     }
@@ -75,14 +77,14 @@ function SignUp() {
       // 3. Send verification email
       await sendEmailVerification(user);
       console.log("SignUp.jsx - Verification email sent to", user.email)
-      setSuccess("Account created! Please check your email for verification.");
+      setSuccess(t('signUp.success_email_verification_sent'));
       setShowVerificationModal(true);
 
     } catch (error) {
       console.error("Sign up error:", error);
       setError(error.code === 'auth/email-already-in-use'
-        ? 'This email is already registered.'
-        : 'Registration failed. Please try again.');
+        ? t('signUp.email_in_use')
+        : t('signUp.registration_failed'));
       setSuccess('');
     } finally {
       setIsLoading(false);
@@ -100,7 +102,7 @@ function SignUp() {
         {error && <p className="error">{error}</p>}
         {success && <p className="success">{success}</p>}
         <div>
-          <label>Email</label>
+          <label>{t('signUp.email')}</label>
           <input
             type="email"
             value={userEmail}
@@ -111,7 +113,7 @@ function SignUp() {
         </div>
 
         <div>
-          <label>Confirm Email</label>
+          <label>{t('signUp.confirm_email')}</label>
           <input
             type="email"
             value={confirmEmail}
@@ -122,7 +124,7 @@ function SignUp() {
         </div>
 
         <div>
-          <label>Password</label>
+          <label>{t('signUp.password')}</label>
           <input
             type="password"
             value={password}
@@ -133,19 +135,19 @@ function SignUp() {
           />
         </div>
         <div>
-          <label>Confirm Password</label>
+          <label>{t('signUp.confirm_password')}</label>
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             name="confirmPassword"
-            minLength="6"
+            minLength="10"
             required
           />
         </div>
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Creating Account...' : 'Sign Up'}
-        </button>
+      <button type="submit" disabled={isLoading}>
+        {isLoading ? t('signUp.button_loading') : t('signUp.button')}
+      </button>
       </form>
 
       <PendingEmailVerification
@@ -155,7 +157,7 @@ function SignUp() {
         <h2>Check Your Email</h2>
         <p>
           We've sent a verification link to <strong>{userEmail}</strong>.
-          Please verify your email to complete your registration and then refresh this page.
+          Please verify your email to complete your registration and go to <a href="https://openmoji.org/"></a> .
         </p>
         <p>Didn't receive the email?</p>
         <button onClick={() => {
