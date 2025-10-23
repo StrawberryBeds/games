@@ -1,27 +1,26 @@
 // pages/EmailVerificationPage.jsx
 import { useAuth } from "../context/authContext";
 import { sendEmailVerification } from "firebase/auth";
-import { auth, db } from '../firebase';
 import { useState } from "react";
-// import { useNavigate } from 'react-router-dom';
 import PendingEmailVerification from "../componentsSignUp/PendingEmailVerification";
+import { useTranslation, Trans } from 'react-i18next';
 
 function EmailVerificationPage() {
   const { currentUser } = useAuth();
   const [isModalOpen, setIsModalOpen] = useState(true);
   const [resendLoading, setResendLoading] = useState(false);
   const [message, setMessage] = useState("");
-  //   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleResendEmail = async () => {
     if (!currentUser) return;
     setResendLoading(true);
     try {
       await sendEmailVerification(currentUser);
-      setMessage("Verification email resent! Please check your inbox.");
+      setMessage(t("emailVerify.resend_success")); // Use a translation key for this message too
     } catch (error) {
       console.error("Error resending email verification", error.message);
-      setMessage("Failed to resend email. Please try again later.");
+      setMessage(t("emailVerify.resend_failure")); // Use a translation key for this message too
     } finally {
       setResendLoading(false);
     }
@@ -29,34 +28,44 @@ function EmailVerificationPage() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    // Optionally navigate away or show a different UI
   };
 
   return (
     <div className="email-verification-page">
-      <PendingEmailVerification show={isModalOpen} onClose={handleCloseModal}>
-        <h2>Please Verify Your Email</h2>
+      <PendingEmailVerification
+        show={isModalOpen}
+        onClose={handleCloseModal}
+        currentUser={currentUser}
+        resendLoading={resendLoading}
+        message={message}
+        handleResendEmail={handleResendEmail}
+      >
+        <h2>{t('emailVerify.heading')}</h2>
         <p>
-          We've sent a verification email to{" "}
-          <strong>{currentUser?.email}</strong>. Please check your inbox and
-          click the link to verify your account.
+          <Trans
+            i18nKey="emailVerify.sent_to"
+            values={{ email: currentUser?.email }}
+            components={{ strong: <strong /> }}
+          />
         </p>
         <p>
-          After verifying, please sign-out and sign-in to create your profiles.
+          <Trans
+            i18nKey="emailVerify.return_to"
+            components={{ 1: <a href="https://felixsgame.netlify.app/" target="_blank" rel="noopener noreferrer" /> }}
+          />
         </p>
-
-        <p>Didn't receive the email?</p>
+        <p>{t('emailVerify.did_not_receive')}</p>
         <button onClick={handleResendEmail} disabled={resendLoading}>
-          {resendLoading ? "Sending..." : "Resend Email"}
+          {resendLoading ? t('emailVerify.sending') : t('emailVerify.resend')}
         </button>
         {message && <p className="message">{message}</p>}
       </PendingEmailVerification>
 
       {!isModalOpen && (
         <div className="verification-reminder">
-          <p>Please verify your email to continue.</p>
+          <p>{t('emailVerify.please_verify')}</p>
           <button onClick={() => setIsModalOpen(true)}>
-            Open Verification Prompt
+            {t('emailVerify.open_prompt')}
           </button>
         </div>
       )}
