@@ -74,6 +74,17 @@
   "child_player_name": "Nom du joueur (enfant)",
   "child_dob": "Date de naissance de l'enfant",
   "create_child_button": "Créer le profil enfant"
-}
+},
+
+"editPlayer": {
+  "profile_updated_successfully": "Le profil de `${player.playerName}` a été mis à jour avec succès !",
+  "not_required_child": "Non requis pour les profils enfant.",
+  "player_dob": "Date de naissance du joueur",
+  "player_name": "Nom du joueur",
+  "update_profile": "Mettre à jour le profil"
+},
+"no_player_selected": "Aucun joueur sélectionné.",
+"player_profile_not_found": "Profil de joueur introuvable."
+
 
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { auth, db } from "../firebase";
 import { useAuth } from "../context/authContext";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -6,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import avatars from '../data/playerAvatars';
 
 function EditPlayer({ player, onComplete }) {
+  const { t } = useTranslation();
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -24,7 +26,6 @@ function EditPlayer({ player, onComplete }) {
     }
   }, [currentUser, navigate]);
 
-  // Populate form data when the player prop changes
   useEffect(() => {
     if (player) {
       setFormData({
@@ -49,25 +50,20 @@ function EditPlayer({ player, onComplete }) {
   const handlePlayerSubmit = async (event) => {
     event.preventDefault();
     setError("");
-
     if (!player?.id) {
-      setError("No player selected.");
+      setError(t("no_player_selected"));
       return;
     }
-
     try {
       const playerRef = doc(db, "players", player.id);
       const playerSnap = await getDoc(playerRef);
-
       if (!playerSnap.exists()) {
-        throw new Error("Player profile not found.");
+        throw new Error(t("player_profile_not_found"));
       }
-
       await updateDoc(playerRef, {
         ...formData,
       });
-
-      setSuccess(`${player.playerName}'s profile updated successfully!`);
+      setSuccess(t("editPlayer.profile_updated_successfully", { player: { playerName: player.playerName } }));
       if (onComplete) onComplete(true);
     } catch (error) {
       setError(error.message);
@@ -78,50 +74,45 @@ function EditPlayer({ player, onComplete }) {
   return (
     <div className='player-data'>
       <form onSubmit={handlePlayerSubmit} className="parent-profile-form">
-        {error && <p className="error-message">{error}</p>}
-        {success && <p className="success-message">{success}</p>}
-
         {/* Given Name Field */}
         <div className="form-group">
-          <label htmlFor="givenName">Given Name</label>
+          <label htmlFor="givenName">{t('createProfile.given_name')}</label>
           <input
             type="text"
             id="givenName"
             name="givenName"
             value={formData.givenName}
             onChange={handleChange}
-            disabled={!player.isParentPlayer} // Disable for children
-            required={player.isParentPlayer} // Only required for parents
+            disabled={!player.isParentPlayer}
+            required={player.isParentPlayer}
           />
           {!player.isParentPlayer && (
             <small className="form-text text-muted">
-              Not required for child profiles.
+              {t('editPlayer.not_required_child')}
             </small>
           )}
         </div>
-
         {/* Family Name Field */}
         <div className="form-group">
-          <label htmlFor="familyName">Family Name</label>
+          <label htmlFor="familyName">{t('createProfile.family_name')}</label>
           <input
             type="text"
             id="familyName"
             name="familyName"
             value={formData.familyName}
             onChange={handleChange}
-            disabled={!player.isParentPlayer} // Disable for children
-            required={player.isParentPlayer} // Only required for parents
+            disabled={!player.isParentPlayer}
+            required={player.isParentPlayer}
           />
           {!player.isParentPlayer && (
             <small className="form-text text-muted">
-              Not required for child profiles.
+              {t('editPlayer.not_required_child')}
             </small>
           )}
         </div>
-
         {/* Player DOB Field */}
         <div className="form-group">
-          <label htmlFor="playerDOB">Player Date of Birth</label>
+          <label htmlFor="playerDOB">{t('editPlayer.player_dob')}</label>
           <input
             type="date"
             id="playerDOB"
@@ -135,10 +126,9 @@ function EditPlayer({ player, onComplete }) {
             Read-only.
           </small>
         </div>
-
         {/* Player Name Field */}
         <div className="form-group">
-          <label htmlFor="playerName">Player Name</label>
+          <label htmlFor="playerName">{t('editPlayer.player_name')}</label>
           <input
             type="text"
             id="playerName"
@@ -148,10 +138,9 @@ function EditPlayer({ player, onComplete }) {
             required
           />
         </div>
-
         {/* Player Avatar Field */}
         <div className="form-group">
-          <label>Select Avatar</label>
+          <label>{t('createProfile.avatar')}</label>
           <div className="avatar-grid">
             {avatars &&
               Object.values(avatars).map((avatar) => (
@@ -167,15 +156,16 @@ function EditPlayer({ player, onComplete }) {
               ))}
           </div>
         </div>
-
         {/* Submit Button */}
         <button
           type="submit"
           className="submit-button"
           disabled={!player}
         >
-          Update {player?.playerName || 'Profile'}
+          {t('editPlayer.update_profile')}
         </button>
+        {error && <p className="error-message">{error}</p>}
+        {success && <p className="success-message">{success}</p>}
       </form>
     </div>
   );
