@@ -97,6 +97,14 @@
     "update_profile": "Update Profile"
   },
 
+  "familyProfiles": {
+    "parent_not_found": "Parent player profile not found!",
+    "failed_to_load_family_players": "Failed to load family players. Please try again.",
+    "only_parents_can_manage_profiles": "Only parents can manage profiles.",
+    "loading_players": "Loading players...",
+    "family_profiles": "Your Family Profiles"
+  },
+
   "no_player_selected": "No player selected.",
   "player_profile_not_found": "Player profile not found."
 }
