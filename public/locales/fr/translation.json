@@ -110,6 +110,16 @@
   "who_is_playing": "Qui joue ?"
 },
 
+"playerStats": {
+  "no_games": "Aucune partie jouée pour l'instant.",
+  "player_stats": "Statistiques de {player.playerName}",
+  "card_set": "Jeu de cartes",
+  "personal_best": "Meilleur score",
+  "avg_first_three": "Moyenne de tours - 3 premières parties",
+  "avg_last_three": "Moyenne de tours - 3 dernières parties",
+  "avg_all": "Moyenne de tours - toutes les parties",
+  "game_count": "Parties jouées"
+},
 
 "incorrect_password": "Mot de passe incorrect. Veuillez réessayer.",
 "loading": "Chargement en cours...",

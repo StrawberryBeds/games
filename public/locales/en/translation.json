@@ -123,6 +123,17 @@
     "who_is_playing": "Who's Playing?"
   },
 
+  "playerStats": {
+    "no_games": "No games played yet.",
+    "player_stats": "{player.playerName}'s Stats",
+    "card_set": "Card Set",
+    "personal_best": "Personal Best",
+    "avg_first_three": "Average Turns - first 3 games",
+    "avg_last_three": "Average Turns - last 3 games",    
+    "avg_all": "Average Turns - all games",
+    "game_count": "Games Played"
+  },
+
   "incorrect_password": "Incorrect password. Please try again.",
   "loading": "Loading ...",
   "password": "Password",

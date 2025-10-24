@@ -1,57 +1,59 @@
 // componentsProfilePage/PlayerStats.jsx
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 import "./PlayerStats.css";
 
 function PlayerStats({ player }) {
+  const { t } = useTranslation();
   const scores = player?.scores || [];
   const navigate = useNavigate();
   const playerId = player.playerId;
 
-  // Define the function before using it
-const calculateAverages = (scores) => {
-  const statsByCardSet = {};
-  scores.forEach(score => {
-    if (!statsByCardSet[score.cardSet]) {
-      statsByCardSet[score.cardSet] = [];
-    }
-    statsByCardSet[score.cardSet].push(score.turns);
-  });
-  return Object.entries(statsByCardSet).map(([cardSet, turns]) => {
-    const personalBest = turns.length > 0 ? Math.min(...turns) : null;
-    const avgFirstThree = turns.slice(0, 3).reduce((a, b) => a + b, 0) / Math.min(turns.length, 3);
-    const avgLastThree = turns.slice(-3).reduce((a, b) => a + b, 0) / Math.min(turns.length, 3);
-    const avgAll = turns.reduce((a, b) => a + b, 0) / turns.length;
-    return {
-      cardSet,
-      personalBest,
-      avgFirstThree,
-      avgLastThree,
-      avgAll,
-      gameCount: turns.length,
-    };
-  });
-};
+  const calculateAverages = (scores) => {
+    const statsByCardSet = {};
+    scores.forEach(score => {
+      if (!statsByCardSet[score.cardSet]) {
+        statsByCardSet[score.cardSet] = [];
+      }
+      statsByCardSet[score.cardSet].push(score.turns);
+    });
 
-  // Now you can safely call it
+    return Object.entries(statsByCardSet).map(([cardSet, turns]) => {
+      const personalBest = turns.length > 0 ? Math.min(...turns) : null;
+      const avgFirstThree = turns.slice(0, 3).reduce((a, b) => a + b, 0) / Math.min(turns.length, 3);
+      const avgLastThree = turns.slice(-3).reduce((a, b) => a + b, 0) / Math.min(turns.length, 3);
+      const avgAll = turns.reduce((a, b) => a + b, 0) / turns.length;
+
+      return {
+        cardSet,
+        personalBest,
+        avgFirstThree,
+        avgLastThree,
+        avgAll,
+        gameCount: turns.length,
+      };
+    });
+  };
+
   const cardSetStats = calculateAverages(scores);
 
   if (scores.length === 0) {
-    return <p>No games played yet.</p>;
+    return <p>{t("playerStats.no_games")}</p>;
   }
 
   return (
     <div className="player-stats">
-      <h3>{player.playerName}'s Stats</h3>
+      <h3>{t("playerStats.player_stats", { playerName: player.playerName })}</h3>
       <table className="scores-table">
         <thead>
           <tr>
-            <th>Card Set</th>
-            <th>Personal Best</th>
-            <th>Average Turns - first 3 games</th>
-            <th>Average Turns - last 3 games</th>
-            <th>Average Turns - all games</th>
-            <th>Games Played</th>
+            <th>{t("playerStats.card_set")}</th>
+            <th>{t("playerStats.personal_best")}</th>
+            <th>{t("playerStats.avg_first_three")}</th>
+            <th>{t("playerStats.avg_last_three")}</th>
+            <th>{t("playerStats.avg_all")}</th>
+            <th>{t("playerStats.game_count")}</th>
           </tr>
         </thead>
         <tbody>
@@ -67,7 +69,6 @@ const calculateAverages = (scores) => {
           ))}
         </tbody>
       </table>
-      <button onClick={() => navigate('/playerhistory')}>See All Stats</button>
     </div>
   );
 }
