@@ -9,6 +9,7 @@ import CreateParentPlayerProfile from "../componentsProfilePage/CreateParentPlay
 import CreateChildPlayerProfile from "../componentsProfilePage/CreateChildPlayerProfiles";
 import "../componentsProfilePage/CreatePlayerProfiles.css"
 import avatars from '../data/playerAvatars';
+import { useTranslation } from "react-i18next";
 
 function CreateProfilesPage() {
   const { currentUser } = useAuth();
@@ -17,6 +18,7 @@ function CreateProfilesPage() {
   const [parentComplete, setParentComplete] = useState(false);
   const [displayedParentForm, setDisplayedParentForm] = useState(true);
   const [displayedChildForm, setDisplayedChildForm] = useState(false);
+  const { t } = useTranslation();
 
   // Redirect if not signed in
   useEffect(() => {
@@ -63,7 +65,7 @@ function CreateProfilesPage() {
 
   return (
     <div className="profile-creation-container">
-      <h2>Create Your Family Profiles</h2>
+      <h2>{t('createProfile.create_family')}</h2>
 
       {/* Parent Profile Section */}
 
@@ -96,7 +98,7 @@ function CreateProfilesPage() {
         }}
         className="add-child-button"
       >
-        Add A Child Profile
+        {t('createProfile.add_child_button')}
       </button>
 
 
@@ -106,7 +108,7 @@ function CreateProfilesPage() {
         disabled={!parentComplete}
         className="finish-button"
       >
-        Finish Creating Profiles
+        {t('createProfile.finish_profiles')}
       </button>
     </div>
   );

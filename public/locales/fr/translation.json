@@ -52,6 +52,28 @@
     "resend": "Renvoyer",
     "please_verify": "Veuillez vérifier votre e-mail.",
     "open_prompt": "Veuillez vérifier votre e-mail."
-  }
+  },
+
+  "createProfile": {
+  "unique_player": "Le nom du joueur doit être unique.",
+  "error_checking": "Erreur lors de la vérification du nom du joueur. Veuillez réessayer.",
+  "success_parent_created": "Profil parent créé avec succès !",
+  "create_family": "Créez vos profils de famille",
+  "parent_profile": "Profil Parent",
+  "given_name": "Prénom",
+  "family_name": "Nom de famille",
+  "parent_dob": "Votre date de naissance",
+  "player_name": "Nom du joueur",
+  "avatar": "Sélectionnez un avatar",
+  "create_parent_button": "Créer mon profil",
+  "add_child_button": "Ajouter un profil enfant",
+  "finish_profiles": "Terminer la création des profils",
+  "error_parent_not_found": "Profil parent introuvable.",
+  "success_child_created": "Profil enfant créé avec succès !",
+  "child_profile": "Profil Enfant",
+  "child_player_name": "Nom du joueur (enfant)",
+  "child_dob": "Date de naissance de l'enfant",
+  "create_child_button": "Créer le profil enfant"
+}
 
 }

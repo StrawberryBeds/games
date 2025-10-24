@@ -8,7 +8,7 @@ import {
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import PendingEmailVerification from './PendingEmailVerification'
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 function SignUp() {
   const [userEmail, setUserEmail] = useState('');
@@ -22,6 +22,7 @@ function SignUp() {
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
+    const [message, setMessage] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -150,24 +151,42 @@ function SignUp() {
       </button>
       </form>
 
-      <PendingEmailVerification
-        show={showVerificationModal}
-        onClose={handleCloseModal}
-      >
-        <h2>Check Your Email</h2>
-        <p>
-          We've sent a verification link to <strong>{userEmail}</strong>.
-          Please verify your email to complete your registration and go to <a href="https://openmoji.org/"></a> .
-        </p>
-        <p>Didn't receive the email?</p>
-        <button onClick={() => {
-          sendEmailVerification(auth.currentUser)
-            .then(() => setSuccess("Verification email resent!"))
-            .catch(() => setError("Failed to resend email."));
-        }}>
-          Resend Email
-        </button>
-      </PendingEmailVerification>
+<PendingEmailVerification
+  show={showVerificationModal}
+  onClose={handleCloseModal}
+  currentUser={{ email: userEmail }} // Mock currentUser object for consistency
+  resendLoading={isLoading}
+  message={success}
+  handleResendEmail={() => {
+    sendEmailVerification(auth.currentUser)
+      .then(() => setSuccess(t('emailVerify.resend_success')))
+      .catch(() => setError(t('emailVerify.resend_failure')));
+  }}
+>
+  <h2>{t('emailVerify.heading')}</h2>
+  <p>
+    <Trans
+      i18nKey="emailVerify.sent_to"
+      values={{ email: userEmail }}
+      components={{ strong: <strong /> }}
+    />
+  </p>
+  <p>
+    <Trans
+      i18nKey="emailVerify.return_to"
+      components={{ 1: <a href="https://felixsgame.netlify.app/" target="_blank" rel="noopener noreferrer" /> }}
+    />
+  </p>
+  <p>{t('emailVerify.did_not_receive')}</p>
+  <button onClick={() => {
+    sendEmailVerification(auth.currentUser)
+      .then(() => setSuccess(t('emailVerify.resend_success')))
+      .catch(() => setError(t('emailVerify.resend_failure')));
+  }} disabled={isLoading}>
+    {isLoading ? t('emailVerify.sending') : t('emailVerify.resend')}
+  </button>
+  {message && <p className="message">{message}</p>}
+</PendingEmailVerification>
     </>
   );
 }
