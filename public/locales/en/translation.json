@@ -92,16 +92,10 @@
   "editPlayer": {
     "profile_updated_successfully": "`${player.playerName}'s profile updated successfully!`",
     "not_required_child": "Not required for child profiles.",
+  "read_only":"Read-only.",
     "player_dob": "Player Date of Birth",
     "player_name": "Player Name",
     "update_profile": "Update Profile"
-  },
-
-  "familyProfiles": {
-    "parent_not_found": "Parent player profile not found!",
-    "failed_to_load_family_players": "Failed to load family players. Please try again.",
-    "only_parents_can_manage_profiles": "Only parents can manage profiles.",
-    "family_profiles": "Your Family Profiles"
   },
 
   "parentAuth": {
@@ -112,6 +106,23 @@
     "verifying_message": "Verfiying",
     "continue_button": "Continue"
   },
+
+    "manageProfiles": {
+    "parent_not_found": "Parent player profile not found!",
+    "error_fetching_family_players": "Failed to load family players. Please try again.",
+    "only_parents_can_manage_profiles": "Only parents can manage profiles.",
+    "family_profiles": "Your Family Profiles",
+    "error_create_child_profile": "Failed to create child profile. Please try again.",
+    "my_information_and_settings": "My Information and Settings"
+  },
+
+  "choosePlayer" : {
+    "error_family_id_not_found": "Family ID not found. Please set up your family profile.",
+    "error_loading_players": "Failed to load players. Please refresh.",
+    "no_players_found": "No players found. Create a profile?",
+    "who_is_playing": "Who's Playing?"
+  },
+
   "incorrect_password": "Incorrect password. Please try again.",
   "loading": "Loading ...",
   "password": "Password",

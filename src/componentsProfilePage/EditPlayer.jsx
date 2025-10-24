@@ -123,7 +123,7 @@ function EditPlayer({ player, onComplete }) {
             readOnly
           />
           <small className="form-text text-muted">
-            Read-only.
+            {t('editPlayer.read_only')}
           </small>
         </div>
         {/* Player Name Field */}

@@ -79,6 +79,7 @@
 "editPlayer": {
   "profile_updated_successfully": "Le profil de `${player.playerName}` a été mis à jour avec succès !",
   "not_required_child": "Non requis pour les profils enfant.",
+    "read_only":"Lecture seulement.",
   "player_dob": "Date de naissance du joueur",
   "player_name": "Nom du joueur",
   "update_profile": "Mettre à jour le profil"
@@ -92,6 +93,24 @@
   "verifying_message": "Vérification en cours",
   "continue_button": "Continuer"
 },
+
+"manageProfiles": {
+  "parent_not_found": "Profil du parent introuvable !",
+  "error_fetching_family_players": "Échec du chargement des profils familiaux. Veuillez réessayer.",
+  "only_parents_can_manage_profiles": "Seuls les parents peuvent gérer les profils.",
+  "family_profiles": "Profils de votre famille",
+  "error_create_child_profile": "Échec de la création du profil enfant. Veuillez réessayer.",
+  "my_information_and_settings": "Mes informations et paramètres"
+},
+
+"choosePlayer": {
+  "error_family_id_not_found": "ID familial introuvable. Veuillez configurer votre profil familial.",
+  "error_loading_players": "Échec du chargement des joueurs. Veuillez actualiser la page.",
+  "no_players_found": "Aucun joueur trouvé. Créer un profil ?",
+  "who_is_playing": "Qui joue ?"
+},
+
+
 "incorrect_password": "Mot de passe incorrect. Veuillez réessayer.",
 "loading": "Chargement en cours...",
 "password":"Mot de passe",
