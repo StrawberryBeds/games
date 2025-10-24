@@ -194,11 +194,11 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
       )}
 
       {/* Submit Button */}
-      <button type="submit" className="submit-button">
-        Create Parent Profile
-      </button>
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
+      <button type="submit" className="submit-button">
+        Create My Profile
+      </button>
     </form>
   );
 }
