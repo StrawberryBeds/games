@@ -154,12 +154,11 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
           value={formData.playerAvatar}
         />
       </div>
-
+      {error && <p className="error-message">{error}</p>}
+      {success && <p className="success-message">{success}</p>}
       <button type="submit" className="submit-button">
         Create Child Profile
       </button>
-      {error && <p className="error-message">{error}</p>}
-      {success && <p className="success-message">{success}</p>}
     </form>
   );
 }
