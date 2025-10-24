@@ -106,7 +106,7 @@ function CreateProfilesPage() {
         disabled={!parentComplete}
         className="finish-button"
       >
-        Finish Profile Creation
+        Finish Creating Profiles
       </button>
     </div>
   );
