@@ -83,8 +83,21 @@
   "player_name": "Nom du joueur",
   "update_profile": "Mettre à jour le profil"
 },
+
+"parentAuth": {
+  "error_enter_password": "Veuillez entrer votre mot de passe.",
+  "error_no_user": "Aucun utilisateur n'est connecté. Veuillez vous reconnecter.",
+  "parent_verification": "Vérification parentale",
+  "enter_password": "Veuillez entrer votre mot de passe pour gérer les profils.",
+  "verifying_message": "Vérification en cours",
+  "continue_button": "Continuer"
+},
+"incorrect_password": "Mot de passe incorrect. Veuillez réessayer.",
+"loading": "Chargement en cours...",
+"password":"Mot de passe",
+"cancel":"Annuler",
+
 "no_player_selected": "Aucun joueur sélectionné.",
 "player_profile_not_found": "Profil de joueur introuvable."
-
 
 }
