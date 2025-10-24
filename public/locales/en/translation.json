@@ -125,7 +125,7 @@
 
   "playerStats": {
     "no_games": "No games played yet.",
-    "player_stats": "{player.playerName}'s Stats",
+    "player_stats": "{{playerName}}'s Stats",
     "card_set": "Card Set",
     "personal_best": "Personal Best",
     "avg_first_three": "Average Turns - first 3 games",
