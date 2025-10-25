@@ -6,6 +6,7 @@ import { db } from '../firebase';
 // import EmailChangeDialogue from "./EmailChangeDialogue";
 import PasswordResetDialogue from "./PasswordResetDialogue";
 import DeleteAccountDialogue from "./DeleteAccountDialogue";
+import { useTranslation } from "react-i18next";
 
 function UserSettings() {
   const { currentUser } = useAuth();
@@ -16,6 +17,7 @@ function UserSettings() {
 //   const [showEmailDialog, setShowEmailDialog] = useState(false);
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!currentUser) {
@@ -31,13 +33,13 @@ function UserSettings() {
         const userRef = doc(db, 'users', currentUser.uid);
         const userSnap = await getDoc(userRef);
         if (!userSnap.exists()) {
-          throw new Error("User not found!");
+          throw new Error(t("user_not_found"));
         }
         const userData = { id: userSnap.id, ...userSnap.data() };
         setDisplayedUser(userData);
       } catch (err) {
         console.error("Error fetching user:", err);
-        setError("Failed to load user. Please try again.");
+        setError(t("error_loading_user"));
       } finally {
         setLoading(false);
       }
@@ -45,17 +47,16 @@ function UserSettings() {
     fetchUserDoc();
   }, [currentUser]);
 
-  if (loading) return <div>Loading...</div>;
+ if (loading) return <div>{t('loading')}</div>;
   if (error) return <div>{error}</div>;
 
   return (
     <div className="settings-container">
-      <h2>Settings</h2>
-      <p>Current Email Address: {currentUser.email}</p>
+      <h2>{t("manageProfiles.settings")}</h2>
       <div className="settings-buttons">
         {/* <button onClick={() => setShowEmailDialog(true)}>Change My Email</button> */}
-        <button onClick={() => setShowPasswordDialog(true)}>Change My Password</button>
-        <button onClick={() => setShowDeleteDialog(true)}>Delete My Account</button>
+        <button onClick={() => setShowPasswordDialog(true)}>{t("manageProfiles.change_password_button")}</button>
+        <button onClick={() => setShowDeleteDialog(true)}>{t("manageProfiles.delete_account_button")}</button>
       </div>
 
       {/* Restore this after making a decision about Firebase Cloud Functions   */}

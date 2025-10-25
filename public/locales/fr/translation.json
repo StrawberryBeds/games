@@ -102,7 +102,26 @@
   "error_create_child_profile": "Échec de la création du profil enfant. Veuillez réessayer.",
   "my_information_and_settings": "Mes informations et paramètres",
   "settings": "Paramètres",
-"add_child": "Ajouter un enfant"
+  "add_child": "Ajouter un enfant",
+  "change_password_button": "Changer le mot de passe",
+  "delete_account_button": "Supprimer mon compte",
+
+  "success_password_reset_sent": "E-mail de réinitialisation du mot de passe envoyé ! Vérifiez votre boîte de réception.",
+  "password_reset": "Réinitialiser le mot de passe",
+  "enter_email_for_password_reset": "Entrez l'adresse e-mail associée avec votre compte :",
+  "send_reset_link": "Envoyer le lien de réinitialisation",
+  "password_reset_note": "Un lien de réinitialisation sera envoyé si cette adresse e-mail est enregistrée.",
+
+  "password_required": "Votre mot de passe est requis pour supprimer votre compte.",
+"delete_account": "Supprimer le compte",
+"delete_account_warning": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible et supprimera toutes les données associées.",
+"delete_preparing": "Préparation en cours...",
+"delete_button": "Supprimer le compte",
+"confirm_delete": "Confirmer la suppression",
+"enter_password": "Pour des raisons de sécurité, veuillez entrer votre mot de passe pour confirmer la suppression du compte :",
+"deleting": "Suppression en cours...",
+"confirm_delete_button": "Confirmer la suppression du compte"
+
 },
 
 "choosePlayer": {
@@ -131,6 +150,8 @@
 "cancel":"Annuler",
 
 "no_player_selected": "Aucun joueur sélectionné.",
-"player_profile_not_found": "Profil de joueur introuvable."
+"player_profile_not_found": "Profil de joueur introuvable.",
+"user_not_found": "Utilisateur introuvable.",
+ "error_loading_user": "Échec du chargement d'utilisateur. Veuillez actualiser la page."
 
 }
