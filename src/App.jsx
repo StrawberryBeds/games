@@ -73,7 +73,7 @@ function AppRoutes() {
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/notfound" element={<NotFoundPage />} />
-        <Route path="*" element={<Navigate to="/guest/cardSet/0" />} />
+        <Route path="*" element={<Navigate to="/guest/cardSet/2" />} />
       </Routes>
     );
   }
