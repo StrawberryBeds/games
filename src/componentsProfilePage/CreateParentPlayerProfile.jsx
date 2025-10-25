@@ -1,12 +1,13 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { db } from "../firebase";
 import { useAuth } from "../context/authContext";
 import { doc, setDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
-
 function CreateParentPlayerProfile({ avatars, onComplete }) {
+  const { t } = useTranslation();
   const { currentUser } = useAuth();
   const [formData, setFormData] = useState({
     givenName: "",
@@ -40,18 +41,18 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
     setError("");
 
     if (Object.values(formData).some((field) => !field)) {
-      setError("Please fill in all required fields.");
+      setError(t('signUp.error_all_fields'));
       return;
     }
 
     try {
       const isUnique = await checkPlayerNameIsUnique(formData.playerName);
       if (!isUnique) {
-        setError("Player name must be unique.");
+        setError(t('createProfile.unique_player'));
         return;
       }
     } catch (error) {
-      setError("Error checking player name. Please try again.");
+      setError(t('createProfile.error_checking'));
       return;
     }
 
@@ -67,7 +68,7 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
         createdAt: new Date().toISOString(),
         setupComplete: false,
       });
-      setSuccess("Parent profile created successfully!");
+       setSuccess(t('createProfile.success_parent_created'));
       if (onComplete) onComplete(true);
     } catch (error) {
       setError(error.message);
@@ -76,13 +77,12 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
   };
 
   return (
-
     <form onSubmit={handleSubmit} className="parent-profile-form">
-      <h3>Parent Profile</h3>
+      <h3>{t('createProfile.parent_profile')}</h3>
       {/* Given Name Field */}
       {formData.givenName !== undefined && (
         <div className="form-group">
-          <label htmlFor="givenName">Given Name</label>
+          <label htmlFor="givenName">{t('createProfile.given_name')}</label>
           <input
             type="text"
             id="givenName"
@@ -96,7 +96,7 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
       {/* Family Name Field */}
       {formData.familyName !== undefined && (
         <div className="form-group">
-          <label htmlFor="familyName">Family Name</label>
+          <label htmlFor="familyName">{t('createProfile.family_name')}</label>
           <input
             type="text"
             id="familyName"
@@ -107,11 +107,10 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
           />
         </div>
       )}
-
       {/* Player DOB Field */}
       {formData.playerDOB !== undefined && (
         <div className="form-group">
-          <label htmlFor="playerDOB">Player Date of Birth</label>
+          <label htmlFor="playerDOB">{t('createProfile.parent_dob')}</label>
           <input
             type="date"
             id="playerDOB"
@@ -122,11 +121,10 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
           />
         </div>
       )}
-
       {/* Player Name Field */}
       {formData.playerName !== undefined && (
         <div className="form-group">
-          <label htmlFor="playerName">Player Name</label>
+          <label htmlFor="playerName">{t('createProfile.player_name')}</label>
           <input
             type="text"
             id="playerName"
@@ -135,16 +133,15 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
             onChange={handleChange}
             onBlur={async () => {
               const isUnique = await checkPlayerNameIsUnique(formData.playerName);
-              if (!isUnique) setError("Player name must be unique.");
+              if (!isUnique) setError(t('createProfile.unique_player'));
             }}
             required
           />
         </div>
       )}
-
       {/* Avatar Selection */}
       <div className="form-group">
-        <label>Select Avatar</label>
+        <label>{t('createProfile.avatar')}</label>
         <div className="avatar-grid">
           {avatars &&
             Object.values(avatars).map((avatar) => (
@@ -160,7 +157,6 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
             ))}
         </div>
       </div>
-
       {/* Family ID Field (hidden if not needed) */}
       {formData.familyId !== undefined && (
         <div className="form-group">
@@ -175,7 +171,6 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
           />
         </div>
       )}
-
       {/* Is Parent Player Field (hidden if not needed) */}
       {formData.isParentPlayer !== undefined && (
         <div className="form-group">
@@ -192,12 +187,11 @@ function CreateParentPlayerProfile({ avatars, onComplete }) {
           </select>
         </div>
       )}
-
       {/* Submit Button */}
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
       <button type="submit" className="submit-button">
-        Create My Profile
+        {t('createProfile.create_parent_button')}
       </button>
     </form>
   );

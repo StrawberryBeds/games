@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/authContext";
-import { usePlayerSelection,  } from "../context/usePlayerSelection";
+import { usePlayerSelection } from "../context/usePlayerSelection";
 import { useNavigate } from "react-router-dom";
 import { query, where, onSnapshot, collection, doc } from "firebase/firestore";
 import { auth, db } from '../firebase';
-import avatars from '../data/playerAvatars'
+import avatars from '../data/playerAvatars';
 import PlayerTile from "../componentsShared/PlayerTile";
 
 function ChoosePlayer() {
+  const { t } = useTranslation();
   const { currentUser } = useAuth();
-  const { selectedPlayer, setSelectedPlayer, setRequiresParentAuth  } = usePlayerSelection();
+  const { selectedPlayer, setSelectedPlayer, setRequiresParentAuth } = usePlayerSelection();
   const navigate = useNavigate();
-  const [familyPlayers, setFamilyPlayers] = useState([]); // State to store fetched players
-  const [loading, setLoading] = useState(true); // Loading state
-  const [error, setError] = useState(null); // Error state
-  console.log("Choose Player:", currentUser)
+  const [familyPlayers, setFamilyPlayers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Redirect if not logged in
   useEffect(() => {
@@ -34,7 +35,7 @@ function ChoosePlayer() {
       }
       const familyId = parentSnap.data().familyId;
       if (!familyId) {
-        setError("Family ID not found. Please set up your family profile.");
+        setError(t("choosePlayer.error_family_id_not_found"));
         setLoading(false);
         return;
       }
@@ -54,41 +55,33 @@ function ChoosePlayer() {
         },
         (err) => {
           console.error("Error fetching players:", err);
-          setError("Failed to load players. Please refresh.");
+          setError(t("choosePlayer.error_loading_players"));
           setLoading(false);
         }
       );
       return () => unsubscribePlayers();
     });
     return () => unsubscribe();
-  }, [currentUser, navigate]);
+  }, [currentUser, navigate, t]);
 
-  // TO DO : Revise this so remove select player without requiresParentAuth
   const handlePlayerSelect = (player) => {
     setSelectedPlayer(player);
-    // if (player.isParent) {
-    //   setRequiresParentAuth(true); // Trigger password prompt
-    //   navigate('/parent-auth');
-    // } else {
-    console.log("Current User:", currentUser);
-    console.log("Current Player:", player);
-    navigate("/"); // Redirect to home for children
-    // }
+    navigate("/");
   };
 
   // Show loading or error states
-  if (loading) return <div className="player-selector">Loading players...</div>;
+  if (loading) return <div className="player-selector">{t("loading")}</div>;
   if (error) return <div className="player-selector">{error}</div>;
   if (familyPlayers.length === 0) {
     return (
-      <div className="player-selector">No players found. Create a profile?</div>
+      <div className="player-selector">{t("choosePlayer.no_players_found")}</div>
     );
   }
 
   // Render player tiles
   return (
     <div className="player-selector">
-      <h2>Who's Playing?</h2>
+      <h2>{t("choosePlayer.who_is_playing")}</h2>
       <div className="player-tiles">
         {familyPlayers.map((player) => (
           <PlayerTile

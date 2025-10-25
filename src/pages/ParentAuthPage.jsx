@@ -1,13 +1,13 @@
 // pages/ParentAuth.jsx
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { usePlayerSelection } from '../context/usePlayerSelection';
 import { useAuth } from '../context/authContext';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
-import { auth, db } from '../firebase';
-
 
 function ParentAuthPage() {
+  const { t } = useTranslation();
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -16,32 +16,29 @@ function ParentAuthPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  if (loading) 
-    return
-  <div>Loading ...</div>
+  if (loading)
+    return <div>{t("loading")}</div>;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!password) {
-      setError('Please enter your password.');
+      setError(t("parentAuth.error_enter_password"));
       return;
     }
-      if (!currentUser) {
-    setError('No user is signed in. Please sign in again.');
-    return;
-  }
+    if (!currentUser) {
+      setError(t("parentAuth.error_no_user"));
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
       const credential = EmailAuthProvider.credential(currentUser.email, password);
       await reauthenticateWithCredential(currentUser, credential);
       setRequiresParentAuth(false);
-
-// TO DO : See notes to improve this to allow navigation to destinations other than /manageprofile eg parent as player.      
       navigate(location.state?.from?.pathname || '/manageprofiles');
     } catch (err) {
       console.error("Reauthentication error:", err);
-      setError('Incorrect password. Please try again.');
+      setError(t("incorrect_password"));
     } finally {
       setLoading(false);
     }
@@ -49,22 +46,22 @@ function ParentAuthPage() {
 
   return (
     <div className="parent-auth">
-      <h2>Parent Verification</h2>
-      <p>Please enter your password to manage profiles.</p>
+      <h2>{t("parentAuth.parent_verification")}</h2>
+      <p>{t("parentAuth.enter_password")}</p>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
+          placeholder={t('password')} // Assuming you have this key
           required
         />
         <div className="button-group">
           <button type="submit" disabled={loading}>
-            {loading ? 'Verifying...' : 'Continue'}
+            {loading ? t("parentAuth.verifying_message") : t("parentAuth.continue_button")}
           </button>
-          <button type="button" onClick={() => navigate(-1)}>Cancel</button>
+          <button type="button" onClick={() => navigate(-1)}>{t("cancel")}</button> {/* Assuming you have a "cancel" key */}
         </div>
       </form>
     </div>
