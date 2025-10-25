@@ -2,13 +2,11 @@
 import React from 'react';
 import '../componentsShared/PlayerTile.css';
 import settings from "/assets/hammer-and-wrench-1F6E0.svg";
-// import avatars from '../data/playerAvatars';
+import { useTranslation } from "react-i18next";
 
 function UserTile({ user, onClick, isSelected }) {
-  // Get the avatar object by name
-//   const avatar = avatars[player.playerAvatar];
-  // Use the avatar's image, or a default if not found
    const imageSrc = settings
+   const { t  } = useTranslation();
 
   return (
     <div
@@ -26,7 +24,7 @@ function UserTile({ user, onClick, isSelected }) {
           height="80"
         />
       </div>
-      <p className="player-name">Settings</p>
+      <p className="player-name">{t('manageProfiles.settings')}</p>
       <span className="parent-badge">👨‍👧</span>
     </div>
   );

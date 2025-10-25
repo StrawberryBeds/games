@@ -113,7 +113,9 @@
     "only_parents_can_manage_profiles": "Only parents can manage profiles.",
     "family_profiles": "Your Family Profiles",
     "error_create_child_profile": "Failed to create child profile. Please try again.",
-    "my_information_and_settings": "My Information and Settings"
+    "my_information_and_settings": "My Information and Settings",
+      "settings": "Settings",
+"add_child": "Add a child"
   },
 
   "choosePlayer" : {

@@ -100,7 +100,9 @@
   "only_parents_can_manage_profiles": "Seuls les parents peuvent gérer les profils.",
   "family_profiles": "Profils de votre famille",
   "error_create_child_profile": "Échec de la création du profil enfant. Veuillez réessayer.",
-  "my_information_and_settings": "Mes informations et paramètres"
+  "my_information_and_settings": "Mes informations et paramètres",
+  "settings": "Paramètres",
+"add_child": "Ajouter un enfant"
 },
 
 "choosePlayer": {
@@ -120,6 +122,8 @@
   "avg_all": "Moyenne de tours - toutes les parties",
   "game_count": "Parties jouées"
 },
+
+
 
 "incorrect_password": "Mot de passe incorrect. Veuillez réessayer.",
 "loading": "Chargement en cours...",
