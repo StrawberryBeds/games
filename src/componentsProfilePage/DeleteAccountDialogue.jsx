@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useAuth } from "../context/authContext";
-import { auth, db } from "../firebase";
+import { db } from "../firebase";
 import {
   deleteUser,
   reauthenticateWithCredential,
@@ -16,6 +16,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function DeleteAccountDialogue({ onClose }) {
   const { currentUser } = useAuth();
@@ -25,26 +26,24 @@ function DeleteAccountDialogue({ onClose }) {
   const [isLoading, setIsLoading] = useState(false);
   const [password, setPassword] = useState("");
   const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const { t } = useTranslation();
 
   const handleDeleteAccount = async () => {
     if (!currentUser) {
-      setError("No user is signed in.");
+      setError(t('user_not_found'));
       return;
     }
-
     setShowPasswordModal(true);
   };
 
   const handleConfirmDelete = async () => {
     if (!password) {
-      setError("Password is required to delete your account.");
+      setError(t("password_required"));
       return;
     }
-
     setIsLoading(true);
     setError("");
     setSuccess("");
-
     try {
       // 1. Reauthenticate the user
       const credential = EmailAuthProvider.credential(
@@ -52,11 +51,9 @@ function DeleteAccountDialogue({ onClose }) {
         password
       );
       await reauthenticateWithCredential(currentUser, credential);
-
       // 2. Delete all child players (all players with the same familyId)
       const parentPlayerRef = doc(db, "players", currentUser.uid);
       const parentPlayerSnap = await getDoc(parentPlayerRef);
-
       if (parentPlayerSnap.exists()) {
         const familyId = parentPlayerSnap.data().familyId;
         const playersQuery = query(
@@ -64,20 +61,16 @@ function DeleteAccountDialogue({ onClose }) {
           where("familyId", "==", familyId)
         );
         const playersSnapshot = await getDocs(playersQuery);
-
         // Delete each player in the family
         const deletePromises = playersSnapshot.docs.map((playerDoc) =>
           deleteDoc(doc(db, "players", playerDoc.id))
         );
         await Promise.all(deletePromises);
       }
-
       // 3. Delete the user document from Firestore
       await deleteDoc(doc(db, "users", currentUser.uid));
-
       // 4. Delete the user from Firebase Authentication
       await deleteUser(currentUser);
-
       // 5. Redirect to the sign-in page
       navigate("/signin");
     } catch (err) {
@@ -94,23 +87,22 @@ function DeleteAccountDialogue({ onClose }) {
           <button className="modal-close" onClick={onClose}>
             ×
           </button>
-          <h2>Delete Account</h2>
+          <h2>{t("manageProfiles.delete_account")}</h2>
           <p>
-            Are you sure you want to delete your account? This action is
-            irreversible and will delete all associated data.
+            {t("manageProfiles.delete_account_warning")}
           </p>
           {error && <p className="error-message">{error}</p>}
           {success && <p className="success-message">{success}</p>}
           <div className="modal-buttons">
             <button onClick={onClose} disabled={isLoading}>
-              Cancel
+              {t("cancel")}
             </button>
             <button
               onClick={handleDeleteAccount}
               disabled={isLoading}
               className="delete-button"
             >
-              {isLoading ? "Preparing..." : "Delete Account"}
+              {isLoading ? t("manageProfiles.delete_preparing") : t("manageProfiles.delete_button")}
             </button>
           </div>
         </div>
@@ -119,26 +111,26 @@ function DeleteAccountDialogue({ onClose }) {
           <button className="modal-close" onClick={() => setShowPasswordModal(false)}>
             ×
           </button>
-          <h2>Confirm Deletion</h2>
-          <p>For security, please enter your password to confirm account deletion:</p>
+          <h2>{t("manageProfiles.confirm_delete")}</h2>
+          <p>{t("manageProfiles.enter_password")}</p>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Enter your password"
+            placeholder={t('password')}
             required
           />
           {error && <p className="error-message">{error}</p>}
           <div className="modal-buttons">
             <button onClick={() => setShowPasswordModal(false)} disabled={isLoading}>
-              Cancel
+              {t("cancel")}
             </button>
             <button
               onClick={handleConfirmDelete}
               disabled={isLoading}
               className="delete-button"
             >
-              {isLoading ? "Deleting..." : "Confirm Deletion"}
+              {isLoading ? t("manageProfiles.deleting") : t("manageProfiles.confirm_delete_button")}
             </button>
           </div>
         </div>

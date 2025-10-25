@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
 import { query, where, getDocs, collection, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
@@ -12,6 +13,7 @@ import CreateChildPlayerProfile from "../componentsProfilePage/CreateChildPlayer
 import avatars from '../data/playerAvatars';
 
 function ManageProfilesPage({ onComplete }) {
+  const { t } = useTranslation();
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const [familyPlayers, setFamilyPlayers] = useState([]);
@@ -38,7 +40,7 @@ function ManageProfilesPage({ onComplete }) {
         const parentPlayerRef = doc(db, 'players', currentUser.uid);
         const parentPlayerSnap = await getDoc(parentPlayerRef);
         if (!parentPlayerSnap.exists()) {
-          throw new Error("Parent player profile not found!");
+          throw new Error(t("manageProfiles.parent_not_found"));
         }
         const parentPlayerData = parentPlayerSnap.data();
         const familyId = parentPlayerData.familyId;
@@ -54,13 +56,13 @@ function ManageProfilesPage({ onComplete }) {
         setFamilyPlayers(players);
       } catch (err) {
         console.error("Error fetching family players:", err);
-        setError("Failed to load family players. Please try again.");
+        setError(t("manageProfiles.error_fetching_family_players"));
       } finally {
         setLoading(false);
       }
     };
     fetchFamilyPlayers();
-  }, [currentUser]);
+  }, [currentUser, t]);
 
   const addChildProfile = () => {
     const newChildProfiles = [...childProfiles, { id: Date.now() }];
@@ -105,17 +107,17 @@ function ManageProfilesPage({ onComplete }) {
       setDisplayedChildForm(false);
     } catch (err) {
       console.error("Error creating child profile:", err);
-      setError("Failed to create child profile. Please try again.");
+      setError(t("manageProfiles.error_create_child_profile"));
     }
   };
 
-  if (loading) return <div>Loading players...</div>;
+  if (loading) return <div>{t("loading")}</div>;
   if (error) return <div>{error}</div>;
 
   return (
     <div className='container'>
       <div className="player-selector">
-        <h2>My Information and Settings</h2>
+        <h2>{t("manageProfiles.my_information_and_settings")}</h2>
         <div className="player-tiles">
           {familyPlayers.map((player) => (
             <PlayerTile

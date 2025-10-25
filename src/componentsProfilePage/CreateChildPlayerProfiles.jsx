@@ -1,11 +1,12 @@
 // src/componentsProfilePage/CreateChildPlayerProfiles.jsx
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { db } from '../firebase';
 import { useAuth } from '../context/authContext';
 import { doc, getDoc, addDoc, collection, updateDoc, arrayUnion, query, where, getDocs } from 'firebase/firestore';
-import avatars from '../data/playerAvatars';
 
 function CreateChildPlayerProfile({ profileId, avatars }) {
+  const { t } = useTranslation();
   const { currentUser } = useAuth();
   const [formData, setFormData] = useState({
     playerName: '',
@@ -25,7 +26,7 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
     const playersRef = collection(db, "players");
     const q = query(playersRef, where("playerName", "==", playerName));
     const querySnapshot = await getDocs(q);
-    return querySnapshot.empty; // true if unique, false if exists
+    return querySnapshot.empty;
   };
 
   const handleAvatarSelect = (avatarId) => {
@@ -36,33 +37,26 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
     event.preventDefault();
     setError('');
     setSuccess('');
-
-    // Validate all fields are filled
     if (!formData.playerName || !formData.playerAvatar || !formData.playerDOB) {
-      setError("Please fill in all required fields.");
+      setError(t('signUp.error_all_fields'));
       return;
     }
-
     try {
       const isUnique = await checkPlayerNameIsUnique(formData.playerName);
       if (!isUnique) {
-        setError("Player name must be unique.");
+        setError(t('createProfile.unique_player'));
         return;
       }
     } catch (error) {
-      setError("Error checking player name. Please try again.");
+      setError(t('createProfile.error_checking'));
       return;
     }
-
     try {
-      // 1. Get parent document
       const parentDoc = await getDoc(doc(db, 'players', currentUser.uid));
       if (!parentDoc.exists()) {
-        throw new Error("Parent profile not found");
+        throw new Error(t('createProfile.error_parent_not_found'));
       }
       const parentData = parentDoc.data();
-
-      // 2. Create the child profile
       const childRef = await addDoc(collection(db, 'players'), {
         ...formData,
         isParentPlayer: false,
@@ -70,19 +64,13 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
         parentPlayerId: currentUser.uid,
         createdAt: new Date().toISOString()
       });
-
-      // 3. Update the child document with its own ID
       await updateDoc(childRef, {
         playerId: childRef.id
       });
-
-      // 4. Update parent's childPlayers array
       await updateDoc(doc(db, 'players', currentUser.uid), {
         childPlayers: arrayUnion(childRef.id)
       });
-
-      setSuccess("Child profile created successfully!");
-      // Reset form but keep profileId
+      setSuccess(t('createProfile.success_child_created'));
       setFormData({
         playerName: '',
         playerAvatar: '',
@@ -96,12 +84,10 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
 
   return (
     <form onSubmit={handleSubmit} className="child-profile-form">
-      <h3>Child Profile</h3>
-
-
+      <h3>{t('createProfile.child_profile')}</h3>
       {/* Player Name Field */}
       <div className="form-group">
-        <label htmlFor={`playerName-${profileId}`}>Child's Player Name</label>
+        <label htmlFor={`playerName-${profileId}`}>{t('createProfile.child_player_name')}</label>
         <input
           type="text"
           id="playerName"
@@ -110,15 +96,14 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
           onChange={handleChange}
           onBlur={async () => {
             const isUnique = await checkPlayerNameIsUnique(formData.playerName);
-            if (!isUnique) setError("Player name must be unique.");
+            if (!isUnique) setError(t('createProfile.unique_player'));
           }}
           required
         />
       </div>
-
       {/* Date of Birth Field */}
       <div className="form-group">
-        <label htmlFor={`playerDOB-${profileId}`}>Child's Date of Birth</label>
+        <label htmlFor={`playerDOB-${profileId}`}>{t('createProfile.child_dob')}</label>
         <input
           type="date"
           id={`playerDOB-${profileId}`}
@@ -128,10 +113,9 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
           required
         />
       </div>
-
       {/* Avatar Selection */}
       <div className="form-group">
-        <label>Select Avatar</label>
+        <label>{t('createProfile.avatar')}</label>
         <div className="avatar-grid">
           {avatars &&
             Object.values(avatars).map((avatar) => (
@@ -146,8 +130,6 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
               </div>
             ))}
         </div>
-
-        {/* Hidden input to store selected avatar ID in form data */}
         <input
           type="hidden"
           name="playerAvatar"
@@ -157,11 +139,10 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
       <button type="submit" className="submit-button">
-        Create Child Profile
+        {t('createProfile.create_child_button')}
       </button>
     </form>
   );
 }
 
 export default CreateChildPlayerProfile;
-

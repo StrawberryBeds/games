@@ -1,14 +1,11 @@
 // NewPlayerTile.jsx
-import React from 'react';
 import '../componentsShared/PlayerTile.css';
 import parentAndChild from "/assets/parent-and-child.svg";
-// import avatars from '../data/playerAvatars';
+import { useTranslation } from 'react-i18next';
 
 function NewPlayerTile({ user, onClick, isSelected }) {
-  // Get the avatar object by name
-//   const avatar = avatars[player.playerAvatar];
-  // Use the avatar's image, or a default if not found
    const imageSrc = parentAndChild
+   const { t  } = useTranslation();
 
   return (
     <div
@@ -26,7 +23,7 @@ function NewPlayerTile({ user, onClick, isSelected }) {
           height="80"
         />
       </div>
-      <p className="player-name">Add A Child</p>
+      <p className="player-name">{t('manageProfiles.add_child')}</p>
       <span className="parent-badge">👨‍👧</span>
     </div>
   );
