@@ -1,5 +1,5 @@
 {
-  "welcome": "Bienvenue à Ludico!",
+  "welcome": "Bienvenue à Pantalone !",
   "play_button": "Jouer un partie",
   "create_account_button": "Créez votre compte",
   "sign_in_button": "Se connecter",
@@ -45,7 +45,7 @@
   "emailVerify": {
     "heading": "Veuillez vérifier votre e-mail",
     "sent_to": "Nous avons envoyé un e-mail de vérification à <strong>{{email}}</strong>. Veuillez vérifier votre boîte de réception et cliquer sur le lien pour vérifier votre compte.",
-    "return_to": "Allez sur <1>Ludico</1> pour compléter votre profil.",
+    "return_to": "Allez sur <1>Pantalone</1> pour compléter votre profil.",
     "did_not_receive": "Vous n'avez pas reçu l'e-mail ?",
     "resend_button": "Renvoyer l'e-mail",
     "sending": "Envoi en cours...",
