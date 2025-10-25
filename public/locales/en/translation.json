@@ -1,5 +1,5 @@
 {
-  "welcome": "Welcome to Ludico!",
+  "welcome": "Welcome to Pantalone!",
   "play_button": "Play a Game",
   "create_account_button": "Create Your Account",
   "sign_in_button": "Sign In",
@@ -28,7 +28,7 @@
   "footer": {
     "copyright": "© 2025 Samuel Wood. ",
     "card_images_attribution": "Card images by <1>OpenMoji</1>",
-    "disclaimer": "Ludico is a work in progress. Use at your own risk."
+    "disclaimer": "This is a work in progress. Use at your own risk."
   },
 
   "signUp": {
@@ -52,7 +52,7 @@
   "emailVerify": {
     "heading": "Please verify your email",
     "sent_to": "We've sent a verification email to <strong>{{email}}</strong>. Please check your inbox and click the link to verify your account.",
-    "return_to": "Go to <1>Ludico</1> to complete your profile.",
+    "return_to": "Go to <1>Pantalone</1> to complete your profile.",
     "did_not_receive": "Didn't receive the email?",
     "resend_button": "Resend Email",
     "sending": "Sending...",

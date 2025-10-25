@@ -174,7 +174,7 @@ function SignUp() {
   <p>
     <Trans
       i18nKey="emailVerify.return_to"
-      components={{ 1: <a href="https://felixsgame.netlify.app/" target="_blank" rel="noopener noreferrer" /> }}
+      components={{ 1: <a href="https://pantalone.games" target="_blank" rel="noopener noreferrer" /> }}
     />
   </p>
   <p>{t('emailVerify.did_not_receive')}</p>
