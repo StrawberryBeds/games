@@ -24,6 +24,7 @@ import Header from "./componentsShared/Header";
 import Footer from "./componentsShared/Footer";
 import ParentAuthGuard from "./componentsGuards/parentAuthGuard";
 import NotFoundPage from './pages/NotFoundPage';
+import Privacy from "./pages/PrivacyPage";
 
 import { AuthProvider } from "./context/authContext";
 import { PlayerProvider } from "./context/playerContext";
@@ -73,6 +74,7 @@ function AppRoutes() {
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/notfound" element={<NotFoundPage />} />
+        <Route path="/privacy" element={<Privacy />} />
         <Route path="*" element={<Navigate to="/guest/cardSet/2" />} />
       </Routes>
     );
