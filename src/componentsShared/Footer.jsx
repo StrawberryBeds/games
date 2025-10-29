@@ -15,9 +15,12 @@ function Footer() {
           }}
         />
       </p>
+      <Link to="/terms">
+        {t('footer.terms_of_service')}
+      </Link>
       <Link to="/privacy">
-  {t('footer.privacy_policy')} 
-</Link>
+        {t('footer.privacy_policy')}
+      </Link>
     </footer>
   );
 }
