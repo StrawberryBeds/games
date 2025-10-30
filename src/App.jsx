@@ -25,6 +25,7 @@ import Footer from "./componentsShared/Footer";
 import ParentAuthGuard from "./componentsGuards/parentAuthGuard";
 import NotFoundPage from './pages/NotFoundPage';
 import Privacy from "./pages/PrivacyPage";
+import Terms from "./pages/TermsPage";
 
 import { AuthProvider } from "./context/authContext";
 import { PlayerProvider } from "./context/playerContext";
@@ -75,6 +76,7 @@ function AppRoutes() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/notfound" element={<NotFoundPage />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="terms" element={<Terms />} />
         <Route path="*" element={<Navigate to="/guest/cardSet/2" />} />
       </Routes>
     );
@@ -143,6 +145,8 @@ function AppRoutes() {
           </ParentAuthGuard>
         }
       />
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="terms" element={<Terms />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
@@ -151,19 +155,19 @@ function AppRoutes() {
 function App() {
   return (
     <Suspense fallback="loading">
-    <AuthProvider>
-      <PlayerProvider>
-        <Router>
-          <Header />
-          <React.Suspense fallback={<div>Loading...</div>}>
-            <ErrorBoundary>
-              <AppRoutes />
-            </ErrorBoundary>
-          </React.Suspense>
-          <Footer />
-        </Router>
-      </PlayerProvider>
-    </AuthProvider>
+      <AuthProvider>
+        <PlayerProvider>
+          <Router>
+            <Header />
+            <React.Suspense fallback={<div>Loading...</div>}>
+              <ErrorBoundary>
+                <AppRoutes />
+              </ErrorBoundary>
+            </React.Suspense>
+            <Footer />
+          </Router>
+        </PlayerProvider>
+      </AuthProvider>
     </Suspense>
   );
 }
