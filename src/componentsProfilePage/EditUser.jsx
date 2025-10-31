@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { query, where, getDocs, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 // import EmailChangeDialogue from "./EmailChangeDialogue";
-import PasswordResetDialogue from "./PasswordResetDialogue";
+import PasswordResetDialogue from "../componentsShared/PasswordResetDialogue";
 import DeleteAccountDialogue from "./DeleteAccountDialogue";
 import { useTranslation } from "react-i18next";
 

@@ -9,6 +9,15 @@
   "profile_button": "Profile",
   "sign_out_button": "Sign Out",
 
+  "signIn": {
+    "email": "Email",
+    "password": "Password",
+    "remember_me": "Remember Me",
+    "sign_in_button": "Sign In",
+    "error_all_fields": "Please fill in all required fields.",
+    "forgot_password": "Forgot Password?"
+  },
+
 "score": {
   "matches": "Matches: ",
   "turns": "Turns:"
