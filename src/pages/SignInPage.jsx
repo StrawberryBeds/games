@@ -4,7 +4,7 @@ import { auth } from '../firebase';
 import { useAuth } from '../context/authContext'; // Make sure you have this context
 import { useNavigate } from 'react-router-dom'; // If using React Router for navigation
 import { useTranslation } from 'react-i18next';
-import PasswordResetDialogue from "../componentsShared/PasswordResetDialogue";
+import ForgotPasswordDialogue from "../componentsSignIn/ForgotPasswordDialogue";
 
 
 function SignInPage() {
@@ -26,27 +26,27 @@ function SignInPage() {
         }
     }, [currentUser, navigate]);
 
-  const handleSignIn = async (email, password) => {
-    try {
-      await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
-      await signInWithEmailAndPassword(auth, email, password);
-      setSuccess("Signed in successfully!");
-      setError('');
-      navigate('/player');
-    } catch (error) {
-      setError(error.message || 'Email address or password is incorrect.');
-      setSuccess('');
-    }
-  };
+    const handleSignIn = async (email, password) => {
+        try {
+            await setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence);
+            await signInWithEmailAndPassword(auth, email, password);
+            setSuccess("Signed in successfully!");
+            setError('');
+            navigate('/player');
+        } catch (error) {
+            setError(error.message || 'Email address or password is incorrect.');
+            setSuccess('');
+        }
+    };
 
-    const handleForgotPassword = async (email) => {
-    try {
-      await sendPasswordResetEmail(auth, email);
-      setSuccess("Password reset email sent! Check your inbox.");
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+    //     const handleForgotPassword = async (email) => {
+    //     try {
+    //       await sendPasswordResetEmail(auth, email);
+    //       setSuccess("Password reset email sent! Check your inbox.");
+    //     } catch (error) {
+    //       setError(error.message);
+    //     }
+    //   };
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -64,48 +64,40 @@ function SignInPage() {
 
 
     return (
-    <form onSubmit={handleSubmit}>
-      {error && <p className="error">{error}</p>}
-      {success && <p className="success">{success}</p>}
-      {/* Email and Password fields */}
-      <div>
-        <label>{t("signIn.email")}</label>
-        <input type="email" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} name="userEmail" />
-      </div>
-      <div>
-        <label>{t("signIn.password")}</label>
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" />
-      </div>
-      <label>
-        <input
-          type="checkbox"
-          checked={rememberMe}
-          onChange={(e) => setRememberMe(e.target.checked)}
-        />
-        {t("signIn.remember_me")}
-      </label>
-      <button type="submit" disabled={!userEmail || !password}>
-        {t("signIn.sign_in_button")}
-      </button>
-      {/* Conditional buttons */}
-      {currentUser ? (
-        <button onClick={() => setShowPasswordDialog(true)}>
-          {t("manageProfiles.change_password_button")}
-        </button>
-      ) : (
-        <button type="button" onClick={() => handleForgotPassword(userEmail)}>
-          {t("signIn.forgot_password")}
-        </button>
-      )}
-      {/* Dialogs */}
-      {showPasswordDialog && currentUser && (
-        <PasswordResetDialogue
-          user={currentUser}
-          onClose={() => setShowPasswordDialog(false)}
-        />
-      )}
-    </form>
-  );
+        <form onSubmit={handleSubmit}>
+            {error && <p className="error">{error}</p>}
+            {success && <p className="success">{success}</p>}
+            {/* Email and Password fields */}
+            <div>
+                <label>{t("signIn.email")}</label>
+                <input type="email" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} name="userEmail" />
+            </div>
+            <div>
+                <label>{t("signIn.password")}</label>
+                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} name="password" />
+            </div>
+            <label>
+                <input
+                    type="checkbox"
+                    checked={rememberMe}
+                    onChange={(e) => setRememberMe(e.target.checked)}
+                />
+                {t("signIn.remember_me")}
+            </label>
+            <button type="submit" disabled={!userEmail || !password}>
+                {t("signIn.sign_in_button")}
+            </button>
+            <button type="button" onClick={() => setShowPasswordDialog(true)}>
+                {t("signIn.forgot_password")}
+            </button>
+            {showPasswordDialog && (
+                <ForgotPasswordDialogue
+                    onClose={() => setShowPasswordDialog(false)}
+                    defaultEmail={userEmail}
+                />
+            )}
+        </form>
+    );
 }
 
 export default SignInPage;

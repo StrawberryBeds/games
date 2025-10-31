@@ -46,6 +46,7 @@ function AppRoutes() {
   const [profileData, setProfileData] = useState(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [loadingProfile, setLoadingProfile] = useState(true);
+  const currentWeekId = "2"; // Dynamic later
 
   useEffect(() => {
     setLoadingAuth(false);

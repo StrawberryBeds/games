@@ -15,7 +15,9 @@
     "remember_me": "Mémoriser",
     "sign_in_button": "Se connecter",
     "error_all_fields": "Veuillez remplir tous les champs obligatoires.",
-    "forgot_password": "Mot de passe oublié ?"
+    "forgot_password": "Mot de passe oublié ?",
+    "enter_email_for_reset": "Veuillez entrer l'adresse e-mail associée avec votre compte :",
+    "send_reset_link": "Envoyer le lien de réinitialisation"
   },
 
   "score": {
@@ -120,8 +122,14 @@
   "my_information_and_settings": "Mes informations et paramètres",
   "settings": "Paramètres",
   "add_child": "Ajouter un enfant",
-  "change_password_button": "Changer le mot de passe",
+  "change_password_button": "Changer mon mot de passe",
   "delete_account_button": "Supprimer mon compte",
+
+      "change_password": "Changer mon mot de passe",
+      "current_password": "Mot de passe actuél",
+      "new_password": "Nouveau mot de passe",
+      "confirm_new_password": "Confirmer le nouveau mot de passe",
+      "success_password_changed": "Votre mot de passe a été changé.",
 
   "success_password_reset_sent": "E-mail de réinitialisation du mot de passe envoyé ! Vérifiez votre boîte de réception.",
   "password_reset": "Réinitialiser le mot de passe",

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { query, where, getDocs, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 // import EmailChangeDialogue from "./EmailChangeDialogue";
-import PasswordResetDialogue from "../componentsShared/PasswordResetDialogue";
+import ChangePasswordDialogue from "./ChangePasswordDialogue";
 import DeleteAccountDialogue from "./DeleteAccountDialogue";
 import { useTranslation } from "react-i18next";
 
@@ -14,7 +14,7 @@ function UserSettings() {
   const [displayedUser, setDisplayedUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-//   const [showEmailDialog, setShowEmailDialog] = useState(false);
+  //   const [showEmailDialog, setShowEmailDialog] = useState(false);
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const { t } = useTranslation();
@@ -47,7 +47,7 @@ function UserSettings() {
     fetchUserDoc();
   }, [currentUser]);
 
- if (loading) return <div>{t('loading')}</div>;
+  if (loading) return <div>{t('loading')}</div>;
   if (error) return <div>{error}</div>;
 
   return (
@@ -61,18 +61,19 @@ function UserSettings() {
 
       {/* Restore this after making a decision about Firebase Cloud Functions   */}
       {/* {showEmailDialog && (<EmailChangeDialogue user={currentUser} onClose={() => setShowEmailDialog(false)}/>)} */}
-      
+
+
       {showPasswordDialog && (
-        <PasswordResetDialogue
+        <ChangePasswordDialogue
           user={currentUser}
           onClose={() => setShowPasswordDialog(false)}
         />
       )}
       {showDeleteDialog && (
-        <DeleteAccountDialogue 
-        user={currentUser} 
-        onClose={() => setShowDeleteDialog(false)}/>
-        )}
+        <DeleteAccountDialogue
+          user={currentUser}
+          onClose={() => setShowDeleteDialog(false)} />
+      )}
     </div>
   );
 }
