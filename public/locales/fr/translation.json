@@ -1,5 +1,7 @@
 {
   "welcome": "Bienvenue à Pantalone !",
+  "cookie_consent": "Ce site web utilise des cookies pour améliorer votre expérience. En continuant à utiliser ce site, vous acceptez notre utilisation des cookies.",
+  
   "play_button": "Jouer un partie",
   "create_account_button": "Créez votre compte",
   "sign_in_button": "Se connecter",
