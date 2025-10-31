@@ -33,7 +33,9 @@
     "email": "E-mail",
     "confirm_email": "Confirmer le E-mail",
     "password": "Mot de passe",
-    "button_loading": "Confirmer le mot de passe",
+    "confirm_password": "Confirmer le mot de passe",
+    "over16": "J'ai plus que 16 ans.",
+    "button_loading": "Création du compte en cours ...",
     "button": "S'inscrire",
 
     "error_email_match": "Les adresses e-mail ne correspondent pas.",
@@ -75,7 +77,9 @@
   "success_child_created": "Profil enfant créé avec succès !",
   "child_profile": "Profil Enfant",
   "child_player_name": "Nom du joueur (enfant)",
+  "parentalConsent": "Je confirme être le parent/tuteur légal de cet enfant et j'autorise son utilisation de Pantalone..",
   "child_dob": "Date de naissance de l'enfant",
+  "error_consent_required": "Vous devez obtenir le consentement parental pour créer un profil de joueur enfant.",
   "create_child_button": "Créer le profil enfant"
 },
 

@@ -39,6 +39,7 @@
     "confirm_email": "Confirm Email",
     "password": "Password",
     "confirm_password": "Confirm Password",
+    "over16": "I am over 16 years of age.",
     "button_loading": "Creating account ...",
     "button": "Sign Up",
 
@@ -89,6 +90,8 @@
 "child_profile": "Child Profile",
     "child_player_name": "Child's Player Name",
     "child_dob": "Child's Date of Birth",
+    "parentalConsent": "I confirm I am the parent/legal guardian of this child and grant consent for their use of Pantalone.",
+    "error_consent_required": "You must give parental consent to create a child Player profile.",
     "create_child_button": "Create Child Profile"
   },
 
