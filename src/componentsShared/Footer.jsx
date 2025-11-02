@@ -1,5 +1,6 @@
 import './Footer.css';
 import { useTranslation, Trans } from 'react-i18next';
+import { Link, Navigate } from 'react-router-dom';
 
 function Footer() {
   const { t } = useTranslation();
@@ -14,7 +15,12 @@ function Footer() {
           }}
         />
       </p>
-      <p>{t('footer.disclaimer')}</p>
+      <Link to="/terms">
+        {t('footer.terms_of_service')}
+      </Link>
+      <Link to="/privacy">
+        {t('footer.privacy_policy')}
+      </Link>
     </footer>
   );
 }

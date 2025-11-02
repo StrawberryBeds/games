@@ -1,16 +1,17 @@
-import { useState } from "react";
-import { sendPasswordResetEmail } from "firebase/auth";
+// ForgotPasswordDialogue.jsx
 import { auth } from "../firebase";
+import { sendPasswordResetEmail } from "firebase/auth";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-function PasswordResetDialogue({ onClose }) {
-  const [email, setEmail] = useState("");
+function ForgotPasswordDialogue({ onClose, defaultEmail = "" }) {
+  const [email, setEmail] = useState(defaultEmail);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const { t } = useTranslation();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
+    console.log("Password reset email requested")
     setError("");
     setSuccess("");
     try {
@@ -25,23 +26,28 @@ function PasswordResetDialogue({ onClose }) {
     <div className="modal-overlay">
       <div className="modal-content">
         <button className="modal-close" onClick={onClose}>×</button>
-        <h2>{t("manageProfiles.password_reset")}</h2>
-        <form onSubmit={handleSubmit}>
-          <label>{t("manageProfiles.enter_email_for_password_reset")}</label>
+        <h2>{t("signIn.forgot_password")}</h2>
+        <div> {/* <-- Changed from <form> to <div> */}
+          <label>{t("signIn.enter_email_for_reset")}</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <p className="note">{t("manageProfiles.password_reset_note")}</p>
           {error && <p className="error-message">{error}</p>}
           {success && <p className="success-message">{success}</p>}
-          <button type="submit">{t("manageProfiles.send_reset_link")}</button>
-        </form>
+          <button
+            type="button"
+            onClick={handleSubmit} 
+          >
+            {t("signIn.send_reset_link")}
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-export default PasswordResetDialogue;
+
+export default ForgotPasswordDialogue;

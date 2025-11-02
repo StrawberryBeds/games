@@ -16,13 +16,14 @@ function SignUp() {
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{10,}$/;
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [over16, setOver16] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showVerificationModal, setShowVerificationModal] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
-    const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,14 +31,15 @@ function SignUp() {
     setSuccess('');
     setIsLoading(true);
 
-    if (!userEmail || !confirmEmail || !password || !confirmPassword) {
+    if (!userEmail || !confirmEmail || !password || !confirmPassword || !over16) {
       setError(t('signUp.error_all_fields'));
+      setError(t('signUp.error_age_requirement'));
       setIsLoading(false);
       return;
     }
 
     if (userEmail !== confirmEmail) {
-      setError(t('signUp.error_email_match'));
+      setError(t('signUp.error_email_match'))
       setIsLoading(false);
       return;
     }
@@ -69,6 +71,7 @@ function SignUp() {
       await setDoc(doc(db, "players", user.uid), {
         email: user.email,
         createdAt: now,
+        over16: true,
         isParent: true,
         familyId: user.uid,
         name: user.email.split('@')[0],
@@ -146,47 +149,60 @@ function SignUp() {
             required
           />
         </div>
-      <button type="submit" disabled={isLoading}>
-        {isLoading ? t('signUp.button_loading') : t('signUp.button')}
-      </button>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={over16}
+              onChange={(e) => setOver16(e.target.checked)}
+              name="over16"
+              required
+            />
+            {t('signUp.over16')}
+          </label>
+        </div>
+
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? t('signUp.button_loading') : t('signUp.button')}
+        </button>
       </form>
 
-<PendingEmailVerification
-  show={showVerificationModal}
-  onClose={handleCloseModal}
-  currentUser={{ email: userEmail }} // Mock currentUser object for consistency
-  resendLoading={isLoading}
-  message={success}
-  handleResendEmail={() => {
-    sendEmailVerification(auth.currentUser)
-      .then(() => setSuccess(t('emailVerify.resend_success')))
-      .catch(() => setError(t('emailVerify.resend_failure')));
-  }}
->
-  <h2>{t('emailVerify.heading')}</h2>
-  <p>
-    <Trans
-      i18nKey="emailVerify.sent_to"
-      values={{ email: userEmail }}
-      components={{ strong: <strong /> }}
-    />
-  </p>
-  <p>
-    <Trans
-      i18nKey="emailVerify.return_to"
-      components={{ 1: <a href="https://pantalone.games" target="_blank" rel="noopener noreferrer" /> }}
-    />
-  </p>
-  <p>{t('emailVerify.did_not_receive')}</p>
-  <button onClick={() => {
-    sendEmailVerification(auth.currentUser)
-      .then(() => setSuccess(t('emailVerify.resend_success')))
-      .catch(() => setError(t('emailVerify.resend_failure')));
-  }} disabled={isLoading}>
-    {isLoading ? t('emailVerify.sending') : t('emailVerify.resend')}
-  </button>
-  {message && <p className="message">{message}</p>}
-</PendingEmailVerification>
+      <PendingEmailVerification
+        show={showVerificationModal}
+        onClose={handleCloseModal}
+        currentUser={{ email: userEmail }} // Mock currentUser object for consistency
+        resendLoading={isLoading}
+        message={success}
+        handleResendEmail={() => {
+          sendEmailVerification(auth.currentUser)
+            .then(() => setSuccess(t('emailVerify.resend_success')))
+            .catch(() => setError(t('emailVerify.resend_failure')));
+        }}
+      >
+        <h2>{t('emailVerify.heading')}</h2>
+        <p>
+          <Trans
+            i18nKey="emailVerify.sent_to"
+            values={{ email: userEmail }}
+            components={{ strong: <strong /> }}
+          />
+        </p>
+        <p>
+          <Trans
+            i18nKey="emailVerify.return_to"
+            components={{ 1: <a href="https://pantalone.games" target="_blank" rel="noopener noreferrer" /> }}
+          />
+        </p>
+        <p>{t('emailVerify.did_not_receive')}</p>
+        <button onClick={() => {
+          sendEmailVerification(auth.currentUser)
+            .then(() => setSuccess(t('emailVerify.resend_success')))
+            .catch(() => setError(t('emailVerify.resend_failure')));
+        }} disabled={isLoading}>
+          {isLoading ? t('emailVerify.sending') : t('emailVerify.resend')}
+        </button>
+        {message && <p className="message">{message}</p>}
+      </PendingEmailVerification>
     </>
   );
 }
