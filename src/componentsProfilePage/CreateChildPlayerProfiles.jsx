@@ -11,15 +11,20 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
   const [formData, setFormData] = useState({
     playerName: '',
     playerAvatar: '',
-    playerDOB: ''
+    playerDOB: '',
+    parentalConsent: false
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+const handleChange = (e) => {
+  const { name, value, type, checked } = e.target;
+  setFormData(prev => ({
+    ...prev,
+    [name]: type === 'checkbox' ? checked : value // ✅ Correct for checkboxes
+  }));
+};
+
 
   const checkPlayerNameIsUnique = async (playerName) => {
     if (!playerName) return false;
@@ -37,8 +42,9 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
     event.preventDefault();
     setError('');
     setSuccess('');
-    if (!formData.playerName || !formData.playerAvatar || !formData.playerDOB) {
+    if (!formData.playerName || !formData.playerAvatar || !formData.playerDOB || !formData.parentalConsent) {
       setError(t('signUp.error_all_fields'));
+      setError(t('createProfile.error_consent_required'))
       return;
     }
     try {
@@ -62,7 +68,9 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
         isParentPlayer: false,
         familyId: parentData.familyId,
         parentPlayerId: currentUser.uid,
+        parentalConsent: true,
         createdAt: new Date().toISOString()
+
       });
       await updateDoc(childRef, {
         playerId: childRef.id
@@ -74,7 +82,8 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
       setFormData({
         playerName: '',
         playerAvatar: '',
-        playerDOB: ''
+        playerDOB: '',
+        parentalConsent: false
       });
     } catch (error) {
       setError(error.message);
@@ -136,6 +145,20 @@ function CreateChildPlayerProfile({ profileId, avatars }) {
           value={formData.playerAvatar}
         />
       </div>
+
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={formData.parentalConsent}
+            name="parentalConsent"
+            onChange={handleChange}
+            required
+          />
+          {t('createProfile.parentalConsent')}
+        </label>
+      </div>
+
       {error && <p className="error-message">{error}</p>}
       {success && <p className="success-message">{success}</p>}
       <button type="submit" className="submit-button">

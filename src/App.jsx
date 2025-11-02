@@ -26,6 +26,7 @@ import ParentAuthGuard from "./componentsGuards/parentAuthGuard";
 import NotFoundPage from './pages/NotFoundPage';
 import Privacy from "./pages/PrivacyPage";
 import Terms from "./pages/TermsPage";
+import ConsentModal from './componentsConsent/ConsentModal';
 
 import { AuthProvider } from "./context/authContext";
 import { PlayerProvider } from "./context/playerContext";
@@ -45,7 +46,7 @@ function AppRoutes() {
   const [profileData, setProfileData] = useState(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [loadingProfile, setLoadingProfile] = useState(true);
-  // const isGuestRoute = window.location.pathname.startsWith('/guest');
+  const currentWeekId = "2"; // Dynamic later
 
   useEffect(() => {
     setLoadingAuth(false);
@@ -67,66 +68,78 @@ function AppRoutes() {
     return () => unsubscribe();
   }, [currentUser]);
 
+  // Static routes (always available)
+  const staticRoutes = (
+    <>
+      <Route path="/privacy" element={<Privacy />} />
+      <Route path="/terms" element={<Terms />} />
+    </>
+  );
+
   // 1. If no user, redirect to guest game by default
-  if (!currentUser) {
-    return (
-      <Routes>
-        <Route path="/guest/cardSet/:id" element={<PlayCardSet isGuest={true} />} />
-        <Route path="/signin" element={<SignInPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/notfound" element={<NotFoundPage />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="terms" element={<Terms />} />
-        <Route path="*" element={<Navigate to="/guest/cardSet/2" />} />
-      </Routes>
-    );
-  }
+if (!currentUser) {
+  const currentWeekId = "2"; // Dynamic later
+  return (
+    <Routes>
+      {staticRoutes}
+      <Route path="/cardSet/this-week" element={<Navigate to={`/cardSet/${currentWeekId}`} replace />} />
+      <Route path="/cardSet/:id" element={<PlayCardSet isGuest={true} />} />
+      <Route path="/signin" element={<SignInPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/notfound" element={<NotFoundPage />} />
+      <Route path="*" element={<Navigate to="/cardSet/this-week" />} />
+    </Routes>
+  );
+}
 
   // 2. If email is not verified, show verification prompt
   if (!currentUser.emailVerified) {
     return (
       <Routes>
+        {staticRoutes}
         <Route path="/verify-email" element={<EmailVerificationPage />} />
         <Route path="*" element={<Navigate to="/verify-email" />} />
       </Routes>
     );
   }
-
   // 3. User but no profile.
   if (!profileData) {
     return (
       <Routes>
+        {staticRoutes}
         <Route path="/createprofile" element={<CreateProfilesPage />} />
         <Route path="*" element={<Navigate to="/createprofile" />} />
       </Routes>
     );
   }
-
   // 4. Incomplete profile
   if (!profileData.setupComplete) {
     return (
       <Routes>
+        {staticRoutes}
         <Route path="/createprofile" element={<CreateProfilesPage />} />
         <Route path="*" element={<Navigate to="/createprofile" />} />
       </Routes>
     );
   }
-
   // 5. Profile complete but no selected player.
   if (!selectedPlayer) {
     return (
       <Routes>
+        {staticRoutes}
         <Route path="/player" element={<ChoosePlayer />} />
         <Route path="*" element={<Navigate to="/player" />} />
       </Routes>
     );
   }
-
   // 6. If player is selected, show main app routes
   return (
     <Routes>
+      {staticRoutes}
       <Route path="/" element={<Home />} />
-      <Route path="/cardSet/:id" element={<PlayCardSet />} />
+      {/* Explicit route for authenticated users */}
+      <Route path="/cardSet/this-week" element={<Navigate to={`/cardSet/${currentWeekId}`} replace />} />
+      <Route path="/cardSet/:id" element={<PlayCardSet isGuest={false} />} />
       <Route path="/player" element={<ChoosePlayer />} />
       <Route
         path="/profile"
@@ -145,14 +158,32 @@ function AppRoutes() {
           </ParentAuthGuard>
         }
       />
-      <Route path="/privacy" element={<Privacy />} />
-      <Route path="terms" element={<Terms />} />
+      {/* Default redirect for authenticated users */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }
 
 function App() {
+  const [showConsentModal, setShowConsentModal] = useState(false);
+
+  useEffect(() => {
+    // Check localStorage for existing consent/language
+    const consentGiven = localStorage.getItem('cookieConsent');
+    const languageSelected = localStorage.getItem('selectedLanguage');
+    if (!consentGiven || !languageSelected) {
+      setShowConsentModal(true);
+    }
+  }, []);
+
+  const handleConsent = (consent, language) => {
+    localStorage.setItem('cookieConsent', consent);
+    localStorage.setItem('selectedLanguage', language);
+    setShowConsentModal(false);
+    // Optionally, reload or update app language here
+  };
+
+
   return (
     <Suspense fallback="loading">
       <AuthProvider>
@@ -161,6 +192,9 @@ function App() {
             <Header />
             <React.Suspense fallback={<div>Loading...</div>}>
               <ErrorBoundary>
+                {showConsentModal && (
+                  <ConsentModal onConsent={handleConsent} />
+                )}
                 <AppRoutes />
               </ErrorBoundary>
             </React.Suspense>
