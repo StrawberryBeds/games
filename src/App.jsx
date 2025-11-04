@@ -74,28 +74,28 @@ function AppRoutes() {
   // Static routes (always available)
   const staticRoutes = (
     <>
-      <Route path="/news" element={<News />} />
-      <Route path="/news/:slug" element={<NewsItem />} />
+          <Route path="/news" element={<News />} />      
+          <Route path="/news/:slug" element={<NewsItem />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
     </>
   );
 
   // 1. If no user, redirect to guest game by default
-  if (!currentUser) {
-    const currentWeekId = "2"; // Dynamic later
-    return (
-      <Routes>
-        {staticRoutes}
-        <Route path="/cardSet/this-week" element={<Navigate to={`/cardSet/${currentWeekId}`} replace />} />
-        <Route path="/cardSet/:id" element={<PlayCardSet isGuest={true} />} />
-        <Route path="/signin" element={<SignInPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/notfound" element={<NotFoundPage />} />
-        <Route path="*" element={<Navigate to="/cardSet/this-week" />} />
-      </Routes>
-    );
-  }
+if (!currentUser) {
+  const currentWeekId = "3"; // Dynamic later
+  return (
+    <Routes>
+      {staticRoutes}
+      <Route path="/cardSet/this-week" element={<Navigate to={`/cardSet/${currentWeekId}`} replace />} />
+      <Route path="/cardSet/:id" element={<PlayCardSet isGuest={true} />} />
+      <Route path="/signin" element={<SignInPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
+      <Route path="/notfound" element={<NotFoundPage />} />
+      <Route path="*" element={<Navigate to="/cardSet/this-week" />} />
+    </Routes>
+  );
+}
 
   // 2. If email is not verified, show verification prompt
   if (!currentUser.emailVerified) {
