@@ -83,7 +83,7 @@ function AppRoutes() {
 
   // 1. If no user, redirect to guest game by default
   if (!currentUser) {
-    const currentWeekId = "2"; // Dynamic later
+    const currentWeekId = "3"; // Dynamic later
     return (
       <Routes>
         {staticRoutes}
