@@ -3,6 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import { PortableText } from "@portabletext/react";
 import { client } from "../sanity";
 import imageUrlBuilder from "@sanity/image-url";
+import "./NewsItem.css";
+
 
 const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
 const builder = imageUrlBuilder(client);
