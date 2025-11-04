@@ -23,6 +23,7 @@ import PlayCardSet from "./pages/PlayCardSet";
 import Header from "./componentsShared/Header";
 import Footer from "./componentsShared/Footer";
 import ParentAuthGuard from "./componentsGuards/parentAuthGuard";
+import PrivateRoute from "./componentsGuards/privateRoutesGuard";
 import NotFoundPage from './pages/NotFoundPage';
 import Privacy from "./pages/PrivacyPage";
 import Terms from "./pages/TermsPage";
@@ -49,7 +50,7 @@ function AppRoutes() {
   const [profileData, setProfileData] = useState(null);
   const [loadingAuth, setLoadingAuth] = useState(true);
   const [loadingProfile, setLoadingProfile] = useState(true);
-  const currentWeekId = "2"; // Dynamic later
+  // const currentWeekId = "2"; // Dynamic later
 
   useEffect(() => {
     setLoadingAuth(false);
@@ -74,28 +75,44 @@ function AppRoutes() {
   // Static routes (always available)
   const staticRoutes = (
     <>
-          <Route path="/news" element={<News />} />      
-          <Route path="/news/:slug" element={<NewsItem />} />
+      <Route path="/news" element={<News />} />
+      <Route path="/news/:slug" element={<NewsItem />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
+      <Route path="/signin" element={<SignInPage />} />
+      <Route path="/signup" element={<SignUpPage />} />
     </>
   );
 
-  // 1. If no user, redirect to guest game by default
-if (!currentUser) {
-  const currentWeekId = "3"; // Dynamic later
-  return (
-    <Routes>
-      {staticRoutes}
-      <Route path="/cardSet/this-week" element={<Navigate to={`/cardSet/${currentWeekId}`} replace />} />
-      <Route path="/cardSet/:id" element={<PlayCardSet isGuest={true} />} />
-      <Route path="/signin" element={<SignInPage />} />
-      <Route path="/signup" element={<SignUpPage />} />
-      <Route path="/notfound" element={<NotFoundPage />} />
-      <Route path="*" element={<Navigate to="/cardSet/this-week" />} />
-    </Routes>
+// Public guest route (explicitly only for cardset/0)
+const guestRoutes = (
+  <Route path="/cardset/:id" element={<PlayCardSet isGuest={true} />} />
+);
+
+// Private routes (default for all other card sets)
+const privateRoutes = (
+  <>
+    <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+    <Route path="/cardset/:id" element={<PrivateRoute><PlayCardSet isGuest={false} /></PrivateRoute>} />
+      <Route path="/player" element={<PrivateRoute><ChoosePlayer /></PrivateRoute>} />
+      <Route path="/profile" element={<PrivateRoute>{!selectedPlayer ? <Navigate to="/notfound" /> : <ProfilePage />}</PrivateRoute>} />
+      <Route path="/playerhistory" element={<PrivateRoute>{!selectedPlayer ? <Navigate to="/notfound" /> : <PlayerHistory />}</PrivateRoute>} />
+      <Route path="/parent-auth" element={<PrivateRoute><ParentAuthPage /></PrivateRoute>} />
+      <Route path="/manageprofiles" element={<PrivateRoute><ParentAuthGuard><ManageProfilesPage /></ParentAuthGuard></PrivateRoute>} />
+    </>
   );
-}
+
+  // 1. If no user, show guest routes and static routes
+  if (!currentUser) {
+    return (
+      <Routes>
+        {staticRoutes}
+        {guestRoutes}
+        <Route path="/notfound" element={<NotFoundPage />} />
+        <Route path="*" element={<Navigate to="/cardset/0" />} />
+      </Routes>
+    );
+  }
 
   // 2. If email is not verified, show verification prompt
   if (!currentUser.emailVerified) {
@@ -107,7 +124,8 @@ if (!currentUser) {
       </Routes>
     );
   }
-  // 3. User but no profile.
+
+  // 3. User but no profile
   if (!profileData) {
     return (
       <Routes>
@@ -117,6 +135,7 @@ if (!currentUser) {
       </Routes>
     );
   }
+
   // 4. Incomplete profile
   if (!profileData.setupComplete) {
     return (
@@ -127,7 +146,8 @@ if (!currentUser) {
       </Routes>
     );
   }
-  // 5. Profile complete but no selected player.
+
+  // 5. Profile complete but no selected player
   if (!selectedPlayer) {
     return (
       <Routes>
@@ -137,37 +157,18 @@ if (!currentUser) {
       </Routes>
     );
   }
+
   // 6. If player is selected, show main app routes
   return (
     <Routes>
       {staticRoutes}
-      <Route path="/" element={<Home />} />
-      {/* Explicit route for authenticated users */}
-      <Route path="/cardSet/this-week" element={<Navigate to={`/cardSet/${currentWeekId}`} replace />} />
-      <Route path="/cardSet/:id" element={<PlayCardSet isGuest={false} />} />
-      <Route path="/player" element={<ChoosePlayer />} />
-      <Route
-        path="/profile"
-        element={!selectedPlayer ? <Navigate to="/notfound" /> : <ProfilePage />}
-      />
-      <Route
-        path="/playerhistory"
-        element={!selectedPlayer ? <Navigate to="/notfound" /> : <PlayerHistory />}
-      />
-      <Route path="/parent-auth" element={<ParentAuthPage />} />
-      <Route
-        path="/manageprofiles"
-        element={
-          <ParentAuthGuard>
-            <ManageProfilesPage />
-          </ParentAuthGuard>
-        }
-      />
-      {/* Default redirect for authenticated users */}
+      {privateRoutes}
+      <Route path="/notfound" element={<NotFoundPage />} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }
+
 
 function App() {
   const [showConsentModal, setShowConsentModal] = useState(false);
