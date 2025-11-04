@@ -21,7 +21,7 @@
 
 .post-image {
   width: 100%;
-  max-width: 550px;
+  max-width: 720px;
   height: auto;
   border-radius: 0.75rem; /* Equivalent to Tailwind's rounded-xl */
   aspect-ratio: 16/9;    /* Equivalent to Tailwind's aspect-video */

@@ -23,6 +23,7 @@ const POST_QUERY_FR = `*[_type == "post" && slug.current == $slug][0] {
 
 const builder = imageUrlBuilder(client);
 
+
 function urlFor(source) {
   return builder.image(source);
 }
@@ -31,7 +32,7 @@ export default function SinglePost() {
   const { slug } = useParams();
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -52,22 +53,13 @@ export default function SinglePost() {
   if (loading) return <div>Loading...</div>;
   if (!post) return <div>Post not found</div>;
 
-  const postImageUrl = post.image ? urlFor(post.image).width(550).height(310).url() : null;
+  const postImageUrl = post.image ? urlFor(post.image).width(720).url() : null;
 
   return (
     <main className="single-post">
       <Link to="/news" className="back-link">
-        ← Back to posts
+        {t('news.back_link')}
       </Link>
-      {postImageUrl && (
-        <img
-          src={postImageUrl}
-          alt={i18n.language === 'fr' ? post.title_fr : post.title_en}
-          className="post-image"
-          width="550"
-          height="310"
-        />
-      )}
       <h2>{i18n.language === 'fr' ? post.title_fr : post.title_en}</h2>
       <div className="post-content">
         <p className="post-date">Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
@@ -77,6 +69,16 @@ export default function SinglePost() {
           post.body_en && <PortableText value={post.body_en} />
         )}
       </div>
+
+            {postImageUrl && (
+        <img
+          src={postImageUrl}
+          alt={i18n.language === 'fr' ? post.title_fr : post.title_en}
+          className="post-image"
+          // width="720"
+          // height="auto"
+        />
+      )}
     </main>
   );
 }

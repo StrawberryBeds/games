@@ -188,6 +188,7 @@
   "error_loading_user": "Failed to load user. Please refresh.",
 
   "news": {
-    "news_title": "News"
+    "news_title": "News",
+    "back_link": "← Back to News"
   }
 }

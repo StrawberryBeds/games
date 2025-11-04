@@ -4,8 +4,8 @@ import { client } from "../sanity";
 import { useTranslation } from "react-i18next";
 import "./NewsList.css";
 
-const POSTS_QUERY_EN = `*[_type == "post"] { _id, title_en, slug, publishedAt }`;
-const POSTS_QUERY_FR = `*[_type == "post"] { _id, title_fr, slug, publishedAt }`;
+const POSTS_QUERY_EN = `*[_type == "post"] { _id, title_en, slug, image, publishedAt }`;
+const POSTS_QUERY_FR = `*[_type == "post"] { _id, title_fr, slug, image, publishedAt }`;
 
 
 function NewsList() {
@@ -21,7 +21,7 @@ const fetchPosts = async () => {
     setPosts(data);
   } catch (error) {
     console.error("Error fetching posts:", error);
-    setPosts([]); // Reset to empty array on error
+    setPosts([]); 
   }
 };
     fetchPosts();

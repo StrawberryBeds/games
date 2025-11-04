@@ -181,7 +181,8 @@
  "error_loading_user": "Échec du chargement d'utilisateur. Veuillez actualiser la page.",
 
    "news": {
-    "news_title": "Nouvelles"
+    "news_title": "Nouvelles",
+    "back_link": "← Retour aux nouvelles"
   }
 
 }
