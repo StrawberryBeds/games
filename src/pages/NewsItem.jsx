@@ -22,7 +22,6 @@ export default function SinglePost() {
         const data = await client.fetch(POST_QUERY, { slug });
         console.log("Fetched post:", data);
         console.log("Slug from URL:", slug);
-
         setPost(data);
       } catch (error) {
         console.error("Error fetching post:", error);
@@ -39,22 +38,22 @@ export default function SinglePost() {
   const postImageUrl = post.image ? urlFor(post.image).width(550).height(310).url() : null;
 
   return (
-    <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
-      <Link to="/news" className="hover:underline">
+    <main className="single-post">
+      <Link to="/news" className="back-link">
         ← Back to posts
       </Link>
       {postImageUrl && (
         <img
           src={postImageUrl}
           alt={post.title}
-          className="aspect-video rounded-xl"
+          className="post-image"
           width="550"
           height="310"
         />
       )}
-      <h1 className="text-4xl font-bold mb-8">{post.title}</h1>
-      <div className="prose">
-        <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
+      <h1 className="post-title">{post.title}</h1>
+      <div className="post-content">
+        <p className="post-date">Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
         {post.body && <PortableText value={post.body} />}
       </div>
     </main>

@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // or use <a> tags if not using react-router
-import { client } from "../sanity"; // Adjust the import path as needed
+import { Link } from "react-router-dom";
+import { client } from "../sanity";
+import { useTranslation } from "react-i18next";
+import "./NewsList.css";
 
 const POSTS_QUERY = `*[
   _type == "post"
   && defined(slug.current)
 ]|order(publishedAt desc)[0...12]{_id, title, slug, publishedAt}`;
 
-export default function BlogPostList() {
+function NewsList() {
   const [posts, setPosts] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -20,15 +23,14 @@ export default function BlogPostList() {
   }, []);
 
   return (
-    <main className="container mx-auto min-h-screen max-w-3xl p-8">
-      <h1 className="text-4xl font-bold mb-8">Posts</h1>
-      <ul className="flex flex-col gap-y-4">
+    <main>
+      <h1>{t('news.news_title')}</h1>
+      <ul className="news-list">
         {posts.map((post) => (
-          <li className="hover:underline" key={post._id}>
+          <li key={post._id}>
             <Link to={`/news/${post.slug.current}`}>
-            {console.log(`/news/${post.slug.current}`)}
-
-              <h2 className="text-xl font-semibold">{post.title}</h2>
+              {console.log(`/news/${post.slug.current}`)}
+              <h2>{post.title}</h2>
               <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
             </Link>
           </li>
@@ -37,3 +39,5 @@ export default function BlogPostList() {
     </main>
   );
 }
+
+export default NewsList;

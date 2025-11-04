@@ -5,6 +5,7 @@
   "play_button": "Jouer un partie",
   "create_account_button": "Créez votre compte",
   "sign_in_button": "Se connecter",
+  "news_button": "Nouvelles",
   "change_player_button": "Changer de joueur",
   "profile_button": "Profil",
   "sign_out_button": "Déconnexion",
@@ -177,6 +178,10 @@
 "no_player_selected": "Aucun joueur sélectionné.",
 "player_profile_not_found": "Profil de joueur introuvable.",
 "user_not_found": "Utilisateur introuvable.",
- "error_loading_user": "Échec du chargement d'utilisateur. Veuillez actualiser la page."
+ "error_loading_user": "Échec du chargement d'utilisateur. Veuillez actualiser la page.",
+
+   "news": {
+    "news_title": "Nouvelles"
+  }
 
 }

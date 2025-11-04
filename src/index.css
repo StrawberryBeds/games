@@ -4,8 +4,6 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* color-scheme: light dark; */
-  /* color: rgba(255, 255, 255, 0.87); */
   --text-color: #333;
   --bg-color: #fff;
 
@@ -31,11 +29,6 @@ body {
   flex-direction: column;
   overflow-x: hidden;
 }
-
-
-/* #root, body, .header, .footer {
-  border: 1px solid red;
-} */
 
 
 /* TEXT STYLING */
@@ -128,8 +121,6 @@ textarea {
   padding: 0.6em 1.2em; 
   font-size: 1em;
   font-family: inherit;
-  /* color: inherit; */
-  /* background-color: #f9f9f9; */
   width: 100%;
   max-width: 400px; 
   transition: border-color 0.25s, box-shadow 0.25s;
@@ -153,7 +144,6 @@ textarea:hover {
 
 input::placeholder,
 textarea::placeholder {
-  /* color: rgba(0, 0, 0, 0.5); */
   opacity: 1; 
 }
 
@@ -204,7 +194,6 @@ input[type="reset"] {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  /* color: #000000; */
   background-color: #1baf27;
   cursor: pointer;
   transition: border-color 0.25s;
@@ -222,7 +211,6 @@ input[type="reset"]:hover {
   input[type="date"],
   select,
   textarea {
-    /* background-color: #ffffff; */
     border-color: #ddd;
   }
   input:focus,

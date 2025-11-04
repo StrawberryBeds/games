@@ -42,7 +42,7 @@ function Header() {
           </>
         )}
 
-        <button onClick={() => { navigate('/news'); closeNav(); }}>News</button>
+        <button onClick={() => { navigate('/news'); closeNav(); }}>{t('news_button')}</button>
         <button
           onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'fr' : 'en')}
           className="language-toggle"

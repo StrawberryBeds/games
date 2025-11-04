@@ -5,6 +5,7 @@
   "play_button": "Play a Game",
   "create_account_button": "Create Your Account",
   "sign_in_button": "Sign In",
+  "news_button": "News",
   "change_player_button": "Change Player",
   "profile_button": "Profile",
   "sign_out_button": "Sign Out",
@@ -184,5 +185,9 @@
   "no_player_selected": "No player selected.",
   "player_profile_not_found": "Player profile not found.",
   "user_not_found": "User not found",
-  "error_loading_user": "Failed to load user. Please refresh."
+  "error_loading_user": "Failed to load user. Please refresh.",
+
+  "news": {
+    "news_title": "News"
+  }
 }

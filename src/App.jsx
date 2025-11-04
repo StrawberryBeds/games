@@ -28,8 +28,8 @@ import Privacy from "./pages/PrivacyPage";
 import Terms from "./pages/TermsPage";
 import ConsentModal from './componentsConsent/ConsentModal';
 
-import News from "./pages/BlogPostList";
-import SinglePost from "./pages/SinglePost";
+import News from "./pages/NewsList";
+import NewsItem from "./pages/NewsItem";
 
 import { AuthProvider } from "./context/authContext";
 import { PlayerProvider } from "./context/playerContext";
@@ -75,7 +75,7 @@ function AppRoutes() {
   const staticRoutes = (
     <>
       <Route path="/news" element={<News />} />
-      <Route path="/news/:slug" element={<SinglePost />} />
+      <Route path="/news/:slug" element={<NewsItem />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
     </>
