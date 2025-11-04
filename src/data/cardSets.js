@@ -29,12 +29,23 @@ import bat from "/assets/cardsets/halloween/bat_1F987.svg";
 import blackCat from "/assets/cardsets/halloween/black_cat_1F408.svg";
 import broom from "/assets/cardsets/halloween/broom_1F9F9.svg"
 import ghost from "/assets/cardsets/halloween/ghost_1F47B.svg";
-
 import jackO from "/assets/cardsets/halloween/jack_o_lantern_1F383.svg";
 import skull from "/assets/cardsets/halloween/skull_1F480.svg";
 import spiderWeb from "/assets/cardsets/halloween/spider_web_1F578.svg";
 import vampire from "/assets/cardsets/halloween/vampire_1F9DB.svg";
 import womanZombie from "/assets/cardsets/halloween/woman_zombie_1F9DF.svg";
+
+import Brighella from "/assets/cardsets/commedia_dell_arte/Brighella.svg";
+import Capitano_Spavento from "/assets/cardsets/commedia_dell_arte/Capitano_Spavento.svg";
+import Columbine from "/assets/cardsets/commedia_dell_arte/Columbine.svg";
+import Dr_Balanzone from "/assets/cardsets/commedia_dell_arte/Dr_Balanzone.svg";
+import Harlequin from "/assets/cardsets/commedia_dell_arte/Harlequin.svg";
+import Isabella from '/assets/cardsets/commedia_dell_arte/Isabella.svg';
+import Pagliaccio from "/assets/cardsets/commedia_dell_arte/Pagliaccio.svg";
+import Pantalone from "/assets/cardsets/commedia_dell_arte/Pantalone.svg";
+import Scapino from "/assets/cardsets/commedia_dell_arte/Scapino.svg";
+import Scaramuccia from "/assets/cardsets/commedia_dell_arte/Scaramuccia.svg";
+
 
 // Define card sets
 const cardSets = [
@@ -87,6 +98,23 @@ const cardSets = [
       { cardName: "spider's web", cardImage: spiderWeb },
       { cardName: "vampire", cardImage: vampire },
       { cardName: "woman zombie", cardImage: womanZombie }
+    ]
+  },
+  {
+    id: "3",
+    name: "Commedia dell'arte",
+    image: Harlequin,
+    Cards: [
+      { cardName: "brighella", cardImage: Brighella },
+      { cardName: "capitano_spavento", cardImage: Capitano_Spavento },
+      { cardName: "columbine", cardImage: Columbine },
+      { cardName: "dr_balanzone", cardImage: Dr_Balanzone },
+      { cardName: "harlequin", cardImage: Harlequin },
+      { cardName: "isabella", cardImage: Isabella },
+      { cardName: "pagliaccio", cardImage: Pagliaccio },
+      { cardName: "pantalone", cardImage: Pantalone },
+      { cardName: "scapino", cardImage: Scapino },
+      { cardName: "scaramuccia", cardImage: Scaramuccia }
     ]
   }
 ];

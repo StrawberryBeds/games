@@ -1,0 +1,49 @@
+/* SinglePost styles */
+.single-post {
+  width: 100%;
+  max-width: 720px; /* Equivalent to Tailwind's max-w-3xl */
+  margin: 0 auto;  /* Equivalent to Tailwind's mx-auto */
+  padding: 2rem;    /* Equivalent to Tailwind's p-8 */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem; /* Equivalent to Tailwind's gap-4 */
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.post-image {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  border-radius: 0.75rem; /* Equivalent to Tailwind's rounded-xl */
+  aspect-ratio: 16/9;    /* Equivalent to Tailwind's aspect-video */
+}
+
+.post-title {
+  font-size: 2.25rem; /* Equivalent to Tailwind's text-4xl */
+  font-weight: bold;   /* Equivalent to Tailwind's font-bold */
+  margin: 2rem 0;      /* Equivalent to Tailwind's mb-8 */
+}
+
+.post-content {
+  line-height: 1.6;
+}
+
+.post-date {
+  color: #666;
+  margin: 0 0 1rem 0;
+}
+
+/* Optional: Style for PortableText output */
+.post-content .portable-text {
+  max-width: 100%;
+  margin: 0;
+}
