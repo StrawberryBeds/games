@@ -1,7 +1,6 @@
 {
   "welcome": "Bienvenue à Pantalone !",
   "cookie_consent": "Ce site web utilise des cookies pour améliorer votre expérience. En continuant à utiliser ce site, vous acceptez notre utilisation des cookies.",
-  
   "play_button": "Jouer un partie",
   "create_account_button": "Créez votre compte",
   "sign_in_button": "Se connecter",
@@ -9,7 +8,11 @@
   "change_player_button": "Changer de joueur",
   "profile_button": "Profil",
   "sign_out_button": "Déconnexion",
-
+  
+  "home": {
+    "cta_message": "Sign up to play more cards, create family profiles, see your personal bests, and compete with your family!",
+    "cta_button": "Create Your Account"
+  },
   "signIn": {
     "email": "E-mail",
     "password": "Mot de passe",
@@ -20,7 +23,6 @@
     "enter_email_for_reset": "Veuillez entrer l'adresse e-mail associée avec votre compte :",
     "send_reset_link": "Envoyer le lien de réinitialisation"
   },
-
   "score": {
     "matches": "Pairs :",
     "turns": "Tours : "
@@ -50,7 +52,6 @@
     "over16": "J'ai plus que 16 ans.",
     "button_loading": "Création du compte en cours ...",
     "button": "S'inscrire",
-
     "error_email_match": "Les adresses e-mail ne correspondent pas.",
     "error_password_match": "Les mots de passe ne correspondent pas.",
     "error_all_fields": "Veuillez remplir tous les champs obligatoires.",
@@ -59,7 +60,6 @@
     "email_in_use": "Cette adresse e-mail est déjà enregistrée.",
     "registration_failed": "L'inscription a échoué. Veuillez réessayer."
   },
-
   "emailVerify": {
     "heading": "Veuillez vérifier votre e-mail",
     "sent_to": "Nous avons envoyé un e-mail de vérification à <strong>{{email}}</strong>. Veuillez vérifier votre boîte de réception et cliquer sur le lien pour vérifier votre compte.",
@@ -71,118 +71,102 @@
     "please_verify": "Veuillez vérifier votre e-mail.",
     "open_prompt": "Veuillez vérifier votre e-mail."
   },
-
   "createProfile": {
-  "unique_player": "Le nom du joueur doit être unique.",
-  "error_checking": "Erreur lors de la vérification du nom du joueur. Veuillez réessayer.",
-  "success_parent_created": "Profil parent créé avec succès !",
-  "create_family": "Créez vos profils de famille",
-  "parent_profile": "Profil Parent",
-  "given_name": "Prénom",
-  "family_name": "Nom de famille",
-  "parent_dob": "Votre date de naissance",
-  "player_name": "Nom du joueur",
-  "avatar": "Sélectionnez un avatar",
-  "create_parent_button": "Créer mon profil",
-  "add_child_button": "Ajouter un profil enfant",
-  "finish_profiles": "Terminer la création des profils",
-  "error_parent_not_found": "Profil parent introuvable.",
-  "success_child_created": "Profil enfant créé avec succès !",
-  "child_profile": "Profil Enfant",
-  "child_player_name": "Nom du joueur (enfant)",
-  "parentalConsent": "Je confirme être le parent/tuteur légal de cet enfant et j'autorise son utilisation de Pantalone..",
-  "child_dob": "Date de naissance de l'enfant",
-  "error_consent_required": "Vous devez obtenir le consentement parental pour créer un profil de joueur enfant.",
-  "create_child_button": "Créer le profil enfant"
-},
-
-"editPlayer": {
-  "profile_updated_successfully": "Le profil de `${player.playerName}` a été mis à jour avec succès !",
-  "not_required_child": "Non requis pour les profils enfant.",
-    "read_only":"Lecture seulement.",
-  "player_dob": "Date de naissance du joueur",
-  "player_name": "Nom du joueur",
-  "update_profile": "Mettre à jour le profil"
-},
-
-"parentAuth": {
-  "error_enter_password": "Veuillez entrer votre mot de passe.",
-  "error_no_user": "Aucun utilisateur n'est connecté. Veuillez vous reconnecter.",
-  "parent_verification": "Vérification parentale",
-  "enter_password": "Veuillez entrer votre mot de passe pour gérer les profils.",
-  "verifying_message": "Vérification en cours",
-  "continue_button": "Continuer"
-},
-
-"manageProfiles": {
-  "parent_not_found": "Profil du parent introuvable !",
-  "error_fetching_family_players": "Échec du chargement des profils familiaux. Veuillez réessayer.",
-  "only_parents_can_manage_profiles": "Seuls les parents peuvent gérer les profils.",
-  "family_profiles": "Profils de votre famille",
-  "error_create_child_profile": "Échec de la création du profil enfant. Veuillez réessayer.",
-  "my_information_and_settings": "Mes informations et paramètres",
-  "settings": "Paramètres",
-  "add_child": "Ajouter un enfant",
-  "change_password_button": "Changer mon mot de passe",
-  "delete_account_button": "Supprimer mon compte",
-
-      "change_password": "Changer mon mot de passe",
-      "current_password": "Mot de passe actuél",
-      "new_password": "Nouveau mot de passe",
-      "confirm_new_password": "Confirmer le nouveau mot de passe",
-      "success_password_changed": "Votre mot de passe a été changé.",
-
-  "success_password_reset_sent": "E-mail de réinitialisation du mot de passe envoyé ! Vérifiez votre boîte de réception.",
-  "password_reset": "Réinitialiser le mot de passe",
-  "enter_email_for_password_reset": "Entrez l'adresse e-mail associée avec votre compte :",
-  "send_reset_link": "Envoyer le lien de réinitialisation",
-  "password_reset_note": "Un lien de réinitialisation sera envoyé si cette adresse e-mail est enregistrée.",
-
-  "password_required": "Votre mot de passe est requis pour supprimer votre compte.",
-"delete_account": "Supprimer le compte",
-"delete_account_warning": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible et supprimera toutes les données associées.",
-"delete_preparing": "Préparation en cours...",
-"delete_button": "Supprimer le compte",
-"confirm_delete": "Confirmer la suppression",
-"enter_password": "Pour des raisons de sécurité, veuillez entrer votre mot de passe pour confirmer la suppression du compte :",
-"deleting": "Suppression en cours...",
-"confirm_delete_button": "Confirmer la suppression du compte"
-
-},
-
-"choosePlayer": {
-  "error_family_id_not_found": "ID familial introuvable. Veuillez configurer votre profil familial.",
-  "error_loading_players": "Échec du chargement des joueurs. Veuillez actualiser la page.",
-  "no_players_found": "Aucun joueur trouvé. Créer un profil ?",
-  "who_is_playing": "Qui joue ?"
-},
-
-"playerStats": {
-  "no_games": "Aucune partie jouée pour l'instant.",
-  "player_stats": "Statistiques de {{playerName}}",
-  "card_set": "Jeu de cartes",
-  "personal_best": "Meilleur score",
-  "avg_first_three": "Moyenne de tours - 3 premières parties",
-  "avg_last_three": "Moyenne de tours - 3 dernières parties",
-  "avg_all": "Moyenne de tours - toutes les parties",
-  "game_count": "Parties jouées"
-},
-
-
-
-"incorrect_password": "Mot de passe incorrect. Veuillez réessayer.",
-"loading": "Chargement en cours...",
-"password":"Mot de passe",
-"cancel":"Annuler",
-
-"no_player_selected": "Aucun joueur sélectionné.",
-"player_profile_not_found": "Profil de joueur introuvable.",
-"user_not_found": "Utilisateur introuvable.",
- "error_loading_user": "Échec du chargement d'utilisateur. Veuillez actualiser la page.",
-
-   "news": {
+    "unique_player": "Le nom du joueur doit être unique.",
+    "error_checking": "Erreur lors de la vérification du nom du joueur. Veuillez réessayer.",
+    "success_parent_created": "Profil parent créé avec succès !",
+    "create_family": "Créez vos profils de famille",
+    "parent_profile": "Profil Parent",
+    "given_name": "Prénom",
+    "family_name": "Nom de famille",
+    "parent_dob": "Votre date de naissance",
+    "player_name": "Nom du joueur",
+    "avatar": "Sélectionnez un avatar",
+    "create_parent_button": "Créer mon profil",
+    "add_child_button": "Ajouter un profil enfant",
+    "finish_profiles": "Terminer la création des profils",
+    "error_parent_not_found": "Profil parent introuvable.",
+    "success_child_created": "Profil enfant créé avec succès !",
+    "child_profile": "Profil Enfant",
+    "child_player_name": "Nom du joueur (enfant)",
+    "parentalConsent": "Je confirme être le parent/tuteur légal de cet enfant et j'autorise son utilisation de Pantalone..",
+    "child_dob": "Date de naissance de l'enfant",
+    "error_consent_required": "Vous devez obtenir le consentement parental pour créer un profil de joueur enfant.",
+    "create_child_button": "Créer le profil enfant"
+  },
+  "editPlayer": {
+    "profile_updated_successfully": "Le profil de `${player.playerName}` a été mis à jour avec succès !",
+    "not_required_child": "Non requis pour les profils enfant.",
+    "read_only": "Lecture seulement.",
+    "player_dob": "Date de naissance du joueur",
+    "player_name": "Nom du joueur",
+    "update_profile": "Mettre à jour le profil"
+  },
+  "parentAuth": {
+    "error_enter_password": "Veuillez entrer votre mot de passe.",
+    "error_no_user": "Aucun utilisateur n'est connecté. Veuillez vous reconnecter.",
+    "parent_verification": "Vérification parentale",
+    "enter_password": "Veuillez entrer votre mot de passe pour gérer les profils.",
+    "verifying_message": "Vérification en cours",
+    "continue_button": "Continuer"
+  },
+  "manageProfiles": {
+    "parent_not_found": "Profil du parent introuvable !",
+    "error_fetching_family_players": "Échec du chargement des profils familiaux. Veuillez réessayer.",
+    "only_parents_can_manage_profiles": "Seuls les parents peuvent gérer les profils.",
+    "family_profiles": "Profils de votre famille",
+    "error_create_child_profile": "Échec de la création du profil enfant. Veuillez réessayer.",
+    "my_information_and_settings": "Mes informations et paramètres",
+    "settings": "Paramètres",
+    "add_child": "Ajouter un enfant",
+    "change_password_button": "Changer mon mot de passe",
+    "delete_account_button": "Supprimer mon compte",
+    "change_password": "Changer mon mot de passe",
+    "current_password": "Mot de passe actuél",
+    "new_password": "Nouveau mot de passe",
+    "confirm_new_password": "Confirmer le nouveau mot de passe",
+    "success_password_changed": "Votre mot de passe a été changé.",
+    "success_password_reset_sent": "E-mail de réinitialisation du mot de passe envoyé ! Vérifiez votre boîte de réception.",
+    "password_reset": "Réinitialiser le mot de passe",
+    "enter_email_for_password_reset": "Entrez l'adresse e-mail associée avec votre compte :",
+    "send_reset_link": "Envoyer le lien de réinitialisation",
+    "password_reset_note": "Un lien de réinitialisation sera envoyé si cette adresse e-mail est enregistrée.",
+    "password_required": "Votre mot de passe est requis pour supprimer votre compte.",
+    "delete_account": "Supprimer le compte",
+    "delete_account_warning": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible et supprimera toutes les données associées.",
+    "delete_preparing": "Préparation en cours...",
+    "delete_button": "Supprimer le compte",
+    "confirm_delete": "Confirmer la suppression",
+    "enter_password": "Pour des raisons de sécurité, veuillez entrer votre mot de passe pour confirmer la suppression du compte :",
+    "deleting": "Suppression en cours...",
+    "confirm_delete_button": "Confirmer la suppression du compte"
+  },
+  "choosePlayer": {
+    "error_family_id_not_found": "ID familial introuvable. Veuillez configurer votre profil familial.",
+    "error_loading_players": "Échec du chargement des joueurs. Veuillez actualiser la page.",
+    "no_players_found": "Aucun joueur trouvé. Créer un profil ?",
+    "who_is_playing": "Qui joue ?"
+  },
+  "playerStats": {
+    "no_games": "Aucune partie jouée pour l'instant.",
+    "player_stats": "Statistiques de {{playerName}}",
+    "card_set": "Jeu de cartes",
+    "personal_best": "Meilleur score",
+    "avg_first_three": "Moyenne de tours - 3 premières parties",
+    "avg_last_three": "Moyenne de tours - 3 dernières parties",
+    "avg_all": "Moyenne de tours - toutes les parties",
+    "game_count": "Parties jouées"
+  },
+  "incorrect_password": "Mot de passe incorrect. Veuillez réessayer.",
+  "loading": "Chargement en cours...",
+  "password": "Mot de passe",
+  "cancel": "Annuler",
+  "no_player_selected": "Aucun joueur sélectionné.",
+  "player_profile_not_found": "Profil de joueur introuvable.",
+  "user_not_found": "Utilisateur introuvable.",
+  "error_loading_user": "Échec du chargement d'utilisateur. Veuillez actualiser la page.",
+  "news": {
     "news_title": "Nouvelles",
     "back_link": "← Retour aux nouvelles"
   }
-
 }
