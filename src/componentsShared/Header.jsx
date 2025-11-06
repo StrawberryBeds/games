@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../context/authContext.jsx';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import SignOutButton from './SignOutButton.jsx';
 import { useTranslation } from 'react-i18next';
 import './Header.css';
@@ -19,7 +19,9 @@ function Header() {
   return (
     <header className="header">
       <div className="header-logo">
-        <button onClick={() => { navigate('/home'); closeNav(); }}>Pantalone</button>
+        <Link to="/home">
+        <div className="header-logo">Pantalone</div>
+        </Link>
       </div>
       <button className="hamburger" onClick={toggleNav}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
