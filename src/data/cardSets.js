@@ -38,12 +38,12 @@ import womanZombie from "/assets/cardsets/halloween/woman_zombie_1F9DF.svg";
 import Brighella from "/assets/cardsets/commedia_dell_arte/Brighella.svg";
 import Capitano_Spavento from "/assets/cardsets/commedia_dell_arte/Capitano_Spavento.svg";
 import Columbine from "/assets/cardsets/commedia_dell_arte/Columbine.svg";
+import Coviello from "/assets/cardsets/commedia_dell_arte/Coviello.svg";
 import Dr_Balanzone from "/assets/cardsets/commedia_dell_arte/Dr_Balanzone.svg";
 import Harlequin from "/assets/cardsets/commedia_dell_arte/Harlequin.svg";
 import Isabella from '/assets/cardsets/commedia_dell_arte/Isabella.svg';
-import Pagliaccio from "/assets/cardsets/commedia_dell_arte/Pagliaccio.svg";
 import Pantalone from "/assets/cardsets/commedia_dell_arte/Pantalone.svg";
-import Scapino from "/assets/cardsets/commedia_dell_arte/Scapino.svg";
+import Pulcinella from "/assets/cardsets/commedia_dell_arte/Pulcinella.svg";
 import Scaramuccia from "/assets/cardsets/commedia_dell_arte/Scaramuccia.svg";
 
 
@@ -108,12 +108,12 @@ const cardSets = [
       { cardName: "brighella", cardImage: Brighella },
       { cardName: "capitano_spavento", cardImage: Capitano_Spavento },
       { cardName: "columbine", cardImage: Columbine },
+      { carnName: "coviello", cardImage: Coviello },
       { cardName: "dr_balanzone", cardImage: Dr_Balanzone },
       { cardName: "harlequin", cardImage: Harlequin },
       { cardName: "isabella", cardImage: Isabella },
-      { cardName: "pagliaccio", cardImage: Pagliaccio },
       { cardName: "pantalone", cardImage: Pantalone },
-      { cardName: "scapino", cardImage: Scapino },
+      { cardName: "pulcinella", cardImage: Pulcinella },
       { cardName: "scaramuccia", cardImage: Scaramuccia }
     ]
   }
