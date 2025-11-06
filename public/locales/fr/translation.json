@@ -10,8 +10,8 @@
   "sign_out_button": "Déconnexion",
   
   "home": {
-    "cta_message": "Sign up to play more cards, create family profiles, see your personal bests, and compete with your family!",
-    "cta_button": "Create Your Account"
+    "cta_message": "Inscrivez-vous pour jouer à plus de cartes, créer des profils familiaux, consulter vos meilleurs scores et affronter votre famille !",
+    "cta_button": "Créez votre compte"
   },
   "signIn": {
     "email": "E-mail",
