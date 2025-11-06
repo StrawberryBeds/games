@@ -5,7 +5,7 @@ import { doc } from 'firebase/firestore';
 import { auth, db } from './firebase';
 import { onSnapshot } from 'firebase/firestore';
 
-import Home from "./pages/Home";
+import ChooseCardSet from "./pages/ChooseCardSet";
 import SignUpPage from "./pages/SignUpPage";
 import EmailVerificationPage from './pages/EmailVerificationPage';
 
@@ -92,7 +92,7 @@ const guestRoutes = (
 // Private routes (default for all other card sets)
 const privateRoutes = (
   <>
-    <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+    <Route path="/" element={<PrivateRoute><ChooseCardSet /></PrivateRoute>} />
     <Route path="/cardset/:id" element={<PrivateRoute><PlayCardSet isGuest={false} /></PrivateRoute>} />
       <Route path="/player" element={<PrivateRoute><ChoosePlayer /></PrivateRoute>} />
       <Route path="/profile" element={<PrivateRoute>{!selectedPlayer ? <Navigate to="/notfound" /> : <ProfilePage />}</PrivateRoute>} />
