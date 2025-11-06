@@ -1,27 +1,27 @@
 /* src/pages/HomePage.css */
 
 .home-container {
-    display: flex;
-    /* Enables Flexbox */
-    flex-wrap: wrap;
-    /* Allows columns to wrap to a new line */
-    gap: 1rem;
-    /* Adds spacing between columns */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%; /* Ensure it fills the main container */
+  max-width: 1470px; /* Match the max-width of main */
+  margin: 0 auto; /* Center the container */
+  padding: 1rem; /* Add padding inside the container */
+  box-sizing: border-box; /* Include padding in width */
 }
 
 .column {
-    flex: 1;
-    /* Makes columns take up equal available space */
-    padding: 1rem;
-    /* Additional styling for columns */
+  flex: 1;
+  min-width: 0; /* Prevent flex items from overflowing */
+  padding: 1rem;
+  box-sizing: border-box; /* Include padding in width */
 }
 
-/* Media query for smaller screens (e.g., mobile) */
+/* For smaller screens */
 @media (max-width: 768px) {
-    .column {
-        width: 100%;
-        /* Columns take full width on small screens */
-        flex: auto;
-        /* Resets flex property for stacking */
-    }
+  .column {
+    width: 100%;
+    flex: auto;
+  }
 }

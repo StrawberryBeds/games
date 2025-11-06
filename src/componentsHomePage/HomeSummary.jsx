@@ -28,8 +28,10 @@ const fetchPosts = async () => {
 
   return (
     <main>
-      <h1>{t('news.news_title')}</h1>
-      <ul className="news-list">
+
+      
+      <h2>{t('news.news_title')}</h2>
+      <ul className="news-content">
         {posts.map((post) => (
           <li key={post._id}>
             <Link to={`/news/${post.slug.current}`}>

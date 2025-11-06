@@ -1,12 +1,9 @@
-/* NewsList styles */
+/* HomeSummary styles */
 main {
     width: 100%;
     max-width: 720px;
-    /* Equivalent to Tailwind's max-w-3xl */
     margin: 0 auto;
-    /* Equivalent to Tailwind's mx-auto */
     padding: 2rem;
-    /* Equivalent to Tailwind's p-8 */
     min-height: 100vh;
     background: rgb(252, 175, 175);
     border-radius: 8px;
@@ -28,6 +25,19 @@ h1 {
     /* Equivalent to Tailwind's gap-y-4 */
     list-style: none;
     padding: 0;
+}
+
+.news-content {
+  display: flex;
+  width: auto;
+  max-width: 100%;
+  margin: 1rem;
+  background: white;
+  color: black;
+  border-radius: 8px;
+  padding: 1rem;
+  box-sizing: border-box;
+  list-style: none;
 }
 
 .news-list li {

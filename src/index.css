@@ -15,7 +15,11 @@
 
 main {
   flex: 1;
-  width: 100%; 
+  width: 100%;
+  max-width: 1470px; /* Add a max-width to constrain the main content */
+  margin: 0 auto; /* Center the main content */
+  padding: 0 1rem; /* Add horizontal padding */
+  box-sizing: border-box; /* Include padding in width */
 }
 
 
