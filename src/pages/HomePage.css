@@ -1,0 +1,27 @@
+/* src/pages/HomePage.css */
+
+.home-container {
+    display: flex;
+    /* Enables Flexbox */
+    flex-wrap: wrap;
+    /* Allows columns to wrap to a new line */
+    gap: 1rem;
+    /* Adds spacing between columns */
+}
+
+.column {
+    flex: 1;
+    /* Makes columns take up equal available space */
+    padding: 1rem;
+    /* Additional styling for columns */
+}
+
+/* Media query for smaller screens (e.g., mobile) */
+@media (max-width: 768px) {
+    .column {
+        width: 100%;
+        /* Columns take full width on small screens */
+        flex: auto;
+        /* Resets flex property for stacking */
+    }
+}
