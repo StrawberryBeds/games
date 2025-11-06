@@ -5,6 +5,7 @@ import { doc } from 'firebase/firestore';
 import { auth, db } from './firebase';
 import { onSnapshot } from 'firebase/firestore';
 
+import Home from "./pages/HomePage";
 import ChooseCardSet from "./pages/ChooseCardSet";
 import SignUpPage from "./pages/SignUpPage";
 import EmailVerificationPage from './pages/EmailVerificationPage';
@@ -75,6 +76,7 @@ function AppRoutes() {
   // Static routes (always available)
   const staticRoutes = (
     <>
+      <Route path="/home" element={<Home />} />
       <Route path="/news" element={<News />} />
       <Route path="/news/:slug" element={<NewsItem />} />
       <Route path="/privacy" element={<Privacy />} />
@@ -84,21 +86,21 @@ function AppRoutes() {
     </>
   );
 
-// Public guest route (explicitly only for cardset/0)
-const guestRoutes = (
-  <Route path="/cardset/:id" element={<PlayCardSet isGuest={true} />} />
-);
+  // Public guest route (explicitly only for cardset/0)
+  const guestRoutes = (
+    <Route path="/cardset/:id" element={<PlayCardSet isGuest={true} />} />
+  );
 
-// Private routes (default for all other card sets)
-const privateRoutes = (
-  <>
-    <Route path="/" element={<PrivateRoute><ChooseCardSet /></PrivateRoute>} />
-    <Route path="/cardset/:id" element={<PrivateRoute><PlayCardSet isGuest={false} /></PrivateRoute>} />
-      <Route path="/player" element={<PrivateRoute><ChoosePlayer /></PrivateRoute>} />
-      <Route path="/profile" element={<PrivateRoute>{!selectedPlayer ? <Navigate to="/notfound" /> : <ProfilePage />}</PrivateRoute>} />
-      <Route path="/playerhistory" element={<PrivateRoute>{!selectedPlayer ? <Navigate to="/notfound" /> : <PlayerHistory />}</PrivateRoute>} />
-      <Route path="/parent-auth" element={<PrivateRoute><ParentAuthPage /></PrivateRoute>} />
-      <Route path="/manageprofiles" element={<PrivateRoute><ParentAuthGuard><ManageProfilesPage /></ParentAuthGuard></PrivateRoute>} />
+  // Private routes (default for all other card sets)
+  const privateRoutes = (
+    <>
+      <Route path="/auth/chooseset" element={<PrivateRoute><ChooseCardSet /></PrivateRoute>} />
+      <Route path="/auth/cardset/:id" element={<PrivateRoute><PlayCardSet isGuest={false} /></PrivateRoute>} />
+      <Route path="/auth/player" element={<PrivateRoute><ChoosePlayer /></PrivateRoute>} />
+      <Route path="/auth/profile" element={<PrivateRoute>{!selectedPlayer ? <Navigate to="/notfound" /> : <ProfilePage />}</PrivateRoute>} />
+      <Route path="/auth/playerhistory" element={<PrivateRoute>{!selectedPlayer ? <Navigate to="/notfound" /> : <PlayerHistory />}</PrivateRoute>} />
+      <Route path="/auth/parent-auth" element={<PrivateRoute><ParentAuthPage /></PrivateRoute>} />
+      <Route path="/auth/manageprofiles" element={<PrivateRoute><ParentAuthGuard><ManageProfilesPage /></ParentAuthGuard></PrivateRoute>} />
     </>
   );
 
@@ -109,7 +111,7 @@ const privateRoutes = (
         {staticRoutes}
         {guestRoutes}
         <Route path="/notfound" element={<NotFoundPage />} />
-        <Route path="*" element={<Navigate to="/cardset/0" />} />
+        <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     );
   }
@@ -130,8 +132,8 @@ const privateRoutes = (
     return (
       <Routes>
         {staticRoutes}
-        <Route path="/createprofile" element={<CreateProfilesPage />} />
-        <Route path="*" element={<Navigate to="/createprofile" />} />
+        <Route path="/auth/createprofile" element={<CreateProfilesPage />} />
+        <Route path="/auth/*" element={<Navigate to="/auth/createprofile" />} />
       </Routes>
     );
   }
@@ -141,8 +143,8 @@ const privateRoutes = (
     return (
       <Routes>
         {staticRoutes}
-        <Route path="/createprofile" element={<CreateProfilesPage />} />
-        <Route path="*" element={<Navigate to="/createprofile" />} />
+        <Route path="/auth/createprofile" element={<CreateProfilesPage />} />
+        <Route path="/auth/*" element={<Navigate to="/auth/createprofile" />} />
       </Routes>
     );
   }
@@ -152,8 +154,8 @@ const privateRoutes = (
     return (
       <Routes>
         {staticRoutes}
-        <Route path="/player" element={<ChoosePlayer />} />
-        <Route path="*" element={<Navigate to="/player" />} />
+        <Route path="/auth/player" element={<ChoosePlayer />} />
+        <Route path="/auth/*" element={<Navigate to="/auth/player" />} />
       </Routes>
     );
   }
@@ -164,7 +166,7 @@ const privateRoutes = (
       {staticRoutes}
       {privateRoutes}
       <Route path="/notfound" element={<NotFoundPage />} />
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to="/auth/" />} />
     </Routes>
   );
 }

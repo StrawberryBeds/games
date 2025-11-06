@@ -18,7 +18,9 @@ function Header() {
 
   return (
     <header className="header">
-      <div className="header-logo">Pantalone</div>
+      <div className="header-logo">
+        <button onClick={() => { navigate('/home'); closeNav(); }}>Pantalone</button>
+      </div>
       <button className="hamburger" onClick={toggleNav}>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
           <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
@@ -26,12 +28,13 @@ function Header() {
       </button>
 
       <nav className={`header-nav ${isNavOpen ? 'open' : ''}`}>
-        <button onClick={() => { navigate('/games'); closeNav(); }}>{t('play_button')}</button>
+        <button onClick={() => { navigate('/auth/chooseset'); closeNav(); }}>{t('play_button')}</button>
+        <button onClick={() => { navigate('/news'); closeNav(); }}>{t('news_button')}</button>
 
         {currentUser ? (
           <>
-            <button onClick={() => { navigate('/profile'); closeNav(); }}>{t('profile_button')}</button>
-            <button onClick={() => { navigate('/player'); closeNav(); }}>{t('change_player_button')}</button>
+            <button onClick={() => { navigate('/auth/profile'); closeNav(); }}>{t('profile_button')}</button>
+            <button onClick={() => { navigate('/auth/player'); closeNav(); }}>{t('change_player_button')}</button>
             <SignOutButton onClick={closeNav} />
           </>
 
@@ -42,7 +45,7 @@ function Header() {
           </>
         )}
 
-        <button onClick={() => { navigate('/news'); closeNav(); }}>{t('news_button')}</button>
+        
         <button
           onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'fr' : 'en')}
           className="language-toggle"

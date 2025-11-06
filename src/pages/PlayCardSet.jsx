@@ -11,13 +11,13 @@ function PlayCardSet({ isGuest = false }) {
 
   // Redirect if not a guest and not logged in
   if (!isGuest && !currentUser) {
-    navigate("/signin");
+    navigate("/home");
     return null;
   }
 
     const selectedSet = cardSets.find((set) => set.id === id);
   if (!selectedSet) {
-    return <p>Card set not found</p>;
+    return defaultSet = set.id === "0";
   }
 
   // Pass the selected set's Cards to GameBoard
