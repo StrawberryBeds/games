@@ -88,7 +88,7 @@ function AppRoutes() {
 
   // Public guest route (explicitly only for cardset/0)
   const guestRoutes = (
-    <Route path="/cardset/:id" element={<PlayCardSet isGuest={true} />} />
+    <Route path="/cardset/0" element={<PlayCardSet isGuest={true} />} />
   );
 
   // Private routes (default for all other card sets)

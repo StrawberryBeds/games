@@ -28,11 +28,11 @@ function Header() {
       </button>
 
       <nav className={`header-nav ${isNavOpen ? 'open' : ''}`}>
-        <button onClick={() => { navigate('/auth/chooseset'); closeNav(); }}>{t('play_button')}</button>
         <button onClick={() => { navigate('/news'); closeNav(); }}>{t('news_button')}</button>
 
         {currentUser ? (
           <>
+            <button onClick={() => { navigate('/auth/chooseset'); closeNav(); }}>{t('play_button')}</button>
             <button onClick={() => { navigate('/auth/profile'); closeNav(); }}>{t('profile_button')}</button>
             <button onClick={() => { navigate('/auth/player'); closeNav(); }}>{t('change_player_button')}</button>
             <SignOutButton onClick={closeNav} />
@@ -40,12 +40,13 @@ function Header() {
 
         ) : (
           <>
+            <button onClick={() => { navigate('/cardSet/0'); closeNav(); }}>{t('play_button')}</button>
             <button onClick={() => { navigate('/signup'); closeNav(); }}>{t('create_account_button')}</button>
             <button onClick={() => { navigate('/signin'); closeNav(); }}>{t('sign_in_button')}</button>
           </>
         )}
 
-        
+
         <button
           onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'fr' : 'en')}
           className="language-toggle"
