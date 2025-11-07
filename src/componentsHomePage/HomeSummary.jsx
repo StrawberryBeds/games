@@ -39,39 +39,40 @@ function HomeSummary() {
 
   return (
     <main>
-
       <div className="cta-content">
         <h3>{t('home.cta_message')}</h3>
-
         <div className="home-buttons">
           <button onClick={() => { navigate('/signup') }}>{t('home.cta_button')}</button>
         </div>
       </div>
 
-      <div className="featured-content">
-        <h2>{t('home.featured_cardset')}</h2>
-        <CardSet
-          key={id.id}
-          id={id.id}
-          image={id.image}
-          name={id.name}
-          onClick={handleCardClick}
-        />
-  
+      {/* New container for side-by-side featured content */}
+      <div className="featured-content-container">
+        <div className="featured-cardset">
+          <h2>{t('home.featured_cardset')}</h2>
+          <CardSet
+            key={featuredCardSet.id}
+            id={featuredCardSet.id}
+            image={featuredCardSet.image}
+            name={featuredCardSet.name}
+            onClick={() => handleCardClick(featuredCardSet.id, featuredCardSet.name)}
+          />
+        </div>
 
-      <h2>{t('home.online_security_content')}</h2>
-      <ul className="online-security-content">
-        {posts.map((post) => (
-          <li key={post._id}>
-            <Link to={`/news/${post.slug.current}`}>
-              <h3>{i18n.language === 'fr' ? post.title_fr : post.title_en}</h3>
-              <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
-            </Link>
-          </li>
-        ))}
-        </ul>
+        <div className="online-security-content">
+          <h2>{t('home.online_security_content')}</h2>
+          <ul>
+            {posts.map((post) => (
+              <li key={post._id}>
+                <Link to={`/news/${post.slug.current}`}>
+                  <h3>{i18n.language === 'fr' ? post.title_fr : post.title_en}</h3>
+                  <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-
 
       <h2>{t('news.news_title')}</h2>
       <ul className="news-content">
