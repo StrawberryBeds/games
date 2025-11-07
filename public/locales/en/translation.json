@@ -12,7 +12,9 @@
 
   "home": {
     "cta_message": "Sign up to play more cards, create family profiles, see your personal bests, and compete with your family!",
-    "cta_button": "Create Your Account"
+    "cta_button": "Create Your Account",
+    "featured_cardset": "Featured Card Set",
+    "online_security_content": "Learn online security for kids and parents"
   },
 
   "signIn": {

@@ -53,6 +53,19 @@ h1 {
   list-style: none;
 }
 
+.online-security-content {
+  display: flex;
+  width: auto;
+  max-width: 100%;
+  margin: 1rem;
+  background: white;
+  color: black;
+  border-radius: 8px;
+  padding: 1rem;
+  box-sizing: border-box;
+  list-style: none;
+}
+
 .home-buttons button {
   padding: 10px 16px;
   border: none;
