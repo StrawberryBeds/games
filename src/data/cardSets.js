@@ -46,6 +46,17 @@ import Pantalone from "/assets/cardsets/commedia_dell_arte/Pantalone.svg";
 import Pulcinella from "/assets/cardsets/commedia_dell_arte/Pulcinella.svg";
 import Scaramuccia from "/assets/cardsets/commedia_dell_arte/Scaramuccia.svg";
 
+import bug from "/assets/cardsets/online_security/noun-bug-8066790.svg";
+import cookie from "/assets/cardsets/online_security/noun-cookie-183404.svg";
+import dictionary from "/assets/cardsets/online_security/noun-dictionary-7725641.svg";
+import encryption from "/assets/cardsets/online_security/noun-encryption-8102780.svg";
+import firewall from "/assets/cardsets/online_security/noun-firewall-6330441.svg";
+import https from "/assets/cardsets/online_security/noun-https-2146882.svg";
+import message_encryption from "/assets/cardsets/online_security/noun-message-encryption-4451055.svg";
+import phishing from "/assets/cardsets/online_security/noun-phishing-8128817.svg";
+import trojan_horse from "/assets/cardsets/online_security/noun-trojan-horse-6887412.svg"
+import two_factor_authentication from "/assets/cardsets/online_security/noun-two-factor-authentication-7759990.svg";
+
 
 // Define card sets
 const cardSets = [
@@ -115,6 +126,23 @@ const cardSets = [
       { cardName: "pantalone", cardImage: Pantalone },
       { cardName: "pulcinella", cardImage: Pulcinella },
       { cardName: "scaramuccia", cardImage: Scaramuccia }
+    ]
+  },
+  {
+    id: "4",
+    name: "Online Security",
+    image: cookie,
+    Cards: [
+      { cardName: "bug", cardImage: bug },
+      { cardName: "cookie", cardImage: cookie },
+      { cardName: "dictionary", cardImage: dictionary },
+      { cardName: "encryption", cardImage: encryption },
+      { cardName: "firewall", cardImage: firewall },
+      { cardName: "https", cardImage: https },
+      { cardName: "message-encryption", cardImage: message_encryption },
+      { cardName: "phishing", cardImage: phishing },
+      { cardName: "trojan-horse", cardImage: trojan_horse },
+      { cardName: "two-factor-authentication", cardImage: two_factor_authentication }
     ]
   }
 ];
