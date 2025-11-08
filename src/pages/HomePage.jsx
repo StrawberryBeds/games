@@ -15,8 +15,8 @@ function Home() {
       <div className='home-container'>
         <div class="column">
           <GameBoard
-            cards={cardSets[0].Cards}
-            cardSetName={cardSets[0].name}
+            cards={cardSets[3].Cards}
+            cardSetName={cardSets[3].name}
             isGuest={true}
           />
         </div>

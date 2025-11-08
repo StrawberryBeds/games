@@ -16,7 +16,7 @@ function HomeSummary() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const id = cardSets;[0];
-  const featuredCardSet = cardSets[0];
+  const featuredCardSet = cardSets[3]; // Commedia dell'arte
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -74,7 +74,7 @@ function HomeSummary() {
         </div>
       </div>
 
-      <h2>{t('news.news_title')}</h2>
+      {/* <h2>{t('news.news_title')}</h2> */}
       <ul className="news-content">
         {posts.map((post) => (
           <li key={post._id}>
