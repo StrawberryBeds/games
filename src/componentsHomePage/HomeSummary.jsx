@@ -53,7 +53,7 @@ function HomeSummary() {
     fetchSecurityPosts();
   }, [i18n.language]);
 
-    useEffect(() => {
+  useEffect(() => {
     const fetchFeatures = async () => {
       try {
         const query = i18n.language === 'fr' ? FEATURE_QUERY_FR : FEATURE_QUERY_EN;
@@ -68,9 +68,9 @@ function HomeSummary() {
     fetchFeatures();
   }, [i18n.language]);
 
-  const handleCardClick = (id, name) => {
-    navigate(`/auth/cardSet/${id}`), name;
-  };
+  // const handleCardClick = (id, name) => {
+  //   navigate(`/auth/cardSet/${id}`), name;
+  // };
 
   return (
     <main>
@@ -83,9 +83,9 @@ function HomeSummary() {
 
       {/* New container for side-by-side featured content */}
       <div className="featured-content-container">
-        
+
         <div className="featured-cardset">
-                    <ul>
+          <ul>
             {features.map((feature) => (
               <li key={feature._id}>
                 <Link to={`/feature/${feature.slug.current}`}>
@@ -110,7 +110,7 @@ function HomeSummary() {
             ))}
           </ul>
         </div>
-        
+
       </div>
 
       {/* <h2>{t('news.news_title')}</h2> */}
