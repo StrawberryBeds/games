@@ -1,0 +1,27 @@
+/* src/pages/HomePage.css */
+
+.home-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%; /* Ensure it fills the main container */
+  max-width: 1470px; /* Match the max-width of main */
+  margin: 0 auto; /* Center the container */
+  padding: 1rem; /* Add padding inside the container */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.column {
+  flex: 1;
+  min-width: 0; /* Prevent flex items from overflowing */
+  padding: 1rem;
+  box-sizing: border-box; /* Include padding in width */
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+  .column {
+    width: 100%;
+    flex: auto;
+  }
+}

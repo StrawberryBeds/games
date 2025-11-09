@@ -3,15 +3,13 @@ import { useNavigate } from "react-router-dom";
 import "./CardSetSelection.css";
 import CardSet from "./CardSet";
 import cardSets from "../data/cardSets";
-import { usePlayerSelection } from "../context/usePlayerSelection";
 
 function CardSetSelection() {
-  const selectedPlayer = usePlayerSelection()
   const navigate = useNavigate();
 
   const handleCardClick = (id, name) => {
-    navigate(`/cardSet/${id}`), name;
-    console.log("CardSetSelection: ", selectedPlayer)
+    navigate(`/auth/cardSet/${id}`), name;
+
   };
 
   return (

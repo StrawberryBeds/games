@@ -10,6 +10,13 @@
   "profile_button": "Profile",
   "sign_out_button": "Sign Out",
 
+  "home": {
+    "cta_message": "Sign up to play more cards, create family profiles, see your personal bests, and compete with your family!",
+    "cta_button": "Create Your Account",
+    "featured_cardset": "Featured Card Set",
+    "online_security_content": "Online security for kids and parents"
+  },
+
   "signIn": {
     "email": "Email",
     "password": "Password",

@@ -35,7 +35,7 @@ function ParentAuthPage() {
       const credential = EmailAuthProvider.credential(currentUser.email, password);
       await reauthenticateWithCredential(currentUser, credential);
       setRequiresParentAuth(false);
-      navigate(location.state?.from?.pathname || '/manageprofiles');
+      navigate(location.state?.from?.pathname || '/auth/manageprofiles');
     } catch (err) {
       console.error("Reauthentication error:", err);
       setError(t("incorrect_password"));

@@ -22,7 +22,7 @@ function SignInPage() {
     // Redirect if already logged in
     useEffect(() => {
         if (currentUser) {
-            navigate('/player');
+            navigate('/auth/player');
         }
     }, [currentUser, navigate]);
 
@@ -32,21 +32,12 @@ function SignInPage() {
             await signInWithEmailAndPassword(auth, email, password);
             setSuccess("Signed in successfully!");
             setError('');
-            navigate('/player');
+            navigate('/auth/player');
         } catch (error) {
             setError(error.message || 'Email address or password is incorrect.');
             setSuccess('');
         }
     };
-
-    //     const handleForgotPassword = async (email) => {
-    //     try {
-    //       await sendPasswordResetEmail(auth, email);
-    //       setSuccess("Password reset email sent! Check your inbox.");
-    //     } catch (error) {
-    //       setError(error.message);
-    //     }
-    //   };
 
     const handleSubmit = (event) => {
         event.preventDefault();

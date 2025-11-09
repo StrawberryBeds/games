@@ -38,13 +38,24 @@ import womanZombie from "/assets/cardsets/halloween/woman_zombie_1F9DF.svg";
 import Brighella from "/assets/cardsets/commedia_dell_arte/Brighella.svg";
 import Capitano_Spavento from "/assets/cardsets/commedia_dell_arte/Capitano_Spavento.svg";
 import Columbine from "/assets/cardsets/commedia_dell_arte/Columbine.svg";
+import Coviello from "/assets/cardsets/commedia_dell_arte/Coviello.svg";
 import Dr_Balanzone from "/assets/cardsets/commedia_dell_arte/Dr_Balanzone.svg";
 import Harlequin from "/assets/cardsets/commedia_dell_arte/Harlequin.svg";
 import Isabella from '/assets/cardsets/commedia_dell_arte/Isabella.svg';
-import Pagliaccio from "/assets/cardsets/commedia_dell_arte/Pagliaccio.svg";
 import Pantalone from "/assets/cardsets/commedia_dell_arte/Pantalone.svg";
-import Scapino from "/assets/cardsets/commedia_dell_arte/Scapino.svg";
+import Pulcinella from "/assets/cardsets/commedia_dell_arte/Pulcinella.svg";
 import Scaramuccia from "/assets/cardsets/commedia_dell_arte/Scaramuccia.svg";
+
+import bug from "/assets/cardsets/online_security/noun-bug-8066790.svg";
+import cookie from "/assets/cardsets/online_security/noun-cookie-183404.svg";
+import dictionary from "/assets/cardsets/online_security/noun-dictionary-7725641.svg";
+import encryption from "/assets/cardsets/online_security/noun-encryption-8102780.svg";
+import firewall from "/assets/cardsets/online_security/noun-firewall-6330441.svg";
+import https from "/assets/cardsets/online_security/noun-https-2146882.svg";
+import message_encryption from "/assets/cardsets/online_security/noun-message-encryption-4451055.svg";
+import phishing from "/assets/cardsets/online_security/noun-phishing-8128817.svg";
+import trojan_horse from "/assets/cardsets/online_security/noun-trojan-horse-6887412.svg"
+import two_factor_authentication from "/assets/cardsets/online_security/noun-two-factor-authentication-7759990.svg";
 
 
 // Define card sets
@@ -108,13 +119,30 @@ const cardSets = [
       { cardName: "brighella", cardImage: Brighella },
       { cardName: "capitano_spavento", cardImage: Capitano_Spavento },
       { cardName: "columbine", cardImage: Columbine },
+      { carnName: "coviello", cardImage: Coviello },
       { cardName: "dr_balanzone", cardImage: Dr_Balanzone },
       { cardName: "harlequin", cardImage: Harlequin },
       { cardName: "isabella", cardImage: Isabella },
-      { cardName: "pagliaccio", cardImage: Pagliaccio },
       { cardName: "pantalone", cardImage: Pantalone },
-      { cardName: "scapino", cardImage: Scapino },
+      { cardName: "pulcinella", cardImage: Pulcinella },
       { cardName: "scaramuccia", cardImage: Scaramuccia }
+    ]
+  },
+  {
+    id: "4",
+    name: "Online Security",
+    image: cookie,
+    Cards: [
+      { cardName: "bug", cardImage: bug },
+      { cardName: "cookie", cardImage: cookie },
+      { cardName: "dictionary", cardImage: dictionary },
+      { cardName: "encryption", cardImage: encryption },
+      { cardName: "firewall", cardImage: firewall },
+      { cardName: "https", cardImage: https },
+      { cardName: "message-encryption", cardImage: message_encryption },
+      { cardName: "phishing", cardImage: phishing },
+      { cardName: "trojan-horse", cardImage: trojan_horse },
+      { cardName: "two-factor-authentication", cardImage: two_factor_authentication }
     ]
   }
 ];
