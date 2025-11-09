@@ -10,16 +10,18 @@ import cardSets from "../data/cardSets";
 
 const POSTS_QUERY_EN = `*[_type == "post"] { _id, title_en, slug, image, publishedAt }`;
 const POSTS_QUERY_FR = `*[_type == "post"] { _id, title_fr, slug, image, publishedAt }`;
-const SECURITY_QUERY_EN = `*[_type == "onlineSecurity"] { _id, title_en, slug, image, publishedAt }`;
-const SECURITY_QUERY_FR = `*[_type == "onlineSecurity"] { _id, title_fr, slug, image, publishedAt }`;
+const SECURITY_QUERY_EN = `*[_type == "securityPost"] { _id, title_en, slug, image, publishedAt }`;
+const SECURITY_QUERY_FR = `*[_type == "securityPost"] { _id, title_fr, slug, image, publishedAt }`;
+const FEATURE_QUERY_EN = `*[_type == "feature"] { _id, title_en, slug, image, publishedAt }`;
+const FEATURE_QUERY_FR = `*[_type == "feature"] { _id, title_fr, slug, image, publishedAt }`;
 
 function HomeSummary() {
   const [posts, setPosts] = useState([]);
   const [securityPosts, setSecurityPosts] = useState([]);
+  const [features, setFeatures] = useState([]);
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const id = cardSets;[0];
-  const featuredCardSet = cardSets[3]; // Commedia dell'arte
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -51,6 +53,21 @@ function HomeSummary() {
     fetchSecurityPosts();
   }, [i18n.language]);
 
+    useEffect(() => {
+    const fetchFeatures = async () => {
+      try {
+        const query = i18n.language === 'fr' ? FEATURE_QUERY_FR : FEATURE_QUERY_EN;
+        const data = await client.fetch(query);
+        console.log("Fetched features:", data);
+        setFeatures(data);
+      } catch (error) {
+        console.error("Error fetching features:", error);
+        setFeatures([]);
+      }
+    };
+    fetchFeatures();
+  }, [i18n.language]);
+
   const handleCardClick = (id, name) => {
     navigate(`/auth/cardSet/${id}`), name;
   };
@@ -66,15 +83,19 @@ function HomeSummary() {
 
       {/* New container for side-by-side featured content */}
       <div className="featured-content-container">
+        
         <div className="featured-cardset">
-          <h2>{t('home.featured_cardset')}</h2>
-          <CardSet
-            key={featuredCardSet.id}
-            id={featuredCardSet.id}
-            image={featuredCardSet.image}
-            name={featuredCardSet.name}
-            onClick={() => handleCardClick(featuredCardSet.id, featuredCardSet.name)}
-          />
+                    <ul>
+            {features.map((feature) => (
+              <li key={feature._id}>
+                <Link to={`/feature/${feature.slug.current}`}>
+                  <h3>{i18n.language === 'fr' ? feature.title_fr : feature.title_en}</h3>
+                  {/* <p>{new Date(feature.publishedAt).toLocaleDateString()}</p> */}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
         </div>
 
         <div className="online-security-content">
@@ -83,12 +104,13 @@ function HomeSummary() {
               <li key={securityPost._id}>
                 <Link to={`/security/${securityPost.slug.current}`}>
                   <h3>{i18n.language === 'fr' ? securityPost.title_fr : securityPost.title_en}</h3>
-                  <p>{new Date(securityPost.publishedAt).toLocaleDateString()}</p>
+                  {/* <p>{new Date(securityPost.publishedAt).toLocaleDateString()}</p> */}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
+        
       </div>
 
       {/* <h2>{t('news.news_title')}</h2> */}
@@ -97,7 +119,7 @@ function HomeSummary() {
           <li key={post._id}>
             <Link to={`/news/${post.slug.current}`}>
               <h3>{i18n.language === 'fr' ? post.title_fr : post.title_en}</h3>
-              <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
+              {/* <p>{new Date(post.publishedAt).toLocaleDateString()}</p> */}
             </Link>
           </li>
         ))}

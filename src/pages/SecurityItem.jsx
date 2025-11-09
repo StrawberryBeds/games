@@ -5,7 +5,7 @@ import { client } from "../sanity";
 import imageUrlBuilder from "@sanity/image-url";
 import { useTranslation } from "react-i18next";
 
-const SECURITY_POST_QUERY_EN = `*[_type == "onlineSecuity" && slug.current == $slug][0] {
+const SECURITY_POST_QUERY_EN = `*[_type == "securityPost" && slug.current == $slug][0] {
   _id,
   title_en,
   body_en,
@@ -13,7 +13,7 @@ const SECURITY_POST_QUERY_EN = `*[_type == "onlineSecuity" && slug.current == $s
   image
 }`;
 
-const SECURITY_POST_QUERY_FR = `*[_type == "onlineSecurity" && slug.current == $slug][0] {
+const SECURITY_POST_QUERY_FR = `*[_type == "securityPost" && slug.current == $slug][0] {
   _id,
   title_fr,
   body_fr,
@@ -57,7 +57,7 @@ export default function SingleSecurityPost() {
 
   return (
     <main className="single-post">
-      <Link to="/news" className="back-link">
+      <Link to="/security" className="back-link">
         {t('news.back_link')}
       </Link>
 

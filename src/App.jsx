@@ -34,6 +34,8 @@ import News from "./pages/NewsList";
 import NewsItem from "./pages/NewsItem";
 import Security from "./pages/SecurityList";
 import SecurityItem from "./pages/SecurityItem";
+import Feature from "./pages/FeatureList";
+import FeatureItem from "./pages/FeatureItem";
 
 import { AuthProvider } from "./context/authContext";
 import { PlayerProvider } from "./context/playerContext";
@@ -83,6 +85,8 @@ function AppRoutes() {
       <Route path="/news/:slug" element={<NewsItem />} />
       <Route path="/security" element={<Security />} />
       <Route path="/security/:slug" element={<SecurityItem />} />
+      <Route path="/feature" element={<Feature />} />
+      <Route path="/feature/:slug" element={<FeatureItem />} />
 
 
       <Route path="/privacy" element={<Privacy />} />

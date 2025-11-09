@@ -4,8 +4,8 @@ import { client } from "../sanity";
 import { useTranslation } from "react-i18next";
 import "./NewsList.css";
 
-const SECURITY_QUERY_EN = `*[_type == "onlineSecurity"] { _id, title_en, slug, image, publishedAt }`;
-const SECURITY_QUERY_FR = `*[_type == "onlineSecurity"] { _id, title_fr, slug, image, publishedAt }`;
+const SECURITY_QUERY_EN = `*[_type == "securityPost"] { _id, title_en, slug, image, publishedAt }`;
+const SECURITY_QUERY_FR = `*[_type == "securityPost"] { _id, title_fr, slug, image, publishedAt }`;
 
 
 function SecurityList() {

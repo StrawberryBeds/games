@@ -98,6 +98,7 @@ h1 {
 
 /* Remove list styling */
 .online-security-content ul,
+.featured-cardset ul,
 .news-content {
   list-style: none;
   padding: 1rem;
