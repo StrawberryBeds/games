@@ -17,6 +17,16 @@
 .header-logo {
   font-weight: bold;
   font-size: 1.5rem;
+
+  a:link,
+  a:visited,
+  a:hover,
+  a:active {
+    color: black;
+    /* e.g., #007bff for a specific blue, or inherit */
+    text-decoration: none;
+    /* Optional: remove underline */
+  }
 }
 
 .hamburger {
@@ -26,11 +36,13 @@
   padding: 0.5rem;
   border-radius: 4px;
   cursor: pointer;
-  color: var(--text-color); /* Match the logo color */
+  color: var(--text-color);
+  /* Match the logo color */
 }
 
 .hamburger:hover {
-  background-color: rgba(27, 175, 39, 0.1); /* Subtle green hover */
+  background-color: rgba(27, 175, 39, 0.1);
+  /* Subtle green hover */
 }
 
 
@@ -62,7 +74,7 @@
   }
 
   .header-nav {
-    display: none; 
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
@@ -82,9 +94,8 @@
     max-height: 70vh;
     overflow-y: auto;
   }
+
   .header-nav.open {
-    display: flex; 
+    display: flex;
   }
 }
-
-

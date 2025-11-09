@@ -59,7 +59,7 @@ function PlayerProfile() {
     }
     if (selectedPlayer.isParent) {
       setRequiresParentAuth(true);
-      navigate("/parent-auth");
+      navigate("/auth/parent-auth");
     } else {
       alert(t('manageProfiles.only_parents_can_manage_profiles'));
     }

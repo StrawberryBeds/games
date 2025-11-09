@@ -30,7 +30,7 @@ function ChoosePlayer() {
     const parentPlayerRef = doc(db, "players", currentUser.uid);
     const unsubscribe = onSnapshot(parentPlayerRef, (parentSnap) => {
       if (!parentSnap.exists()) {
-        navigate("/createprofile");
+        navigate("/auth/createprofile");
         return;
       }
       const familyId = parentSnap.data().familyId;
@@ -66,7 +66,7 @@ function ChoosePlayer() {
 
   const handlePlayerSelect = (player) => {
     setSelectedPlayer(player);
-    navigate("/");
+    navigate("/auth/chooseset");
   };
 
   // Show loading or error states
