@@ -32,6 +32,8 @@ import ConsentModal from './componentsConsent/ConsentModal';
 
 import News from "./pages/NewsList";
 import NewsItem from "./pages/NewsItem";
+import Security from "./pages/SecurityList";
+import SecurityItem from "./pages/SecurityItem";
 
 import { AuthProvider } from "./context/authContext";
 import { PlayerProvider } from "./context/playerContext";
@@ -79,6 +81,10 @@ function AppRoutes() {
       <Route path="/home" element={<Home />} />
       <Route path="/news" element={<News />} />
       <Route path="/news/:slug" element={<NewsItem />} />
+      <Route path="/security" element={<Security />} />
+      <Route path="/security/:slug" element={<SecurityItem />} />
+
+
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
       <Route path="/signin" element={<SignInPage />} />
@@ -89,7 +95,7 @@ function AppRoutes() {
   // Public guest route (explicitly only for cardset/0)
   const guestRoutes = (
     <Route path="/cardset/0" element={<PlayCardSet isGuest={true} />} />,
-    <Route path="/auth/cardset/3" element={<PlayCardSet isGuest={true} />} />
+    <Route path="/cardset/3" element={<PlayCardSet isGuest={true} />} />
   );
 
   // Private routes (default for all other card sets)

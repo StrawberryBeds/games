@@ -10,9 +10,12 @@ import cardSets from "../data/cardSets";
 
 const POSTS_QUERY_EN = `*[_type == "post"] { _id, title_en, slug, image, publishedAt }`;
 const POSTS_QUERY_FR = `*[_type == "post"] { _id, title_fr, slug, image, publishedAt }`;
+const SECURITY_QUERY_EN = `*[_type == "onlineSecurity"] { _id, title_en, slug, image, publishedAt }`;
+const SECURITY_QUERY_FR = `*[_type == "onlineSecurity"] { _id, title_fr, slug, image, publishedAt }`;
 
 function HomeSummary() {
   const [posts, setPosts] = useState([]);
+  const [securityPosts, setSecurityPosts] = useState([]);
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const id = cardSets;[0];
@@ -31,6 +34,21 @@ function HomeSummary() {
       }
     };
     fetchPosts();
+  }, [i18n.language]);
+
+  useEffect(() => {
+    const fetchSecurityPosts = async () => {
+      try {
+        const query = i18n.language === 'fr' ? SECURITY_QUERY_FR : SECURITY_QUERY_EN;
+        const data = await client.fetch(query);
+        console.log("Fetched security posts:", data);
+        setSecurityPosts(data);
+      } catch (error) {
+        console.error("Error fetching security posts:", error);
+        setSecurityPosts([]);
+      }
+    };
+    fetchSecurityPosts();
   }, [i18n.language]);
 
   const handleCardClick = (id, name) => {
@@ -60,13 +78,12 @@ function HomeSummary() {
         </div>
 
         <div className="online-security-content">
-          <h2>{t('home.online_security_content')}</h2>
           <ul>
-            {posts.map((post) => (
-              <li key={post._id}>
-                <Link to={`/news/${post.slug.current}`}>
-                  <h3>{i18n.language === 'fr' ? post.title_fr : post.title_en}</h3>
-                  <p>{new Date(post.publishedAt).toLocaleDateString()}</p>
+            {securityPosts.map((securityPost) => (
+              <li key={securityPost._id}>
+                <Link to={`/security/${securityPost.slug.current}`}>
+                  <h3>{i18n.language === 'fr' ? securityPost.title_fr : securityPost.title_en}</h3>
+                  <p>{new Date(securityPost.publishedAt).toLocaleDateString()}</p>
                 </Link>
               </li>
             ))}
