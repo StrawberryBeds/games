@@ -127,7 +127,7 @@ const handleCardClick = (id) => {
   return (
     <div className="game-container">
       <Score matches={matches} turns={turns} />
-      <ResetButton onClick={handleReset} />
+      {/* <ResetButton onClick={handleReset} /> */}
       <div className="game-board">
         {cards.map((card) => (
           <Card

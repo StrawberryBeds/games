@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  /* padding: 1rem 2rem; */
   width: 100vw;
   height: 10vh;
   min-height: 50px;
@@ -18,11 +18,11 @@
   font-weight: bold;
   font-size: 1.5rem;
 
-  a:link,
-  a:visited,
-  a:hover,
+  /* a:link, */
+  /* a:visited, */
+  /* a:hover, */
   a:active {
-    color: black;
+    color: var(--text-color);
     /* e.g., #007bff for a specific blue, or inherit */
     text-decoration: none;
     /* Optional: remove underline */
