@@ -75,8 +75,6 @@ export default function SinglePost() {
           src={postImageUrl}
           alt={i18n.language === 'fr' ? post.title_fr : post.title_en}
           className="post-image"
-          // width="720"
-          // height="auto"
         />
       )}
     </main>
