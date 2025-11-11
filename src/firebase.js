@@ -1,29 +1,35 @@
-// FROM FIREBASE
-
-// Import the functions you need from the SDKs you need
+// Import Firebase modules
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth, setPersistence, browserLocalPersistence } from "firebase/auth";
+import { getAuth, setPersistence, browserLocalPersistence, signInWithEmailAndPassword } from "firebase/auth";
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
+// Firebase configuration (loaded from environment variables)
 const firebaseConfig = {
-  apiKey: "AIzaSyCf2BaAVL5G7lOnVrBAoaJws3f8UzcOJqk",
-  authDomain: "ludico-9433b.firebaseapp.com",
-  projectId: "ludico-9433b",
-  storageBucket: "ludico-9433b.firebasestorage.app",
-  messagingSenderId: "750254650132",
-  appId: "1:750254650132:web:1be5c493f781e43f448801",
-  measurementId: "G-54N3FQMT4E"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: "ludico-9433b.firebasestorage.app", // Public identifier (safe to hardcode)
+  messagingSenderId: "750254650132", // Public identifier (safe to hardcode)
+  appId: "1:750254650132:web:1be5c493f781e43f448801", // Public identifier (safe to hardcode)
+  measurementId: "G-54N3FQMT4E", // Public identifier (safe to hardcode)
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
 setPersistence(auth, browserLocalPersistence);
 
-  export { auth };
+// Export Firebase services
+export { auth };
 export const db = getFirestore(app);
+
+// Secure sign-in function using Firebase SDK
+export async function signIn(email, password) {
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    return userCredential.user;
+  } catch (error) {
+    console.error("Sign-in error:", error);
+    throw error;
+  }
+}
