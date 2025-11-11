@@ -27,7 +27,7 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handle
         <div>{t('game_over_dialogue.message1', { newTurnCount })}</div>
           <div className="modal-buttons">
           <button onClick={() => { handleReset(); onClose(); }}>{t('game_over_dialogue.play_again_button')}</button>
-          <button onClick={() => navigate('/games')}>{t('game_over_dialogue.play_another_card_set')}</button>
+          <button onClick={() => navigate('/auth/chooseset')}>{t('game_over_dialogue.play_another_card_set')}</button>
           </div>
       </div>
     );
@@ -40,7 +40,7 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handle
           <div>{t('game_over_dialogue.message2b', { cardSet })}</div>
           <div className="modal-buttons">
           <button onClick={() => { handleReset(); onClose(); }}>{t('game_over_dialogue.play_again_button')}</button>
-          <button onClick={() => navigate('/games')}>{t('game_over_dialogue.play_another_card_set')}</button>
+          <button onClick={() => navigate('/auth/chooseset')}>{t('game_over_dialogue.play_another_card_set')}</button>
           </div>
         </div>
       );
@@ -51,7 +51,7 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handle
           <div>{t('game_over_dialogue.message2c', { personalBest, cardSet })}</div>
           <div className="modal-buttons">
           <button onClick={() => { handleReset(); onClose(); }}>{t('game_over_dialogue.play_again_button')}</button>
-          <button onClick={() => navigate('/games')}>{t('game_over_dialogue.play_another_card_set')}</button>
+          <button onClick={() => navigate('/auth/chooseset')}>{t('game_over_dialogue.play_another_card_set')}</button>
           </div>
         </div>
       );
@@ -65,7 +65,7 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handle
           <div>{t('game_over_dialogue.message3', { cardSet, avgScore: avgScore.toFixed(1), gameCount })}</div>
           <div className="modal-buttons">
           <button onClick={() => { handleReset(); onClose(); }}>{t('game_over_dialogue.play_again_button')}</button>
-          <button onClick={() => navigate('/games')}>{t('game_over_dialogue.play_another_card_set')}</button>
+          <button onClick={() => navigate('/auth/chooseset')}>{t('game_over_dialogue.play_another_card_set')}</button>
           </div>
         </div>
       );
@@ -77,7 +77,7 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handle
           <div>{t('game_over_dialogue.message3', { cardSet, avgScore: avgScore.toFixed(1), gameCount })}</div>
           <div className="modal-buttons">
           <button onClick={() => { handleReset(); onClose(); }}>{t('game_over_dialogue.play_again_button')}</button>
-          <button onClick={() => navigate('/games')}>{t('game_over_dialogue.play_another_card_set')}</button>
+          <button onClick={() => navigate('/auth/chooseset')}>{t('game_over_dialogue.play_another_card_set')}</button>
           </div>
         </div>
       );
