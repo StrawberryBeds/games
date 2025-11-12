@@ -1,4 +1,4 @@
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.sanity.io https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://dx2ymrki.api.sanity.io https://identitytoolkit.googleapis.com; img-src 'self' data: https://cdn.sanity.io
+  Content-Security-Policy: script-src 'self' 'unsafe-inline' https://cdn.sanity.io https://static.cloudflareinsights.com https://apis.google.com; style-src 'self' 'unsafe-inline'; connect-src 'self' https://dx2ymrki.api.sanity.io https://identitytoolkit.googleapis.com https://firestore.googleapis.com; img-src 'self' data: blob: https: https://cdn.sanity.io https://www.google.com
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
