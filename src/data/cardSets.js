@@ -57,6 +57,16 @@ import phishing from "/assets/cardsets/online_security/noun-phishing-8128817.svg
 import trojan_horse from "/assets/cardsets/online_security/noun-trojan-horse-6887412.svg"
 import two_factor_authentication from "/assets/cardsets/online_security/noun-two-factor-authentication-7759990.svg";
 
+import barn_owl from "/assets/cardsets/birds/barn_owl.svg";
+import blackbird from "/assets/cardsets/birds/blackbird.svg";
+import chicken from "/assets/cardsets/birds/chicken.svg";
+import cormorant from "/assets/cardsets/birds/cormorant.svg";
+import kingfisher from "/assets/cardsets/birds/kingfisher.svg";
+import loon from "/assets/cardsets/birds/loon.svg";
+import mallard from "/assets/cardsets/birds/mallard.svg";
+import red_kite from "/assets/cardsets/birds/red_kite.svg";
+import robin from "/assets/cardsets/birds/robin.svg";
+import sea_gull from "/assets/cardsets/birds/sea_gull.svg";
 
 // Define card sets
 const cardSets = [
@@ -143,6 +153,23 @@ const cardSets = [
       { cardName: "phishing", cardImage: phishing },
       { cardName: "trojan-horse", cardImage: trojan_horse },
       { cardName: "two-factor-authentication", cardImage: two_factor_authentication }
+    ]
+  }, 
+   {
+    id: "5",
+    name: "Birds",
+    image: red_kite,
+    Cards: [
+      { cardName: "barn_owl", cardImage: barn_owl },
+      { cardName: "blackbird", cardImage: blackbird },
+      { cardName: "chicken", cardImage: chicken },
+      { cardName: "cormorant", cardImage: cormorant },
+      { cardName: "kingfisher", cardImage: kingfisher },
+      { cardName: "loon", cardImage: loon },
+      { cardName: "mallard", cardImage: mallard },
+      { cardName: "red_kite", cardImage: red_kite },
+      { cardName: "robin", cardImage: robin },
+      { cardName: "sea_gull", cardImage: sea_gull }
     ]
   }
 ];
