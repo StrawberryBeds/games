@@ -1,0 +1,15 @@
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = """
+      default-src 'self';
+      script-src 'nonce-{RANDOM123}' 'strict-dynamic' 'self' https://cdn.jsdelivr.net https://cdn.sanity.io https://static.cloudflareinsights.com https://apis.google.com;
+      require-trusted-types-for 'script';
+      style-src 'self' https://fonts.googleapis.com;
+      connect-src 'self' https://ludico-9433b.firebaseio.com https://dx2ymrki.api.sanity.io https://identitytoolkit.googleapis.com https://firestore.googleapis.com;
+      img-src 'self' data: blob: https://cdn.sanity.io https://www.google.com;
+      base-uri 'self'
+    """
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
