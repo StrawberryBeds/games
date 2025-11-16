@@ -9,6 +9,7 @@ function PlayerStats({ player }) {
   const scores = player?.scores || [];
   const navigate = useNavigate();
   const playerId = player.playerId;
+  const cardSet = player.cardSet || {};
 
   const calculateAverages = (scores) => {
     const statsByCardSet = {};
@@ -48,7 +49,8 @@ function PlayerStats({ player }) {
       <table className="scores-table">
         <thead>
           <tr>
-            <th>{t("playerStats.card_set")}</th>
+            <th>{t("playerStats.card_set", { 
+            cardSet: t(`card_sets.${cardSet.nameKey}`)})}</th>
             <th>{t("playerStats.personal_best")}</th>
             <th>{t("playerStats.avg_first_three")}</th>
             <th>{t("playerStats.avg_last_three")}</th>
