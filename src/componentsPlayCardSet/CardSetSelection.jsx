@@ -8,7 +8,8 @@ function CardSetSelection() {
   const navigate = useNavigate();
 
 const handleCardClick = (id, nameKey) => {
-  navigate(`/auth/cardSet/${id}`, { state: { nameKey } });
+  navigate(`/auth/cardSet/${id}`,  nameKey  );
+  console.log("Navigating to card set:", id, nameKey);
 };
 
 

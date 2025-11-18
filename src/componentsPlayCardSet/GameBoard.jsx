@@ -23,8 +23,8 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
 
   const { selectedPlayer } = usePlayerSelection();
   const [playerScores, setPlayerScores] = useState({});
-  console.log("Selected Player:", selectedPlayer)
-  console.log("Player Scores:", playerScores)
+  // console.log("Selected Player:", selectedPlayer)
+  // console.log("Player Scores:", playerScores)
 
   useEffect(() => {
     const fetchPlayerScores = async () => {
@@ -33,7 +33,7 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
         if (playerDoc.exists()) {
           const playerData = playerDoc.data();
           setPlayerScores(playerData.scores || {});
-          console.log("Fetched player scores:", playerData.scores);
+          // console.log("Fetched player scores:", playerData.scores);
         }
       } catch (error) {
         console.error("Error fetching player scores:", error);
@@ -47,7 +47,7 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
 
   function shuffleCards(cardList) {
     if (!cardList) {
-      console.error("Card list is undefined or null");
+      // console.error("Card list is undefined or null");
       return [];
     }
     const duplicatedCards = [...cardList, ...cardList]
@@ -106,7 +106,7 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
       await updateDoc(doc(db, "players", selectedPlayer.playerId), {
         scores: arrayUnion(scoreEntry),
       });
-      console.log("Score saved successfully!", scoreEntry);
+      // console.log("Score saved successfully!", scoreEntry);
     } catch (error) {
       console.error("Error saving score:", error);
     }
