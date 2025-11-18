@@ -19,11 +19,12 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
   const [matches, setMatches] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
   const [gameScore, setGameScore] = useState({ score: null, cardSet: null })
+  
 
   const { selectedPlayer } = usePlayerSelection();
   const [playerScores, setPlayerScores] = useState({});
-  console.log ("Selected Player:", selectedPlayer)
-  console.log ("Player Scores:", playerScores)
+  // console.log("Selected Player:", selectedPlayer)
+  // console.log("Player Scores:", playerScores)
 
   useEffect(() => {
     const fetchPlayerScores = async () => {
@@ -32,7 +33,7 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
         if (playerDoc.exists()) {
           const playerData = playerDoc.data();
           setPlayerScores(playerData.scores || {});
-          console.log("Fetched player scores:", playerData.scores); 
+          // console.log("Fetched player scores:", playerData.scores);
         }
       } catch (error) {
         console.error("Error fetching player scores:", error);
@@ -46,7 +47,7 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
 
   function shuffleCards(cardList) {
     if (!cardList) {
-      console.error("Card list is undefined or null");
+      // console.error("Card list is undefined or null");
       return [];
     }
     const duplicatedCards = [...cardList, ...cardList]
@@ -59,36 +60,36 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
     return duplicatedCards;
   }
 
-const handleCardClick = (id) => {
-  if (flippedIndices.includes(id) || solvedIndices.includes(id)) {
-    return;
-  }
-  setFlippedIndices((prevFlippedIndices) => [...prevFlippedIndices, id]);
-  if (flippedIndices.length === 1) {
-    const firstIndex = flippedIndices[0];
-    const firstCard = cards.find((card) => card.id === firstIndex);
-    const clickedCard = cards.find((card) => card.id === id);
-    const newTurnCount = turns + 1;
-    setTurns(newTurnCount);
-
-    if (firstCard.cardName === clickedCard.cardName) {
-      setSolvedIndices((prevSolvedIndices) => [...prevSolvedIndices, firstIndex, id]);
-      setMatches((prevMatches) => prevMatches + 1);
+  const handleCardClick = (id) => {
+    if (flippedIndices.includes(id) || solvedIndices.includes(id)) {
+      return;
     }
+    setFlippedIndices((prevFlippedIndices) => [...prevFlippedIndices, id]);
+    if (flippedIndices.length === 1) {
+      const firstIndex = flippedIndices[0];
+      const firstCard = cards.find((card) => card.id === firstIndex);
+      const clickedCard = cards.find((card) => card.id === id);
+      const newTurnCount = turns + 1;
+      setTurns(newTurnCount);
 
-    setTimeout(() => {
-      setFlippedIndices([]);
-      if (solvedIndices.length + 2 === cards.length && cards.length > 0) {
-        console.log("Game over! Score:", newTurnCount, "Card set:", cardSetName);
-        setIsGameOver(true);
-        setGameScore({ score: newTurnCount, cardSet: cardSetName });
-        if (!isGuest) {
-          saveScore(newTurnCount); // Only save for registered users
-        }
+      if (firstCard.cardName === clickedCard.cardName) {
+        setSolvedIndices((prevSolvedIndices) => [...prevSolvedIndices, firstIndex, id]);
+        setMatches((prevMatches) => prevMatches + 1);
       }
-    }, 1000);
-  }
-};
+
+      setTimeout(() => {
+        setFlippedIndices([]);
+        if (solvedIndices.length + 2 === cards.length && cards.length > 0) {
+          console.log("Game over! Score:", newTurnCount, "Card set:", cardSetName);
+          setIsGameOver(true);
+          setGameScore({ score: newTurnCount, cardSet: cardSetName })
+          if (!isGuest) {
+            saveScore(newTurnCount); // Only save for registered users
+          }
+        }
+      }, 1000);
+    }
+  };
 
 
   const saveScore = async (currentTurns) => {
@@ -105,7 +106,7 @@ const handleCardClick = (id) => {
       await updateDoc(doc(db, "players", selectedPlayer.playerId), {
         scores: arrayUnion(scoreEntry),
       });
-      console.log("Score saved successfully!", scoreEntry);
+      // console.log("Score saved successfully!", scoreEntry);
     } catch (error) {
       console.error("Error saving score:", error);
     }
@@ -146,10 +147,10 @@ const handleCardClick = (id) => {
         <GameOverDialogue
           onClose={() => setIsGameOver(false)}
           newTurnCount={gameScore.score}
-          cardSet={gameScore.cardSet}
+          cardSet={gameScore.cardSet} // This is the nameKey
           selectedPlayer={selectedPlayer}
           playerScores={playerScores}
-          handleReset={handleReset} // You need to fetch this in GameBoard.jsx
+          handleReset={handleReset}
         />
       )}
     </div>

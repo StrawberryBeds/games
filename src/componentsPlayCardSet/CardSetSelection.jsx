@@ -7,10 +7,11 @@ import cardSets from "../data/cardSets";
 function CardSetSelection() {
   const navigate = useNavigate();
 
-  const handleCardClick = (id, name) => {
-    navigate(`/auth/cardSet/${id}`), name;
+const handleCardClick = (id, nameKey) => {
+  navigate(`/auth/cardSet/${id}`,  nameKey  );
+  console.log("Navigating to card set:", id, nameKey);
+};
 
-  };
 
   return (
     <div className="selection-container">
@@ -20,7 +21,7 @@ function CardSetSelection() {
             key={cardSet.id}
             id={cardSet.id}
             image={cardSet.image}
-            name={cardSet.name}
+            nameKey={cardSet.nameKey}
             onClick={handleCardClick}
           />
         ))}

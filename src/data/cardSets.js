@@ -72,7 +72,7 @@ import sea_gull from "/assets/cardsets/birds/sea_gull.svg";
 const cardSets = [
   {
     id: "0",
-    name: "Emojis",
+    nameKey: "emojis",
     image: smiley,
     Cards: [
       { cardName: "balloon", cardImage: balloon },
@@ -89,7 +89,7 @@ const cardSets = [
   },
   {
     id: "1",
-    name: "Constellations",
+    nameKey: "constellations",
     image: carina,
     Cards: [
       { cardName: "carina", cardImage: carina },
@@ -106,7 +106,7 @@ const cardSets = [
   },
   {
     id: "2",
-    name: "Hallowe'en",
+    nameKey: "hallowe'en",
     image: jackO,
     Cards: [
       { cardName: "apple", cardImage: apple },
@@ -123,7 +123,7 @@ const cardSets = [
   },
   {
     id: "3",
-    name: "Commedia dell'arte",
+    nameKey: "commedia_dell_arte",
     image: Harlequin,
     Cards: [
       { cardName: "brighella", cardImage: Brighella },
@@ -140,7 +140,7 @@ const cardSets = [
   },
   {
     id: "4",
-    name: "Online Security",
+    nameKey: "online_security",
     image: cookie,
     Cards: [
       { cardName: "bug", cardImage: bug },
@@ -157,7 +157,7 @@ const cardSets = [
   }, 
    {
     id: "5",
-    name: "Birds",
+    nameKey: "birds",
     image: red_kite,
     Cards: [
       { cardName: "barn_owl", cardImage: barn_owl },

@@ -7,6 +7,8 @@ function PlayCardSet({ isGuest = false }) {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
+  const cardSet = cardSets.find(set => set.id === id);
+
 
   // Redirect if not a guest and not logged in
   if (!isGuest && !currentUser) {
@@ -26,8 +28,8 @@ function PlayCardSet({ isGuest = false }) {
   // Pass the selected set's Cards to GameBoard
   return (
     <GameBoard
-      cards={selectedSet.Cards}
-      cardSetName={selectedSet.name}
+      cards={cardSet.Cards}
+      cardSetName={cardSet.nameKey} // Pass nameKey, not name
       isGuest={isGuest}
     />
   );

@@ -197,5 +197,13 @@
   "news": {
     "news_title": "News",
     "back_link": "← Back to News"
+  }, 
+  "card_sets": {
+    "emojis": "Emojis",
+    "constellations": "Constellations",
+    "hallowe'en": "Hallowe'en",
+    "commedia_dell_arte": "Commedia dell'arte",
+    "online_security": "Online Security",
+    "birds": "Birds"
   }
 }
