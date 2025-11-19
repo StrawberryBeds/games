@@ -13,3 +13,9 @@
     X-Frame-Options = "DENY"
     X-Content-Type-Options = "nosniff"
     Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
