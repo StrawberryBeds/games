@@ -8,9 +8,9 @@ export default function TermsPage() {
   const terms = i18n.language === 'fr' ? frTerms : enTerms;
 
   return (
-    <div className="single-post">
+    <main className="single-post">
       <h1>{terms.title}</h1>
       <div dangerouslySetInnerHTML={{ __html: terms.content }} />
-    </div>
+    </main>
   );
 }

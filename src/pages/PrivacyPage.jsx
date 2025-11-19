@@ -8,9 +8,9 @@ export default function PrivacyPage() {
   const privacy = i18n.language === 'fr' ? frPrivacy : enPrivacy;
 
   return (
-    <div className="single-post">
+    <main className="single-post">
       <h1>{privacy.title}</h1>
       <div dangerouslySetInnerHTML={{ __html: privacy.content }} />
-    </div>
+    </main>
   );
 }
