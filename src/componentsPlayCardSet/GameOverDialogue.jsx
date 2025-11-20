@@ -2,7 +2,7 @@ import "./GameOverDialogue.css";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 
-function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handleReset }) {
+function GameOverDialogue({ onClose, newTurnCount, cardSet, isGuest, playerScores, handleReset }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
   // Filter scores for the current card set or an empty array if no scores.
@@ -17,11 +17,23 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handle
 
   const avgScore = (turns.reduce((a, b) => a + b, 0) + newTurnCount) / gameCount;
 
-  console.log("Scores for card set:", cardSet, turns); // Debug
-  console.log("Game count:", gameCount, "Personal best:", personalBest); // Debug
-  console.log("Average score:", avgScore);
-
-  if (gameCount === 1) {
+  if (isGuest) {
+    return (
+      <div className="modal">
+        <div>
+          {t('game_over_dialogue.guest_message_part1', { 
+          newTurnCount 
+          })}
+          </div>
+          <div>{t('game_over_dialogue.guest_message_part2')}</div>
+        <div className="modal-buttons">
+          <button onClick={() => { handleReset(); onClose(); }}>{t('game_over_dialogue.play_again_button')}</button>
+          <button onClick={() => navigate('/signup')}>{t('game_over_dialogue.sign_up')}</button>
+        </div>
+      </div>
+    ); 
+    
+  } else if (!isGuest && gameCount === 1) {
     return (
       <div className="modal">
         <div>{t('game_over_dialogue.message1', { 
@@ -35,7 +47,7 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handle
       </div>
     );
 
-  } else if (gameCount === 2) {
+  } else if (!isGuest && gameCount === 2) {
     if (newTurnCount < personalBest) {
       return (
         <div className="modal">
@@ -72,7 +84,7 @@ function GameOverDialogue({ onClose, newTurnCount, cardSet, playerScores, handle
         </div>
       );
     }
-  } else if (gameCount >= 3) {
+  } else if (!isguest && gameCount >= 3) {
     if (newTurnCount < personalBest) {
       return (
         <div className="modal">

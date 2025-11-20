@@ -32,13 +32,16 @@
   "play_again_button": "Jouer à nouveau !",
   "game_over_dialogue": {
     "title": "Fin de la partie",
+    "guest_message_part1": "Vous avez combiné toutes les cartes en {{newTurnCount}} tours ! Essayez-vous à le battre ?", 
+    "guest_message_part2": "Inscrivez-vous pour consulter vos meilleurs scores, créer des profils familiaux, et jouer à plus de cartes !",
     "message1": "Vous avez combiné toutes les cartes en {{newTurnCount}} tours ! Essayez-vous à le battre ?",
     "message2a": "Vous avez combiné toutes les cartes en {{newTurnCount}} tours !",
     "message2b": "Bravo ! C'est un nouveau meilleur score pour {{cardSet}} !",
     "message2c": "Mauvais coup ! Essayez de battre {{personalBest}} pour un nouveau meilleur score pour {{cardSet}} !",
     "message3": "Votre score moyen pour {{cardSet}} est de {{avgScore}} tours sur {{gameCount}} parties.",
     "play_again_button": "Jouer à nouveau",
-    "play_another_card_set": "Jouer une autre série de cartes"
+    "play_another_card_set": "Jouer une autre série de cartes",
+    "sign_up": "Créez votre compte"
   },
   "footer": {
     "copyright": "© 2025 Samuel Wood. ",
