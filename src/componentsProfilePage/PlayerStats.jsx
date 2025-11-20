@@ -49,16 +49,12 @@ function PlayerStats({ player }) {
       <table className="scores-table">
         <thead>
           <tr>
-            <th>{t('playerStats.card_set', { 
-            cardSet: t(`card_sets.${cardSet}`)
+            <th>{t('playerStats.card_set', {
+              cardSet: t(`card_sets.${cardSet}`)
             })}</th>
-
-
-
-
             <th>{t("playerStats.personal_best")}</th>
-            <th>{t("playerStats.avg_first_three")}</th>
-            <th>{t("playerStats.avg_last_three")}</th>
+            {/* <th>{t("playerStats.avg_first_three")}</th> */}
+            {/* <th>{t("playerStats.avg_last_three")}</th> */}
             <th>{t("playerStats.avg_all")}</th>
             <th>{t("playerStats.game_count")}</th>
           </tr>
@@ -68,8 +64,8 @@ function PlayerStats({ player }) {
             <tr key={index}>
               <td>{t(`card_sets.${stat.cardSet}`)}</td>
               <td>{stat.personalBest ? stat.personalBest.toFixed(0) : "N/A"}</td>
-              <td>{stat.avgFirstThree?.toFixed(1)}</td>
-              <td>{stat.avgLastThree?.toFixed(1)}</td>
+              {/* <td>{stat.avgFirstThree?.toFixed(1)}</td> */}
+              {/* <td>{stat.avgLastThree?.toFixed(1)}</td> */}
               <td>{stat.avgAll?.toFixed(2)}</td>
               <td>{stat.gameCount}</td>
             </tr>
