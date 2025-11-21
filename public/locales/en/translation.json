@@ -1,7 +1,6 @@
 {
   "welcome": "Welcome to Pantalone!",
   "cookie_consent": "This website uses cookies to improve your experience. By continuing to use this site, you agree to our use of cookies.",
-  
   "play_button": "Play a Game",
   "create_account_button": "Create Your Account",
   "sign_in_button": "Sign In",
@@ -9,14 +8,12 @@
   "change_player_button": "Change Player",
   "profile_button": "Profile",
   "sign_out_button": "Sign Out",
-
   "home": {
     "cta_message": "Sign up to play more cards, create family profiles, see your personal bests, and compete with your family!",
     "cta_button": "Create Your Account",
     "featured_cardset": "Featured Card Set",
     "online_security_content": "Online security for kids and parents"
   },
-
   "signIn": {
     "email": "Email",
     "password": "Password",
@@ -27,32 +24,30 @@
     "enter_email_for_reset": "Enter the email associated with your account:",
     "send_reset_link": "Send Reset Link"
   },
-
-"score": {
-  "matches": "Matches: ",
-  "turns": "Turns:"
-},
-
+  "score": {
+    "matches": "Matches: ",
+    "turns": "Turns:"
+  },
   "play_again_button": "Play Again!",
-
   "game_over_dialogue": {
     "title": "Game Over",
+    "guest_message_part1": "You matched all the cards in {{newTurnCount}} turns! Can you beat it?",
+    "guest_message_part2": "Sign up to track your personal bests, create child accounts, and play more card sets!",
     "message1": "You matched all the cards in {{newTurnCount}} turns! Can you beat it?",
     "message2a": "You matched all the cards in {{newTurnCount}} turns!",
     "message2b": "Well done! That's a new personal best for {{cardSet}}!",
     "message2c": "Bad luck! Try to beat {{personalBest}} for a new personal best for {{cardSet}}!",
     "message3": "Your average score for {{cardSet}} is {{avgScore}} turns over {{gameCount}} games.",
     "play_again_button": "Play Again",
-    "play_another_card_set": "Play Another Card Set"
+    "play_another_card_set": "Play Another Card Set",
+    "sign_up": "Sign Up"
   },
-
   "footer": {
     "copyright": "© 2025 Samuel Wood. ",
     "card_images_attribution": "Card images by <1>OpenMoji</1>",
     "privacy_policy": "Privacy Policy",
     "terms_of_service": "Terms of Service"
   },
-
   "signUp": {
     "email": "Email",
     "confirm_email": "Confirm Email",
@@ -61,14 +56,11 @@
     "over16": "I am over 16 years of age.",
     "button_loading": "Creating account ...",
     "button": "Sign Up",
-
     "error_email_match": "Emails do not match",
     "error_password_match": "Passwords do not match.",
     "error_all_fields": "Please fill in all required fields.",
     "error_password_reqs": "Password must be at least 10 characters, with 1 uppercase, 1 number, and 1 special character (!@#$%^&*).",
-
     "success_email_verification_sent": "Account created! Please check your email for verification.",
-
     "email_in_use": "This email is already registered.",
     "registration_failed": "Registration failed. Please try again."
   },
@@ -83,15 +75,11 @@
     "please_verify": "Please verify your email.",
     "open_prompt": "Please verify your email"
   },
-
   "createProfile": {
     "unique_player": "Player name must be unique.",
     "error_checking": "Error checking player name. Please try again.",
-
     "success_parent_created": "Parent profile created successfully!",
-
     "create_family": "Create Your Family Profiles",
-
     "parent_profile": "Parent Profile",
     "given_name": "Given Name",
     "family_name": "Family Name",
@@ -99,30 +87,25 @@
     "player_name": "Player Name",
     "avatar": "Select an Avatar",
     "create_parent_button": "Create My Profile",
-
     "add_child_button": "Add A Child Profile",
     "finish_profiles": "Finish Creating Profiles",
-
     "error_parent_not_found": "Parent profile not found.",
     "success_child_created": "Child profile created successfully!",
-
-"child_profile": "Child Profile",
+    "child_profile": "Child Profile",
     "child_player_name": "Child's Player Name",
     "child_dob": "Child's Date of Birth",
     "parentalConsent": "I confirm I am the parent/legal guardian of this child and grant consent for their use of Pantalone.",
     "error_consent_required": "You must give parental consent to create a child Player profile.",
     "create_child_button": "Create Child Profile"
   },
-
   "editPlayer": {
-    "profile_updated_successfully": "`${player.playerName}'s profile updated successfully!`",
+    "profile_updated_successfully": "Profile updated successfully!",
     "not_required_child": "Not required for child profiles.",
-  "read_only":"Read-only.",
-    "player_dob": "Player Date of Birth",
+    "read_only": " Read only.",
+    "player_dob": "Player Date of Birth (Read Only)",
     "player_name": "Player Name",
     "update_profile": "Update Profile"
   },
-
   "parentAuth": {
     "error_enter_password": "Please enter your password.",
     "error_no_user": "No user is signed in. Please sign in again.",
@@ -131,73 +114,75 @@
     "verifying_message": "Verfiying",
     "continue_button": "Continue"
   },
-
-    "manageProfiles": {
+  "manageProfiles": {
     "parent_not_found": "Parent player profile not found!",
     "error_fetching_family_players": "Failed to load family players. Please try again.",
     "only_parents_can_manage_profiles": "Only parents can manage profiles.",
     "family_profiles": "Your Family Profiles",
     "error_create_child_profile": "Failed to create child profile. Please try again.",
-    "my_information_and_settings": "My Information and Settings",
-      "settings": "Settings",
-      "add_child": "Add a child",
-      "change_password_button": "Change Password",
-      "delete_account_button": "Delete My Account",
-
-      "change_password": "Change Password",
-      "current_password": "Current Password",
-      "new_password": "New Password",
-      "confirm_new_password": "Confirm New Password",
-      "success_password_changed": "Your password has been changed.",
-
-  "success_password_reset_sent": "Password reset email sent! Check your inbox.",
-  "password_reset": "Reset Password",
-  "enter_email_for_password_reset": "Enter the email associated with your account:",
-  "send_reset_link": "Send Reset Link",
-
-  "password_required": "Your password is required to delete your account.",
-  "delete_account": "Delete Account",
-  "delete_account_warning": "Are you sure you want to delete your account? This action is irreversible and will delete all associated data.",
-  "delete_preparing": "Preparing...",
-  "delete_button": "Delete Account",
-  "confirm_delete": "Confirm Deletion",
-  "enter_password": "For security, please enter your password to confirm account deletion:",
-   "deleting": "Deleting...",
-   "confirm_delete_button": "Confirm Account Deletion"
+    "my_profiles_and_settings": "My Profiles and Settings",
+    "settings": "Settings",
+    "add_child": "Add a child",
+    "change_password_button": "Change Password",
+    "delete_account_button": "Delete My Account",
+    "change_password": "Change Password",
+    "current_password": "Current Password",
+    "new_password": "New Password",
+    "confirm_new_password": "Confirm New Password",
+    "success_password_changed": "Your password has been changed.",
+    "success_password_reset_sent": "Password reset email sent! Check your inbox.",
+    "password_reset": "Reset Password",
+    "enter_email_for_password_reset": "Enter the email associated with your account:",
+    "send_reset_link": "Send Reset Link",
+    "password_required": "Your password is required to delete your account.",
+    "delete_account": "Delete Account",
+    "delete_account_warning": "Are you sure you want to delete your account? This action is irreversible and will delete all associated data.",
+    "delete_preparing": "Preparing...",
+    "delete_button": "Delete Account",
+    "confirm_delete": "Confirm Deletion",
+    "enter_password": "For security, please enter your password to confirm account deletion:",
+    "deleting": "Deleting...",
+    "confirm_delete_button": "Confirm Account Deletion"
   },
-
-  "choosePlayer" : {
+  "choosePlayer": {
     "error_family_id_not_found": "Family ID not found. Please set up your family profile.",
     "error_loading_players": "Failed to load players. Please refresh.",
     "no_players_found": "No players found. Create a profile?",
     "who_is_playing": "Who's Playing?"
   },
-
   "playerStats": {
     "no_games": "No games played yet.",
+    "player_name":"Player Name",
     "player_stats": "{{playerName}}'s Stats",
     "card_set": "Card Set",
     "personal_best": "Personal Best",
     "avg_first_three": "Average Turns - first 3 games",
-    "avg_last_three": "Average Turns - last 3 games",    
-    "avg_all": "Average Turns - all games",
+    "avg_card_set": "Average Turns",
+    "avg_all": "All Game Average Turns",
     "game_count": "Games Played"
+  },
+"familyLeaderboard": {
+    "family_leaderboard": "Family Leaderboard",
+    "loading": "Loading leaderboard...",
+    "no_data": "No data available for the family leaderboard.",
+    "rank": "Rank",
+    "player_name": "Player Name",
+    "personal_best": "Personal Best",
+    "games_played": "Games Played"
   },
 
   "incorrect_password": "Incorrect password. Please try again.",
   "loading": "Loading ...",
   "password": "Password",
   "cancel": "Cancel",
-
   "no_player_selected": "No player selected.",
   "player_profile_not_found": "Player profile not found.",
   "user_not_found": "User not found",
   "error_loading_user": "Failed to load user. Please refresh.",
-
   "news": {
     "news_title": "News",
     "back_link": "← Back to News"
-  }, 
+  },
   "card_sets": {
     "emojis": "Emojis",
     "constellations": "Constellations",

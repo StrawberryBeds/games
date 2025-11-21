@@ -1,22 +1,30 @@
 /* NewsList styles */
 main {
   width: 100%;
-  max-width: 720px; /* Equivalent to Tailwind's max-w-3xl */
-  margin: 0 auto;  /* Equivalent to Tailwind's mx-auto */
-  padding: 2rem;    /* Equivalent to Tailwind's p-8 */
+  max-width: 720px;
+  /* Equivalent to Tailwind's max-w-3xl */
+  margin: 0 auto;
+  /* Equivalent to Tailwind's mx-auto */
+  padding: 2rem;
+  /* Equivalent to Tailwind's p-8 */
   min-height: 100vh;
 }
 
 h1 {
-  font-size: 2.25rem; /* Equivalent to Tailwind's text-4xl */
-  font-weight: bold;   /* Equivalent to Tailwind's font-bold */
-  margin-bottom: 2rem; /* Equivalent to Tailwind's mb-8 */
+  font-size: 2.25rem;
+  /* Equivalent to Tailwind's text-4xl */
+  font-weight: bold;
+  /* Equivalent to Tailwind's font-bold */
+  margin-bottom: 2rem;
+  /* Equivalent to Tailwind's mb-8 */
+  color: black;
 }
 
 .news-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* Equivalent to Tailwind's gap-y-4 */
+  gap: 1rem;
+  /* Equivalent to Tailwind's gap-y-4 */
   list-style: none;
   padding: 0;
 }
@@ -31,9 +39,12 @@ h1 {
 }
 
 .news-list h2 {
-  font-size: 1.25rem; /* Equivalent to Tailwind's text-xl */
-  font-weight: 600;   /* Equivalent to Tailwind's font-semibold */
+  font-size: 1.25rem;
+  /* Equivalent to Tailwind's text-xl */
+  font-weight: 600;
+  /* Equivalent to Tailwind's font-semibold */
   margin: 0 0 0.5rem 0;
+  color: black
 }
 
 .news-list p {

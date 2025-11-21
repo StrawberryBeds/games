@@ -32,13 +32,16 @@
   "play_again_button": "Jouer à nouveau !",
   "game_over_dialogue": {
     "title": "Fin de la partie",
+    "guest_message_part1": "Vous avez combiné toutes les cartes en {{newTurnCount}} tours ! Essayez-vous à le battre ?", 
+    "guest_message_part2": "Inscrivez-vous pour consulter vos meilleurs scores, créer des profils familiaux, et jouer à plus de cartes !",
     "message1": "Vous avez combiné toutes les cartes en {{newTurnCount}} tours ! Essayez-vous à le battre ?",
     "message2a": "Vous avez combiné toutes les cartes en {{newTurnCount}} tours !",
     "message2b": "Bravo ! C'est un nouveau meilleur score pour {{cardSet}} !",
     "message2c": "Mauvais coup ! Essayez de battre {{personalBest}} pour un nouveau meilleur score pour {{cardSet}} !",
     "message3": "Votre score moyen pour {{cardSet}} est de {{avgScore}} tours sur {{gameCount}} parties.",
     "play_again_button": "Jouer à nouveau",
-    "play_another_card_set": "Jouer une autre série de cartes"
+    "play_another_card_set": "Jouer une autre série de cartes",
+    "sign_up": "Créez votre compte"
   },
   "footer": {
     "copyright": "© 2025 Samuel Wood. ",
@@ -97,10 +100,10 @@
     "create_child_button": "Créer le profil enfant"
   },
   "editPlayer": {
-    "profile_updated_successfully": "Le profil de `${player.playerName}` a été mis à jour avec succès !",
+    "profile_updated_successfully": "Le profil a été mis à jour avec succès !",
     "not_required_child": "Non requis pour les profils enfant.",
-    "read_only": "Lecture seulement.",
-    "player_dob": "Date de naissance du joueur",
+    "read_only": " Lecture seulement.",
+    "player_dob": "Date de naissance du joueur (Lecture seule)",
     "player_name": "Nom du joueur",
     "update_profile": "Mettre à jour le profil"
   },
@@ -118,7 +121,7 @@
     "only_parents_can_manage_profiles": "Seuls les parents peuvent gérer les profils.",
     "family_profiles": "Profils de votre famille",
     "error_create_child_profile": "Échec de la création du profil enfant. Veuillez réessayer.",
-    "my_information_and_settings": "Mes informations et paramètres",
+    "my_profiles_and_settings": "Mes profils et paramètres",
     "settings": "Paramètres",
     "add_child": "Ajouter un enfant",
     "change_password_button": "Changer mon mot de passe",
@@ -155,8 +158,8 @@
     "card_set": "Jeu de cartes",
     "personal_best": "Meilleur score",
     "avg_first_three": "Moyenne de tours - 3 premières parties",
-    "avg_last_three": "Moyenne de tours - 3 dernières parties",
-    "avg_all": "Moyenne de tours - toutes les parties",
+    "avg_card_set": "Moyenne de tours",
+    "avg_all": "Moyenne de tours",
     "game_count": "Parties jouées"
   },
   "incorrect_password": "Mot de passe incorrect. Veuillez réessayer.",

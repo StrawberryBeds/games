@@ -23,8 +23,6 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
 
   const { selectedPlayer } = usePlayerSelection();
   const [playerScores, setPlayerScores] = useState({});
-  // console.log("Selected Player:", selectedPlayer)
-  // console.log("Player Scores:", playerScores)
 
   useEffect(() => {
     const fetchPlayerScores = async () => {
@@ -147,7 +145,8 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
         <GameOverDialogue
           onClose={() => setIsGameOver(false)}
           newTurnCount={gameScore.score}
-          cardSet={gameScore.cardSet} // This is the nameKey
+          cardSet={gameScore.cardSet}
+          isGuest={isGuest}
           selectedPlayer={selectedPlayer}
           playerScores={playerScores}
           handleReset={handleReset}
