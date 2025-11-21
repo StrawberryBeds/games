@@ -102,7 +102,7 @@
     "profile_updated_successfully": "Profile updated successfully!",
     "not_required_child": "Not required for child profiles.",
     "read_only": " Read only.",
-    "player_dob": "Player Date of Birth",
+    "player_dob": "Player Date of Birth (Read Only)",
     "player_name": "Player Name",
     "update_profile": "Update Profile"
   },

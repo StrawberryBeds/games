@@ -116,9 +116,9 @@ function EditPlayer({ player, onComplete }) {
             required
             readOnly
           />
-          <p className="form-text text-muted">
+          {/* <p className="form-text text-muted">
             {t('editPlayer.read_only')}
-          </p>
+          </p> */}
         </div>
         {/* Player Name Field */}
         <div className="form-group">
