@@ -158,8 +158,8 @@
     "card_set": "Jeu de cartes",
     "personal_best": "Meilleur score",
     "avg_first_three": "Moyenne de tours - 3 premières parties",
-    "avg_last_three": "Moyenne de tours - 3 dernières parties",
-    "avg_all": "Moyenne de tours - toutes les parties",
+    "avg_card_set": "Moyenne de tours",
+    "avg_all": "Moyenne de tours",
     "game_count": "Parties jouées"
   },
   "incorrect_password": "Mot de passe incorrect. Veuillez réessayer.",

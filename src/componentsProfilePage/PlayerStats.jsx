@@ -54,7 +54,7 @@ function PlayerStats({ player }) {
             <th>{t("playerStats.personal_best")}</th>
             {/* <th>{t("playerStats.avg_first_three")}</th> */}
             {/* <th>{t("playerStats.avg_last_three")}</th> */}
-            <th>{t("playerStats.avg_all")}</th>
+            <th>{t("playerStats.avg_card_set")}</th>
             <th>{t("playerStats.game_count")}</th>
           </tr>
         </thead>

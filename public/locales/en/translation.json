@@ -157,8 +157,8 @@
     "card_set": "Card Set",
     "personal_best": "Personal Best",
     "avg_first_three": "Average Turns - first 3 games",
-    "avg_last_three": "Average Turns - last 3 games",
-    "avg_all": "Average Turns - all games",
+    "avg_card_set": "Average Turns",
+    "avg_all": "All Game Average Turns",
     "game_count": "Games Played"
   },
 "familyLeaderboard": {
