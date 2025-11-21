@@ -1,5 +1,4 @@
 // componentsProfilePage/PlayerStats.jsx
-import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import "./PlayerStats.css";

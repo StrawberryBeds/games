@@ -152,6 +152,7 @@
   },
   "playerStats": {
     "no_games": "No games played yet.",
+    "player_name":"Player Name",
     "player_stats": "{{playerName}}'s Stats",
     "card_set": "Card Set",
     "personal_best": "Personal Best",
@@ -160,6 +161,16 @@
     "avg_all": "Average Turns - all games",
     "game_count": "Games Played"
   },
+"familyLeaderboard": {
+    "family_leaderboard": "Family Leaderboard",
+    "loading": "Loading leaderboard...",
+    "no_data": "No data available for the family leaderboard.",
+    "rank": "Rank",
+    "player_name": "Player Name",
+    "personal_best": "Personal Best",
+    "games_played": "Games Played"
+  },
+
   "incorrect_password": "Incorrect password. Please try again.",
   "loading": "Loading ...",
   "password": "Password",
