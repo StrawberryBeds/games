@@ -75,24 +75,22 @@ function EditPlayer({ player, onComplete }) {
     <div className='player-data'>
       <form onSubmit={handlePlayerSubmit} className="parent-profile-form">
         {/* Given Name Field */}
-        <div className="form-group">
-          <label htmlFor="givenName">{t('createProfile.given_name')}</label>
-          <input
-            type="text"
-            id="givenName"
-            name="givenName"
-            value={formData.givenName}
-            onChange={handleChange}
-            disabled={!player.isParentPlayer}
-            required={player.isParentPlayer}
-          />
-          {!player.isParentPlayer && (
-            <small className="form-text text-muted">
-              {t('editPlayer.not_required_child')}
-            </small>
-          )}
-        </div>
+        {player.isParentPlayer ? (
+          <div className="form-group">
+            <label htmlFor="givenName">{t('createProfile.given_name')}</label>
+            <input
+              type="text"
+              id="givenName"
+              name="givenName"
+              value={formData.givenName}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        ) : null}
+
         {/* Family Name Field */}
+        {player.isParentPlayer ? (
         <div className="form-group">
           <label htmlFor="familyName">{t('createProfile.family_name')}</label>
           <input
@@ -101,15 +99,11 @@ function EditPlayer({ player, onComplete }) {
             name="familyName"
             value={formData.familyName}
             onChange={handleChange}
-            disabled={!player.isParentPlayer}
+            hidden={!player.isParentPlayer}
             required={player.isParentPlayer}
           />
-          {!player.isParentPlayer && (
-            <small className="form-text text-muted">
-              {t('editPlayer.not_required_child')}
-            </small>
-          )}
         </div>
+        ) : null}
         {/* Player DOB Field */}
         <div className="form-group">
           <label htmlFor="playerDOB">{t('editPlayer.player_dob')}</label>
@@ -122,9 +116,9 @@ function EditPlayer({ player, onComplete }) {
             required
             readOnly
           />
-          <small className="form-text text-muted">
+          <p className="form-text text-muted">
             {t('editPlayer.read_only')}
-          </small>
+          </p>
         </div>
         {/* Player Name Field */}
         <div className="form-group">
@@ -166,8 +160,8 @@ function EditPlayer({ player, onComplete }) {
         </button>
         {error && <p className="error-message">{error}</p>}
         {success && <p className="success-message">{success}</p>}
-      </form>
-    </div>
+      </form >
+    </div >
   );
 }
 

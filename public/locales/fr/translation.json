@@ -100,9 +100,9 @@
     "create_child_button": "Créer le profil enfant"
   },
   "editPlayer": {
-    "profile_updated_successfully": "Le profil de `${player.playerName}` a été mis à jour avec succès !",
+    "profile_updated_successfully": "Le profil a été mis à jour avec succès !",
     "not_required_child": "Non requis pour les profils enfant.",
-    "read_only": "Lecture seulement.",
+    "read_only": " Lecture seulement.",
     "player_dob": "Date de naissance du joueur",
     "player_name": "Nom du joueur",
     "update_profile": "Mettre à jour le profil"
@@ -121,7 +121,7 @@
     "only_parents_can_manage_profiles": "Seuls les parents peuvent gérer les profils.",
     "family_profiles": "Profils de votre famille",
     "error_create_child_profile": "Échec de la création du profil enfant. Veuillez réessayer.",
-    "my_information_and_settings": "Mes informations et paramètres",
+    "my_profiles_and_settings": "Mes profils et paramètres",
     "settings": "Paramètres",
     "add_child": "Ajouter un enfant",
     "change_password_button": "Changer mon mot de passe",

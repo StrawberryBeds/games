@@ -99,9 +99,9 @@
     "create_child_button": "Create Child Profile"
   },
   "editPlayer": {
-    "profile_updated_successfully": "`${player.playerName}'s profile updated successfully!`",
+    "profile_updated_successfully": "Profile updated successfully!",
     "not_required_child": "Not required for child profiles.",
-    "read_only": "Read-only.",
+    "read_only": " Read only.",
     "player_dob": "Player Date of Birth",
     "player_name": "Player Name",
     "update_profile": "Update Profile"
@@ -120,7 +120,7 @@
     "only_parents_can_manage_profiles": "Only parents can manage profiles.",
     "family_profiles": "Your Family Profiles",
     "error_create_child_profile": "Failed to create child profile. Please try again.",
-    "my_information_and_settings": "My Information and Settings",
+    "my_profiles_and_settings": "My Profiles and Settings",
     "settings": "Settings",
     "add_child": "Add a child",
     "change_password_button": "Change Password",

@@ -8,7 +8,7 @@ import PlayerTile from '../componentsShared/PlayerTile';
 import UserTile from '../componentsProfilePage/UserTile';
 import NewPlayerTile from '../componentsProfilePage/NewPlayerTile';
 import EditPlayer from '../componentsProfilePage/EditPlayer';
-import EditUser from '../componentsProfilePage/EditUser';
+import UserSettings from '../componentsProfilePage/UserSettings';
 import CreateChildPlayerProfile from "../componentsProfilePage/CreateChildPlayerProfiles";
 import avatars from '../data/playerAvatars';
 
@@ -115,25 +115,39 @@ function ManageProfilesPage({ onComplete }) {
   if (error) return <div>{error}</div>;
 
   return (
+    // PROFILES AND SETTINGS SELECTION
+
     <div className='container'>
       <div className="player-selector">
-        <h2>{t("manageProfiles.my_information_and_settings")}</h2>
+        <h2>{t("manageProfiles.my_profiles_and_settings")}</h2>
         <div className="player-tiles">
           {familyPlayers.map((player) => (
             <PlayerTile
               key={player.id}
               player={player}
-              onClick={() => setDisplayedPlayerProfile(player)}
+              onClick={() => {
+                setDisplayedPlayerProfile(player);
+                setDisplayedUserDetails(null);   // Reset user details
+                setDisplayedChildForm(false);    // Reset child form
+              }}
               isDisplayed={displayedPlayerProfile?.id === player.id}
             />
           ))}
           <NewPlayerTile
-            onClick={addChildProfile}
+            onClick={() => {
+              setDisplayedPlayerProfile(null);
+              setDisplayedUserDetails(null);
+              addChildProfile(true)
+            }}
           />
           <UserTile
             key={currentUser.uid}
             currentUser={currentUser}
-            onClick={() => setDisplayedUserDetails(currentUser)}
+            onClick={() => {
+              setDisplayedUserDetails(currentUser);
+              setDisplayedPlayerProfile(null); // Reset player profile
+              setDisplayedChildForm(false);    // Reset child form
+            }}
             isDisplayed={displayedUserDetails?.uid === currentUser.uid}
           />
         </div>
@@ -153,7 +167,7 @@ function ManageProfilesPage({ onComplete }) {
         />
       )}
       {displayedUserDetails && (
-        <EditUser user={displayedUserDetails} />
+        <UserSettings user={displayedUserDetails} />
       )}
     </div>
   );
