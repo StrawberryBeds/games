@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 import PlayerTile from "../componentsShared/PlayerTile";
 import PlayerStats from "../componentsProfilePage/PlayerStats";
+import FamilyLeaderboard from "./FamilyLeaderboard";
 
 function PlayerProfile() {
   const navigate = useNavigate();
@@ -83,6 +84,13 @@ function PlayerProfile() {
         <PlayerStats
           key={selectedPlayer.id}
           player={playerProfile} // Use playerProfile instead of selectedPlayer
+          isSelected={selectedPlayer?.id === selectedPlayer.id}
+        />
+      </div>
+      <div>
+        <FamilyLeaderboard
+        key ={selectedPlayer.id}
+          family={playerProfile.familyId}
           isSelected={selectedPlayer?.id === selectedPlayer.id}
         />
       </div>
