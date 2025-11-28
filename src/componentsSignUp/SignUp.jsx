@@ -17,6 +17,7 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [over16, setOver16] = useState(false);
+  const [emailConsent, setEmailConsent] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -65,6 +66,7 @@ function SignUp() {
       const now = new Date();
       await setDoc(doc(db, "users", user.uid), {
         email: user.email,
+        emailConsent: emailConsent,
         createdAt: now,
       });
 
@@ -161,6 +163,19 @@ function SignUp() {
             {t('signUp.over16')}
           </label>
         </div>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={emailConsent}
+              onChange={(e) => setEmailConsent(e.target.checked)}
+              name="emailConsent"
+            />
+            {t('signUp.email_consent')}
+          </label>
+        </div>
+
+
 
         <button type="submit" disabled={isLoading}>
           {isLoading ? t('signUp.button_loading') : t('signUp.button')}
