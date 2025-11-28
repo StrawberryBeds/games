@@ -23,6 +23,9 @@ function Footer() {
       <Link to="/privacy">
         {t('footer.privacy_policy')}
       </Link>
+      <Link to="/contact">
+        {t('footer.contact')}
+      </Link>
     </footer>
   );
 }

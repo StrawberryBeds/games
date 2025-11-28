@@ -10,10 +10,12 @@ import { useTranslation } from "react-i18next";
 
 function UserSettings() {
   const { currentUser } = useAuth();
+  const [emailConsent, setEmailConsent] = useState(false);
   const navigate = useNavigate();
   const [displayedUser, setDisplayedUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   //   const [showEmailDialog, setShowEmailDialog] = useState(false);
   const [showPasswordDialog, setShowPasswordDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
@@ -53,8 +55,37 @@ function UserSettings() {
   return (
     <div className="settings-container">
       <h2>{t("manageProfiles.settings")}</h2>
+      <h3>{t("manageProfiles.email_consent")}: {displayedUser && displayedUser.emailConsent ? t("manageProfiles.consent_given") : t("manageProfiles.consent_not_given")}</h3>
+                          <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={emailConsent}
+              onChange={(e) => setEmailConsent(e.target.checked)}
+              name="emailConsent"
+            />
+            {t('signUp.email_consent')}
+          </label>
+        </div>
+      
+      
       <div className="settings-buttons">
         {/* <button onClick={() => setShowEmailDialog(true)}>Change My Email</button> */}
+        <button onClick ={() => {
+          // Update email consent in Firestore
+          const updateEmailConsent = async () => {
+            if (!currentUser) return;
+            try {
+              const userRef = doc(db, 'users', currentUser.uid);
+              await updateDoc(userRef, { emailConsent: emailConsent });
+              setDisplayedUser((prev) => ({ ...prev, emailConsent: emailConsent }));
+            } catch (err) {
+              console.error("Error updating email consent:", err);
+              setError(t("error_updating_consent"));
+            }
+          };
+          updateEmailConsent();
+        }}>{t("manageProfiles.update_email_consent_button")}</button>
         <button onClick={() => setShowPasswordDialog(true)}>{t("manageProfiles.change_password_button")}</button>
         <button onClick={() => setShowDeleteDialog(true)}>{t("manageProfiles.delete_account_button")}</button>
       </div>
