@@ -1,3 +1,6 @@
+[build]
+  functions = "netlify/functions"
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -10,7 +13,7 @@
       connect-src 'self' https://ludico-9433b.firebaseio.com https://dx2ymrki.api.sanity.io https://identitytoolkit.googleapis.com https://firestore.googleapis.com;
       img-src 'self' data: blob: https://cdn.sanity.io https://www.google.com;
       base-uri 'self';
-      form-action 'self';
+      form-action 'self' https://pantalone.games/.netlify/functions/send-email;
       frame-src 'self' https://accounts.google.com;
       object-src 'none'
     """
