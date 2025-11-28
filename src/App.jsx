@@ -28,6 +28,7 @@ import PrivateRoute from "./componentsGuards/privateRoutesGuard";
 import NotFoundPage from './pages/NotFoundPage';
 import Privacy from "./pages/PrivacyPage";
 import Terms from "./pages/TermsPage";
+import ContactPage from './pages/ContactPage';
 import ConsentModal from './componentsConsent/ConsentModal';
 
 import News from "./pages/NewsList";
@@ -87,6 +88,7 @@ function AppRoutes() {
       <Route path="/security/:slug" element={<SecurityItem />} />
       <Route path="/feature" element={<Feature />} />
       <Route path="/feature/:slug" element={<FeatureItem />} />
+      <Route path="/contact" element={<ContactPage />} />
 
 
       <Route path="/privacy" element={<Privacy />} />
