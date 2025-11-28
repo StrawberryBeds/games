@@ -22,15 +22,15 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('/.netlify/functions/send-email', {
+      const response = await fetch('/', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'form-name': 'contact',
+          ...formData,
+        }).toString(),
       });
 
-      const result = await response.json();
       if (response.ok) {
         setSubmitStatus('success');
       } else {
@@ -47,18 +47,24 @@ export default function ContactPage() {
     <>
       <h2>Prenons contact!</h2>
       <p>Tu voudrais que je t'aide à réaliser ton prochain projet, n'hésite pas à prendre contact!</p>
-      <form onSubmit={handleSubmit}>
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        onSubmit={handleSubmit}
+      >
+        <input type="hidden" name="form-name" value="contact" />
         <div>
           <label htmlFor="name">Nom</label>
-          <input id="name" type="text" value={formData.name} onChange={handleChange} required />
+          <input id="name" name="name" type="text" value={formData.name} onChange={handleChange} required />
         </div>
         <div>
           <label htmlFor="email">Email</label>
-          <input id="email" type="email" value={formData.email} onChange={handleChange} required />
+          <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required />
         </div>
         <div>
           <label htmlFor="message">Message</label>
-          <textarea id="message" value={formData.message} onChange={handleChange} required></textarea>
+          <textarea id="message" name="message" value={formData.message} onChange={handleChange} required></textarea>
         </div>
         <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
