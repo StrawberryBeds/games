@@ -4,6 +4,7 @@ import "./NewsItem.css";
 
 export default function ContactPage() {
   const { i18n } = useTranslation();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -45,8 +46,8 @@ export default function ContactPage() {
 
   return (
     <>
-      <h2>Prenons contact!</h2>
-      <p>Tu voudrais que je t'aide à réaliser ton prochain projet, n'hésite pas à prendre contact!</p>
+      <h2>{t('contact_page.title')}</h2>
+      <p>{t('contact_page.invite')}</p>
       <form
         name="contact"
         method="POST"
@@ -55,22 +56,22 @@ export default function ContactPage() {
       >
         <input type="hidden" name="form-name" value="contact" />
         <div>
-          <label htmlFor="name">Nom</label>
+          <label htmlFor="name">{t('contact_page.name')}</label>
           <input id="name" name="name" type="text" value={formData.name} onChange={handleChange} required />
         </div>
         <div>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">{t('contact_page.email')}</label>
           <input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required />
         </div>
         <div>
-          <label htmlFor="message">Message</label>
+          <label htmlFor="message">{t('contact_page.message')}</label>
           <textarea id="message" name="message" value={formData.message} onChange={handleChange} required></textarea>
         </div>
         <button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
-        </button>
-        {submitStatus === 'success' && <p>Merci pour ton message ! Je te répondrai bientôt.</p>}
-        {submitStatus === 'error' && <p>Une erreur est survenue. Veuillez réessayer.</p>}
+          {isSubmitting ? t('contact_page.sending') :  t("contact_page.send_button")}
+       </button>
+        {submitStatus === 'success' && <p>{t('contact_page.success')}</p>}
+        {submitStatus === 'error' && <p>{t('contact_page.error')}</p>}
       </form>
     </>
   );

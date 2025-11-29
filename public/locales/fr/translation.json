@@ -47,7 +47,8 @@
     "copyright": "© 2025 Samuel Wood. ",
     "card_images_attribution": "Images des cartes par <1>OpenMoji</1>",
     "privacy_policy": "Politique de Confidentialité",
-    "terms_of_service": "Conditions d'utilisation"
+    "terms_of_service": "Conditions d'utilisation",
+    "contact": "Contactez-nous !"
   },
   "signUp": {
     "email": "E-mail",
@@ -179,6 +180,17 @@
   "news": {
     "news_title": "Nouvelles",
     "back_link": "← Retour aux nouvelles"
+  },
+  "contact_page": {
+    "title": "Contactez-nous !",
+    "invite": "Vos suggestions, critiques ou besoins d'aide ? Si vous plaît utiliser le formulaire di-dessus pour nous contacter :",
+    "name": "Votre nom",
+    "email": "Votre e-mail",
+    "message": "Votre message",
+    "send_button": "Envoyer",
+    "sending": "Envoi en cours...",
+    "success": "Merci pour votre message! Nous repondrons le plutôt que possible.",
+    "error": "Une erreur est survenue. Veuillez réessayer."
   },
   "card_sets": {
     "emojis": "Emojis",

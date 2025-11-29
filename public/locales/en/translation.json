@@ -46,7 +46,8 @@
     "copyright": "© 2025 Samuel Wood. ",
     "card_images_attribution": "Card images by <1>OpenMoji</1>",
     "privacy_policy": "Privacy Policy",
-    "terms_of_service": "Terms of Service"
+    "terms_of_service": "Terms of Service",
+    "contact": "Get in touch!"
   },
   "signUp": {
     "email": "Email",
@@ -189,6 +190,18 @@
     "news_title": "News",
     "back_link": "← Back to News"
   },
+"contact_page": {
+    "title": "Get in Touch!",
+    "invite": "Suggestions, criticisms or need help? Please get in touch using the form below:",
+    "name": "Your Name",
+    "email": "Your Email",
+    "message": "Your Message",
+    "send_button": "Send Message",
+    "sending": "Sending...",
+    "success": "Thank you for your message! We'll get back to you as soon as we can.",
+    "error": "Failed to send your message. Please try again later."
+  },
+
   "card_sets": {
     "emojis": "Emojis",
     "constellations": "Constellations",
