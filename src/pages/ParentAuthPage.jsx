@@ -45,11 +45,13 @@ function ParentAuthPage() {
   };
 
   return (
-    <div className="parent-auth">
+     <div className="page-wrapper">
+   
+      <form onSubmit={handleSubmit}>
+         <div className="parent-auth">
       <h2>{t("parentAuth.parent_verification")}</h2>
       <p>{t("parentAuth.enter_password")}</p>
       {error && <p className="error">{error}</p>}
-      <form onSubmit={handleSubmit}>
         <input
           type="password"
           value={password}
@@ -63,9 +65,12 @@ function ParentAuthPage() {
           </button>
           <button type="button" onClick={() => navigate(-1)}>{t("cancel")}</button> {/* Assuming you have a "cancel" key */}
         </div>
+              </div>
       </form>
     </div>
+
   );
+
 }
 
 export default ParentAuthPage;

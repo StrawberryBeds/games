@@ -59,14 +59,25 @@ import two_factor_authentication from "/assets/cardsets/online_security/noun-two
 
 import barn_owl from "/assets/cardsets/birds/barn_owl.svg";
 import blackbird from "/assets/cardsets/birds/blackbird.svg";
-import chicken from "/assets/cardsets/birds/chicken.svg";
+import cockerel from "/assets/cardsets/birds/cockerel.svg";
 import cormorant from "/assets/cardsets/birds/cormorant.svg";
+import goose from "/assets/cardsets/birds/goose.svg";
 import kingfisher from "/assets/cardsets/birds/kingfisher.svg";
-import loon from "/assets/cardsets/birds/loon.svg";
 import mallard from "/assets/cardsets/birds/mallard.svg";
 import red_kite from "/assets/cardsets/birds/red_kite.svg";
 import robin from "/assets/cardsets/birds/robin.svg";
 import sea_gull from "/assets/cardsets/birds/sea_gull.svg";
+
+import christmas_tree from "/assets/cardsets/christmas/christmas_tree_1F384.svg";
+import church from "/assets/cardsets/christmas/church_26EA.svg";
+import donkey from "/assets/cardsets/christmas/donkey_1FACF.svg";
+import mother_feeding_baby from "/assets/cardsets/christmas/mother_feeding_baby_1F931.svg";
+import party_face from "/assets/cardsets/christmas/party_face_1F973.svg";
+import santa_claus from "/assets/cardsets/christmas/santa_claus_1F385.svg";
+import snowman from "/assets/cardsets/christmas/snowman_2603.svg";
+import star from "/assets/cardsets/christmas/star_2B50.svg";
+import turkey from "/assets/cardsets/christmas/turkey_1F983.svg";
+import wrapped_gift from "/assets/cardsets/christmas/wrapped_gift_1F381.svg";
 
 // Define card sets
 const cardSets = [
@@ -89,23 +100,6 @@ const cardSets = [
   },
   {
     id: "1",
-    nameKey: "constellations",
-    image: carina,
-    Cards: [
-      { cardName: "carina", cardImage: carina },
-      { cardName: "cassiopeia", cardImage: cassiopeia },
-      { cardName: "centaurus", cardImage: centaurus },
-      { cardName: "crux", cardImage: crux },
-      { cardName: "cygnus", cardImage: cygnus },
-      { cardName: "leo", cardImage: leo },
-      { cardName: "orion", cardImage: orion },
-      { cardName: "scorpius", cardImage: scorpius },
-      { cardName: "ursaMajor", cardImage: ursaMajor },
-      { cardName: "ursaMinor", cardImage: ursaMinor }
-    ],
-  },
-  {
-    id: "2",
     nameKey: "hallowe'en",
     image: jackO,
     Cards: [
@@ -122,50 +116,33 @@ const cardSets = [
     ]
   },
   {
-    id: "3",
-    nameKey: "commedia_dell_arte",
-    image: Harlequin,
+    id: "2",
+    nameKey: "christmas",
+    image: christmas_tree,
     Cards: [
-      { cardName: "brighella", cardImage: Brighella },
-      { cardName: "capitano_spavento", cardImage: Capitano_Spavento },
-      { cardName: "columbine", cardImage: Columbine },
-      { carnName: "coviello", cardImage: Coviello },
-      { cardName: "dr_balanzone", cardImage: Dr_Balanzone },
-      { cardName: "harlequin", cardImage: Harlequin },
-      { cardName: "isabella", cardImage: Isabella },
-      { cardName: "pantalone", cardImage: Pantalone },
-      { cardName: "pulcinella", cardImage: Pulcinella },
-      { cardName: "scaramuccia", cardImage: Scaramuccia }
-    ]
-  },
-  {
-    id: "4",
-    nameKey: "online_security",
-    image: cookie,
-    Cards: [
-      { cardName: "bug", cardImage: bug },
-      { cardName: "cookie", cardImage: cookie },
-      { cardName: "dictionary", cardImage: dictionary },
-      { cardName: "encryption", cardImage: encryption },
-      { cardName: "firewall", cardImage: firewall },
-      { cardName: "https", cardImage: https },
-      { cardName: "message-encryption", cardImage: message_encryption },
-      { cardName: "phishing", cardImage: phishing },
-      { cardName: "trojan-horse", cardImage: trojan_horse },
-      { cardName: "two-factor-authentication", cardImage: two_factor_authentication }
+      { cardName: "christmas_tree", cardImage: christmas_tree },
+      { cardName: "church", cardImage: church },
+      { cardName: "donkey", cardImage: donkey },
+      { cardName: "mother_feeding_baby", cardImage: mother_feeding_baby },
+      { cardName: "party_face", cardImage: party_face },
+      { cardName: "santa_claus", cardImage: santa_claus },
+      { cardName: "snowman", cardImage: snowman },
+      { cardName: "star", cardImage: star },
+      { cardName: "turkey", cardImage: turkey },
+      { cardName: "wrapped_gift", cardImage: wrapped_gift }
     ]
   }, 
    {
-    id: "5",
+    id: "3",
     nameKey: "birds",
     image: red_kite,
     Cards: [
       { cardName: "barn_owl", cardImage: barn_owl },
       { cardName: "blackbird", cardImage: blackbird },
-      { cardName: "chicken", cardImage: chicken },
+      { cardName: "cockerel", cardImage: cockerel },
       { cardName: "cormorant", cardImage: cormorant },
+      { cardName: "goose", cardImage: goose },
       { cardName: "kingfisher", cardImage: kingfisher },
-      { cardName: "loon", cardImage: loon },
       { cardName: "mallard", cardImage: mallard },
       { cardName: "red_kite", cardImage: red_kite },
       { cardName: "robin", cardImage: robin },
