@@ -98,40 +98,40 @@ const cardSets = [
       { cardName: "unicorn", cardImage: unicorn },
     ],
   },
-  {
-    id: "1",
-    nameKey: "constellations",
-    image: carina,
-    Cards: [
-      { cardName: "carina", cardImage: carina },
-      { cardName: "cassiopeia", cardImage: cassiopeia },
-      { cardName: "centaurus", cardImage: centaurus },
-      { cardName: "crux", cardImage: crux },
-      { cardName: "cygnus", cardImage: cygnus },
-      { cardName: "leo", cardImage: leo },
-      { cardName: "orion", cardImage: orion },
-      { cardName: "scorpius", cardImage: scorpius },
-      { cardName: "ursaMajor", cardImage: ursaMajor },
-      { cardName: "ursaMinor", cardImage: ursaMinor }
-    ],
-  },
-  {
-    id: "2",
-    nameKey: "hallowe'en",
-    image: jackO,
-    Cards: [
-      { cardName: "apple", cardImage: apple },
-      { cardName: "bat", cardImage: bat },
-      { cardName: "black cat", cardImage: blackCat },
-      { cardName: "broom", cardImage: broom },
-      { cardName: "ghost", cardImage: ghost },
-      { cardName: "jack o'lantern", cardImage: jackO },
-      { cardName: "skull", cardImage: skull },
-      { cardName: "spider's web", cardImage: spiderWeb },
-      { cardName: "vampire", cardImage: vampire },
-      { cardName: "woman zombie", cardImage: womanZombie }
-    ]
-  },
+  // {
+  //   id: "1",
+  //   nameKey: "constellations",
+  //   image: carina,
+  //   Cards: [
+  //     { cardName: "carina", cardImage: carina },
+  //     { cardName: "cassiopeia", cardImage: cassiopeia },
+  //     { cardName: "centaurus", cardImage: centaurus },
+  //     { cardName: "crux", cardImage: crux },
+  //     { cardName: "cygnus", cardImage: cygnus },
+  //     { cardName: "leo", cardImage: leo },
+  //     { cardName: "orion", cardImage: orion },
+  //     { cardName: "scorpius", cardImage: scorpius },
+  //     { cardName: "ursaMajor", cardImage: ursaMajor },
+  //     { cardName: "ursaMinor", cardImage: ursaMinor }
+  //   ],
+  // },
+  // {
+  //   id: "2",
+  //   nameKey: "hallowe'en",
+  //   image: jackO,
+  //   Cards: [
+  //     { cardName: "apple", cardImage: apple },
+  //     { cardName: "bat", cardImage: bat },
+  //     { cardName: "black cat", cardImage: blackCat },
+  //     { cardName: "broom", cardImage: broom },
+  //     { cardName: "ghost", cardImage: ghost },
+  //     { cardName: "jack o'lantern", cardImage: jackO },
+  //     { cardName: "skull", cardImage: skull },
+  //     { cardName: "spider's web", cardImage: spiderWeb },
+  //     { cardName: "vampire", cardImage: vampire },
+  //     { cardName: "woman zombie", cardImage: womanZombie }
+  //   ]
+  // },
   {
     id: "3",
     nameKey: "christmas",
