@@ -59,10 +59,10 @@ import two_factor_authentication from "/assets/cardsets/online_security/noun-two
 
 import barn_owl from "/assets/cardsets/birds/barn_owl.svg";
 import blackbird from "/assets/cardsets/birds/blackbird.svg";
-import chicken from "/assets/cardsets/birds/chicken.svg";
+import cockerel from "/assets/cardsets/birds/cockerel.svg";
 import cormorant from "/assets/cardsets/birds/cormorant.svg";
+import goose from "/assets/cardsets/birds/goose.svg";
 import kingfisher from "/assets/cardsets/birds/kingfisher.svg";
-import loon from "/assets/cardsets/birds/loon.svg";
 import mallard from "/assets/cardsets/birds/mallard.svg";
 import red_kite from "/assets/cardsets/birds/red_kite.svg";
 import robin from "/assets/cardsets/birds/robin.svg";
@@ -162,10 +162,10 @@ const cardSets = [
     Cards: [
       { cardName: "barn_owl", cardImage: barn_owl },
       { cardName: "blackbird", cardImage: blackbird },
-      { cardName: "chicken", cardImage: chicken },
+      { cardName: "cockerel", cardImage: cockerel },
       { cardName: "cormorant", cardImage: cormorant },
+      { cardName: "goose", cardImage: goose },
       { cardName: "kingfisher", cardImage: kingfisher },
-      { cardName: "loon", cardImage: loon },
       { cardName: "mallard", cardImage: mallard },
       { cardName: "red_kite", cardImage: red_kite },
       { cardName: "robin", cardImage: robin },
