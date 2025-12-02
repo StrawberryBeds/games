@@ -98,42 +98,25 @@ const cardSets = [
       { cardName: "unicorn", cardImage: unicorn },
     ],
   },
-  // {
-  //   id: "1",
-  //   nameKey: "constellations",
-  //   image: carina,
-  //   Cards: [
-  //     { cardName: "carina", cardImage: carina },
-  //     { cardName: "cassiopeia", cardImage: cassiopeia },
-  //     { cardName: "centaurus", cardImage: centaurus },
-  //     { cardName: "crux", cardImage: crux },
-  //     { cardName: "cygnus", cardImage: cygnus },
-  //     { cardName: "leo", cardImage: leo },
-  //     { cardName: "orion", cardImage: orion },
-  //     { cardName: "scorpius", cardImage: scorpius },
-  //     { cardName: "ursaMajor", cardImage: ursaMajor },
-  //     { cardName: "ursaMinor", cardImage: ursaMinor }
-  //   ],
-  // },
-  // {
-  //   id: "2",
-  //   nameKey: "hallowe'en",
-  //   image: jackO,
-  //   Cards: [
-  //     { cardName: "apple", cardImage: apple },
-  //     { cardName: "bat", cardImage: bat },
-  //     { cardName: "black cat", cardImage: blackCat },
-  //     { cardName: "broom", cardImage: broom },
-  //     { cardName: "ghost", cardImage: ghost },
-  //     { cardName: "jack o'lantern", cardImage: jackO },
-  //     { cardName: "skull", cardImage: skull },
-  //     { cardName: "spider's web", cardImage: spiderWeb },
-  //     { cardName: "vampire", cardImage: vampire },
-  //     { cardName: "woman zombie", cardImage: womanZombie }
-  //   ]
-  // },
   {
-    id: "3",
+    id: "1",
+    nameKey: "hallowe'en",
+    image: jackO,
+    Cards: [
+      { cardName: "apple", cardImage: apple },
+      { cardName: "bat", cardImage: bat },
+      { cardName: "black cat", cardImage: blackCat },
+      { cardName: "broom", cardImage: broom },
+      { cardName: "ghost", cardImage: ghost },
+      { cardName: "jack o'lantern", cardImage: jackO },
+      { cardName: "skull", cardImage: skull },
+      { cardName: "spider's web", cardImage: spiderWeb },
+      { cardName: "vampire", cardImage: vampire },
+      { cardName: "woman zombie", cardImage: womanZombie }
+    ]
+  },
+  {
+    id: "2",
     nameKey: "christmas",
     image: christmas_tree,
     Cards: [
@@ -148,26 +131,9 @@ const cardSets = [
       { cardName: "turkey", cardImage: turkey },
       { cardName: "wrapped_gift", cardImage: wrapped_gift }
     ]
-  },
-  // {
-  //   id: "4",
-  //   nameKey: "online_security",
-  //   image: cookie,
-  //   Cards: [
-  //     { cardName: "bug", cardImage: bug },
-  //     { cardName: "cookie", cardImage: cookie },
-  //     { cardName: "dictionary", cardImage: dictionary },
-  //     { cardName: "encryption", cardImage: encryption },
-  //     { cardName: "firewall", cardImage: firewall },
-  //     { cardName: "https", cardImage: https },
-  //     { cardName: "message-encryption", cardImage: message_encryption },
-  //     { cardName: "phishing", cardImage: phishing },
-  //     { cardName: "trojan-horse", cardImage: trojan_horse },
-  //     { cardName: "two-factor-authentication", cardImage: two_factor_authentication }
-  //   ]
-  // }, 
+  }, 
    {
-    id: "5",
+    id: "3",
     nameKey: "birds",
     image: red_kite,
     Cards: [
@@ -183,23 +149,6 @@ const cardSets = [
       { cardName: "sea_gull", cardImage: sea_gull }
     ]
   }
-  // {
-  //   id: "6",
-  //       nameKey: "commedia_dell_arte",
-  //   image: Harlequin,
-  //   Cards: [
-  //     { cardName: "brighella", cardImage: Brighella },
-  //     { cardName: "capitano_spavento", cardImage: Capitano_Spavento },
-  //     { cardName: "columbine", cardImage: Columbine },
-  //     { carnName: "coviello", cardImage: Coviello },
-  //     { cardName: "dr_balanzone", cardImage: Dr_Balanzone },
-  //     { cardName: "harlequin", cardImage: Harlequin },
-  //     { cardName: "isabella", cardImage: Isabella },
-  //     { cardName: "pantalone", cardImage: Pantalone },
-  //     { cardName: "pulcinella", cardImage: Pulcinella },
-  //     { cardName: "scaramuccia", cardImage: Scaramuccia }
-  //   ]
-  // }
 ];
 
 export default cardSets;

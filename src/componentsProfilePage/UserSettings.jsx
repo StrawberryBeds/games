@@ -53,6 +53,7 @@ function UserSettings() {
   if (error) return <div>{error}</div>;
 
   return (
+    <div className="page-wrapper">
     <div className="settings-container">
       <h2>{t("manageProfiles.settings")}</h2>
       <h3>{t("manageProfiles.email_consent")}: {displayedUser && displayedUser.emailConsent ? t("manageProfiles.consent_given") : t("manageProfiles.consent_not_given")}</h3>
@@ -105,6 +106,7 @@ function UserSettings() {
           user={currentUser}
           onClose={() => setShowDeleteDialog(false)} />
       )}
+    </div>
     </div>
   );
 }

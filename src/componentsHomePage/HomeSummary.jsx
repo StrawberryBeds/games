@@ -85,6 +85,15 @@ function HomeSummary() {
       <div className="featured-content-container">
 
         <div className="featured-cardset">
+          {/* <h2>{t('home.featured_cardset')}</h2> */}
+          {/* <CardSet
+            key={cardSets[3].id}
+            id={cardSets[3].id}
+            image={cardSets[3].image}
+            nameKey={cardSets[3].nameKey}
+            // onClick={handleCardClick}
+          /> */}
+
           <ul>
             {features.map((feature) => (
               <li key={feature._id}>

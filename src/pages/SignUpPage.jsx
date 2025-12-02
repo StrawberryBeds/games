@@ -1,12 +1,11 @@
+// src/pages/SignUpPage.jsx
 import SignUp from '../componentsSignUp/SignUp';
 
 function SignUpPage() {
-
   return (
-    <>
-     <SignUp></SignUp>
-
-    </>
+    <div className="page-wrapper">
+      <SignUp />
+    </div>
   );
 }
 
