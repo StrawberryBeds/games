@@ -68,6 +68,17 @@ import red_kite from "/assets/cardsets/birds/red_kite.svg";
 import robin from "/assets/cardsets/birds/robin.svg";
 import sea_gull from "/assets/cardsets/birds/sea_gull.svg";
 
+import christmas_tree from "/assets/cardsets/christmas/christmas_tree_1F384.svg";
+import church from "/assets/cardsets/christmas/church_26EA.svg";
+import donkey from "/assets/cardsets/christmas/donkey_1FACF.svg";
+import mother_feeding_baby from "/assets/cardsets/christmas/mother_feeding_baby_1F931.svg";
+import party_face from "/assets/cardsets/christmas/party_face_1F973.svg";
+import santa_claus from "/assets/cardsets/christmas/santa_claus_1F385.svg";
+import snowman from "/assets/cardsets/christmas/snowman_2603.svg";
+import star from "/assets/cardsets/christmas/star_2B50.svg";
+import turkey from "/assets/cardsets/christmas/turkey_1F983.svg";
+import wrapped_gift from "/assets/cardsets/christmas/wrapped_gift_1F381.svg";
+
 // Define card sets
 const cardSets = [
   {
@@ -170,6 +181,23 @@ const cardSets = [
       { cardName: "red_kite", cardImage: red_kite },
       { cardName: "robin", cardImage: robin },
       { cardName: "sea_gull", cardImage: sea_gull }
+    ]
+  },
+  {
+    id: "6",
+    nameKey: "christmas",
+    image: christmas_tree,
+    Cards: [
+      { cardName: "christmas_tree", cardImage: christmas_tree },
+      { cardName: "church", cardImage: church },
+      { cardName: "donkey", cardImage: donkey },
+      { cardName: "mother_feeding_baby", cardImage: mother_feeding_baby },
+      { cardName: "party_face", cardImage: party_face },
+      { cardName: "santa_claus", cardImage: santa_claus },
+      { cardName: "snowman", cardImage: snowman },
+      { cardName: "star", cardImage: star },
+      { cardName: "turkey", cardImage: turkey },
+      { cardName: "wrapped_gift", cardImage: wrapped_gift }
     ]
   }
 ];
