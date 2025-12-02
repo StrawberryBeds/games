@@ -22,6 +22,25 @@ main {
   box-sizing: border-box; /* Include padding in width */
 }
 
+/* Add a universal wrapper class for pages without <main> */
+.page-wrapper {
+  width: 100%;
+  max-width: 1470px; /* Match main's max-width */
+  margin: 0 auto; /* Center */
+  padding: 0 1rem; /* Match main's padding */
+  box-sizing: border-box;
+}
+
+/* Center the form horizontally */
+form {
+  width: 100%;
+  max-width: 500px; /* Adjust as needed */
+  margin: 0 auto; /* Center the form */
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+
 
 body {
   margin: 8px;
@@ -33,7 +52,6 @@ body {
   flex-direction: column;
   overflow-x: hidden;
 }
-
 
 /* TEXT STYLING */
 

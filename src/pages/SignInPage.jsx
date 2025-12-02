@@ -55,6 +55,7 @@ function SignInPage() {
 
 
     return (
+         <div className="page-wrapper">
         <form onSubmit={handleSubmit}>
             {error && <p className="error">{error}</p>}
             {success && <p className="success">{success}</p>}
@@ -88,6 +89,7 @@ function SignInPage() {
                 />
             )}
         </form>
+        </div>
     );
 }
 
