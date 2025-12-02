@@ -134,38 +134,38 @@ const cardSets = [
   },
   {
     id: "3",
-    nameKey: "commedia_dell_arte",
-    image: Harlequin,
+    nameKey: "christmas",
+    image: christmas_tree,
     Cards: [
-      { cardName: "brighella", cardImage: Brighella },
-      { cardName: "capitano_spavento", cardImage: Capitano_Spavento },
-      { cardName: "columbine", cardImage: Columbine },
-      { carnName: "coviello", cardImage: Coviello },
-      { cardName: "dr_balanzone", cardImage: Dr_Balanzone },
-      { cardName: "harlequin", cardImage: Harlequin },
-      { cardName: "isabella", cardImage: Isabella },
-      { cardName: "pantalone", cardImage: Pantalone },
-      { cardName: "pulcinella", cardImage: Pulcinella },
-      { cardName: "scaramuccia", cardImage: Scaramuccia }
+      { cardName: "christmas_tree", cardImage: christmas_tree },
+      { cardName: "church", cardImage: church },
+      { cardName: "donkey", cardImage: donkey },
+      { cardName: "mother_feeding_baby", cardImage: mother_feeding_baby },
+      { cardName: "party_face", cardImage: party_face },
+      { cardName: "santa_claus", cardImage: santa_claus },
+      { cardName: "snowman", cardImage: snowman },
+      { cardName: "star", cardImage: star },
+      { cardName: "turkey", cardImage: turkey },
+      { cardName: "wrapped_gift", cardImage: wrapped_gift }
     ]
   },
-  {
-    id: "4",
-    nameKey: "online_security",
-    image: cookie,
-    Cards: [
-      { cardName: "bug", cardImage: bug },
-      { cardName: "cookie", cardImage: cookie },
-      { cardName: "dictionary", cardImage: dictionary },
-      { cardName: "encryption", cardImage: encryption },
-      { cardName: "firewall", cardImage: firewall },
-      { cardName: "https", cardImage: https },
-      { cardName: "message-encryption", cardImage: message_encryption },
-      { cardName: "phishing", cardImage: phishing },
-      { cardName: "trojan-horse", cardImage: trojan_horse },
-      { cardName: "two-factor-authentication", cardImage: two_factor_authentication }
-    ]
-  }, 
+  // {
+  //   id: "4",
+  //   nameKey: "online_security",
+  //   image: cookie,
+  //   Cards: [
+  //     { cardName: "bug", cardImage: bug },
+  //     { cardName: "cookie", cardImage: cookie },
+  //     { cardName: "dictionary", cardImage: dictionary },
+  //     { cardName: "encryption", cardImage: encryption },
+  //     { cardName: "firewall", cardImage: firewall },
+  //     { cardName: "https", cardImage: https },
+  //     { cardName: "message-encryption", cardImage: message_encryption },
+  //     { cardName: "phishing", cardImage: phishing },
+  //     { cardName: "trojan-horse", cardImage: trojan_horse },
+  //     { cardName: "two-factor-authentication", cardImage: two_factor_authentication }
+  //   ]
+  // }, 
    {
     id: "5",
     nameKey: "birds",
@@ -182,24 +182,24 @@ const cardSets = [
       { cardName: "robin", cardImage: robin },
       { cardName: "sea_gull", cardImage: sea_gull }
     ]
-  },
-  {
-    id: "6",
-    nameKey: "christmas",
-    image: christmas_tree,
-    Cards: [
-      { cardName: "christmas_tree", cardImage: christmas_tree },
-      { cardName: "church", cardImage: church },
-      { cardName: "donkey", cardImage: donkey },
-      { cardName: "mother_feeding_baby", cardImage: mother_feeding_baby },
-      { cardName: "party_face", cardImage: party_face },
-      { cardName: "santa_claus", cardImage: santa_claus },
-      { cardName: "snowman", cardImage: snowman },
-      { cardName: "star", cardImage: star },
-      { cardName: "turkey", cardImage: turkey },
-      { cardName: "wrapped_gift", cardImage: wrapped_gift }
-    ]
   }
+  // {
+  //   id: "6",
+  //       nameKey: "commedia_dell_arte",
+  //   image: Harlequin,
+  //   Cards: [
+  //     { cardName: "brighella", cardImage: Brighella },
+  //     { cardName: "capitano_spavento", cardImage: Capitano_Spavento },
+  //     { cardName: "columbine", cardImage: Columbine },
+  //     { carnName: "coviello", cardImage: Coviello },
+  //     { cardName: "dr_balanzone", cardImage: Dr_Balanzone },
+  //     { cardName: "harlequin", cardImage: Harlequin },
+  //     { cardName: "isabella", cardImage: Isabella },
+  //     { cardName: "pantalone", cardImage: Pantalone },
+  //     { cardName: "pulcinella", cardImage: Pulcinella },
+  //     { cardName: "scaramuccia", cardImage: Scaramuccia }
+  //   ]
+  // }
 ];
 
 export default cardSets;
