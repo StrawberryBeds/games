@@ -14,11 +14,11 @@
 .game-board {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
+  gap: 4px;
   width: 95%;
   max-width: 95;
   margin: 8px;
-  padding: 0;
+  padding: 2px;
   justify-items: center; 
 }
 
