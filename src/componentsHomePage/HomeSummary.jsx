@@ -6,6 +6,8 @@ import "./HomeSummary.css";
 import { useNavigate } from 'react-router-dom';
 import CardSet from "../componentsPlayCardSet/CardSet";
 import cardSets from "../data/cardSets";
+import imageUrlBuilder from "@sanity/image-url";
+import { PortableText } from "@portabletext/react";
 
 
 const POSTS_QUERY_EN = `*[_type == "post"] { _id, title_en, slug, image, publishedAt }`;
@@ -17,11 +19,16 @@ const FEATURE_QUERY_FR = `*[_type == "feature"] { _id, title_fr, slug, image, pu
 
 function HomeSummary() {
   const [posts, setPosts] = useState([]);
-  const [securityPosts, setSecurityPosts] = useState([]);
+  const [post, setPost] = useState({});
   const [features, setFeatures] = useState([]);
+  const [featurePosts, setFeaturePosts] = useState([]);
+  const [featurePost, setFeaturePost] = useState({});
+  const [securityPosts, setSecurityPosts] = useState([]);
+  const [securityPost, setSecurityPost] = useState({});
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const id = cardSets;[0];
+  const builder = imageUrlBuilder(client);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -38,6 +45,7 @@ function HomeSummary() {
     fetchPosts();
   }, [i18n.language]);
 
+  // Update your state to track the first post
   useEffect(() => {
     const fetchSecurityPosts = async () => {
       try {
@@ -45,6 +53,9 @@ function HomeSummary() {
         const data = await client.fetch(query);
         console.log("Fetched security posts:", data);
         setSecurityPosts(data);
+        if (data.length > 0) {
+          setSecurityPost(data[0]); // Set the first post
+        }
       } catch (error) {
         console.error("Error fetching security posts:", error);
         setSecurityPosts([]);
@@ -53,24 +64,34 @@ function HomeSummary() {
     fetchSecurityPosts();
   }, [i18n.language]);
 
+
   useEffect(() => {
-    const fetchFeatures = async () => {
+    const fetchFeaturePosts = async () => {
       try {
         const query = i18n.language === 'fr' ? FEATURE_QUERY_FR : FEATURE_QUERY_EN;
         const data = await client.fetch(query);
         console.log("Fetched features:", data);
-        setFeatures(data);
+        setFeaturePosts(data);
+        if (data.length > 0) {
+          setFeaturePost(data[0]); // Set the first feature
+        }
       } catch (error) {
         console.error("Error fetching features:", error);
-        setFeatures([]);
+        setFeaturePosts([]);
       }
     };
-    fetchFeatures();
+    fetchFeaturePosts();
   }, [i18n.language]);
 
   // const handleCardClick = (id, name) => {
   //   navigate(`/auth/cardSet/${id}`), name;
   // };
+
+  function urlFor(source) {
+    return builder.image(source);
+  }
+  const featurePostImageUrl = featurePost.image ? urlFor(featurePost.image).width(720).url() : null;
+  const securityPostImageUrl = securityPost.image ? urlFor(securityPost.image).width(720).url() : null;
 
   return (
     <main>
@@ -83,31 +104,34 @@ function HomeSummary() {
 
       {/* New container for side-by-side featured content */}
       <div className="featured-content-container">
-
         <div className="featured-cardset">
-          {/* <h2>{t('home.featured_cardset')}</h2> */}
-          {/* <CardSet
-            key={cardSets[3].id}
-            id={cardSets[3].id}
-            image={cardSets[3].image}
-            nameKey={cardSets[3].nameKey}
-            // onClick={handleCardClick}
-          /> */}
-
+          {featurePostImageUrl && (
+            <img
+              src={featurePostImageUrl}
+              alt={i18n.language === 'fr' ? featurePost.title_fr : featurePost.title_en}
+              className="post-image"
+            />
+          )}
           <ul>
-            {features.map((feature) => (
-              <li key={feature._id}>
-                <Link to={`/feature/${feature.slug.current}`}>
-                  <h3>{i18n.language === 'fr' ? feature.title_fr : feature.title_en}</h3>
+            {featurePosts.map((featurePost) => (
+              <li key={featurePost._id}>
+                <Link to={`/feature/${featurePost.slug.current}`}>
+                  <h3>{i18n.language === 'fr' ? featurePost.title_fr : featurePost.title_en}</h3>
                   {/* <p>{new Date(feature.publishedAt).toLocaleDateString()}</p> */}
                 </Link>
               </li>
             ))}
           </ul>
-
         </div>
 
         <div className="online-security-content">
+          {securityPostImageUrl && (
+            <img
+              src={securityPostImageUrl}
+              alt={i18n.language === 'fr' ? securityPost.title_fr : securityPost.title_en}
+              className="post-image"
+            />
+          )}
           <ul>
             {securityPosts.map((securityPost) => (
               <li key={securityPost._id}>
