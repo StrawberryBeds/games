@@ -9,20 +9,15 @@ function Footer() {
 
   return (
     <footer className="footer">
-      <p>{t('footer.copyright')}
-        <Trans
-          i18nKey="footer.card_images_attribution"
-          components={{
-            1: <a href="https://openmoji.org/" target="_blank" rel="noopener noreferrer" />
-          }}
-        />
-      </p>
-      <Link to="/terms">
-        {t('footer.terms_of_service')}
+
+
+      <Link to="/legal">
+        {t('footer.copyright')}
       </Link>
-      <Link to="/privacy">
-        {t('footer.privacy_policy')}
+      <Link to="/legal">
+        {t('footer.legal')}
       </Link>
+
       <Link to="/contact">
         {t('footer.contact')}
       </Link>
