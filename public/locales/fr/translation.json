@@ -44,11 +44,15 @@
     "sign_up": "Créez votre compte"
   },
   "footer": {
-    "copyright": "© 2025 Samuel Wood. ",
+    "copyright": "© 2025 Samuel Wood sauf mention contraire. ",
     "card_images_attribution": "Images des cartes par <1>OpenMoji</1>",
-    "privacy_policy": "Politique de Confidentialité",
-    "terms_of_service": "Conditions d'utilisation",
+    "legal": "Mentions legaux",
     "contact": "Contactez-nous !"
+  },
+  "legal": {
+    "terms_of_service": "Conditions d'utilisation",
+    "privacy_policy": "Politique de confidentialité ",
+    "credits": "Credits"
   },
   "signUp": {
     "email": "E-mail",

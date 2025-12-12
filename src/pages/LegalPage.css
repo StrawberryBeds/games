@@ -1,0 +1,58 @@
+/* Collapsible styles */
+.legal-container {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: rgb(252, 175, 175);
+  color: black;
+  border-radius: 0.75rem;
+}
+
+.collapsible-wrapper {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  width: 100%;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+}
+
+.collapsible-header {
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  color: black;
+  border-bottom: 1px solid #ccc;
+  border-radius: 0.75rem;
+}
+
+.collapsible-header::after {
+  content: '▼';
+  color: black;
+  transition: transform 0.3s ease;
+}
+
+.collasible-header.is-expanded::after {
+  transform: rotate(180deg);
+}
+
+.collapsible-content {
+  padding: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  color: black;
+  line-height: 1.6;
+  border-radius: 0.75rem;
+}

@@ -30,6 +30,7 @@ import Privacy from "./pages/PrivacyPage";
 import Terms from "./pages/TermsPage";
 import ContactPage from './pages/ContactPage';
 import ConsentModal from './componentsConsent/ConsentModal';
+import LegalPage from './pages/LegalPage';
 
 import News from "./pages/NewsList";
 import NewsItem from "./pages/NewsItem";
@@ -89,6 +90,7 @@ function AppRoutes() {
       <Route path="/feature" element={<Feature />} />
       <Route path="/feature/:slug" element={<FeatureItem />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/legal" element={<LegalPage />} />
 
 
       <Route path="/privacy" element={<Privacy />} />

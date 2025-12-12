@@ -2,16 +2,12 @@
 .single-post {
   width: 100%;
   max-width: 720px;
-  /* Equivalent to Tailwind's max-w-3xl */
   margin: 0 auto;
-  /* Equivalent to Tailwind's mx-auto */
   padding: 2rem;
-  /* Equivalent to Tailwind's p-8 */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  /* Equivalent to Tailwind's gap-4 */
   background: rgb(252, 175, 175);
   color: black;
 }
