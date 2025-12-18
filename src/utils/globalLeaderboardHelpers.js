@@ -26,15 +26,15 @@ export function getCurrentMonth() {
 
 /**
  * Saves or updates a guest player's score to the global leaderboard
- * @param {string} username - The player's chosen username
+ * @param {string} playerName - The player's chosen playerName
  * @param {number} score - The number of turns taken
  * @param {string} cardSet - The card set name
  * @returns {Promise<{rank: number, isPersonalBest: boolean}>}
  */
-export async function saveGlobalScore(username, score, cardSet) {
+export async function saveGlobalScore(playerName, score, cardSet) {
   try {
     const month = getCurrentMonth();
-    const leaderboardRef = doc(db, 'globalLeaderboard', username);
+    const leaderboardRef = doc(db, 'globalLeaderboard', playerName);
     
     // Check if player already exists
     const existingDoc = await getDoc(leaderboardRef);
@@ -54,7 +54,7 @@ export async function saveGlobalScore(username, score, cardSet) {
     
     // Save/update the document
     await setDoc(leaderboardRef, {
-      username,
+      playerName,
       score: bestScore,
       lastPlayed: Timestamp.now(),
       month,
@@ -63,7 +63,7 @@ export async function saveGlobalScore(username, score, cardSet) {
     });
     
     // Get the player's rank
-    const rank = await getPlayerRank(username, month);
+    const rank = await getPlayerRank(playerName, month);
     
     // Store in localStorage for quick access
     localStorage.setItem('guestPersonalBest', bestScore.toString());
@@ -78,11 +78,11 @@ export async function saveGlobalScore(username, score, cardSet) {
 
 /**
  * Gets a player's rank on the global leaderboard
- * @param {string} username - The player's username
+ * @param {string} playerName - The player's playerName
  * @param {string} month - The month identifier
  * @returns {Promise<number>} - The player's rank (1-indexed)
  */
-export async function getPlayerRank(username, month) {
+export async function getPlayerRank(playerName, month) {
   try {
     const leaderboardRef = collection(db, 'globalLeaderboard');
     const q = query(
@@ -96,7 +96,7 @@ export async function getPlayerRank(username, month) {
     let rank = 1;
     
     for (const doc of snapshot.docs) {
-      if (doc.id === username) {
+      if (doc.id === playerName) {
         return rank;
       }
       rank++;
@@ -112,7 +112,7 @@ export async function getPlayerRank(username, month) {
 /**
  * Gets the top players from the global leaderboard
  * @param {number} topN - Number of top positions to retrieve (default: 20)
- * @returns {Promise<Array>} - Array of {username, score, lastPlayed, rank, tiedCount}
+ * @returns {Promise<Array>} - Array of {playerName, score, lastPlayed, rank, tiedCount}
  */
 export async function getGlobalLeaderboard(topN = 20) {
   try {
@@ -127,7 +127,7 @@ export async function getGlobalLeaderboard(topN = 20) {
     
     const snapshot = await getDocs(q);
     const allPlayers = snapshot.docs.map(doc => ({
-      username: doc.id,
+      playerName: doc.id,
       ...doc.data()
     }));
     

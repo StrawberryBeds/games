@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getGlobalLeaderboard } from '../utils/globalLeaderboardHelpers';
-import { getStoredGuestUsername } from '../utils/usernameGenerator';
+import { getStoredGuestPlayerName } from '../utils/playerNameGenerator';
 import { Link } from "react-router-dom";
 import './GlobalLeaderboard.css';
 
@@ -10,7 +10,7 @@ function GlobalLeaderboard() {
   const { t } = useTranslation();
   const [leaderboard, setLeaderboard] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [guestUsername, setGuestUsername] = useState(null);
+  const [guestPlayerName, setGuestPlayerName] = useState(null);
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
@@ -18,9 +18,9 @@ function GlobalLeaderboard() {
         const data = await getGlobalLeaderboard(20);
         setLeaderboard(data);
         
-        const storedUsername = getStoredGuestUsername();
-        if (storedUsername) {
-          setGuestUsername(storedUsername);
+        const storedPlayerName = getStoredGuestPlayerName();
+        if (storedPlayerName) {
+          setGuestPlayerName(storedPlayerName);
         }
       } catch (error) {
         console.error('Error fetching leaderboard:', error);
@@ -52,9 +52,9 @@ function GlobalLeaderboard() {
   }
 
   // Find guest player's info if they're on the leaderboard
-  const guestPlayerInfo = guestUsername ? (() => {
+  const guestPlayerInfo = guestPlayerName ? (() => {
     for (const entry of leaderboard) {
-      const player = entry.players.find(p => p.username === guestUsername);
+      const player = entry.players.find(p => p.playerName === guestPlayerName);
       if (player) {
         return {
           rank: entry.rank,
@@ -84,7 +84,7 @@ function GlobalLeaderboard() {
         <div className="guest-player-info">
           <p className="your-rank">
             {t('global_leaderboard.your_position', { 
-              username: guestUsername,
+              playerName: guestPlayerName,
               rank: guestPlayerInfo.rank,
               score: guestPlayerInfo.score
             })}
@@ -105,17 +105,17 @@ function GlobalLeaderboard() {
         {leaderboard.map((entry) => (
           <div key={`${entry.rank}-${entry.score}`} className="leaderboard-group">
             {entry.players.map((player, index) => {
-              const isGuestPlayer = player.username === guestUsername;
+              const isGuestPlayer = player.playerName === guestPlayerName;
               return (
                 <div 
-                  key={player.username}
+                  key={player.playerName}
                   className={`leaderboard-row ${isGuestPlayer ? 'highlight' : ''}`}
                 >
                   <span className="rank-col">
                     {index === 0 ? `#${entry.rank}` : ''}
                   </span>
                   <span className="username-col">
-                    {player.username}
+                    {player.playerName}
                     {isGuestPlayer && (
                       <span className="you-badge">{t('global_leaderboard.you')}</span>
                     )}

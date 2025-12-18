@@ -3,10 +3,10 @@ import "./GameOverDialogue.css";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { 
-  generateUsernameOptions, 
-  getStoredGuestUsername, 
-  setStoredGuestUsername 
-} from '../utils/usernameGenerator';
+  generatePlayerNameOptions, 
+  getStoredGuestPlayerName, 
+  setStoredGuestPlayerName 
+} from '../utils/playerNameGenerator';
 import { saveGlobalScore, getAverageScore } from '../utils/globalLeaderboardHelpers';
 
 function GameOverDialogue({ 
@@ -21,8 +21,8 @@ function GameOverDialogue({
   const { t } = useTranslation();
   
   // Guest-specific state
-  const [usernameOptions, setUsernameOptions] = useState([]);
-  const [selectedUsername, setSelectedUsername] = useState('');
+  const [playerNameOptions, setPlayerNameOptions] = useState([]);
+  const [selectedPlayerName, setSelectedPlayerName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [guestRank, setGuestRank] = useState(null);
   const [guestPersonalBest, setGuestPersonalBest] = useState(null);
@@ -39,20 +39,20 @@ function GameOverDialogue({
   const personalBest = turns.length > 0 ? Math.min(...turns) : null;
   const avgScore = (turns.reduce((a, b) => a + b, 0) + newTurnCount) / gameCount;
 
-  // Initialize username options for guest
+  // Initialize playerName options for guest
   useEffect(() => {
     if (isGuest) {
-      const storedUsername = getStoredGuestUsername();
+      const storedPlayerName = getStoredGuestPlayerName();
       const storedBest = localStorage.getItem('guestPersonalBest');
       
-      if (storedUsername) {
-        setSelectedUsername(storedUsername);
+      if (storedPlayerName) {
+        setSelectedPlayerName(storedPlayerName);
         if (storedBest) {
           setGuestPersonalBest(parseInt(storedBest));
         }
       }
       
-      setUsernameOptions(generateUsernameOptions());
+      setPlayerNameOptions(generatePlayerNameOptions());
       
       // Fetch average score
       getAverageScore().then(avg => {
@@ -61,27 +61,27 @@ function GameOverDialogue({
     }
   }, [isGuest]);
 
-  const handleUsernameSelect = (username) => {
-    setSelectedUsername(username);
+  const handlePlayerNameSelect = (playerName) => {
+    setSelectedPlayerName(playerName);
   };
 
   const handleGenerateNew = () => {
-    setUsernameOptions(generateUsernameOptions());
+    setPlayerNameOptions(generatePlayerNameOptions());
   };
 
   const handleSubmitScore = async () => {
-    if (!selectedUsername) return;
+    if (!selectedPlayerName) return;
     
     setIsSubmitting(true);
     
     try {
       const { rank, isPersonalBest, bestScore } = await saveGlobalScore(
-        selectedUsername, 
+        selectedPlayerName, 
         newTurnCount, 
         cardSet
       );
       
-      setStoredGuestUsername(selectedUsername);
+      setStoredGuestPlayerName(selectedPlayerName);
       setGuestRank(rank);
       setGuestPersonalBest(bestScore);
       setShowResults(true);
@@ -95,7 +95,7 @@ function GameOverDialogue({
 
   // Guest player flow
   if (isGuest) {
-    // Show username selection
+    // Show playerName selection
     if (!showResults) {
       return (
         <div className="modal">
@@ -118,20 +118,20 @@ function GameOverDialogue({
               )}
             </div>
 
-            { !selectedUsername && (
+            { !selectedPlayerName && (
 
 
             
             <div className="username-selection">
               <h3>{t('game_over_dialogue.choose_username')}</h3>
               <div className="username-options">
-                {usernameOptions.map((username, index) => (
+                {playerNameOptions.map((playerName, index) => (
                   <button
                     key={index}
-                    className={`username-option ${selectedUsername === username ? 'selected' : ''}`}
-                    onClick={() => handleUsernameSelect(username)}
+                    className={`username-option ${selectedPlayerName === playerName ? 'selected' : ''}`}
+                    onClick={() => handlePlayerNameSelect(playerName)}
                   >
-                    {username}
+                    {playerName}
                   </button>
                 ))}
               </div>
@@ -147,7 +147,7 @@ function GameOverDialogue({
             <div className="modal-buttons">
               <button 
                 onClick={handleSubmitScore}
-                disabled={!selectedUsername || isSubmitting}
+                disabled={!selectedPlayerName || isSubmitting}
                 className="primary-btn"
               >
                 {isSubmitting 
@@ -170,7 +170,7 @@ function GameOverDialogue({
           <h2>{t('game_over_dialogue.score_submitted')}</h2>
           <div className="results-display">
             <p className="username-display">
-              {t('game_over_dialogue.playing_as', { username: selectedUsername })}
+              {t('game_over_dialogue.playing_as', { playerName: selectedPlayerName })}
             </p>
             <p className="rank-display">
               {t('game_over_dialogue.your_rank', { rank: guestRank })}
