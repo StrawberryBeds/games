@@ -8,7 +8,7 @@ import CardSet from "../componentsPlayCardSet/CardSet";
 import cardSets from "../data/cardSets";
 import imageUrlBuilder from "@sanity/image-url";
 import { PortableText } from "@portabletext/react";
-
+import GlobalLeaderboard from "./GlobalLeaderboard";
 
 const POSTS_QUERY_EN = `*[_type == "post"] { _id, title_en, slug, image, publishedAt }`;
 const POSTS_QUERY_FR = `*[_type == "post"] { _id, title_fr, slug, image, publishedAt }`;
@@ -27,7 +27,7 @@ function HomeSummary() {
   const [securityPost, setSecurityPost] = useState({});
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const id = cardSets;[0];
+  const id = cardSets[0];
   const builder = imageUrlBuilder(client);
 
   useEffect(() => {
@@ -45,7 +45,6 @@ function HomeSummary() {
     fetchPosts();
   }, [i18n.language]);
 
-  // Update your state to track the first post
   useEffect(() => {
     const fetchSecurityPosts = async () => {
       try {
@@ -54,7 +53,7 @@ function HomeSummary() {
         console.log("Fetched security posts:", data);
         setSecurityPosts(data);
         if (data.length > 0) {
-          setSecurityPost(data[0]); // Set the first post
+          setSecurityPost(data[0]);
         }
       } catch (error) {
         console.error("Error fetching security posts:", error);
@@ -64,7 +63,6 @@ function HomeSummary() {
     fetchSecurityPosts();
   }, [i18n.language]);
 
-
   useEffect(() => {
     const fetchFeaturePosts = async () => {
       try {
@@ -73,7 +71,7 @@ function HomeSummary() {
         console.log("Fetched features:", data);
         setFeaturePosts(data);
         if (data.length > 0) {
-          setFeaturePost(data[0]); // Set the first feature
+          setFeaturePost(data[0]);
         }
       } catch (error) {
         console.error("Error fetching features:", error);
@@ -83,24 +81,17 @@ function HomeSummary() {
     fetchFeaturePosts();
   }, [i18n.language]);
 
-  // const handleCardClick = (id, name) => {
-  //   navigate(`/auth/cardSet/${id}`), name;
-  // };
-
   function urlFor(source) {
     return builder.image(source);
   }
+  
   const featurePostImageUrl = featurePost.image ? urlFor(featurePost.image).width(720).url() : null;
   const securityPostImageUrl = securityPost.image ? urlFor(securityPost.image).width(720).url() : null;
 
   return (
     <main>
-      <div className="cta-content">
-        <h3>{t('home.cta_message')}</h3>
-        <div className="home-buttons">
-          <button onClick={() => { navigate('/signup') }}>{t('home.cta_button')}</button>
-        </div>
-      </div>
+      {/* Replace CTA content with Global Leaderboard */}
+      <GlobalLeaderboard />
 
       {/* New container for side-by-side featured content */}
       <div className="featured-content-container">
@@ -117,7 +108,6 @@ function HomeSummary() {
               <li key={featurePost._id}>
                 <Link to={`/feature/${featurePost.slug.current}`}>
                   <h3>{i18n.language === 'fr' ? featurePost.title_fr : featurePost.title_en}</h3>
-                  {/* <p>{new Date(feature.publishedAt).toLocaleDateString()}</p> */}
                 </Link>
               </li>
             ))}
@@ -137,22 +127,18 @@ function HomeSummary() {
               <li key={securityPost._id}>
                 <Link to={`/security/${securityPost.slug.current}`}>
                   <h3>{i18n.language === 'fr' ? securityPost.title_fr : securityPost.title_en}</h3>
-                  {/* <p>{new Date(securityPost.publishedAt).toLocaleDateString()}</p> */}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
-
       </div>
 
-      {/* <h2>{t('news.news_title')}</h2> */}
       <ul className="news-content">
         {posts.map((post) => (
           <li key={post._id}>
             <Link to={`/news/${post.slug.current}`}>
               <h3>{i18n.language === 'fr' ? post.title_fr : post.title_en}</h3>
-              {/* <p>{new Date(post.publishedAt).toLocaleDateString()}</p> */}
             </Link>
           </li>
         ))}

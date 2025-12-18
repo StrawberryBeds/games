@@ -5,22 +5,20 @@ import GameBoard from '../componentsPlayCardSet/GameBoard';
 import cardSets from "../data/cardSets";
 import './HomePage.css';
 
-
 function Home() {
-
   const navigate = useNavigate();
 
   return (
     <>
       <div className='home-container'>
-        <div class="column">
+        <div className="column">
           <GameBoard
             cards={cardSets[2].Cards}
-            cardSetName={cardSets[2].name}
+            cardSetName={cardSets[2].nameKey}  // Changed from .name to .nameKey
             isGuest={true}
           />
         </div>
-        <div class="column">
+        <div className="column">
           <HomeSummary></HomeSummary>
         </div>
       </div>
@@ -29,4 +27,3 @@ function Home() {
 }
 
 export default Home;
-

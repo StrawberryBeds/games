@@ -30,17 +30,39 @@
   },
   "play_again_button": "Play Again!",
   "game_over_dialogue": {
-    "title": "Game Over",
-    "guest_message_part1": "You matched all the cards in {{newTurnCount}} turns! Can you beat it?",
-    "guest_message_part2": "Sign up to track your personal bests, create child accounts, and play more card sets!",
-    "message1": "You matched all the cards in {{newTurnCount}} turns! Can you beat it?",
-    "message2a": "You matched all the cards in {{newTurnCount}} turns!",
-    "message2b": "Well done! That's a new personal best for {{cardSet}}!",
-    "message2c": "Bad luck! Try to beat {{personalBest}} for a new personal best for {{cardSet}}!",
-    "message3": "Your average score for {{cardSet}} is {{avgScore}} turns over {{gameCount}} games.",
-    "play_again_button": "Play Again",
-    "play_another_card_set": "Play Another Card Set",
-    "sign_up": "Sign Up"
+    "guest_title": "Game Complete!",
+    "your_score": "You completed the game in {{score}} turns!",
+    "new_personal_best": "🎉 New Personal Best!",
+    "personal_best_is": "Your best: {{best}} turns",
+    "better_than_average": "✨ Better than average! (Avg: {{average}} turns)",
+    "choose_username": "Choose your username:",
+    "generate_new_usernames": "🔄 Generate New Options",
+    "submit_score": "Submit Score to Leaderboard",
+    "submitting": "Submitting...",
+    "skip": "Skip",
+    "score_submitted": "Score Submitted!",
+    "playing_as": "Playing as: {{username}}",
+    "your_rank": "You're ranked #{{rank}} on the global leaderboard!",
+    "new_personal_best_message": "New personal best: {{score}} turns!",
+    "keep_your_spot": "🏆 Want to keep your spot on the leaderboard?",
+    "play_tomorrow": "Play again tomorrow to maintain your position, or sign up to save your progress permanently!",
+    "error_saving_score": "Sorry, there was an error saving your score. Please try again."
+  },
+  "global_leaderboard": {
+    "title": "Global Leaderboard",
+    "subtitle": "Top players this month",
+    "loading": "Loading leaderboard...",
+    "no_scores": "No scores yet this month.",
+    "be_first": "Play the game and be the first on the leaderboard!",
+    "your_position": "{{username}} - Rank #{{rank}} with {{score}} turns",
+    "keep_playing": "Play again to keep your position!",
+    "rank": "Rank",
+    "player": "Player",
+    "score": "Score",
+    "you": "YOU",
+    "tied_players": "{{count}} players tied",
+    "monthly_reset": "Leaderboard resets at the start of each month with new card sets.",
+    "signup_message": "Sign up to track your progress and compete with family!"
   },
   "footer": {
     "copyright": "© 2025 Samuel Wood unless otherwise stated. ",
@@ -53,7 +75,6 @@
     "privacy_policy": "Privacy Policy",
     "credits": "Credits"
   },
-
   "signUp": {
     "email": "Email",
     "confirm_email": "Confirm Email",
@@ -130,7 +151,7 @@
     "my_profiles_and_settings": "My Profiles and Settings",
     "settings": "Settings",
     "add_child": "Add a child",
-    "email_consent":"Consent to receive email communications about Pantalone",
+    "email_consent": "Consent to receive email communications about Pantalone",
     "consent_given": "Given.",
     "consent_not_given": "Not given.",
     "update_email_consent_button": "Update Email Consent",
@@ -164,7 +185,7 @@
   },
   "playerStats": {
     "no_games": "No games played yet.",
-    "player_name":"Player Name",
+    "player_name": "Player Name",
     "player_stats": "{{playerName}}'s Stats",
     "card_set": "Card Set",
     "personal_best": "Personal Best",
@@ -173,7 +194,7 @@
     "avg_all": "All Game Average Turns",
     "game_count": "Games Played"
   },
-"familyLeaderboard": {
+  "familyLeaderboard": {
     "family_leaderboard": "Family Leaderboard",
     "loading": "Loading leaderboard...",
     "no_data": "No data available for the family leaderboard.",
@@ -182,7 +203,6 @@
     "personal_best": "Personal Best",
     "games_played": "Games Played"
   },
-
   "incorrect_password": "Incorrect password. Please try again.",
   "loading": "Loading ...",
   "password": "Password",
@@ -195,7 +215,7 @@
     "news_title": "News",
     "back_link": "← Back to News"
   },
-"contact_page": {
+  "contact_page": {
     "title": "Get in Touch!",
     "invite": "Suggestions, criticisms or need help? Please get in touch using the form below:",
     "name": "Your Name",
@@ -206,7 +226,6 @@
     "success": "Thank you for your message! We'll get back to you as soon as we can.",
     "error": "Failed to send your message. Please try again later."
   },
-
   "card_sets": {
     "emojis": "Emojis",
     "constellations": "Constellations",

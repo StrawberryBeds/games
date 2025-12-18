@@ -1,0 +1,174 @@
+/* src/componentsHomePage/GlobalLeaderboard.css */
+
+.global-leaderboard {
+  padding: 2rem;
+  background: var(--background-color, #f9f9f9);
+  border-radius: 8px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.global-leaderboard h2 {
+  text-align: center;
+  color: var(--primary-color, #333);
+  margin-bottom: 0.5rem;
+}
+
+.leaderboard-subtitle {
+  text-align: center;
+  color: var(--text-secondary, #666);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Guest player info section */
+.guest-player-info {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.your-rank {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.keep-playing {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* Leaderboard table */
+.leaderboard-table {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard-header {
+  display: grid;
+  grid-template-columns: 60px 1fr 80px;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--primary-color, #4a5568);
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.leaderboard-group {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.leaderboard-group:last-child {
+  border-bottom: none;
+}
+
+.leaderboard-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 80px;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  transition: background-color 0.2s;
+}
+
+.leaderboard-row:hover {
+  background-color: #f7fafc;
+}
+
+.leaderboard-row.highlight {
+  background-color: #fef3c7;
+  font-weight: bold;
+}
+
+.leaderboard-row.highlight:hover {
+  background-color: #fde68a;
+}
+
+.rank-col {
+  text-align: left;
+  font-weight: bold;
+  color: var(--primary-color, #4a5568);
+}
+
+.username-col {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.you-badge {
+  background: #10b981;
+  color: white;
+  padding: 0.125rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.score-col {
+  text-align: right;
+  font-weight: 600;
+}
+
+.tie-info {
+  padding: 0.25rem 1rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  font-style: italic;
+  background: #f1f5f9;
+}
+
+/* Footer */
+.leaderboard-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: var(--text-secondary, #666);
+  font-size: 0.9rem;
+}
+
+.leaderboard-footer p {
+  margin: 0.5rem 0;
+}
+
+.signup-cta {
+  font-weight: bold;
+  color: var(--primary-color, #4a5568);
+}
+
+.leaderboard-cta {
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--primary-color, #4a5568);
+  margin-top: 1rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .global-leaderboard {
+    padding: 1rem;
+  }
+
+  .leaderboard-header,
+  .leaderboard-row {
+    grid-template-columns: 50px 1fr 60px;
+    gap: 0.5rem;
+    padding: 0.75rem 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .leaderboard-header {
+    font-size: 0.8rem;
+  }
+
+  .you-badge {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.4rem;
+  }
+}

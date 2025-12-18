@@ -100,7 +100,7 @@ function AppRoutes() {
     </>
   );
 
-  // Public guest route (explicitly only for cardset/0)
+  // Public guest route (explicitly only for cardset/0) This seems to be fossilized for now as the card set is determined from pages/Home.jsx
   const guestRoutes = (
     <Route path="/cardset/0" element={<PlayCardSet isGuest={true} />} />,
     <Route path="/cardset/3" element={<PlayCardSet isGuest={true} />} />
