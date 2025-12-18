@@ -46,7 +46,18 @@
     "new_personal_best_message": "Nouveau record personnel : {{score}} tours !",
     "keep_your_spot": "🏆 Vous voulez garder votre place au classement ?",
     "play_tomorrow": "Rejouez demain pour maintenir votre position, ou inscrivez-vous pour sauvegarder vos progrès de façon permanente !",
-    "error_saving_score": "Désolé, une erreur s'est produite lors de l'enregistrement de votre score. Veuillez réessayer."
+    "error_saving_score": "Désolé, une erreur s'est produite lors de l'enregistrement de votre score. Veuillez réessayer.",
+    "play_again_button":"Jouer à nouveau !",
+    "sign_up": "Créez votre compte !",
+    "title": "Fin de la partie",
+    "guest_message_part1": "Vous avez combiné toutes les cartes en {{newTurnCount}} tours ! Essayez-vous à le battre ?", 
+    "guest_message_part2": "Inscrivez-vous pour consulter vos meilleurs scores, créer des profils familiaux, et jouer à plus de cartes !",
+    "message1": "Vous avez combiné toutes les cartes en {{newTurnCount}} tours ! Essayez-vous à le battre ?",
+    "message2a": "Vous avez combiné toutes les cartes en {{newTurnCount}} tours !",
+    "message2b": "Bravo ! C'est un nouveau meilleur score pour {{cardSet}} !",
+    "message2c": "Mauvais coup ! Essayez de battre {{personalBest}} pour un nouveau meilleur score pour {{cardSet}} !",
+    "message3": "Votre score moyen pour {{cardSet}} est de {{avgScore}} tours sur {{gameCount}} parties.",
+    "play_another_card_set": "Jouer une autre série de cartes"
   },
   "global_leaderboard": {
     "title": "Classement mondial",
@@ -55,7 +66,7 @@
     "no_scores": "Aucun score ce mois-ci.",
     "be_first": "Jouez et soyez le premier au classement !",
     "your_position": "{{username}} - Rang #{{rank}} avec {{score}} tours",
-    "keep_playing": "Rejouez pour garder votre position !",
+    "keep_playing": "Rejouez demain pour garder votre position !",
     "rank": "Rang",
     "player": "Joueur",
     "score": "Score",
@@ -66,7 +77,6 @@
   },
   "footer": {
     "copyright": "© 2025 Samuel Wood sauf mention contraire. ",
-    "card_images_attribution": "Images des cartes par <1>OpenMoji</1>",
     "legal": "Mentions legaux",
     "contact": "Contactez-nous !"
   },

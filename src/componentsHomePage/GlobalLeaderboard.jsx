@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getGlobalLeaderboard } from '../utils/globalLeaderboardHelpers';
 import { getStoredGuestUsername } from '../utils/usernameGenerator';
+import { Link } from "react-router-dom";
 import './GlobalLeaderboard.css';
 
 function GlobalLeaderboard() {
@@ -68,7 +69,16 @@ function GlobalLeaderboard() {
   return (
     <div className="global-leaderboard">
       <h2>{t('global_leaderboard.title')}</h2>
-      <p className="leaderboard-subtitle">{t('global_leaderboard.subtitle')}</p>
+      {/* <p className="leaderboard-subtitle">{t('global_leaderboard.subtitle')}</p> */}
+            <div className="leaderboard-footer">
+        <p>{t('global_leaderboard.monthly_reset')}</p>
+
+                        <Link to={`/signup`} className="signup-link">
+                          <p className="signup-cta">
+          {t('global_leaderboard.signup_message')}
+        </p>
+                </Link>
+      </div>
       
       {guestPlayerInfo && (
         <div className="guest-player-info">
@@ -121,13 +131,6 @@ function GlobalLeaderboard() {
             )}
           </div>
         ))}
-      </div>
-
-      <div className="leaderboard-footer">
-        <p>{t('global_leaderboard.monthly_reset')}</p>
-        <p className="signup-cta">
-          {t('global_leaderboard.signup_message')}
-        </p>
       </div>
     </div>
   );

@@ -30,7 +30,7 @@
   },
   "play_again_button": "Play Again!",
   "game_over_dialogue": {
-    "guest_title": "Game Complete!",
+    "guest_title": "Game Over!",
     "your_score": "You completed the game in {{score}} turns!",
     "new_personal_best": "🎉 New Personal Best!",
     "personal_best_is": "Your best: {{best}} turns",
@@ -46,7 +46,18 @@
     "new_personal_best_message": "New personal best: {{score}} turns!",
     "keep_your_spot": "🏆 Want to keep your spot on the leaderboard?",
     "play_tomorrow": "Play again tomorrow to maintain your position, or sign up to save your progress permanently!",
-    "error_saving_score": "Sorry, there was an error saving your score. Please try again."
+    "error_saving_score": "Sorry, there was an error saving your score. Please try again.",
+    "play_again_button":"Play Again!",
+    "title": "Game Over",
+    "guest_message_part1": "You matched all the cards in {{newTurnCount}} turns! Can you beat it?",
+    "guest_message_part2": "Sign up to track your personal bests, create child accounts, and play more card sets!",
+    "message1": "You matched all the cards in {{newTurnCount}} turns! Can you beat it?",
+    "message2a": "You matched all the cards in {{newTurnCount}} turns!",
+    "message2b": "Well done! That's a new personal best for {{cardSet}}!",
+    "message2c": "Bad luck! Try to beat {{personalBest}} for a new personal best for {{cardSet}}!",
+    "message3": "Your average score for {{cardSet}} is {{avgScore}} turns over {{gameCount}} games.",
+    "play_another_card_set": "Play Another Card Set",
+    "sign_up": "Sign Up"
   },
   "global_leaderboard": {
     "title": "Global Leaderboard",
@@ -55,18 +66,17 @@
     "no_scores": "No scores yet this month.",
     "be_first": "Play the game and be the first on the leaderboard!",
     "your_position": "{{username}} - Rank #{{rank}} with {{score}} turns",
-    "keep_playing": "Play again to keep your position!",
+    "keep_playing": "Play tomorrow to keep your position!",
     "rank": "Rank",
     "player": "Player",
     "score": "Score",
     "you": "YOU",
     "tied_players": "{{count}} players tied",
     "monthly_reset": "Leaderboard resets at the start of each month with new card sets.",
-    "signup_message": "Sign up to track your progress and compete with family!"
+    "signup_message": "Sign up to track your progress and compete with your family!"
   },
   "footer": {
     "copyright": "© 2025 Samuel Wood unless otherwise stated. ",
-    "card_images_attribution": "Card images by <1>OpenMoji</1>",
     "legal": "Legal Notices",
     "contact": "Get in touch!"
   },

@@ -90,8 +90,7 @@ function HomeSummary() {
 
   return (
     <main>
-      {/* Replace CTA content with Global Leaderboard */}
-      <GlobalLeaderboard />
+
 
       {/* New container for side-by-side featured content */}
       <div className="featured-content-container">
@@ -134,15 +133,18 @@ function HomeSummary() {
         </div>
       </div>
 
-      <ul className="news-content">
-        {posts.map((post) => (
-          <li key={post._id}>
-            <Link to={`/news/${post.slug.current}`}>
-              <h3>{i18n.language === 'fr' ? post.title_fr : post.title_en}</h3>
-            </Link>
-          </li>
-        ))}
-      </ul>
+            {/* Replace CTA content with Global Leaderboard */}
+      <GlobalLeaderboard />
+
+      {/* <ul className="news-content"> */}
+        {/* {posts.map((post) => ( */}
+          {/* <li key={post._id}> */}
+            {/* <Link to={`/news/${post.slug.current}`}> */}
+              {/* <h3>{i18n.language === 'fr' ? post.title_fr : post.title_en}</h3> */}
+            {/* </Link> */}
+          {/* </li> */}
+        {/* ))} */}
+      {/* </ul> */}
     </main>
   );
 }

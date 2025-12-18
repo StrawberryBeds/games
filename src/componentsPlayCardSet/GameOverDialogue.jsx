@@ -117,6 +117,10 @@ function GameOverDialogue({
                 </p>
               )}
             </div>
+
+            { !selectedUsername && (
+
+
             
             <div className="username-selection">
               <h3>{t('game_over_dialogue.choose_username')}</h3>
@@ -138,6 +142,7 @@ function GameOverDialogue({
                 {t('game_over_dialogue.generate_new_usernames')}
               </button>
             </div>
+            ) }
 
             <div className="modal-buttons">
               <button 
