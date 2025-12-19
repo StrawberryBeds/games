@@ -101,6 +101,7 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  color: var(--primary-color, #4a5568);
 }
 
 .you-badge {
@@ -115,6 +116,7 @@
 .score-col {
   text-align: right;
   font-weight: 600;
+  color: var(--primary-color, #4a5568);
 }
 
 .tie-info {
