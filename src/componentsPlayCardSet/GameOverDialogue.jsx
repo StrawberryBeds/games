@@ -15,7 +15,10 @@ function GameOverDialogue({
   cardSet, 
   isGuest, 
   playerScores, 
-  handleReset 
+  handleReset,
+  isMonthlyCardSet = false,
+  globalLeaderboardResult = null,
+  selectedPlayer = null
 }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -39,7 +42,7 @@ function GameOverDialogue({
   const personalBest = turns.length > 0 ? Math.min(...turns) : null;
   const avgScore = (turns.reduce((a, b) => a + b, 0) + newTurnCount) / gameCount;
 
-  // Initialize playerName options for guest
+  // Initialize username options for guest
   useEffect(() => {
     if (isGuest) {
       const storedPlayerName = getStoredGuestPlayerName();
@@ -95,7 +98,7 @@ function GameOverDialogue({
 
   // Guest player flow
   if (isGuest) {
-    // Show playerName selection
+    // Show username selection
     if (!showResults) {
       return (
         <div className="modal">
@@ -117,10 +120,6 @@ function GameOverDialogue({
                 </p>
               )}
             </div>
-
-            { !selectedPlayerName && (
-
-
             
             <div className="username-selection">
               <h3>{t('game_over_dialogue.choose_username')}</h3>
@@ -142,7 +141,6 @@ function GameOverDialogue({
                 {t('game_over_dialogue.generate_new_usernames')}
               </button>
             </div>
-            ) }
 
             <div className="modal-buttons">
               <button 
@@ -202,7 +200,7 @@ function GameOverDialogue({
     );
   }
 
-  // Registered player flows (unchanged)
+  // Registered player flows
   if (!isGuest && gameCount === 1) {
     return (
       <div className="modal">
@@ -210,6 +208,13 @@ function GameOverDialogue({
           newTurnCount 
         })}
         </div>
+        {isMonthlyCardSet && globalLeaderboardResult && (
+          <div className="global-leaderboard-info">
+            <p className="rank-display">
+              {t('game_over_dialogue.global_rank', { rank: globalLeaderboardResult.rank })}
+            </p>
+          </div>
+        )}
         <div className="modal-buttons">
           <button onClick={() => { handleReset(); onClose(); }}>
             {t('game_over_dialogue.play_again_button')}
@@ -234,6 +239,18 @@ function GameOverDialogue({
             cardSet: t(`card_sets.${cardSet}`)   
           })}
           </div>
+          {isMonthlyCardSet && globalLeaderboardResult && (
+            <div className="global-leaderboard-info">
+              <p className="rank-display">
+                {t('game_over_dialogue.global_rank', { rank: globalLeaderboardResult.rank })}
+              </p>
+              {globalLeaderboardResult.isPersonalBest && (
+                <p className="personal-best">
+                  {t('game_over_dialogue.global_personal_best')}
+                </p>
+              )}
+            </div>
+          )}
           <div className="modal-buttons">
             <button onClick={() => { handleReset(); onClose(); }}>
               {t('game_over_dialogue.play_again_button')}
@@ -256,6 +273,13 @@ function GameOverDialogue({
             cardSet: t(`card_sets.${cardSet}`) 
           })}
           </div>
+          {isMonthlyCardSet && globalLeaderboardResult && (
+            <div className="global-leaderboard-info">
+              <p className="rank-display">
+                {t('game_over_dialogue.global_rank', { rank: globalLeaderboardResult.rank })}
+              </p>
+            </div>
+          )}
           <div className="modal-buttons">
             <button onClick={() => { handleReset(); onClose(); }}>
               {t('game_over_dialogue.play_again_button')}
@@ -286,6 +310,18 @@ function GameOverDialogue({
             gameCount 
           })}
           </div>
+          {isMonthlyCardSet && globalLeaderboardResult && (
+            <div className="global-leaderboard-info">
+              <p className="rank-display">
+                {t('game_over_dialogue.global_rank', { rank: globalLeaderboardResult.rank })}
+              </p>
+              {globalLeaderboardResult.isPersonalBest && (
+                <p className="personal-best">
+                  {t('game_over_dialogue.global_personal_best')}
+                </p>
+              )}
+            </div>
+          )}
           <div className="modal-buttons">
             <button onClick={() => { handleReset(); onClose(); }}>
               {t('game_over_dialogue.play_again_button')}
@@ -314,6 +350,13 @@ function GameOverDialogue({
             gameCount 
           })}
           </div>
+          {isMonthlyCardSet && globalLeaderboardResult && (
+            <div className="global-leaderboard-info">
+              <p className="rank-display">
+                {t('game_over_dialogue.global_rank', { rank: globalLeaderboardResult.rank })}
+              </p>
+            </div>
+          )}
           <div className="modal-buttons">
             <button onClick={() => { handleReset(); onClose(); }}>
               {t('game_over_dialogue.play_again_button')}

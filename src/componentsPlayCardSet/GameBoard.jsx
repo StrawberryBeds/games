@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from "react";
 import Card from "./Card";
 import Score from "./Score";
-import ResetButton from "./ResetButton";
 import GameOverDialogue from "./GameOverDialogue";
 import "./GameBoard.css";
 
 import { auth, db } from "../firebase";
 import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { usePlayerSelection } from "../context/usePlayerSelection";
+import { saveGlobalScore } from "../utils/globalLeaderboardHelpers";
+
+// Import the monthly cardSet identifier from your home page
+// You can make this dynamic later or pass it as a prop
+const MONTHLY_CARDSET_KEY = "christmas"; // This should match cardSets[2].nameKey
 
 function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
-
   const [cards, setCards] = useState(shuffleCards(initialCards));
   const [flippedIndices, setFlippedIndices] = useState([]);
   const [solvedIndices, setSolvedIndices] = useState([]);
   const [turns, setTurns] = useState(0);
   const [matches, setMatches] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [gameScore, setGameScore] = useState({ score: null, cardSet: null })
-  
+  const [gameScore, setGameScore] = useState({ score: null, cardSet: null });
+  const [globalLeaderboardResult, setGlobalLeaderboardResult] = useState(null);
 
   const { selectedPlayer } = usePlayerSelection();
   const [playerScores, setPlayerScores] = useState({});
@@ -30,7 +33,6 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
         if (playerDoc.exists()) {
           const playerData = playerDoc.data();
           setPlayerScores(playerData.scores || {});
-          // console.log("Fetched player scores:", playerData.scores);
         }
       } catch (error) {
         console.error("Error fetching player scores:", error);
@@ -41,10 +43,8 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
     }
   }, [selectedPlayer]);
 
-
   function shuffleCards(cardList) {
     if (!cardList) {
-      // console.error("Card list is undefined or null");
       return [];
     }
     const duplicatedCards = [...cardList, ...cardList]
@@ -74,20 +74,37 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
         setMatches((prevMatches) => prevMatches + 1);
       }
 
-      setTimeout(() => {
+      setTimeout(async () => {
         setFlippedIndices([]);
         if (solvedIndices.length + 2 === cards.length && cards.length > 0) {
           console.log("Game over! Score:", newTurnCount, "Card set:", cardSetName);
           setIsGameOver(true);
-          setGameScore({ score: newTurnCount, cardSet: cardSetName })
+          setGameScore({ score: newTurnCount, cardSet: cardSetName });
+          
           if (!isGuest) {
-            saveScore(newTurnCount); // Only save for registered users
+            // Registered player - save to their player document
+            await saveScore(newTurnCount);
+            
+            // Also save to global leaderboard if playing monthly cardSet
+            if (cardSetName === MONTHLY_CARDSET_KEY && selectedPlayer?.playerName) {
+              try {
+                const result = await saveGlobalScore(
+                  selectedPlayer.playerName,
+                  newTurnCount,
+                  cardSetName
+                );
+                setGlobalLeaderboardResult(result);
+                console.log("Registered player score saved to global leaderboard:", result);
+              } catch (error) {
+                console.error("Error saving registered player to global leaderboard:", error);
+              }
+            }
           }
+          // Guest players handle global leaderboard in GameOverDialogue
         }
       }, 1000);
     }
   };
-
 
   const saveScore = async (currentTurns) => {
     try {
@@ -96,22 +113,18 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
         throw new Error("Player profile not found");
       }
       const scoreEntry = {
-        turns: currentTurns, // Use the passed turn count
+        turns: currentTurns,
         date: new Date().toISOString(),
         cardSet: cardSetName,
       };
       await updateDoc(doc(db, "players", selectedPlayer.playerId), {
         scores: arrayUnion(scoreEntry),
       });
-      // console.log("Score saved successfully!", scoreEntry);
+      console.log("Score saved to player document:", scoreEntry);
     } catch (error) {
-      console.error("Error saving score:", error);
+      console.error("Error saving score to player document:", error);
     }
   };
-
-
- 
-
 
   const handleReset = () => {
     setCards(shuffleCards(initialCards));
@@ -119,6 +132,7 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
     setSolvedIndices([]);
     setTurns(0);
     setMatches(0);
+    setGlobalLeaderboardResult(null);
   };
 
   if (!cards || cards.length === 0) {
@@ -128,7 +142,6 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
   return (
     <div className="game-container">
       <Score matches={matches} turns={turns} />
-      {/* <ResetButton onClick={handleReset} /> */}
       <div className="game-board">
         {cards.map((card) => (
           <Card
@@ -152,6 +165,8 @@ function GameBoard({ cards: initialCards, cardSetName, isGuest = false }) {
           selectedPlayer={selectedPlayer}
           playerScores={playerScores}
           handleReset={handleReset}
+          isMonthlyCardSet={cardSetName === MONTHLY_CARDSET_KEY}
+          globalLeaderboardResult={globalLeaderboardResult}
         />
       )}
     </div>

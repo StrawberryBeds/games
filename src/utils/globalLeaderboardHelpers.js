@@ -36,6 +36,12 @@ export async function saveGlobalScore(playerName, score, cardSet) {
     const month = getCurrentMonth();
     const leaderboardRef = doc(db, 'globalLeaderboard', playerName);
     
+    // Safety check for cardSet
+    if (!cardSet) {
+      console.warn('cardSet is undefined, using default');
+      cardSet = 'default';
+    }
+    
     // Check if player already exists
     const existingDoc = await getDoc(leaderboardRef);
     
@@ -78,7 +84,7 @@ export async function saveGlobalScore(playerName, score, cardSet) {
 
 /**
  * Gets a player's rank on the global leaderboard
- * @param {string} playerName - The player's playerName
+ * @param {string} playerName - The player's username
  * @param {string} month - The month identifier
  * @returns {Promise<number>} - The player's rank (1-indexed)
  */
@@ -201,4 +207,14 @@ export async function getAverageScore() {
     console.error('Error calculating average score:', error);
     return null;
   }
+}
+
+/**
+ * Checks if a cardSet is the monthly global leaderboard cardSet
+ * @param {string} cardSetNameKey - The nameKey of the cardSet (e.g., "christmas")
+ * @param {string} monthlyCardSetKey - The nameKey of the current monthly cardSet
+ * @returns {boolean}
+ */
+export function isMonthlyCardSet(cardSetNameKey, monthlyCardSetKey) {
+  return cardSetNameKey === monthlyCardSetKey;
 }

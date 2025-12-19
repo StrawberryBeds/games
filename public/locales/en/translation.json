@@ -30,12 +30,12 @@
   },
   "play_again_button": "Play Again!",
   "game_over_dialogue": {
-    "guest_title": "Game Over!",
+     "guest_title": "Game Complete!",
     "your_score": "You completed the game in {{score}} turns!",
     "new_personal_best": "🎉 New Personal Best!",
     "personal_best_is": "Your best: {{best}} turns",
     "better_than_average": "✨ Better than average! (Avg: {{average}} turns)",
-    "choose_username": "Choose your player name:",
+    "choose_username": "Choose your username:",
     "generate_new_usernames": "🔄 Generate New Options",
     "submit_score": "Submit Score to Leaderboard",
     "submitting": "Submitting...",
@@ -47,7 +47,8 @@
     "keep_your_spot": "🏆 Want to keep your spot on the leaderboard?",
     "play_tomorrow": "Play again tomorrow to maintain your position, or sign up to save your progress permanently!",
     "error_saving_score": "Sorry, there was an error saving your score. Please try again.",
-    "play_again_button":"Play Again!",
+    "global_rank": "Global Leaderboard Rank: #{{rank}}",
+    "global_personal_best": "🌟 New global personal best!",
     "title": "Game Over",
     "guest_message_part1": "You matched all the cards in {{newTurnCount}} turns! Can you beat it?",
     "guest_message_part2": "Sign up to track your personal bests, create child accounts, and play more card sets!",
@@ -66,15 +67,16 @@
     "no_scores": "No scores yet this month.",
     "be_first": "Play the game and be the first on the leaderboard!",
     "your_position": "{{playerName}} - Rank #{{rank}} with {{score}} turns",
-    "keep_playing": "Play tomorrow to keep your position!",
+    "keep_playing": "Play again to keep your position!",
     "rank": "Rank",
     "player": "Player",
     "score": "Score",
     "you": "YOU",
     "tied_players": "{{count}} players tied",
     "monthly_reset": "Leaderboard resets at the start of each month with new card sets.",
-    "signup_message": "Sign up to track your progress and compete with your family!"
+    "signup_message": "Sign up to track your progress and compete with family!"
   },
+  
   "footer": {
     "copyright": "© 2025 Samuel Wood unless otherwise stated. ",
     "legal": "Legal Notices",
