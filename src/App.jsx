@@ -20,6 +20,7 @@ import ManageProfilesPage from './pages/ManagePlayerProfiles';
 import PlayerHistory from './componentsProfilePage/PlayerHistory';
 
 import PlayCardSet from "./pages/PlayCardSet";
+import SlidePage from "./pages/SlidePage";
 
 import Header from "./componentsShared/Header";
 import Footer from "./componentsShared/Footer";
@@ -102,8 +103,11 @@ function AppRoutes() {
 
   // Public guest route (explicitly only for cardset/0) This seems to be fossilized for now as the card set is determined from pages/Home.jsx
   const guestRoutes = (
-    <Route path="/cardset/0" element={<PlayCardSet isGuest={true} />} />,
-    <Route path="/cardset/3" element={<PlayCardSet isGuest={true} />} />
+    <>
+      <Route path="/cardset/0" element={<PlayCardSet isGuest={true} />} />
+      <Route path="/cardset/3" element={<PlayCardSet isGuest={true} />} />
+      <Route path="/slide/0" element={<SlidePage isGuest={true} />} />
+    </>
   );
 
   // Private routes (default for all other card sets)
@@ -111,6 +115,7 @@ function AppRoutes() {
     <>
       <Route path="/auth/chooseset" element={<PrivateRoute><ChooseCardSet /></PrivateRoute>} />
       <Route path="/auth/cardset/:id" element={<PrivateRoute><PlayCardSet isGuest={false} /></PrivateRoute>} />
+      <Route path="/auth/slide/:id" element={<PrivateRoute><SlidePage isGuest={false} /></PrivateRoute>} />
       <Route path="/auth/player" element={<PrivateRoute><ChoosePlayer /></PrivateRoute>} />
       <Route path="/auth/profile" element={<PrivateRoute>{!selectedPlayer ? <Navigate to="/notfound" /> : <ProfilePage />}</PrivateRoute>} />
       <Route path="/auth/playerhistory" element={<PrivateRoute>{!selectedPlayer ? <Navigate to="/notfound" /> : <PlayerHistory />}</PrivateRoute>} />
