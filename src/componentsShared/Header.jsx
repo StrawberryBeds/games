@@ -32,7 +32,7 @@ function Header() {
       <nav className={`header-nav ${isNavOpen ? 'open' : ''}`}>
         <button onClick={() => { navigate('/news'); closeNav(); }}>{t('news_button')}</button>
 
-        {/* {currentUser ? (
+        {currentUser ? (
           <>
             <button onClick={() => { navigate('/auth/chooseset'); closeNav(); }}>{t('play_button')}</button>
             <button onClick={() => { navigate('/auth/profile'); closeNav(); }}>{t('profile_button')}</button>
@@ -46,7 +46,7 @@ function Header() {
             <button onClick={() => { navigate('/signup'); closeNav(); }}>{t('create_account_button')}</button>
             <button onClick={() => { navigate('/signin'); closeNav(); }}>{t('sign_in_button')}</button>
           </>
-        )} */}
+        )}
 
 
         <button
