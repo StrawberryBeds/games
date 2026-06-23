@@ -34,17 +34,17 @@ function Header() {
 
         {currentUser ? (
           <>
-            <button onClick={() => { navigate('/auth/chooseset'); closeNav(); }}>{t('play_button')}</button>
+            {/* <button onClick={() => { navigate('/auth/chooseset'); closeNav(); }}>{t('play_button')}</button>
             <button onClick={() => { navigate('/auth/profile'); closeNav(); }}>{t('profile_button')}</button>
             <button onClick={() => { navigate('/auth/player'); closeNav(); }}>{t('change_player_button')}</button>
-            <SignOutButton onClick={closeNav} />
+            <SignOutButton onClick={closeNav} /> */}
           </>
 
         ) : (
           <>
             <button onClick={() => { navigate('/cardSet/0'); closeNav(); }}>{t('play_button')}</button>
-            <button onClick={() => { navigate('/signup'); closeNav(); }}>{t('create_account_button')}</button>
-            <button onClick={() => { navigate('/signin'); closeNav(); }}>{t('sign_in_button')}</button>
+            {/* <button onClick={() => { navigate('/signup'); closeNav(); }}>{t('create_account_button')}</button>
+            <button onClick={() => { navigate('/signin'); closeNav(); }}>{t('sign_in_button')}</button> */}
           </>
         )}
 
