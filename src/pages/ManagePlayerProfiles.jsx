@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
-import { query, where, getDocs, collection, doc, getDoc, updateDoc, setDoc } from 'firebase/firestore';
-import { db } from '../firebase';
 import PlayerTile from '../componentsShared/PlayerTile';
 import UserTile from '../componentsProfilePage/UserTile';
 import NewPlayerTile from '../componentsProfilePage/NewPlayerTile';

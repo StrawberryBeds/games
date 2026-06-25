@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import { query, where, getDocs, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../firebase';
-// import EmailChangeDialogue from "./EmailChangeDialogue";
 import ChangePasswordDialogue from "./ChangePasswordDialogue";
 import DeleteAccountDialogue from "./DeleteAccountDialogue";
 import { useTranslation } from "react-i18next";

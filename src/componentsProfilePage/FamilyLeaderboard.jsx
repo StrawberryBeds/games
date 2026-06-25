@@ -1,7 +1,5 @@
 // componentsProfilePage/FamilyLeaderboard.jsx
 import React, { useState, useEffect } from 'react';
-import { doc, onSnapshot, query, where, collection, getDocs } from "firebase/firestore";
-import { db } from '../firebase';
 import { useAuth } from "../context/authContext";
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";

@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { updateEmail, sendEmailVerification, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
-import { auth, db } from '../firebase';
 
 function EmailChangeDialogue({ onClose }) {
   const { currentUser } = useAuth();

@@ -1,11 +1,5 @@
 // componentsSignUp/SignUp.jsx
 import React, { useState } from 'react';
-import { auth, db } from '../firebase';
-import {
-  createUserWithEmailAndPassword,
-  sendEmailVerification
-} from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import PendingEmailVerification from './PendingEmailVerification'
 import { useTranslation, Trans } from 'react-i18next';

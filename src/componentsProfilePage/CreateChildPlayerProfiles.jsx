@@ -1,9 +1,7 @@
 // src/componentsProfilePage/CreateChildPlayerProfiles.jsx
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { db } from '../firebase';
 import { useAuth } from '../context/authContext';
-import { doc, getDoc, addDoc, collection, updateDoc, arrayUnion, query, where, getDocs } from 'firebase/firestore';
 
 function CreateChildPlayerProfile({ profileId, avatars }) {
   const { t } = useTranslation();

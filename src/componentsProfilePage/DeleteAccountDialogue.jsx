@@ -1,20 +1,5 @@
 import { useState } from "react";
 import { useAuth } from "../context/authContext";
-import { db } from "../firebase";
-import {
-  deleteUser,
-  reauthenticateWithCredential,
-  EmailAuthProvider,
-} from "firebase/auth";
-import {
-  doc,
-  deleteDoc,
-  query,
-  where,
-  collection,
-  getDoc,
-  getDocs,
-} from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 

@@ -1,6 +1,5 @@
 // pages/EmailVerificationPage.jsx
 import { useAuth } from "../context/authContext";
-import { sendEmailVerification } from "firebase/auth";
 import { useState } from "react";
 import PendingEmailVerification from "../componentsSignUp/PendingEmailVerification";
 import { useTranslation, Trans } from 'react-i18next';

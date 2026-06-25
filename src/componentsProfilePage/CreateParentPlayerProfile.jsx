@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { db } from "../firebase";
 import { useAuth } from "../context/authContext";
-import { doc, setDoc } from "firebase/firestore";
 import { v4 as uuidv4 } from "uuid";
-import { collection, query, where, getDocs } from "firebase/firestore";
 
 function CreateParentPlayerProfile({ avatars, onComplete }) {
   const { t } = useTranslation();

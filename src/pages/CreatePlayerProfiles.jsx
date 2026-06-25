@@ -2,9 +2,6 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase";
-import { onSnapshot } from "firebase/firestore";
 import CreateParentPlayerProfile from "../componentsProfilePage/CreateParentPlayerProfile";
 import CreateChildPlayerProfile from "../componentsProfilePage/CreateChildPlayerProfiles";
 import "../componentsProfilePage/CreatePlayerProfiles.css"

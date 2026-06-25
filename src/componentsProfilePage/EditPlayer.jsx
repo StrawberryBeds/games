@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { auth, db } from "../firebase";
 import { useAuth } from "../context/authContext";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import avatars from '../data/playerAvatars';
 
