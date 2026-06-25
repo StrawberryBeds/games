@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import { useNavigate } from 'react-router-dom';
 import HomeSummary from '../componentsHomePage/HomeSummary.jsx';
 import GameBoard from '../componentsPlayCardSet/GameBoard';
@@ -9,11 +8,11 @@ function Home() {
   const navigate = useNavigate();
 
   const handlePlayMatch = () => {
-    navigate('/auth/chooseset');
+    navigate('/cardset/0');
   };
 
   const handlePlaySlide = () => {
-    navigate('/auth/slide/0');
+    navigate('/slide/0');
   };
 
   return (
@@ -21,13 +20,13 @@ function Home() {
       <div className='home-container'>
         <div className="column">
           <div className="game-selection-buttons">
-            <button 
+            <button
               className="game-button play-match-btn"
               onClick={handlePlayMatch}
             >
               Play Match
             </button>
-            <button 
+            <button
               className="game-button play-slide-btn"
               onClick={handlePlaySlide}
             >
@@ -36,7 +35,7 @@ function Home() {
           </div>
           <GameBoard
             cards={cardSets[2].Cards}
-            cardSetName={cardSets[2].nameKey}  // Changed from .name to .nameKey
+            cardSetName={cardSets[2].nameKey}
             isGuest={true}
           />
         </div>

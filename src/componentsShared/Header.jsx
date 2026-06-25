@@ -1,13 +1,9 @@
 import { useState } from 'react';
-import { useAuth } from '../context/authContext.jsx';
 import { useNavigate, Link } from 'react-router-dom';
-import SignOutButton from './SignOutButton.jsx';
 import { useTranslation } from 'react-i18next';
 import './Header.css';
 
-
 function Header() {
-  const { currentUser } = useAuth();
   const [isNavOpen, setIsNavOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -20,7 +16,7 @@ function Header() {
     <header className="header">
       <div className="header-logo">
         <Link to="/home">
-        <div className="header-logo">Pantalone</div>
+          <div className="header-logo">Pantalone</div>
         </Link>
       </div>
       <button className="hamburger" onClick={toggleNav}>
@@ -31,24 +27,7 @@ function Header() {
 
       <nav className={`header-nav ${isNavOpen ? 'open' : ''}`}>
         <button onClick={() => { navigate('/news'); closeNav(); }}>{t('news_button')}</button>
-
-        {currentUser ? (
-          <>
-            {/* <button onClick={() => { navigate('/auth/chooseset'); closeNav(); }}>{t('play_button')}</button>
-            <button onClick={() => { navigate('/auth/profile'); closeNav(); }}>{t('profile_button')}</button>
-            <button onClick={() => { navigate('/auth/player'); closeNav(); }}>{t('change_player_button')}</button>
-            <SignOutButton onClick={closeNav} /> */}
-          </>
-
-        ) : (
-          <>
-            <button onClick={() => { navigate('/cardSet/0'); closeNav(); }}>{t('play_button')}</button>
-            {/* <button onClick={() => { navigate('/signup'); closeNav(); }}>{t('create_account_button')}</button>
-            <button onClick={() => { navigate('/signin'); closeNav(); }}>{t('sign_in_button')}</button> */}
-          </>
-        )}
-
-
+        <button onClick={() => { navigate('/cardset/0'); closeNav(); }}>{t('play_button')}</button>
         <button
           onClick={() => i18n.changeLanguage(i18n.language === 'en' ? 'fr' : 'en')}
           className="language-toggle"

@@ -2,11 +2,6 @@ import React, { useState, useEffect } from "react";
 import SlideTile from "./SlideTile";
 import SlideGameOverDialogue from "./SlideGameOverDialogue";
 import "./SlideBoard.css";
-
-import { auth, db } from "../firebase";
-import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
-import { usePlayerSelection } from "../context/usePlayerSelection";
-import { saveGlobalScore } from "../utils/globalLeaderboardHelpers";
 import {
   initializeSlideGrid,
   isAdjacentToEmpty,
@@ -15,7 +10,29 @@ import {
   isGridSolved,
 } from "../utils/slideGameUtils";
 
-const MONTHLY_SLIDESET_KEY = "birds"; // Default slide set
+const SESSION_SCORES_STORAGE_KEY = "pantalone-session-scores";
+
+function getStoredSessionScores(slideSetName) {
+  if (typeof window === "undefined") {
+    return [];
+  }
+
+  try {
+    const raw = window.sessionStorage.getItem(`${SESSION_SCORES_STORAGE_KEY}:${slideSetName}`);
+    return raw ? JSON.parse(raw) : [];
+  } catch (error) {
+    console.error("Unable to read session scores", error);
+    return [];
+  }
+}
+
+function saveStoredSessionScores(slideSetName, scores) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  window.sessionStorage.setItem(`${SESSION_SCORES_STORAGE_KEY}:${slideSetName}`, JSON.stringify(scores));
+}
 
 function SlideBoard({ tileImage, slideSetName, isGuest = false }) {
   const [tiles, setTiles] = useState(initializeSlideGrid());
@@ -23,28 +40,21 @@ function SlideBoard({ tileImage, slideSetName, isGuest = false }) {
   const [moveCount, setMoveCount] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
   const [gameScore, setGameScore] = useState({ score: null, slideSet: null });
-  const [globalLeaderboardResult, setGlobalLeaderboardResult] = useState(null);
   const [hasStarted, setHasStarted] = useState(false);
-
-  const { selectedPlayer } = usePlayerSelection();
-  const [playerScores, setPlayerScores] = useState({});
+  const [sessionScores, setSessionScores] = useState(() => getStoredSessionScores(slideSetName));
 
   useEffect(() => {
-    const fetchPlayerScores = async () => {
-      try {
-        const playerDoc = await getDoc(doc(db, "players", selectedPlayer.playerId));
-        if (playerDoc.exists()) {
-          const playerData = playerDoc.data();
-          setPlayerScores(playerData.scores || {});
-        }
-      } catch (error) {
-        console.error("Error fetching player scores:", error);
-      }
-    };
-    if (selectedPlayer?.playerId) {
-      fetchPlayerScores();
-    }
-  }, [selectedPlayer]);
+    setOriginalTiles(initializeSlideGrid());
+    setTiles(initializeSlideGrid());
+    setMoveCount(0);
+    setHasStarted(false);
+    setIsGameOver(false);
+    setGameScore({ score: null, slideSet: null });
+  }, [slideSetName]);
+
+  useEffect(() => {
+    saveStoredSessionScores(slideSetName, sessionScores);
+  }, [slideSetName, sessionScores]);
 
   const handleShuffle = () => {
     const shuffledTiles = shuffleSlideGrid(originalTiles, 100);
@@ -55,64 +65,31 @@ function SlideBoard({ tileImage, slideSetName, isGuest = false }) {
   };
 
   const handleTileClick = (tileIndex) => {
-    if (!hasStarted) return; // Can't click tiles before shuffle
-    if (isGameOver) return; // Can't click tiles after game over
+    if (!hasStarted) return;
+    if (isGameOver) return;
 
     if (!isAdjacentToEmpty(tiles, tileIndex)) {
-      return; // Invalid move, tile not adjacent to empty
+      return;
     }
 
     const newTiles = slideTile(tiles, tileIndex);
     setTiles(newTiles);
-    
+
     const newMoveCount = moveCount + 1;
     setMoveCount(newMoveCount);
 
-    // Check if puzzle is solved
     if (isGridSolved(newTiles)) {
       setIsGameOver(true);
       setGameScore({ score: newMoveCount, slideSet: slideSetName });
-
-      if (!isGuest) {
-        // Registered player - save to their player document
-        saveScore(newMoveCount);
-
-        // Also save to global leaderboard
-        if (slideSetName === MONTHLY_SLIDESET_KEY && selectedPlayer?.playerName) {
-          try {
-            const result = saveGlobalScore(
-              selectedPlayer.playerName,
-              newMoveCount,
-              `slide_${slideSetName}`
-            );
-            setGlobalLeaderboardResult(result);
-            console.log("Registered player score saved to global leaderboard:", result);
-          } catch (error) {
-            console.error("Error saving registered player to global leaderboard:", error);
-          }
-        }
-      }
-    }
-  };
-
-  const saveScore = async (currentMoves) => {
-    try {
-      const playerDoc = await getDoc(doc(db, "players", selectedPlayer.playerId));
-      if (!playerDoc.exists()) {
-        throw new Error("Player profile not found");
-      }
-      const scoreEntry = {
-        moves: currentMoves,
-        date: new Date().toISOString(),
-        slideSet: slideSetName,
-        gameType: "slide",
-      };
-      await updateDoc(doc(db, "players", selectedPlayer.playerId), {
-        scores: arrayUnion(scoreEntry),
-      });
-      console.log("Slide game score saved to player document:", scoreEntry);
-    } catch (error) {
-      console.error("Error saving score to player document:", error);
+      setSessionScores((prevScores) => [
+        ...prevScores,
+        {
+          moves: newMoveCount,
+          date: new Date().toISOString(),
+          slideSet: slideSetName,
+          gameType: "slide",
+        },
+      ]);
     }
   };
 
@@ -121,7 +98,7 @@ function SlideBoard({ tileImage, slideSetName, isGuest = false }) {
     setMoveCount(0);
     setHasStarted(false);
     setIsGameOver(false);
-    setGlobalLeaderboardResult(null);
+    setGameScore({ score: null, slideSet: null });
   };
 
   return (
@@ -150,8 +127,8 @@ function SlideBoard({ tileImage, slideSetName, isGuest = false }) {
       </div>
 
       <div className="slide-controls">
-        <button 
-          className="shuffle-button" 
+        <button
+          className="shuffle-button"
           onClick={handleShuffle}
           disabled={isGameOver && hasStarted}
         >
@@ -165,10 +142,8 @@ function SlideBoard({ tileImage, slideSetName, isGuest = false }) {
           moveCount={gameScore.score}
           slideSet={gameScore.slideSet}
           isGuest={isGuest}
-          selectedPlayer={selectedPlayer}
-          playerScores={playerScores}
           handleReset={handleReset}
-          globalLeaderboardResult={globalLeaderboardResult}
+          sessionScores={sessionScores}
         />
       )}
     </div>
