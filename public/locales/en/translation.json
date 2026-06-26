@@ -27,7 +27,8 @@
   },
   "score": {
     "matches": "Matches: ",
-    "turns": "Turns:"
+    "turns": "Turns:",
+    "slide_moves": "Moves:"
   },
   "play_again_button": "Play Again!",
   "game_over_dialogue": {

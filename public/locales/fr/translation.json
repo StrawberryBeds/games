@@ -27,7 +27,8 @@
   },
   "score": {
     "matches": "Pairs :",
-    "turns": "Tours : "
+    "turns": "Tours : ",
+    "slide_moves": "Coups : "
   },
   "play_again_button": "Jouer à nouveau !",
   "game_over_dialogue": {

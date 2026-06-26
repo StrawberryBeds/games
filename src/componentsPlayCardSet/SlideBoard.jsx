@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SlideTile from "./SlideTile";
 import SlideGameOverDialogue from "./SlideGameOverDialogue";
 import "./SlideBoard.css";
+import { useTranslation } from "react-i18next";
 import {
   initializeSlideGrid,
   isAdjacentToEmpty,
@@ -35,6 +36,7 @@ function saveStoredSessionScores(slideSetName, scores) {
 }
 
 function SlideBoard({ tileImage, slideSetName, isGuest = false }) {
+  const { t } = useTranslation();
   const [tiles, setTiles] = useState(initializeSlideGrid());
   const [originalTiles, setOriginalTiles] = useState(initializeSlideGrid());
   const [moveCount, setMoveCount] = useState(0);
@@ -104,9 +106,8 @@ function SlideBoard({ tileImage, slideSetName, isGuest = false }) {
   return (
     <div className="slide-game-container">
       <div className="slide-header">
-        <h2>Slide Puzzle</h2>
         <div className="slide-stats">
-          <p className="move-counter">Moves: {moveCount}</p>
+          <h3 className="move-counter">{t('score.slide_moves')} {moveCount}</h3>
         </div>
       </div>
 
