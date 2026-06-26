@@ -3,8 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/authContext";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 import { useNavigate } from "react-router-dom";
-import { query, where, onSnapshot, collection, doc } from "firebase/firestore";
-import { auth, db } from '../firebase';
 import avatars from '../data/playerAvatars';
 import PlayerTile from "../componentsShared/PlayerTile";
 

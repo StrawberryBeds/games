@@ -18,10 +18,71 @@
   box-sizing: border-box; /* Include padding in width */
 }
 
+.game-selection-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.game-button {
+  padding: 12px 28px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.play-match-btn {
+  background-color: #2196F3;
+  color: white;
+}
+
+.play-match-btn:hover {
+  background-color: #1976D2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+}
+
+.play-match-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);
+}
+
+.play-slide-btn {
+  background-color: #FF9800;
+  color: white;
+}
+
+.play-slide-btn:hover {
+  background-color: #F57C00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+}
+
+.play-slide-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(255, 152, 0, 0.3);
+}
+
 /* For smaller screens */
 @media (max-width: 768px) {
   .column {
     width: 100%;
     flex: auto;
   }
+
+  .game-selection-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .game-button {
+    min-width: 100%;
+  }
 }
+

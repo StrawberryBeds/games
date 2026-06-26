@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { usePlayerSelection } from '../context/usePlayerSelection';
 import { useAuth } from '../context/authContext';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 
 function ParentAuthPage() {
   const { t } = useTranslation();

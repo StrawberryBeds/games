@@ -1,7 +1,5 @@
-import { signOut } from 'firebase/auth';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
-import { auth, db } from '../firebase';
 import { useTranslation } from 'react-i18next';
 
 

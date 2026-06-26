@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { setPersistence, signInWithEmailAndPassword, browserLocalPersistence, browserSessionPersistence } from "firebase/auth";
-import { auth } from '../firebase';
 import { useAuth } from '../context/authContext'; // Make sure you have this context
 import { useNavigate } from 'react-router-dom'; // If using React Router for navigation
 import { useTranslation } from 'react-i18next';

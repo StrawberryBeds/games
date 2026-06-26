@@ -1,17 +1,4 @@
 // src/utils/globalLeaderboardHelpers.js
-import { db } from '../firebase';
-import { 
-  collection, 
-  doc, 
-  setDoc, 
-  getDoc, 
-  getDocs, 
-  query, 
-  where, 
-  orderBy, 
-  limit,
-  Timestamp 
-} from 'firebase/firestore';
 
 /**
  * Gets the current month identifier (e.g., "2024-12")

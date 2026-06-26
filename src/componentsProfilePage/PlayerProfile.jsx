@@ -2,8 +2,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/authContext";
-import { doc, onSnapshot } from "firebase/firestore";
-import { db } from '../firebase';
 import { useTranslation } from "react-i18next";
 import { usePlayerSelection } from "../context/usePlayerSelection";
 import PlayerTile from "../componentsShared/PlayerTile";

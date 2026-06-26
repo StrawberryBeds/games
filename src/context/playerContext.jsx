@@ -1,37 +1,10 @@
-// context/playerContext.jsx
-import { createContext, useState, useEffect } from 'react';
-import { useAuth } from './authContext';
+import { createContext, useState } from 'react';
 
 const PlayerContext = createContext();
 
 export function PlayerProvider({ children }) {
-  const { currentUser } = useAuth();
   const [requiresParentAuth, setRequiresParentAuth] = useState(false);
-  const [selectedPlayer, _setSelectedPlayer] = useState(() => {
-    try {
-      const savedPlayer = localStorage.getItem('selectedPlayer');
-      return savedPlayer ? JSON.parse(savedPlayer) : null;
-    } catch (e) {
-      console.error("Failed to parse selectedPlayer from localStorage", e);
-      return null;
-    }
-  });
-
-  const setSelectedPlayer = (player) => {
-    if (player) {
-      localStorage.setItem('selectedPlayer', JSON.stringify(player));
-    } else {
-      localStorage.removeItem('selectedPlayer');
-    }
-    _setSelectedPlayer(player);
-  };
-
-  useEffect(() => {
-    if (!currentUser) {
-      setSelectedPlayer(null);
-      setRequiresParentAuth(false);
-    }
-  }, [currentUser]);
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
 
   return (
     <PlayerContext.Provider
@@ -47,4 +20,4 @@ export function PlayerProvider({ children }) {
   );
 }
 
-export { PlayerContext }; // Named export
+export { PlayerContext };

@@ -2,7 +2,6 @@
 import CardSetSelection from '../componentsPlayCardSet/CardSetSelection';
 import { useAuth } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
-import { auth, db } from '../firebase';
 
 
 function Home() {

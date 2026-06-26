@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "firebase/auth";
-import { auth } from "../firebase";
 import { useTranslation } from "react-i18next";
 
 function ChangePasswordDialogue({ user, onClose }) {

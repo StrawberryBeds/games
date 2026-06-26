@@ -1,0 +1,61 @@
+/* SlideTile.css */
+.slide-tile {
+  width: 100%;
+  height: 100%;
+  background-color: #f0f0f0;
+  border: 1px solid #999;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  background-repeat: no-repeat;
+  background-size: 300% 300%;
+  user-select: none;
+}
+
+/* Empty tile */
+.slide-tile.empty-tile {
+  background-color: #e0e0e0;
+  cursor: default;
+  border: 1px dashed #999;
+}
+
+/* Clickable (adjacent to empty) */
+.slide-tile.clickable {
+  cursor: grab;
+}
+
+.slide-tile.clickable:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 8px rgba(76, 175, 80, 0.3);
+  transform: scale(0.98);
+}
+
+.slide-tile.clickable:active {
+  cursor: grabbing;
+  transform: scale(0.96);
+}
+
+/* Disabled (not adjacent to empty) */
+.slide-tile.disabled {
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+.slide-tile.disabled:hover {
+  background-color: transparent;
+  transform: scale(1);
+}
+
+/* Animation for tile sliding */
+@keyframes slideTileAnimation {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.slide-tile {
+  animation: slideTileAnimation 0.2s ease;
+}

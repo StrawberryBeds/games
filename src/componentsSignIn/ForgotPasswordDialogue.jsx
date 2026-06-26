@@ -1,6 +1,4 @@
 // ForgotPasswordDialogue.jsx
-import { auth } from "../firebase";
-import { sendPasswordResetEmail } from "firebase/auth";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
