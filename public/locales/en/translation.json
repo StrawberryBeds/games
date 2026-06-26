@@ -1,7 +1,8 @@
 {
   "welcome": "Welcome to Pantalone!",
   "cookie_consent": "This website uses cookies to improve your experience. By continuing to use this site, you agree to our use of cookies.",
-  "play_button": "Play a Game",
+  "play_match_button": "Play Match",
+  "play_slide_button": "Play Slide",
   "create_account_button": "Create Your Account",
   "sign_in_button": "Sign In",
   "news_button": "News",

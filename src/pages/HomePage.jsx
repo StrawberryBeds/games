@@ -19,20 +19,6 @@ function Home() {
     <>
       <div className='home-container'>
         <div className="column">
-          <div className="game-selection-buttons">
-            <button
-              className="game-button play-match-btn"
-              onClick={handlePlayMatch}
-            >
-              Play Match
-            </button>
-            <button
-              className="game-button play-slide-btn"
-              onClick={handlePlaySlide}
-            >
-              Play Slide
-            </button>
-          </div>
           <GameBoard
             cards={cardSets[2].Cards}
             cardSetName={cardSets[2].nameKey}
