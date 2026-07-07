@@ -26,7 +26,7 @@ function Header() {
       </button>
 
       <nav className={`header-nav ${isNavOpen ? 'open' : ''}`}>
-        <button onClick={() => { navigate('/news'); closeNav(); }}>{t('news_button')}</button>
+        {/* <button onClick={() => { navigate('/news'); closeNav(); }}>{t('news_button')}</button> */}
         <button onClick={() => { navigate('/cardset/0'); closeNav(); }}>{t('play_match_button')}</button>
         {/* <button onClick={() => { navigate('/slide/0'); closeNav(); }}>{t('play_slide_button')}</button> */}
         {/* <button onClick={() => { navigate('/cardset/1'); closeNav(); }}>{t('play_slide_button')}</button> */}
