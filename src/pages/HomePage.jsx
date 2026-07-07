@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import HomeSummary from '../componentsHomePage/HomeSummary.jsx';
+// import HomeSummary from '../componentsHomePage/HomeSummary.jsx';
 import GameBoard from '../componentsPlayCardSet/GameBoard';
 import cardSets from "../data/cardSets";
 import './HomePage.css';
@@ -25,9 +25,9 @@ function Home() {
             isGuest={true}
           />
         </div>
-        <div className="column">
+        {/* <div className="column">
           <HomeSummary></HomeSummary>
-        </div>
+        </div> */}
       </div>
     </>
   );
