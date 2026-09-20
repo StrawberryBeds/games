@@ -11,7 +11,7 @@ function Card({ id, image, isFlipped, onClick }) {
       <div className="card-face card-back">
         <img src={cardBack} alt="Card back" />
       </div>
-    </div>
+    </div> 
   );
 }
 
