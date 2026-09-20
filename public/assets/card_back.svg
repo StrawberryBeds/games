@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" role="img" aria-label="Card back">
+  <defs>
+    <linearGradient id="cardBackBg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#3d5afe"/>
+      <stop offset="100%" stop-color="#1d2f99"/>
+    </linearGradient>
+    <pattern id="cardBackPattern" width="18" height="18" patternUnits="userSpaceOnUse">
+      <path d="M0 9h18M9 0v18" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <circle cx="9" cy="9" r="3" fill="rgba(255,255,255,0.18)"/>
+    </pattern>
+  </defs>
+
+  <rect x="4" y="4" width="64" height="64" rx="10" fill="url(#cardBackBg)" stroke="#dfe7ff" stroke-width="2"/>
+  <rect x="10" y="10" width="52" height="52" rx="8" fill="url(#cardBackPattern)" opacity="0.9"/>
+
+  <g stroke="#f5f8ff" stroke-width="2.2" fill="none" opacity="0.9">
+    <path d="M18 18h36M18 54h36M18 18v36M54 18v36"/>
+    <path d="M20 20L52 52M52 20L20 52"/>
+  </g>
+
+  <g fill="#f5f8ff" font-family="Arial, sans-serif" font-size="8" font-weight="700">
+    <text x="14" y="22">♠</text>
+    <text x="48" y="22">♠</text>
+    <text x="14" y="50">♠</text>
+    <text x="48" y="50">♠</text>
+  </g>
+</svg>
