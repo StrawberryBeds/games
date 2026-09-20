@@ -1,6 +1,6 @@
 import React from 'react';
 import './Card.css';
-import cardBack from '/assets/card_back.svg';
+import cardBack from '/assets/card_back_P.svg';
 
 function Card({ id, image, isFlipped, onClick }) {
   return (
