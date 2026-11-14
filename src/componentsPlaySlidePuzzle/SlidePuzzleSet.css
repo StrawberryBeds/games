@@ -1,0 +1,36 @@
+slideset-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+.slideset-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.slideset-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+.slideset-name {
+  padding: 15px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .slideset-name {
+    padding: 10px;
+    font-size: 14px;
+  }
+  .slideset-image {
+    height: 120px;
+  }
+}

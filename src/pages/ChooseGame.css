@@ -1,0 +1,68 @@
+.choose-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.choose-game-container h1 {
+  color: white;
+  font-size: 36px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.game-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  max-width: 900px;
+  width: 100%;
+}
+.game-option {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.game-option:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+}
+.game-option-content {
+  text-align: center;
+  padding: 40px 20px;
+}
+.game-option h2 {
+  color: #667eea;
+  font-size: 28px;
+  margin: 0 0 15px 0;
+}
+.game-option p {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .choose-game-container h1 {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+  .game-options {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .game-option h2 {
+    font-size: 24px;
+  }
+  .game-option p {
+    font-size: 14px;
+  }
+}

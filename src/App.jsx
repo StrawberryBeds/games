@@ -20,6 +20,9 @@ import ManageProfilesPage from './pages/ManagePlayerProfiles';
 import PlayerHistory from './componentsProfilePage/PlayerHistory';
 
 import PlayCardSet from "./pages/PlayCardSet";
+import PlaySlidePuzzle from "./pages/PlaySlidePuzzle";
+import ChooseGame from "./pages/ChooseGame";
+import SlidePuzzleSelection from "./componentsPlaySlidePuzzle/SlidePuzzleSelection";
 
 import Header from "./componentsShared/Header";
 import Footer from "./componentsShared/Footer";
@@ -98,17 +101,23 @@ function AppRoutes() {
     </>
   );
 
-  // Public guest route (explicitly only for cardset/0)
+  // Public guest route (explicitly only for cardset/0 and slidepuzzle/0)
   const guestRoutes = (
-    <Route path="/cardset/0" element={<PlayCardSet isGuest={true} />} />,
-    <Route path="/cardset/3" element={<PlayCardSet isGuest={true} />} />
+  <>
+      <Route path="/cardset/0" element={<PlayCardSet isGuest={true} />} />
+      <Route path="/cardset/3" element={<PlayCardSet isGuest={true} />} />
+      <Route path="/slidepuzzle/0" element={<PlaySlidePuzzle isGuest={true} />} />
+    </>
   );
 
   // Private routes (default for all other card sets)
   const privateRoutes = (
     <>
+      <Route path="/auth/choosegame" element={<PrivateRoute><ChooseGame /></PrivateRoute>} />
       <Route path="/auth/chooseset" element={<PrivateRoute><ChooseCardSet /></PrivateRoute>} />
       <Route path="/auth/cardset/:id" element={<PrivateRoute><PlayCardSet isGuest={false} /></PrivateRoute>} />
+      <Route path="/auth/choosepuzzle" element={<PrivateRoute><SlidePuzzleSelection /></PrivateRoute>} />
+      <Route path="/auth/slidepuzzle/:id" element={<PrivateRoute><PlaySlidePuzzle isGuest={false} /></PrivateRoute>} />
       <Route path="/auth/player" element={<PrivateRoute><ChoosePlayer /></PrivateRoute>} />
       <Route path="/auth/profile" element={<PrivateRoute>{!selectedPlayer ? <Navigate to="/notfound" /> : <ProfilePage />}</PrivateRoute>} />
       <Route path="/auth/playerhistory" element={<PrivateRoute>{!selectedPlayer ? <Navigate to="/notfound" /> : <PlayerHistory />}</PrivateRoute>} />
@@ -178,8 +187,9 @@ function AppRoutes() {
     <Routes>
       {staticRoutes}
       {privateRoutes}
+      <Route path="/auth/" element={<PrivateRoute><ChooseGame /></PrivateRoute>} />
       <Route path="/notfound" element={<NotFoundPage />} />
-      <Route path="*" element={<Navigate to="/auth/" />} />
+      <Route path="*" element={<Navigate to="/auth/choosegame" />} />
     </Routes>
   );
 }

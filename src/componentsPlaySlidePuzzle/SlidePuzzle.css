@@ -1,0 +1,67 @@
+.slide-puzzle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+.slide-puzzle-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+.slide-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8px;
+  background-size: 300% 300%;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  transition: transform 0.1s ease-in-out;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  user-select: none;
+}
+.slide-tile:hover:not(.empty) {
+  transform: scale(1.05);
+}
+.slide-tile.empty {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  cursor: default;
+}
+.slide-tile.empty:hover {
+  transform: none;
+}
+.tile-number {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  font-weight: bold;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+@media (max-width: 600px) {
+  .slide-puzzle-board {
+    max-width: 300px;
+    gap: 6px;
+  }
+  .tile-number {
+    font-size: 10px;
+  }
+}
