@@ -25,3 +25,5 @@ const slideSets = [
     image: red_kite,
   }
 ];
+
+export default slideSets;
