@@ -1,6 +1,6 @@
 import { useAuth } from "../context/authContext";
 import { useParams, useNavigate } from "react-router-dom";
-import SlidePuzzle from "../componentsPlaySlidePuzzle/slidePuzzle";
+import SlidePuzzle from "../componentsPlaySlidePuzzle/SlidePuzzle";
 import slideSets from "../data/slideSets";
 import { useState, useEffect } from "react";
 function PlaySlidePuzzle({ isGuest = false }) {
