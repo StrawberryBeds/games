@@ -20,7 +20,7 @@ import ManageProfilesPage from './pages/ManagePlayerProfiles';
 import PlayerHistory from './componentsProfilePage/PlayerHistory';
 
 import PlayCardSet from "./pages/PlayCardSet";
-import PlaySlidePuzzle from "./pages/PlaySlidePuzzle";
+import PlaySlidePuzzle from "./pages/PlaySlidePuzzle.jsx";
 import ChooseGame from "./pages/ChooseGame";
 import SlidePuzzleSelection from "./componentsPlaySlidePuzzle/SlidePuzzleSelection";
 
