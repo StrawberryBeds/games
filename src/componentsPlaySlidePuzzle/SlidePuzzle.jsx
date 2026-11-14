@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./SlidePuzzle.css";
-import SlidePuzzleScore from "./slidePuzzleScore";
+import SlidePuzzleScore from "./SlidePuzzleScore";
 import SlidePuzzleGameOverDialogue from "./SlidePuzzleGameOverDialogue";
 import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../firebase";
